@@ -54,34 +54,7 @@ class SyncResource(SyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        company_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        doc_types: List[str] | NotGiven = NOT_GIVEN,
-        enterprise_id: str | NotGiven = NOT_GIVEN,
-        folder_id: str | NotGiven = NOT_GIVEN,
-        hub_id: str | NotGiven = NOT_GIVEN,
-        license_id: str | NotGiven = NOT_GIVEN,
-        model_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_ids: List[str] | NotGiven = NOT_GIVEN,
-        properties: List[str] | NotGiven = NOT_GIVEN,
-        region: str | NotGiven = NOT_GIVEN,
-        top_folder_id: str | NotGiven = NOT_GIVEN,
-        type: Literal[
-            "Projects",
-            "Resources",
-            "Users",
-            "Documents",
-            "Workflows",
-            "Comments",
-            "RFIs",
-            "Checklists",
-            "Columns",
-            "Issues",
-            "AEC Data Model",
-            "Forms",
-        ]
-        | NotGiven = NOT_GIVEN,
+        body: object,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -107,25 +80,7 @@ class SyncResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return self._post(
             f"/v1/table/{table_id}/sync/{integration_name}/update",
-            body=maybe_transform(
-                {
-                    "company_id": company_id,
-                    "context": context,
-                    "doc_types": doc_types,
-                    "enterprise_id": enterprise_id,
-                    "folder_id": folder_id,
-                    "hub_id": hub_id,
-                    "license_id": license_id,
-                    "model_id": model_id,
-                    "project_id": project_id,
-                    "project_ids": project_ids,
-                    "properties": properties,
-                    "region": region,
-                    "top_folder_id": top_folder_id,
-                    "type": type,
-                },
-                sync_update_params.SyncUpdateParams,
-            ),
+            body=maybe_transform(body, sync_update_params.SyncUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -239,65 +194,6 @@ class SyncResource(SyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        body: object,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncSyncWithIntegrationResponse:
-        """
-        Sync a table with a specified integration.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not table_id:
-            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        if not integration_name:
-            raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
-        return self._post(
-            f"/v1/table/{table_id}/sync/{integration_name}",
-            body=maybe_transform(body, sync_sync_with_integration_params.SyncSyncWithIntegrationParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SyncSyncWithIntegrationResponse,
-        )
-
-
-class AsyncSyncResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncSyncResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/stainless-sdks/morta-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncSyncResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncSyncResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/stainless-sdks/morta-python#with_streaming_response
-        """
-        return AsyncSyncResourceWithStreamingResponse(self)
-
-    async def update(
-        self,
-        integration_name: str,
-        *,
-        table_id: str,
         company_id: str | NotGiven = NOT_GIVEN,
         context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
         doc_types: List[str] | NotGiven = NOT_GIVEN,
@@ -332,6 +228,83 @@ class AsyncSyncResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncSyncWithIntegrationResponse:
+        """
+        Sync a table with a specified integration.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        if not integration_name:
+            raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
+        return self._post(
+            f"/v1/table/{table_id}/sync/{integration_name}",
+            body=maybe_transform(
+                {
+                    "company_id": company_id,
+                    "context": context,
+                    "doc_types": doc_types,
+                    "enterprise_id": enterprise_id,
+                    "folder_id": folder_id,
+                    "hub_id": hub_id,
+                    "license_id": license_id,
+                    "model_id": model_id,
+                    "project_id": project_id,
+                    "project_ids": project_ids,
+                    "properties": properties,
+                    "region": region,
+                    "top_folder_id": top_folder_id,
+                    "type": type,
+                },
+                sync_sync_with_integration_params.SyncSyncWithIntegrationParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=SyncSyncWithIntegrationResponse,
+        )
+
+
+class AsyncSyncResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncSyncResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/morta-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncSyncResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncSyncResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/morta-python#with_streaming_response
+        """
+        return AsyncSyncResourceWithStreamingResponse(self)
+
+    async def update(
+        self,
+        integration_name: str,
+        *,
+        table_id: str,
+        body: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncUpdateResponse:
         """
         Update a synced table with a specified integration.
@@ -351,25 +324,7 @@ class AsyncSyncResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return await self._post(
             f"/v1/table/{table_id}/sync/{integration_name}/update",
-            body=await async_maybe_transform(
-                {
-                    "company_id": company_id,
-                    "context": context,
-                    "doc_types": doc_types,
-                    "enterprise_id": enterprise_id,
-                    "folder_id": folder_id,
-                    "hub_id": hub_id,
-                    "license_id": license_id,
-                    "model_id": model_id,
-                    "project_id": project_id,
-                    "project_ids": project_ids,
-                    "properties": properties,
-                    "region": region,
-                    "top_folder_id": top_folder_id,
-                    "type": type,
-                },
-                sync_update_params.SyncUpdateParams,
-            ),
+            body=await async_maybe_transform(body, sync_update_params.SyncUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -483,7 +438,34 @@ class AsyncSyncResource(AsyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        body: object,
+        company_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        doc_types: List[str] | NotGiven = NOT_GIVEN,
+        enterprise_id: str | NotGiven = NOT_GIVEN,
+        folder_id: str | NotGiven = NOT_GIVEN,
+        hub_id: str | NotGiven = NOT_GIVEN,
+        license_id: str | NotGiven = NOT_GIVEN,
+        model_id: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_ids: List[str] | NotGiven = NOT_GIVEN,
+        properties: List[str] | NotGiven = NOT_GIVEN,
+        region: str | NotGiven = NOT_GIVEN,
+        top_folder_id: str | NotGiven = NOT_GIVEN,
+        type: Literal[
+            "Projects",
+            "Resources",
+            "Users",
+            "Documents",
+            "Workflows",
+            "Comments",
+            "RFIs",
+            "Checklists",
+            "Columns",
+            "Issues",
+            "AEC Data Model",
+            "Forms",
+        ]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -509,7 +491,25 @@ class AsyncSyncResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return await self._post(
             f"/v1/table/{table_id}/sync/{integration_name}",
-            body=await async_maybe_transform(body, sync_sync_with_integration_params.SyncSyncWithIntegrationParams),
+            body=await async_maybe_transform(
+                {
+                    "company_id": company_id,
+                    "context": context,
+                    "doc_types": doc_types,
+                    "enterprise_id": enterprise_id,
+                    "folder_id": folder_id,
+                    "hub_id": hub_id,
+                    "license_id": license_id,
+                    "model_id": model_id,
+                    "project_id": project_id,
+                    "project_ids": project_ids,
+                    "properties": properties,
+                    "region": region,
+                    "top_folder_id": top_folder_id,
+                    "type": type,
+                },
+                sync_sync_with_integration_params.SyncSyncWithIntegrationParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
