@@ -42,7 +42,7 @@ class ColumnResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/morta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/morta-technology/morta-python#accessing-raw-response-data-eg-headers
         """
         return ColumnResourceWithRawResponse(self)
 
@@ -51,7 +51,7 @@ class ColumnResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/morta-python#with_streaming_response
+        For more information, see https://www.github.com/morta-technology/morta-python#with_streaming_response
         """
         return ColumnResourceWithStreamingResponse(self)
 
@@ -486,7 +486,7 @@ class AsyncColumnResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/morta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/morta-technology/morta-python#accessing-raw-response-data-eg-headers
         """
         return AsyncColumnResourceWithRawResponse(self)
 
@@ -495,7 +495,7 @@ class AsyncColumnResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/morta-python#with_streaming_response
+        For more information, see https://www.github.com/morta-technology/morta-python#with_streaming_response
         """
         return AsyncColumnResourceWithStreamingResponse(self)
 
