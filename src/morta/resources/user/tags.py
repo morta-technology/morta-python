@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import List
+
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -118,7 +120,9 @@ class TagsResource(SyncAPIResource):
         self,
         user_id: str,
         *,
-        body: object,
+        project_id: str,
+        table_id: str,
+        tag_reference_ids: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -142,7 +146,14 @@ class TagsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._put(
             f"/v1/user/{user_id}/tags",
-            body=maybe_transform(body, tag_bulk_apply_params.TagBulkApplyParams),
+            body=maybe_transform(
+                {
+                    "project_id": project_id,
+                    "table_id": table_id,
+                    "tag_reference_ids": tag_reference_ids,
+                },
+                tag_bulk_apply_params.TagBulkApplyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -245,7 +256,9 @@ class AsyncTagsResource(AsyncAPIResource):
         self,
         user_id: str,
         *,
-        body: object,
+        project_id: str,
+        table_id: str,
+        tag_reference_ids: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -269,7 +282,14 @@ class AsyncTagsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._put(
             f"/v1/user/{user_id}/tags",
-            body=await async_maybe_transform(body, tag_bulk_apply_params.TagBulkApplyParams),
+            body=await async_maybe_transform(
+                {
+                    "project_id": project_id,
+                    "table_id": table_id,
+                    "tag_reference_ids": tag_reference_ids,
+                },
+                tag_bulk_apply_params.TagBulkApplyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

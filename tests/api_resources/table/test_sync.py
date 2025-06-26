@@ -29,7 +29,34 @@ class TestSync:
         sync = client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+        )
+        assert_matches_type(SyncUpdateResponse, sync, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_update_with_all_params(self, client: Morta) -> None:
+        sync = client.table.sync.update(
+            integration_name="integration_name",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            company_id="companyId",
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            doc_types=["string"],
+            enterprise_id="enterpriseId",
+            folder_id="folderId",
+            hub_id="hubId",
+            license_id="licenseId",
+            model_id="modelId",
+            project_id="projectId",
+            project_ids=["string"],
+            properties=["string"],
+            region="region",
+            top_folder_id="topFolderId",
+            type="Projects",
         )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
@@ -39,7 +66,6 @@ class TestSync:
         response = client.table.sync.with_raw_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         )
 
         assert response.is_closed is True
@@ -53,7 +79,6 @@ class TestSync:
         with client.table.sync.with_streaming_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -70,14 +95,12 @@ class TestSync:
             client.table.sync.with_raw_response.update(
                 integration_name="integration_name",
                 table_id="",
-                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
             client.table.sync.with_raw_response.update(
                 integration_name="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
             )
 
     @pytest.mark.skip()
@@ -222,13 +245,76 @@ class TestSync:
         sync = client.table.sync.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            body={},
         )
         assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_sync_with_integration_with_all_params(self, client: Morta) -> None:
-        sync = client.table.sync.sync_with_integration(
+    def test_raw_response_sync_with_integration(self, client: Morta) -> None:
+        response = client.table.sync.with_raw_response.sync_with_integration(
+            integration_name="integration_name",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            body={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        sync = response.parse()
+        assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_sync_with_integration(self, client: Morta) -> None:
+        with client.table.sync.with_streaming_response.sync_with_integration(
+            integration_name="integration_name",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            body={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            sync = response.parse()
+            assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_path_params_sync_with_integration(self, client: Morta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
+            client.table.sync.with_raw_response.sync_with_integration(
+                integration_name="integration_name",
+                table_id="",
+                body={},
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
+            client.table.sync.with_raw_response.sync_with_integration(
+                integration_name="",
+                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body={},
+            )
+
+
+class TestAsyncSync:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update(self, async_client: AsyncMorta) -> None:
+        sync = await async_client.table.sync.update(
+            integration_name="integration_name",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SyncUpdateResponse, sync, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
+        sync = await async_client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             company_id="companyId",
@@ -251,65 +337,6 @@ class TestSync:
             top_folder_id="topFolderId",
             type="Projects",
         )
-        assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_sync_with_integration(self, client: Morta) -> None:
-        response = client.table.sync.with_raw_response.sync_with_integration(
-            integration_name="integration_name",
-            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        sync = response.parse()
-        assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_sync_with_integration(self, client: Morta) -> None:
-        with client.table.sync.with_streaming_response.sync_with_integration(
-            integration_name="integration_name",
-            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            sync = response.parse()
-            assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_sync_with_integration(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
-            client.table.sync.with_raw_response.sync_with_integration(
-                integration_name="integration_name",
-                table_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
-            client.table.sync.with_raw_response.sync_with_integration(
-                integration_name="",
-                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-
-class TestAsyncSync:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_update(self, async_client: AsyncMorta) -> None:
-        sync = await async_client.table.sync.update(
-            integration_name="integration_name",
-            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
-        )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
     @pytest.mark.skip()
@@ -318,7 +345,6 @@ class TestAsyncSync:
         response = await async_client.table.sync.with_raw_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         )
 
         assert response.is_closed is True
@@ -332,7 +358,6 @@ class TestAsyncSync:
         async with async_client.table.sync.with_streaming_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -349,14 +374,12 @@ class TestAsyncSync:
             await async_client.table.sync.with_raw_response.update(
                 integration_name="integration_name",
                 table_id="",
-                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
             await async_client.table.sync.with_raw_response.update(
                 integration_name="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
             )
 
     @pytest.mark.skip()
@@ -501,34 +524,7 @@ class TestAsyncSync:
         sync = await async_client.table.sync.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_sync_with_integration_with_all_params(self, async_client: AsyncMorta) -> None:
-        sync = await async_client.table.sync.sync_with_integration(
-            integration_name="integration_name",
-            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            company_id="companyId",
-            context={
-                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            },
-            doc_types=["string"],
-            enterprise_id="enterpriseId",
-            folder_id="folderId",
-            hub_id="hubId",
-            license_id="licenseId",
-            model_id="modelId",
-            project_id="projectId",
-            project_ids=["string"],
-            properties=["string"],
-            region="region",
-            top_folder_id="topFolderId",
-            type="Projects",
+            body={},
         )
         assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
 
@@ -538,6 +534,7 @@ class TestAsyncSync:
         response = await async_client.table.sync.with_raw_response.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            body={},
         )
 
         assert response.is_closed is True
@@ -551,6 +548,7 @@ class TestAsyncSync:
         async with async_client.table.sync.with_streaming_response.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -567,10 +565,12 @@ class TestAsyncSync:
             await async_client.table.sync.with_raw_response.sync_with_integration(
                 integration_name="integration_name",
                 table_id="",
+                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
             await async_client.table.sync.with_raw_response.sync_with_integration(
                 integration_name="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body={},
             )

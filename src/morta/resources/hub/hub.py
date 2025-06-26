@@ -22,9 +22,7 @@ from ...types import (
     hub_duplicate_params,
     hub_get_resources_params,
     hub_upload_template_params,
-    hub_change_user_role_params,
     hub_search_resources_params,
-    hub_set_column_format_params,
     hub_create_knowledge_base_params,
     hub_invite_multiple_users_params,
     hub_get_sent_notifications_params,
@@ -66,20 +64,14 @@ from ...types.hub_retrieve_response import HubRetrieveResponse
 from ...types.hub_ai_search_response import HubAISearchResponse
 from ...types.hub_get_tables_response import HubGetTablesResponse
 from ...types.hub_get_members_response import HubGetMembersResponse
-from ...types.hub_remove_user_response import HubRemoveUserResponse
 from ...types.base_request_context_param import BaseRequestContextParam
-from ...types.hub_get_documents_response import HubGetDocumentsResponse
 from ...types.hub_get_resources_response import HubGetResourcesResponse
 from ...types.hub_get_variables_response import HubGetVariablesResponse
 from ...types.hub_get_ai_answers_response import HubGetAIAnswersResponse
 from ...types.hub_upload_template_response import HubUploadTemplateResponse
-from ...types.hub_change_user_role_response import HubChangeUserRoleResponse
 from ...types.hub_search_resources_response import HubSearchResourcesResponse
 from ...types.hub_get_notifications_response import HubGetNotificationsResponse
-from ...types.hub_get_deleted_tables_response import HubGetDeletedTablesResponse
 from ...types.hub_permanently_delete_response import HubPermanentlyDeleteResponse
-from ...types.hub_get_invited_members_response import HubGetInvitedMembersResponse
-from ...types.hub_get_deleted_documents_response import HubGetDeletedDocumentsResponse
 from ...types.hub_invite_multiple_users_response import HubInviteMultipleUsersResponse
 from ...types.hub_create_heading_styling_response import HubCreateHeadingStylingResponse
 from ...types.hub_get_sent_notifications_response import HubGetSentNotificationsResponse
@@ -357,45 +349,6 @@ class HubResource(SyncAPIResource):
             cast_to=HubAISearchResponse,
         )
 
-    def change_user_role(
-        self,
-        firebase_id: str,
-        *,
-        hub_id: str,
-        role: Literal["owner", "admin", "member"],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubChangeUserRoleResponse:
-        """
-        Change the role of a user in a specific hub, identified by the hub's UUID and
-        user's Firebase ID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not firebase_id:
-            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
-        return self._put(
-            f"/v1/hub/{hub_id}/change-user-role/{firebase_id}",
-            body=maybe_transform({"role": role}, hub_change_user_role_params.HubChangeUserRoleParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubChangeUserRoleResponse,
-        )
-
     def create_heading_styling(
         self,
         hub_id: str,
@@ -433,7 +386,10 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        body: object,
+        source: str,
+        text: str,
+        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        link: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -458,7 +414,15 @@ class HubResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/v1/hub/{hub_id}/knowledge-base",
-            body=maybe_transform(body, hub_create_knowledge_base_params.HubCreateKnowledgeBaseParams),
+            body=maybe_transform(
+                {
+                    "source": source,
+                    "text": text,
+                    "context": context,
+                    "link": link,
+                },
+                hub_create_knowledge_base_params.HubCreateKnowledgeBaseParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -576,107 +540,6 @@ class HubResource(SyncAPIResource):
             cast_to=HubGetAIAnswersResponse,
         )
 
-    def get_deleted_documents(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDeletedDocumentsResponse:
-        """
-        Get all deleted documents associated with a specific hub, identified by its UUID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return self._get(
-            f"/v1/hub/{hub_id}/deleted-documents",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDeletedDocumentsResponse,
-        )
-
-    def get_deleted_tables(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDeletedTablesResponse:
-        """Retrieve all deleted tables from a specific hub, identified by its UUID.
-
-        Only
-        accessible by hub owners.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return self._get(
-            f"/v1/hub/{hub_id}/deleted-tables",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDeletedTablesResponse,
-        )
-
-    def get_documents(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDocumentsResponse:
-        """
-        Get all documents associated with a specific hub, identified by its UUID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return self._get(
-            f"/v1/hub/{hub_id}/documents",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDocumentsResponse,
-        )
-
     def get_duplicated_children(
         self,
         hub_id: str,
@@ -708,39 +571,6 @@ class HubResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=HubGetDuplicatedChildrenResponse,
-        )
-
-    def get_invited_members(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetInvitedMembersResponse:
-        """
-        Retrieve all invited members for a specified hub
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return self._get(
-            f"/v1/hub/{hub_id}/invited-members",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetInvitedMembersResponse,
         )
 
     def get_members(
@@ -1095,43 +925,6 @@ class HubResource(SyncAPIResource):
             cast_to=HubPermanentlyDeleteResponse,
         )
 
-    def remove_user(
-        self,
-        firebase_id: str,
-        *,
-        hub_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubRemoveUserResponse:
-        """
-        Remove a user from a specific hub, identified by the hub's UUID and user's
-        Firebase ID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not firebase_id:
-            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
-        return self._delete(
-            f"/v1/hub/{hub_id}/remove-user/{firebase_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubRemoveUserResponse,
-        )
-
     def request_contributor_access(
         self,
         hub_id: str,
@@ -1284,10 +1077,9 @@ class HubResource(SyncAPIResource):
 
     def set_column_format(
         self,
-        path_kind: str,
+        kind: str,
         *,
         hub_id: str,
-        body_kind: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1309,12 +1101,11 @@ class HubResource(SyncAPIResource):
         """
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not path_kind:
-            raise ValueError(f"Expected a non-empty value for `path_kind` but received {path_kind!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/set-column-format/{path_kind}",
-            body=maybe_transform({"body_kind": body_kind}, hub_set_column_format_params.HubSetColumnFormatParams),
+            f"/v1/hub/{hub_id}/set-column-format/{kind}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1722,45 +1513,6 @@ class AsyncHubResource(AsyncAPIResource):
             cast_to=HubAISearchResponse,
         )
 
-    async def change_user_role(
-        self,
-        firebase_id: str,
-        *,
-        hub_id: str,
-        role: Literal["owner", "admin", "member"],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubChangeUserRoleResponse:
-        """
-        Change the role of a user in a specific hub, identified by the hub's UUID and
-        user's Firebase ID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not firebase_id:
-            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
-        return await self._put(
-            f"/v1/hub/{hub_id}/change-user-role/{firebase_id}",
-            body=await async_maybe_transform({"role": role}, hub_change_user_role_params.HubChangeUserRoleParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubChangeUserRoleResponse,
-        )
-
     async def create_heading_styling(
         self,
         hub_id: str,
@@ -1798,7 +1550,10 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        body: object,
+        source: str,
+        text: str,
+        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        link: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1823,7 +1578,15 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/hub/{hub_id}/knowledge-base",
-            body=await async_maybe_transform(body, hub_create_knowledge_base_params.HubCreateKnowledgeBaseParams),
+            body=await async_maybe_transform(
+                {
+                    "source": source,
+                    "text": text,
+                    "context": context,
+                    "link": link,
+                },
+                hub_create_knowledge_base_params.HubCreateKnowledgeBaseParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1941,107 +1704,6 @@ class AsyncHubResource(AsyncAPIResource):
             cast_to=HubGetAIAnswersResponse,
         )
 
-    async def get_deleted_documents(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDeletedDocumentsResponse:
-        """
-        Get all deleted documents associated with a specific hub, identified by its UUID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return await self._get(
-            f"/v1/hub/{hub_id}/deleted-documents",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDeletedDocumentsResponse,
-        )
-
-    async def get_deleted_tables(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDeletedTablesResponse:
-        """Retrieve all deleted tables from a specific hub, identified by its UUID.
-
-        Only
-        accessible by hub owners.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return await self._get(
-            f"/v1/hub/{hub_id}/deleted-tables",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDeletedTablesResponse,
-        )
-
-    async def get_documents(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetDocumentsResponse:
-        """
-        Get all documents associated with a specific hub, identified by its UUID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return await self._get(
-            f"/v1/hub/{hub_id}/documents",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetDocumentsResponse,
-        )
-
     async def get_duplicated_children(
         self,
         hub_id: str,
@@ -2073,39 +1735,6 @@ class AsyncHubResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=HubGetDuplicatedChildrenResponse,
-        )
-
-    async def get_invited_members(
-        self,
-        hub_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubGetInvitedMembersResponse:
-        """
-        Retrieve all invited members for a specified hub
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        return await self._get(
-            f"/v1/hub/{hub_id}/invited-members",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubGetInvitedMembersResponse,
         )
 
     async def get_members(
@@ -2460,43 +2089,6 @@ class AsyncHubResource(AsyncAPIResource):
             cast_to=HubPermanentlyDeleteResponse,
         )
 
-    async def remove_user(
-        self,
-        firebase_id: str,
-        *,
-        hub_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> HubRemoveUserResponse:
-        """
-        Remove a user from a specific hub, identified by the hub's UUID and user's
-        Firebase ID
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not hub_id:
-            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not firebase_id:
-            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
-        return await self._delete(
-            f"/v1/hub/{hub_id}/remove-user/{firebase_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=HubRemoveUserResponse,
-        )
-
     async def request_contributor_access(
         self,
         hub_id: str,
@@ -2649,10 +2241,9 @@ class AsyncHubResource(AsyncAPIResource):
 
     async def set_column_format(
         self,
-        path_kind: str,
+        kind: str,
         *,
         hub_id: str,
-        body_kind: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2674,14 +2265,11 @@ class AsyncHubResource(AsyncAPIResource):
         """
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        if not path_kind:
-            raise ValueError(f"Expected a non-empty value for `path_kind` but received {path_kind!r}")
+        if not kind:
+            raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/set-column-format/{path_kind}",
-            body=await async_maybe_transform(
-                {"body_kind": body_kind}, hub_set_column_format_params.HubSetColumnFormatParams
-            ),
+            f"/v1/hub/{hub_id}/set-column-format/{kind}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2841,9 +2429,6 @@ class HubResourceWithRawResponse:
         self.ai_search = to_raw_response_wrapper(
             hub.ai_search,
         )
-        self.change_user_role = to_raw_response_wrapper(
-            hub.change_user_role,
-        )
         self.create_heading_styling = to_raw_response_wrapper(
             hub.create_heading_styling,
         )
@@ -2859,20 +2444,8 @@ class HubResourceWithRawResponse:
         self.get_ai_answers = to_raw_response_wrapper(
             hub.get_ai_answers,
         )
-        self.get_deleted_documents = to_raw_response_wrapper(
-            hub.get_deleted_documents,
-        )
-        self.get_deleted_tables = to_raw_response_wrapper(
-            hub.get_deleted_tables,
-        )
-        self.get_documents = to_raw_response_wrapper(
-            hub.get_documents,
-        )
         self.get_duplicated_children = to_raw_response_wrapper(
             hub.get_duplicated_children,
-        )
-        self.get_invited_members = to_raw_response_wrapper(
-            hub.get_invited_members,
         )
         self.get_members = to_raw_response_wrapper(
             hub.get_members,
@@ -2900,9 +2473,6 @@ class HubResourceWithRawResponse:
         )
         self.permanently_delete = to_raw_response_wrapper(
             hub.permanently_delete,
-        )
-        self.remove_user = to_raw_response_wrapper(
-            hub.remove_user,
         )
         self.request_contributor_access = to_raw_response_wrapper(
             hub.request_contributor_access,
@@ -2961,9 +2531,6 @@ class AsyncHubResourceWithRawResponse:
         self.ai_search = async_to_raw_response_wrapper(
             hub.ai_search,
         )
-        self.change_user_role = async_to_raw_response_wrapper(
-            hub.change_user_role,
-        )
         self.create_heading_styling = async_to_raw_response_wrapper(
             hub.create_heading_styling,
         )
@@ -2979,20 +2546,8 @@ class AsyncHubResourceWithRawResponse:
         self.get_ai_answers = async_to_raw_response_wrapper(
             hub.get_ai_answers,
         )
-        self.get_deleted_documents = async_to_raw_response_wrapper(
-            hub.get_deleted_documents,
-        )
-        self.get_deleted_tables = async_to_raw_response_wrapper(
-            hub.get_deleted_tables,
-        )
-        self.get_documents = async_to_raw_response_wrapper(
-            hub.get_documents,
-        )
         self.get_duplicated_children = async_to_raw_response_wrapper(
             hub.get_duplicated_children,
-        )
-        self.get_invited_members = async_to_raw_response_wrapper(
-            hub.get_invited_members,
         )
         self.get_members = async_to_raw_response_wrapper(
             hub.get_members,
@@ -3020,9 +2575,6 @@ class AsyncHubResourceWithRawResponse:
         )
         self.permanently_delete = async_to_raw_response_wrapper(
             hub.permanently_delete,
-        )
-        self.remove_user = async_to_raw_response_wrapper(
-            hub.remove_user,
         )
         self.request_contributor_access = async_to_raw_response_wrapper(
             hub.request_contributor_access,
@@ -3081,9 +2633,6 @@ class HubResourceWithStreamingResponse:
         self.ai_search = to_streamed_response_wrapper(
             hub.ai_search,
         )
-        self.change_user_role = to_streamed_response_wrapper(
-            hub.change_user_role,
-        )
         self.create_heading_styling = to_streamed_response_wrapper(
             hub.create_heading_styling,
         )
@@ -3099,20 +2648,8 @@ class HubResourceWithStreamingResponse:
         self.get_ai_answers = to_streamed_response_wrapper(
             hub.get_ai_answers,
         )
-        self.get_deleted_documents = to_streamed_response_wrapper(
-            hub.get_deleted_documents,
-        )
-        self.get_deleted_tables = to_streamed_response_wrapper(
-            hub.get_deleted_tables,
-        )
-        self.get_documents = to_streamed_response_wrapper(
-            hub.get_documents,
-        )
         self.get_duplicated_children = to_streamed_response_wrapper(
             hub.get_duplicated_children,
-        )
-        self.get_invited_members = to_streamed_response_wrapper(
-            hub.get_invited_members,
         )
         self.get_members = to_streamed_response_wrapper(
             hub.get_members,
@@ -3140,9 +2677,6 @@ class HubResourceWithStreamingResponse:
         )
         self.permanently_delete = to_streamed_response_wrapper(
             hub.permanently_delete,
-        )
-        self.remove_user = to_streamed_response_wrapper(
-            hub.remove_user,
         )
         self.request_contributor_access = to_streamed_response_wrapper(
             hub.request_contributor_access,
@@ -3201,9 +2735,6 @@ class AsyncHubResourceWithStreamingResponse:
         self.ai_search = async_to_streamed_response_wrapper(
             hub.ai_search,
         )
-        self.change_user_role = async_to_streamed_response_wrapper(
-            hub.change_user_role,
-        )
         self.create_heading_styling = async_to_streamed_response_wrapper(
             hub.create_heading_styling,
         )
@@ -3219,20 +2750,8 @@ class AsyncHubResourceWithStreamingResponse:
         self.get_ai_answers = async_to_streamed_response_wrapper(
             hub.get_ai_answers,
         )
-        self.get_deleted_documents = async_to_streamed_response_wrapper(
-            hub.get_deleted_documents,
-        )
-        self.get_deleted_tables = async_to_streamed_response_wrapper(
-            hub.get_deleted_tables,
-        )
-        self.get_documents = async_to_streamed_response_wrapper(
-            hub.get_documents,
-        )
         self.get_duplicated_children = async_to_streamed_response_wrapper(
             hub.get_duplicated_children,
-        )
-        self.get_invited_members = async_to_streamed_response_wrapper(
-            hub.get_invited_members,
         )
         self.get_members = async_to_streamed_response_wrapper(
             hub.get_members,
@@ -3260,9 +2779,6 @@ class AsyncHubResourceWithStreamingResponse:
         )
         self.permanently_delete = async_to_streamed_response_wrapper(
             hub.permanently_delete,
-        )
-        self.remove_user = async_to_streamed_response_wrapper(
-            hub.remove_user,
         )
         self.request_contributor_access = async_to_streamed_response_wrapper(
             hub.request_contributor_access,

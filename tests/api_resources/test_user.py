@@ -13,12 +13,9 @@ from morta.types import (
     UserSearchResponse,
     UserRetrieveResponse,
     UserRetrieveMeResponse,
-    UserListOwnerHubsResponse,
     UserListTemplatesResponse,
     UserUpdateAccountResponse,
     UserUpdateProfileResponse,
-    UserListPinnedHubsResponse,
-    UserListPublicHubsResponse,
     UserListAchievementsResponse,
     UserListContributionsResponse,
     UserRetrieveByPublicIDResponse,
@@ -217,76 +214,6 @@ class TestUser:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_list_owner_hubs(self, client: Morta) -> None:
-        user = client.user.list_owner_hubs()
-        assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_list_owner_hubs(self, client: Morta) -> None:
-        response = client.user.with_raw_response.list_owner_hubs()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_list_owner_hubs(self, client: Morta) -> None:
-        with client.user.with_streaming_response.list_owner_hubs() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list_pinned_hubs(self, client: Morta) -> None:
-        user = client.user.list_pinned_hubs(
-            "firebase_id",
-        )
-        assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_list_pinned_hubs(self, client: Morta) -> None:
-        response = client.user.with_raw_response.list_pinned_hubs(
-            "firebase_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_list_pinned_hubs(self, client: Morta) -> None:
-        with client.user.with_streaming_response.list_pinned_hubs(
-            "firebase_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_list_pinned_hubs(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            client.user.with_raw_response.list_pinned_hubs(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     def test_method_list_public_contributions(self, client: Morta) -> None:
         user = client.user.list_public_contributions(
             "firebase_id",
@@ -326,34 +253,6 @@ class TestUser:
             client.user.with_raw_response.list_public_contributions(
                 "",
             )
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_list_public_hubs(self, client: Morta) -> None:
-        user = client.user.list_public_hubs()
-        assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_list_public_hubs(self, client: Morta) -> None:
-        response = client.user.with_raw_response.list_public_hubs()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = response.parse()
-        assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_list_public_hubs(self, client: Morta) -> None:
-        with client.user.with_streaming_response.list_public_hubs() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = response.parse()
-            assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
@@ -780,76 +679,6 @@ class TestAsyncUser:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_list_owner_hubs(self, async_client: AsyncMorta) -> None:
-        user = await async_client.user.list_owner_hubs()
-        assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_list_owner_hubs(self, async_client: AsyncMorta) -> None:
-        response = await async_client.user.with_raw_response.list_owner_hubs()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_list_owner_hubs(self, async_client: AsyncMorta) -> None:
-        async with async_client.user.with_streaming_response.list_owner_hubs() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
-        user = await async_client.user.list_pinned_hubs(
-            "firebase_id",
-        )
-        assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
-        response = await async_client.user.with_raw_response.list_pinned_hubs(
-            "firebase_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
-        async with async_client.user.with_streaming_response.list_pinned_hubs(
-            "firebase_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            await async_client.user.with_raw_response.list_pinned_hubs(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     async def test_method_list_public_contributions(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_public_contributions(
             "firebase_id",
@@ -889,34 +718,6 @@ class TestAsyncUser:
             await async_client.user.with_raw_response.list_public_contributions(
                 "",
             )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_list_public_hubs(self, async_client: AsyncMorta) -> None:
-        user = await async_client.user.list_public_hubs()
-        assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_list_public_hubs(self, async_client: AsyncMorta) -> None:
-        response = await async_client.user.with_raw_response.list_public_hubs()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        user = await response.parse()
-        assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_list_public_hubs(self, async_client: AsyncMorta) -> None:
-        async with async_client.user.with_streaming_response.list_public_hubs() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            user = await response.parse()
-            assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize

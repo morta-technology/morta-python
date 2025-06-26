@@ -2,10 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import List
+from typing_extensions import Required, Annotated, TypedDict
+
+from ..._utils import PropertyInfo
 
 __all__ = ["TagBulkApplyParams"]
 
 
 class TagBulkApplyParams(TypedDict, total=False):
-    body: Required[object]
+    project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
+
+    table_id: Required[Annotated[str, PropertyInfo(alias="tableId")]]
+
+    tag_reference_ids: Required[Annotated[List[str], PropertyInfo(alias="tagReferenceIds")]]

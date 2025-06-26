@@ -10,4 +10,4 @@ __all__ = ["ColumnAIFormulaHelperParams"]
 class ColumnAIFormulaHelperParams(TypedDict, total=False):
     view_id: Required[str]
 
-    body: Required[object]
+    text: Required[str]

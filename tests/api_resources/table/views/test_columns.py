@@ -342,7 +342,7 @@ class TestColumns:
         column = client.table.views.columns.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         )
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
@@ -352,7 +352,7 @@ class TestColumns:
         response = client.table.views.columns.with_raw_response.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         )
 
         assert response.is_closed is True
@@ -366,7 +366,7 @@ class TestColumns:
         with client.table.views.columns.with_streaming_response.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -383,14 +383,14 @@ class TestColumns:
             client.table.views.columns.with_raw_response.ai_formula_helper(
                 column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 view_id="",
-                body={},
+                text="text",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
             client.table.views.columns.with_raw_response.ai_formula_helper(
                 column_id="",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
+                text="text",
             )
 
     @pytest.mark.skip()
@@ -833,7 +833,7 @@ class TestAsyncColumns:
         column = await async_client.table.views.columns.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         )
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
@@ -843,7 +843,7 @@ class TestAsyncColumns:
         response = await async_client.table.views.columns.with_raw_response.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         )
 
         assert response.is_closed is True
@@ -857,7 +857,7 @@ class TestAsyncColumns:
         async with async_client.table.views.columns.with_streaming_response.ai_formula_helper(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            text="text",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -874,14 +874,14 @@ class TestAsyncColumns:
             await async_client.table.views.columns.with_raw_response.ai_formula_helper(
                 column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 view_id="",
-                body={},
+                text="text",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
             await async_client.table.views.columns.with_raw_response.ai_formula_helper(
                 column_id="",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
+                text="text",
             )
 
     @pytest.mark.skip()
