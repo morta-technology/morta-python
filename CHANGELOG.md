@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1 (2025-06-26)
+
+Full Changelog: [v1.0.0...v1.0.1](https://github.com/morta-technology/morta-python/compare/v1.0.0...v1.0.1)
+
+### Chores
+
+* **internal:** version bump ([be7f940](https://github.com/morta-technology/morta-python/commit/be7f940aaeda2822a62b99dfb104382339eec02a))
+
 ## 1.0.0 (2025-06-26)
 
 Full Changelog: [v0.0.1-alpha.0...v1.0.0](https://github.com/morta-technology/morta-python/compare/v0.0.1-alpha.0...v1.0.0)
