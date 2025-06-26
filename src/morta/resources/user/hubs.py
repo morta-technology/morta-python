@@ -16,6 +16,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.user.hub_list_response import HubListResponse
 from ...types.user.hub_list_tags_response import HubListTagsResponse
+from ...types.user.hub_toggle_pin_response import HubTogglePinResponse
 from ...types.user.hub_list_favourites_response import HubListFavouritesResponse
 from ...types.user.hub_toggle_favourite_response import HubToggleFavouriteResponse
 
@@ -146,6 +147,39 @@ class HubsResource(SyncAPIResource):
             cast_to=HubToggleFavouriteResponse,
         )
 
+    def toggle_pin(
+        self,
+        hub_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HubTogglePinResponse:
+        """
+        Change whether the hub is pinned for the currently logged in user
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not hub_id:
+            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
+        return self._put(
+            f"/v1/user/hubs/{hub_id}/pin",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HubTogglePinResponse,
+        )
+
 
 class AsyncHubsResource(AsyncAPIResource):
     @cached_property
@@ -271,6 +305,39 @@ class AsyncHubsResource(AsyncAPIResource):
             cast_to=HubToggleFavouriteResponse,
         )
 
+    async def toggle_pin(
+        self,
+        hub_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> HubTogglePinResponse:
+        """
+        Change whether the hub is pinned for the currently logged in user
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not hub_id:
+            raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
+        return await self._put(
+            f"/v1/user/hubs/{hub_id}/pin",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=HubTogglePinResponse,
+        )
+
 
 class HubsResourceWithRawResponse:
     def __init__(self, hubs: HubsResource) -> None:
@@ -287,6 +354,9 @@ class HubsResourceWithRawResponse:
         )
         self.toggle_favourite = to_raw_response_wrapper(
             hubs.toggle_favourite,
+        )
+        self.toggle_pin = to_raw_response_wrapper(
+            hubs.toggle_pin,
         )
 
 
@@ -306,6 +376,9 @@ class AsyncHubsResourceWithRawResponse:
         self.toggle_favourite = async_to_raw_response_wrapper(
             hubs.toggle_favourite,
         )
+        self.toggle_pin = async_to_raw_response_wrapper(
+            hubs.toggle_pin,
+        )
 
 
 class HubsResourceWithStreamingResponse:
@@ -324,6 +397,9 @@ class HubsResourceWithStreamingResponse:
         self.toggle_favourite = to_streamed_response_wrapper(
             hubs.toggle_favourite,
         )
+        self.toggle_pin = to_streamed_response_wrapper(
+            hubs.toggle_pin,
+        )
 
 
 class AsyncHubsResourceWithStreamingResponse:
@@ -341,4 +417,7 @@ class AsyncHubsResourceWithStreamingResponse:
         )
         self.toggle_favourite = async_to_streamed_response_wrapper(
             hubs.toggle_favourite,
+        )
+        self.toggle_pin = async_to_streamed_response_wrapper(
+            hubs.toggle_pin,
         )

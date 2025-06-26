@@ -17,6 +17,7 @@ from .apikey_create_response import ApikeyCreateResponse as ApikeyCreateResponse
 from .apikey_delete_response import ApikeyDeleteResponse as ApikeyDeleteResponse
 from .apikey_update_response import ApikeyUpdateResponse as ApikeyUpdateResponse
 from .hub_list_tags_response import HubListTagsResponse as HubListTagsResponse
+from .hub_toggle_pin_response import HubTogglePinResponse as HubTogglePinResponse
 from .tag_bulk_apply_response import TagBulkApplyResponse as TagBulkApplyResponse
 from .hub_list_favourites_response import HubListFavouritesResponse as HubListFavouritesResponse
 from .hub_toggle_favourite_response import HubToggleFavouriteResponse as HubToggleFavouriteResponse

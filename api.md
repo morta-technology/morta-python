@@ -71,6 +71,7 @@ from morta.types.user import (
     HubListFavouritesResponse,
     HubListTagsResponse,
     HubToggleFavouriteResponse,
+    HubTogglePinResponse,
 )
 ```
 
@@ -80,6 +81,7 @@ Methods:
 - <code title="get /v1/user/hubs/favourites">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">list_favourites</a>() -> <a href="./src/morta/types/user/hub_list_favourites_response.py">HubListFavouritesResponse</a></code>
 - <code title="put /v1/user/hubs/{hub_id}/tags">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">list_tags</a>(hub_id) -> <a href="./src/morta/types/user/hub_list_tags_response.py">HubListTagsResponse</a></code>
 - <code title="put /v1/user/hubs/{hub_id}/favourite">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">toggle_favourite</a>(hub_id) -> <a href="./src/morta/types/user/hub_toggle_favourite_response.py">HubToggleFavouriteResponse</a></code>
+- <code title="put /v1/user/hubs/{hub_id}/pin">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">toggle_pin</a>(hub_id) -> <a href="./src/morta/types/user/hub_toggle_pin_response.py">HubTogglePinResponse</a></code>
 
 ## Tags
 
