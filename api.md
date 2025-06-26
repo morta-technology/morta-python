@@ -11,7 +11,10 @@ from morta.types import (
     UserRetrieveResponse,
     UserListAchievementsResponse,
     UserListContributionsResponse,
+    UserListOwnerHubsResponse,
+    UserListPinnedHubsResponse,
     UserListPublicContributionsResponse,
+    UserListPublicHubsResponse,
     UserListTemplatesResponse,
     UserRetrieveByPublicIDResponse,
     UserRetrieveMeResponse,
@@ -27,7 +30,10 @@ Methods:
 - <code title="get /v1/user/{firebase_id}">client.user.<a href="./src/morta/resources/user/user.py">retrieve</a>(firebase_id) -> <a href="./src/morta/types/user_retrieve_response.py">UserRetrieveResponse</a></code>
 - <code title="get /v1/user/{firebase_id}/achievements">client.user.<a href="./src/morta/resources/user/user.py">list_achievements</a>(firebase_id) -> <a href="./src/morta/types/user_list_achievements_response.py">UserListAchievementsResponse</a></code>
 - <code title="get /v1/user/{firebase_id}/contributions">client.user.<a href="./src/morta/resources/user/user.py">list_contributions</a>(firebase_id) -> <a href="./src/morta/types/user_list_contributions_response.py">UserListContributionsResponse</a></code>
+- <code title="get /v1/user/owner-hubs">client.user.<a href="./src/morta/resources/user/user.py">list_owner_hubs</a>() -> <a href="./src/morta/types/user_list_owner_hubs_response.py">UserListOwnerHubsResponse</a></code>
+- <code title="get /v1/user/{firebase_id}/pinned-hubs">client.user.<a href="./src/morta/resources/user/user.py">list_pinned_hubs</a>(firebase_id) -> <a href="./src/morta/types/user_list_pinned_hubs_response.py">UserListPinnedHubsResponse</a></code>
 - <code title="get /v1/user/{firebase_id}/public-contributions">client.user.<a href="./src/morta/resources/user/user.py">list_public_contributions</a>(firebase_id) -> <a href="./src/morta/types/user_list_public_contributions_response.py">UserListPublicContributionsResponse</a></code>
+- <code title="get /v1/user/public-hubs">client.user.<a href="./src/morta/resources/user/user.py">list_public_hubs</a>() -> <a href="./src/morta/types/user_list_public_hubs_response.py">UserListPublicHubsResponse</a></code>
 - <code title="get /v1/user/templates">client.user.<a href="./src/morta/resources/user/user.py">list_templates</a>() -> <a href="./src/morta/types/user_list_templates_response.py">UserListTemplatesResponse</a></code>
 - <code title="get /v1/user/public/{public_id}">client.user.<a href="./src/morta/resources/user/user.py">retrieve_by_public_id</a>(public_id) -> <a href="./src/morta/types/user_retrieve_by_public_id_response.py">UserRetrieveByPublicIDResponse</a></code>
 - <code title="get /v1/user/me">client.user.<a href="./src/morta/resources/user/user.py">retrieve_me</a>() -> <a href="./src/morta/types/user_retrieve_me_response.py">UserRetrieveMeResponse</a></code>
@@ -59,8 +65,21 @@ Methods:
 Types:
 
 ```python
-from morta.types.user import HomeHub
+from morta.types.user import (
+    HomeHub,
+    HubListResponse,
+    HubListFavouritesResponse,
+    HubListTagsResponse,
+    HubToggleFavouriteResponse,
+)
 ```
+
+Methods:
+
+- <code title="get /v1/user/hubs">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">list</a>() -> <a href="./src/morta/types/user/hub_list_response.py">HubListResponse</a></code>
+- <code title="get /v1/user/hubs/favourites">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">list_favourites</a>() -> <a href="./src/morta/types/user/hub_list_favourites_response.py">HubListFavouritesResponse</a></code>
+- <code title="put /v1/user/hubs/{hub_id}/tags">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">list_tags</a>(hub_id) -> <a href="./src/morta/types/user/hub_list_tags_response.py">HubListTagsResponse</a></code>
+- <code title="put /v1/user/hubs/{hub_id}/favourite">client.user.hubs.<a href="./src/morta/resources/user/hubs.py">toggle_favourite</a>(hub_id) -> <a href="./src/morta/types/user/hub_toggle_favourite_response.py">HubToggleFavouriteResponse</a></code>
 
 ## Tags
 
@@ -91,10 +110,15 @@ from morta.types import (
     HubUpdateResponse,
     HubDeleteResponse,
     HubAISearchResponse,
+    HubChangeUserRoleResponse,
     HubCreateHeadingStylingResponse,
     HubDeleteTopHeadingStylingResponse,
     HubGetAIAnswersResponse,
+    HubGetDeletedDocumentsResponse,
+    HubGetDeletedTablesResponse,
+    HubGetDocumentsResponse,
     HubGetDuplicatedChildrenResponse,
+    HubGetInvitedMembersResponse,
     HubGetMembersResponse,
     HubGetNotificationsResponse,
     HubGetResourcesResponse,
@@ -104,6 +128,7 @@ from morta.types import (
     HubGetVariablesResponse,
     HubInviteMultipleUsersResponse,
     HubPermanentlyDeleteResponse,
+    HubRemoveUserResponse,
     HubRestoreResponse,
     HubSearchResourcesResponse,
     HubUpdateHeadingStylingResponse,
@@ -118,12 +143,17 @@ Methods:
 - <code title="put /v1/hub/{hub_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">update</a>(hub_id, \*\*<a href="src/morta/types/hub_update_params.py">params</a>) -> <a href="./src/morta/types/hub_update_response.py">HubUpdateResponse</a></code>
 - <code title="delete /v1/hub/{hub_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">delete</a>(hub_id) -> <a href="./src/morta/types/hub_delete_response.py">HubDeleteResponse</a></code>
 - <code title="get /v1/hub/{hub_id}/search-ai">client.hub.<a href="./src/morta/resources/hub/hub.py">ai_search</a>(hub_id, \*\*<a href="src/morta/types/hub_ai_search_params.py">params</a>) -> <a href="./src/morta/types/hub_ai_search_response.py">HubAISearchResponse</a></code>
+- <code title="put /v1/hub/{hub_id}/change-user-role/{firebase_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">change_user_role</a>(firebase_id, \*, hub_id, \*\*<a href="src/morta/types/hub_change_user_role_params.py">params</a>) -> <a href="./src/morta/types/hub_change_user_role_response.py">HubChangeUserRoleResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/add_heading_styling">client.hub.<a href="./src/morta/resources/hub/hub.py">create_heading_styling</a>(hub_id) -> <a href="./src/morta/types/hub_create_heading_styling_response.py">HubCreateHeadingStylingResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/knowledge-base">client.hub.<a href="./src/morta/resources/hub/hub.py">create_knowledge_base</a>(hub_id, \*\*<a href="src/morta/types/hub_create_knowledge_base_params.py">params</a>) -> None</code>
 - <code title="delete /v1/hub/{hub_id}/delete_top_style">client.hub.<a href="./src/morta/resources/hub/hub.py">delete_top_heading_styling</a>(hub_id) -> <a href="./src/morta/types/hub_delete_top_heading_styling_response.py">HubDeleteTopHeadingStylingResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/duplicate">client.hub.<a href="./src/morta/resources/hub/hub.py">duplicate</a>(hub_id, \*\*<a href="src/morta/types/hub_duplicate_params.py">params</a>) -> None</code>
 - <code title="get /v1/hub/{hub_id}/ai-answers">client.hub.<a href="./src/morta/resources/hub/hub.py">get_ai_answers</a>(hub_id) -> <a href="./src/morta/types/hub_get_ai_answers_response.py">HubGetAIAnswersResponse</a></code>
+- <code title="get /v1/hub/{hub_id}/deleted-documents">client.hub.<a href="./src/morta/resources/hub/hub.py">get_deleted_documents</a>(hub_id) -> <a href="./src/morta/types/hub_get_deleted_documents_response.py">HubGetDeletedDocumentsResponse</a></code>
+- <code title="get /v1/hub/{hub_id}/deleted-tables">client.hub.<a href="./src/morta/resources/hub/hub.py">get_deleted_tables</a>(hub_id) -> <a href="./src/morta/types/hub_get_deleted_tables_response.py">HubGetDeletedTablesResponse</a></code>
+- <code title="get /v1/hub/{hub_id}/documents">client.hub.<a href="./src/morta/resources/hub/hub.py">get_documents</a>(hub_id) -> <a href="./src/morta/types/hub_get_documents_response.py">HubGetDocumentsResponse</a></code>
 - <code title="get /v1/hub/{hub_id}/duplicated-children">client.hub.<a href="./src/morta/resources/hub/hub.py">get_duplicated_children</a>(hub_id) -> <a href="./src/morta/types/hub_get_duplicated_children_response.py">HubGetDuplicatedChildrenResponse</a></code>
+- <code title="get /v1/hub/{hub_id}/invited-members">client.hub.<a href="./src/morta/resources/hub/hub.py">get_invited_members</a>(hub_id) -> <a href="./src/morta/types/hub_get_invited_members_response.py">HubGetInvitedMembersResponse</a></code>
 - <code title="get /v1/hub/{hub_id}/members">client.hub.<a href="./src/morta/resources/hub/hub.py">get_members</a>(hub_id) -> <a href="./src/morta/types/hub_get_members_response.py">HubGetMembersResponse</a></code>
 - <code title="get /v1/hub/{hub_id}/notifications">client.hub.<a href="./src/morta/resources/hub/hub.py">get_notifications</a>(hub_id) -> <a href="./src/morta/types/hub_get_notifications_response.py">HubGetNotificationsResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/resources">client.hub.<a href="./src/morta/resources/hub/hub.py">get_resources</a>(hub_id, \*\*<a href="src/morta/types/hub_get_resources_params.py">params</a>) -> <a href="./src/morta/types/hub_get_resources_response.py">HubGetResourcesResponse</a></code>
@@ -133,6 +163,7 @@ Methods:
 - <code title="get /v1/hub/{hub_id}/variables">client.hub.<a href="./src/morta/resources/hub/hub.py">get_variables</a>(hub_id) -> <a href="./src/morta/types/hub_get_variables_response.py">HubGetVariablesResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/invite-multiple">client.hub.<a href="./src/morta/resources/hub/hub.py">invite_multiple_users</a>(hub_id, \*\*<a href="src/morta/types/hub_invite_multiple_users_params.py">params</a>) -> <a href="./src/morta/types/hub_invite_multiple_users_response.py">HubInviteMultipleUsersResponse</a></code>
 - <code title="delete /v1/hub/{hub_id}/permanent">client.hub.<a href="./src/morta/resources/hub/hub.py">permanently_delete</a>(hub_id) -> <a href="./src/morta/types/hub_permanently_delete_response.py">HubPermanentlyDeleteResponse</a></code>
+- <code title="delete /v1/hub/{hub_id}/remove-user/{firebase_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">remove_user</a>(firebase_id, \*, hub_id) -> <a href="./src/morta/types/hub_remove_user_response.py">HubRemoveUserResponse</a></code>
 - <code title="post /v1/hub/{hub_id}/request-contributor-access">client.hub.<a href="./src/morta/resources/hub/hub.py">request_contributor_access</a>(hub_id) -> None</code>
 - <code title="put /v1/hub/{hub_id}/restore">client.hub.<a href="./src/morta/resources/hub/hub.py">restore</a>(hub_id) -> <a href="./src/morta/types/hub_restore_response.py">HubRestoreResponse</a></code>
 - <code title="get /v1/hub/{hub_id}/search-resources">client.hub.<a href="./src/morta/resources/hub/hub.py">search_resources</a>(hub_id, \*\*<a href="src/morta/types/hub_search_resources_params.py">params</a>) -> <a href="./src/morta/types/hub_search_resources_response.py">HubSearchResourcesResponse</a></code>

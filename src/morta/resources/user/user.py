@@ -6,6 +6,14 @@ from typing import Optional
 
 import httpx
 
+from .hubs import (
+    HubsResource,
+    AsyncHubsResource,
+    HubsResourceWithRawResponse,
+    AsyncHubsResourceWithRawResponse,
+    HubsResourceWithStreamingResponse,
+    AsyncHubsResourceWithStreamingResponse,
+)
 from .tags import (
     TagsResource,
     AsyncTagsResource,
@@ -41,6 +49,9 @@ from ...types.user_retrieve_me_response import UserRetrieveMeResponse
 from ...types.user_list_templates_response import UserListTemplatesResponse
 from ...types.user_update_account_response import UserUpdateAccountResponse
 from ...types.user_update_profile_response import UserUpdateProfileResponse
+from ...types.user_list_owner_hubs_response import UserListOwnerHubsResponse
+from ...types.user_list_pinned_hubs_response import UserListPinnedHubsResponse
+from ...types.user_list_public_hubs_response import UserListPublicHubsResponse
 from ...types.user_list_achievements_response import UserListAchievementsResponse
 from ...types.user_list_contributions_response import UserListContributionsResponse
 from ...types.user_retrieve_by_public_id_response import UserRetrieveByPublicIDResponse
@@ -53,6 +64,10 @@ class UserResource(SyncAPIResource):
     @cached_property
     def apikey(self) -> ApikeyResource:
         return ApikeyResource(self._client)
+
+    @cached_property
+    def hubs(self) -> HubsResource:
+        return HubsResource(self._client)
 
     @cached_property
     def tags(self) -> TagsResource:
@@ -232,6 +247,58 @@ class UserResource(SyncAPIResource):
             cast_to=UserListContributionsResponse,
         )
 
+    def list_owner_hubs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListOwnerHubsResponse:
+        """Get all hubs where the user is the owner or an admin"""
+        return self._get(
+            "/v1/user/owner-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListOwnerHubsResponse,
+        )
+
+    def list_pinned_hubs(
+        self,
+        firebase_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListPinnedHubsResponse:
+        """
+        Get the hubs pinned by a user identified by their Firebase ID
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not firebase_id:
+            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
+        return self._get(
+            f"/v1/user/{firebase_id}/pinned-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListPinnedHubsResponse,
+        )
+
     def list_public_contributions(
         self,
         firebase_id: str,
@@ -263,6 +330,25 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserListPublicContributionsResponse,
+        )
+
+    def list_public_hubs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListPublicHubsResponse:
+        """Get all public hubs where the user is a member"""
+        return self._get(
+            "/v1/user/public-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListPublicHubsResponse,
         )
 
     def list_templates(
@@ -509,6 +595,10 @@ class AsyncUserResource(AsyncAPIResource):
         return AsyncApikeyResource(self._client)
 
     @cached_property
+    def hubs(self) -> AsyncHubsResource:
+        return AsyncHubsResource(self._client)
+
+    @cached_property
     def tags(self) -> AsyncTagsResource:
         return AsyncTagsResource(self._client)
 
@@ -686,6 +776,58 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserListContributionsResponse,
         )
 
+    async def list_owner_hubs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListOwnerHubsResponse:
+        """Get all hubs where the user is the owner or an admin"""
+        return await self._get(
+            "/v1/user/owner-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListOwnerHubsResponse,
+        )
+
+    async def list_pinned_hubs(
+        self,
+        firebase_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListPinnedHubsResponse:
+        """
+        Get the hubs pinned by a user identified by their Firebase ID
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not firebase_id:
+            raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
+        return await self._get(
+            f"/v1/user/{firebase_id}/pinned-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListPinnedHubsResponse,
+        )
+
     async def list_public_contributions(
         self,
         firebase_id: str,
@@ -717,6 +859,25 @@ class AsyncUserResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserListPublicContributionsResponse,
+        )
+
+    async def list_public_hubs(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UserListPublicHubsResponse:
+        """Get all public hubs where the user is a member"""
+        return await self._get(
+            "/v1/user/public-hubs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserListPublicHubsResponse,
         )
 
     async def list_templates(
@@ -973,8 +1134,17 @@ class UserResourceWithRawResponse:
         self.list_contributions = to_raw_response_wrapper(
             user.list_contributions,
         )
+        self.list_owner_hubs = to_raw_response_wrapper(
+            user.list_owner_hubs,
+        )
+        self.list_pinned_hubs = to_raw_response_wrapper(
+            user.list_pinned_hubs,
+        )
         self.list_public_contributions = to_raw_response_wrapper(
             user.list_public_contributions,
+        )
+        self.list_public_hubs = to_raw_response_wrapper(
+            user.list_public_hubs,
         )
         self.list_templates = to_raw_response_wrapper(
             user.list_templates,
@@ -1000,6 +1170,10 @@ class UserResourceWithRawResponse:
         return ApikeyResourceWithRawResponse(self._user.apikey)
 
     @cached_property
+    def hubs(self) -> HubsResourceWithRawResponse:
+        return HubsResourceWithRawResponse(self._user.hubs)
+
+    @cached_property
     def tags(self) -> TagsResourceWithRawResponse:
         return TagsResourceWithRawResponse(self._user.tags)
 
@@ -1020,8 +1194,17 @@ class AsyncUserResourceWithRawResponse:
         self.list_contributions = async_to_raw_response_wrapper(
             user.list_contributions,
         )
+        self.list_owner_hubs = async_to_raw_response_wrapper(
+            user.list_owner_hubs,
+        )
+        self.list_pinned_hubs = async_to_raw_response_wrapper(
+            user.list_pinned_hubs,
+        )
         self.list_public_contributions = async_to_raw_response_wrapper(
             user.list_public_contributions,
+        )
+        self.list_public_hubs = async_to_raw_response_wrapper(
+            user.list_public_hubs,
         )
         self.list_templates = async_to_raw_response_wrapper(
             user.list_templates,
@@ -1047,6 +1230,10 @@ class AsyncUserResourceWithRawResponse:
         return AsyncApikeyResourceWithRawResponse(self._user.apikey)
 
     @cached_property
+    def hubs(self) -> AsyncHubsResourceWithRawResponse:
+        return AsyncHubsResourceWithRawResponse(self._user.hubs)
+
+    @cached_property
     def tags(self) -> AsyncTagsResourceWithRawResponse:
         return AsyncTagsResourceWithRawResponse(self._user.tags)
 
@@ -1067,8 +1254,17 @@ class UserResourceWithStreamingResponse:
         self.list_contributions = to_streamed_response_wrapper(
             user.list_contributions,
         )
+        self.list_owner_hubs = to_streamed_response_wrapper(
+            user.list_owner_hubs,
+        )
+        self.list_pinned_hubs = to_streamed_response_wrapper(
+            user.list_pinned_hubs,
+        )
         self.list_public_contributions = to_streamed_response_wrapper(
             user.list_public_contributions,
+        )
+        self.list_public_hubs = to_streamed_response_wrapper(
+            user.list_public_hubs,
         )
         self.list_templates = to_streamed_response_wrapper(
             user.list_templates,
@@ -1094,6 +1290,10 @@ class UserResourceWithStreamingResponse:
         return ApikeyResourceWithStreamingResponse(self._user.apikey)
 
     @cached_property
+    def hubs(self) -> HubsResourceWithStreamingResponse:
+        return HubsResourceWithStreamingResponse(self._user.hubs)
+
+    @cached_property
     def tags(self) -> TagsResourceWithStreamingResponse:
         return TagsResourceWithStreamingResponse(self._user.tags)
 
@@ -1114,8 +1314,17 @@ class AsyncUserResourceWithStreamingResponse:
         self.list_contributions = async_to_streamed_response_wrapper(
             user.list_contributions,
         )
+        self.list_owner_hubs = async_to_streamed_response_wrapper(
+            user.list_owner_hubs,
+        )
+        self.list_pinned_hubs = async_to_streamed_response_wrapper(
+            user.list_pinned_hubs,
+        )
         self.list_public_contributions = async_to_streamed_response_wrapper(
             user.list_public_contributions,
+        )
+        self.list_public_hubs = async_to_streamed_response_wrapper(
+            user.list_public_hubs,
         )
         self.list_templates = async_to_streamed_response_wrapper(
             user.list_templates,
@@ -1139,6 +1348,10 @@ class AsyncUserResourceWithStreamingResponse:
     @cached_property
     def apikey(self) -> AsyncApikeyResourceWithStreamingResponse:
         return AsyncApikeyResourceWithStreamingResponse(self._user.apikey)
+
+    @cached_property
+    def hubs(self) -> AsyncHubsResourceWithStreamingResponse:
+        return AsyncHubsResourceWithStreamingResponse(self._user.hubs)
 
     @cached_property
     def tags(self) -> AsyncTagsResourceWithStreamingResponse:
