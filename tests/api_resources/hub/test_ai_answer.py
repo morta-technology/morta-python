@@ -23,7 +23,17 @@ class TestAIAnswer:
         ai_answer = client.hub.ai_answer.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+        )
+        assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_vote_with_all_params(self, client: Morta) -> None:
+        ai_answer = client.hub.ai_answer.vote(
+            answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            comment="comment",
+            vote=True,
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
@@ -33,7 +43,6 @@ class TestAIAnswer:
         response = client.hub.ai_answer.with_raw_response.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         )
 
         assert response.is_closed is True
@@ -47,7 +56,6 @@ class TestAIAnswer:
         with client.hub.ai_answer.with_streaming_response.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -64,14 +72,12 @@ class TestAIAnswer:
             client.hub.ai_answer.with_raw_response.vote(
                 answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 hub_id="",
-                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `answer_id` but received ''"):
             client.hub.ai_answer.with_raw_response.vote(
                 answer_id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
             )
 
 
@@ -86,7 +92,17 @@ class TestAsyncAIAnswer:
         ai_answer = await async_client.hub.ai_answer.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+        )
+        assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_vote_with_all_params(self, async_client: AsyncMorta) -> None:
+        ai_answer = await async_client.hub.ai_answer.vote(
+            answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            comment="comment",
+            vote=True,
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
@@ -96,7 +112,6 @@ class TestAsyncAIAnswer:
         response = await async_client.hub.ai_answer.with_raw_response.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         )
 
         assert response.is_closed is True
@@ -110,7 +125,6 @@ class TestAsyncAIAnswer:
         async with async_client.hub.ai_answer.with_streaming_response.vote(
             answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -127,12 +141,10 @@ class TestAsyncAIAnswer:
             await async_client.hub.ai_answer.with_raw_response.vote(
                 answer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 hub_id="",
-                body={},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `answer_id` but received ''"):
             await async_client.hub.ai_answer.with_raw_response.vote(
                 answer_id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body={},
             )

@@ -18,19 +18,13 @@ from morta.types import (
     HubRetrieveResponse,
     HubGetTablesResponse,
     HubGetMembersResponse,
-    HubRemoveUserResponse,
     HubGetAIAnswersResponse,
-    HubGetDocumentsResponse,
     HubGetResourcesResponse,
     HubGetVariablesResponse,
-    HubChangeUserRoleResponse,
     HubUploadTemplateResponse,
     HubSearchResourcesResponse,
-    HubGetDeletedTablesResponse,
     HubGetNotificationsResponse,
-    HubGetInvitedMembersResponse,
     HubPermanentlyDeleteResponse,
-    HubGetDeletedDocumentsResponse,
     HubInviteMultipleUsersResponse,
     HubCreateHeadingStylingResponse,
     HubGetSentNotificationsResponse,
@@ -300,63 +294,6 @@ class TestHub:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_change_user_role(self, client: Morta) -> None:
-        hub = client.hub.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        )
-        assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_change_user_role(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_change_user_role(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_change_user_role(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.change_user_role(
-                firebase_id="firebase_id",
-                hub_id="",
-                role="owner",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            client.hub.with_raw_response.change_user_role(
-                firebase_id="",
-                hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                role="owner",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     def test_method_create_heading_styling(self, client: Morta) -> None:
         hub = client.hub.create_heading_styling(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -402,7 +339,25 @@ class TestHub:
     def test_method_create_knowledge_base(self, client: Morta) -> None:
         hub = client.hub.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
+        )
+        assert hub is None
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_knowledge_base_with_all_params(self, client: Morta) -> None:
+        hub = client.hub.create_knowledge_base(
+            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source="source",
+            text="text",
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            link="link",
         )
         assert hub is None
 
@@ -411,7 +366,8 @@ class TestHub:
     def test_raw_response_create_knowledge_base(self, client: Morta) -> None:
         response = client.hub.with_raw_response.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
         )
 
         assert response.is_closed is True
@@ -424,7 +380,8 @@ class TestHub:
     def test_streaming_response_create_knowledge_base(self, client: Morta) -> None:
         with client.hub.with_streaming_response.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -440,7 +397,8 @@ class TestHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             client.hub.with_raw_response.create_knowledge_base(
                 hub_id="",
-                body={},
+                source="source",
+                text="text",
             )
 
     @pytest.mark.skip()
@@ -587,132 +545,6 @@ class TestHub:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_get_deleted_documents(self, client: Morta) -> None:
-        hub = client.hub.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_get_deleted_documents(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_get_deleted_documents(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_get_deleted_documents(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.get_deleted_documents(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_get_deleted_tables(self, client: Morta) -> None:
-        hub = client.hub.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_get_deleted_tables(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_get_deleted_tables(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_get_deleted_tables(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.get_deleted_tables(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_get_documents(self, client: Morta) -> None:
-        hub = client.hub.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_get_documents(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_get_documents(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_get_documents(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.get_documents(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     def test_method_get_duplicated_children(self, client: Morta) -> None:
         hub = client.hub.get_duplicated_children(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -750,48 +582,6 @@ class TestHub:
     def test_path_params_get_duplicated_children(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             client.hub.with_raw_response.get_duplicated_children(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_method_get_invited_members(self, client: Morta) -> None:
-        hub = client.hub.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_get_invited_members(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_get_invited_members(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_get_invited_members(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.get_invited_members(
                 "",
             )
 
@@ -1212,58 +1002,6 @@ class TestHub:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_remove_user(self, client: Morta) -> None:
-        hub = client.hub.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_raw_response_remove_user(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_streaming_response_remove_user(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    def test_path_params_remove_user(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.remove_user(
-                firebase_id="firebase_id",
-                hub_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            client.hub.with_raw_response.remove_user(
-                firebase_id="",
-                hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     def test_method_request_contributor_access(self, client: Morta) -> None:
         hub = client.hub.request_contributor_access(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1448,9 +1186,8 @@ class TestHub:
     @parametrize
     def test_method_set_column_format(self, client: Morta) -> None:
         hub = client.hub.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         )
         assert hub is None
 
@@ -1458,9 +1195,8 @@ class TestHub:
     @parametrize
     def test_raw_response_set_column_format(self, client: Morta) -> None:
         response = client.hub.with_raw_response.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         )
 
         assert response.is_closed is True
@@ -1472,9 +1208,8 @@ class TestHub:
     @parametrize
     def test_streaming_response_set_column_format(self, client: Morta) -> None:
         with client.hub.with_streaming_response.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1489,16 +1224,14 @@ class TestHub:
     def test_path_params_set_column_format(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             client.hub.with_raw_response.set_column_format(
-                path_kind="kind",
+                kind="kind",
                 hub_id="",
-                body_kind="kind",
             )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_kind` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
             client.hub.with_raw_response.set_column_format(
-                path_kind="",
+                kind="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body_kind="kind",
             )
 
     @pytest.mark.skip()
@@ -1928,63 +1661,6 @@ class TestAsyncHub:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_change_user_role(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        )
-        assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_change_user_role(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_change_user_role(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.change_user_role(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_change_user_role(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.change_user_role(
-                firebase_id="firebase_id",
-                hub_id="",
-                role="owner",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            await async_client.hub.with_raw_response.change_user_role(
-                firebase_id="",
-                hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                role="owner",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     async def test_method_create_heading_styling(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.create_heading_styling(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2030,7 +1706,25 @@ class TestAsyncHub:
     async def test_method_create_knowledge_base(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
+        )
+        assert hub is None
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_knowledge_base_with_all_params(self, async_client: AsyncMorta) -> None:
+        hub = await async_client.hub.create_knowledge_base(
+            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source="source",
+            text="text",
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            link="link",
         )
         assert hub is None
 
@@ -2039,7 +1733,8 @@ class TestAsyncHub:
     async def test_raw_response_create_knowledge_base(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.with_raw_response.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
         )
 
         assert response.is_closed is True
@@ -2052,7 +1747,8 @@ class TestAsyncHub:
     async def test_streaming_response_create_knowledge_base(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.with_streaming_response.create_knowledge_base(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            source="source",
+            text="text",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -2068,7 +1764,8 @@ class TestAsyncHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             await async_client.hub.with_raw_response.create_knowledge_base(
                 hub_id="",
-                body={},
+                source="source",
+                text="text",
             )
 
     @pytest.mark.skip()
@@ -2215,132 +1912,6 @@ class TestAsyncHub:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_get_deleted_documents(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_get_deleted_documents(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_get_deleted_documents(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.get_deleted_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubGetDeletedDocumentsResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_get_deleted_documents(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.get_deleted_documents(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_get_deleted_tables(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_get_deleted_tables(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_get_deleted_tables(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.get_deleted_tables(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubGetDeletedTablesResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_get_deleted_tables(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.get_deleted_tables(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_get_documents(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_get_documents(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_get_documents(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.get_documents(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubGetDocumentsResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_get_documents(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.get_documents(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     async def test_method_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.get_duplicated_children(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2378,48 +1949,6 @@ class TestAsyncHub:
     async def test_path_params_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             await async_client.hub.with_raw_response.get_duplicated_children(
-                "",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_method_get_invited_members(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_get_invited_members(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_get_invited_members(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.get_invited_members(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubGetInvitedMembersResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_get_invited_members(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.get_invited_members(
                 "",
             )
 
@@ -2840,58 +2369,6 @@ class TestAsyncHub:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_remove_user(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_raw_response_remove_user(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_streaming_response_remove_user(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.remove_user(
-            firebase_id="firebase_id",
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubRemoveUserResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip()
-    @parametrize
-    async def test_path_params_remove_user(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.remove_user(
-                firebase_id="firebase_id",
-                hub_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
-            await async_client.hub.with_raw_response.remove_user(
-                firebase_id="",
-                hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @pytest.mark.skip()
-    @parametrize
     async def test_method_request_contributor_access(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.request_contributor_access(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3076,9 +2553,8 @@ class TestAsyncHub:
     @parametrize
     async def test_method_set_column_format(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         )
         assert hub is None
 
@@ -3086,9 +2562,8 @@ class TestAsyncHub:
     @parametrize
     async def test_raw_response_set_column_format(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.with_raw_response.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         )
 
         assert response.is_closed is True
@@ -3100,9 +2575,8 @@ class TestAsyncHub:
     @parametrize
     async def test_streaming_response_set_column_format(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.with_streaming_response.set_column_format(
-            path_kind="kind",
+            kind="kind",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_kind="kind",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -3117,16 +2591,14 @@ class TestAsyncHub:
     async def test_path_params_set_column_format(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             await async_client.hub.with_raw_response.set_column_format(
-                path_kind="kind",
+                kind="kind",
                 hub_id="",
-                body_kind="kind",
             )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_kind` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `kind` but received ''"):
             await async_client.hub.with_raw_response.set_column_format(
-                path_kind="",
+                kind="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body_kind="kind",
             )
 
     @pytest.mark.skip()

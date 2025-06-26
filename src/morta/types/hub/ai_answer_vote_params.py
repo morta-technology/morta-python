@@ -10,4 +10,6 @@ __all__ = ["AIAnswerVoteParams"]
 class AIAnswerVoteParams(TypedDict, total=False):
     hub_id: Required[str]
 
-    body: Required[object]
+    comment: str
+
+    vote: bool

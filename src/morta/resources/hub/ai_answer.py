@@ -46,7 +46,8 @@ class AIAnswerResource(SyncAPIResource):
         answer_id: str,
         *,
         hub_id: str,
-        body: object,
+        comment: str | NotGiven = NOT_GIVEN,
+        vote: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,7 +74,13 @@ class AIAnswerResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `answer_id` but received {answer_id!r}")
         return self._post(
             f"/v1/hub/{hub_id}/ai-answer/{answer_id}/vote",
-            body=maybe_transform(body, ai_answer_vote_params.AIAnswerVoteParams),
+            body=maybe_transform(
+                {
+                    "comment": comment,
+                    "vote": vote,
+                },
+                ai_answer_vote_params.AIAnswerVoteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -106,7 +113,8 @@ class AsyncAIAnswerResource(AsyncAPIResource):
         answer_id: str,
         *,
         hub_id: str,
-        body: object,
+        comment: str | NotGiven = NOT_GIVEN,
+        vote: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -133,7 +141,13 @@ class AsyncAIAnswerResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `answer_id` but received {answer_id!r}")
         return await self._post(
             f"/v1/hub/{hub_id}/ai-answer/{answer_id}/vote",
-            body=await async_maybe_transform(body, ai_answer_vote_params.AIAnswerVoteParams),
+            body=await async_maybe_transform(
+                {
+                    "comment": comment,
+                    "vote": vote,
+                },
+                ai_answer_vote_params.AIAnswerVoteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

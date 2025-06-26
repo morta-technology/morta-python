@@ -124,7 +124,9 @@ class TestTags:
     def test_method_bulk_apply(self, client: Morta) -> None:
         tag = client.user.tags.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         )
         assert_matches_type(TagBulkApplyResponse, tag, path=["response"])
 
@@ -133,7 +135,9 @@ class TestTags:
     def test_raw_response_bulk_apply(self, client: Morta) -> None:
         response = client.user.tags.with_raw_response.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -146,7 +150,9 @@ class TestTags:
     def test_streaming_response_bulk_apply(self, client: Morta) -> None:
         with client.user.tags.with_streaming_response.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -162,7 +168,9 @@ class TestTags:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             client.user.tags.with_raw_response.bulk_apply(
                 user_id="",
-                body={},
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                tag_reference_ids=["string"],
             )
 
 
@@ -274,7 +282,9 @@ class TestAsyncTags:
     async def test_method_bulk_apply(self, async_client: AsyncMorta) -> None:
         tag = await async_client.user.tags.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         )
         assert_matches_type(TagBulkApplyResponse, tag, path=["response"])
 
@@ -283,7 +293,9 @@ class TestAsyncTags:
     async def test_raw_response_bulk_apply(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.tags.with_raw_response.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -296,7 +308,9 @@ class TestAsyncTags:
     async def test_streaming_response_bulk_apply(self, async_client: AsyncMorta) -> None:
         async with async_client.user.tags.with_streaming_response.bulk_apply(
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body={},
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            tag_reference_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -312,5 +326,7 @@ class TestAsyncTags:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `user_id` but received ''"):
             await async_client.user.tags.with_raw_response.bulk_apply(
                 user_id="",
-                body={},
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                tag_reference_ids=["string"],
             )
