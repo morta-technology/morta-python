@@ -24,7 +24,7 @@ from pydantic import ValidationError
 from morta import Morta, AsyncMorta, APIResponseValidationError
 from morta._types import Omit
 from morta._models import BaseModel, FinalRequestOptions
-from morta._exceptions import MortaError, APIStatusError, APITimeoutError, APIResponseValidationError
+from morta._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from morta._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -333,16 +333,6 @@ class TestMorta:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = Morta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == api_key
-
-        with pytest.raises(MortaError):
-            with update_env(**{"MORTA_API_KEY": Omit()}):
-                client2 = Morta(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Morta(
@@ -1132,16 +1122,6 @@ class TestAsyncMorta:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncMorta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == api_key
-
-        with pytest.raises(MortaError):
-            with update_env(**{"MORTA_API_KEY": Omit()}):
-                client2 = AsyncMorta(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncMorta(

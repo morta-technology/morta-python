@@ -24,33 +24,26 @@ pip install morta
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from morta import Morta
 
 client = Morta(
-    api_key=os.environ.get("MORTA_API_KEY"),  # This is the default and can be omitted
+    api_key="My API Key",
 )
 
 response = client.user.retrieve_me()
 print(response.data)
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `MORTA_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
-
 ## Async usage
 
 Simply import `AsyncMorta` instead of `Morta` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from morta import AsyncMorta
 
 client = AsyncMorta(
-    api_key=os.environ.get("MORTA_API_KEY"),  # This is the default and can be omitted
+    api_key="My API Key",
 )
 
 
@@ -78,7 +71,6 @@ pip install morta[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from morta import DefaultAioHttpClient
 from morta import AsyncMorta
@@ -86,7 +78,7 @@ from morta import AsyncMorta
 
 async def main() -> None:
     async with AsyncMorta(
-        api_key=os.environ.get("MORTA_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.user.retrieve_me()
@@ -112,7 +104,9 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 ```python
 from morta import Morta
 
-client = Morta()
+client = Morta(
+    api_key="My API Key",
+)
 
 client.hub.create_knowledge_base(
     hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -130,7 +124,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 from pathlib import Path
 from morta import Morta
 
-client = Morta()
+client = Morta(
+    api_key="My API Key",
+)
 
 client.hub.upload_template(
     hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -153,7 +149,9 @@ All errors inherit from `morta.APIError`.
 import morta
 from morta import Morta
 
-client = Morta()
+client = Morta(
+    api_key="My API Key",
+)
 
 try:
     client.user.retrieve_me()
@@ -194,6 +192,7 @@ from morta import Morta
 
 # Configure the default for all requests:
 client = Morta(
+    api_key="My API Key",
     # default is 2
     max_retries=0,
 )
@@ -212,12 +211,14 @@ from morta import Morta
 
 # Configure the default for all requests:
 client = Morta(
+    api_key="My API Key",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
 client = Morta(
+    api_key="My API Key",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -262,7 +263,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from morta import Morta
 
-client = Morta()
+client = Morta(
+    api_key="My API Key",
+)
 response = client.user.with_raw_response.retrieve_me()
 print(response.headers.get('X-My-Header'))
 
@@ -337,6 +340,7 @@ import httpx
 from morta import Morta, DefaultHttpxClient
 
 client = Morta(
+    api_key="My API Key",
     # Or use the `MORTA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -359,7 +363,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from morta import Morta
 
-with Morta() as client:
+with Morta(
+    api_key="My API Key",
+) as client:
   # make requests here
   ...
 
