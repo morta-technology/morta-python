@@ -50,6 +50,7 @@ from ...types import (
     table_create_index_params,
     table_download_csv_params,
     table_update_cells_params,
+    table_get_csv_backup_params,
     table_get_statistics_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
@@ -562,6 +563,7 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
+        date: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -573,6 +575,8 @@ class TableResource(SyncAPIResource):
         Get a CSV backup of a table at a specific date
 
         Args:
+          date: The date of the backup to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -587,7 +591,11 @@ class TableResource(SyncAPIResource):
         return self._get(
             f"/v1/table/{table_id}/csv-backup",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
             cast_to=BinaryAPIResponse,
         )
@@ -1419,6 +1427,7 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
+        date: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1430,6 +1439,8 @@ class AsyncTableResource(AsyncAPIResource):
         Get a CSV backup of a table at a specific date
 
         Args:
+          date: The date of the backup to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1444,7 +1455,11 @@ class AsyncTableResource(AsyncAPIResource):
         return await self._get(
             f"/v1/table/{table_id}/csv-backup",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
             cast_to=AsyncBinaryAPIResponse,
         )
