@@ -642,7 +642,8 @@ class TestTable:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         table = client.table.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         )
         assert table.is_closed
         assert table.json() == {"foo": "bar"}
@@ -658,7 +659,8 @@ class TestTable:
         )
 
         table = client.table.with_raw_response.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         )
 
         assert table.is_closed is True
@@ -674,7 +676,8 @@ class TestTable:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         with client.table.with_streaming_response.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         ) as table:
             assert not table.is_closed
             assert table.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -691,7 +694,8 @@ class TestTable:
     def test_path_params_get_csv_backup(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             client.table.with_raw_response.get_csv_backup(
-                "",
+                table_id="",
+                date="date",
             )
 
     @pytest.mark.skip()
@@ -1806,7 +1810,8 @@ class TestAsyncTable:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         table = await async_client.table.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         )
         assert table.is_closed
         assert await table.json() == {"foo": "bar"}
@@ -1822,7 +1827,8 @@ class TestAsyncTable:
         )
 
         table = await async_client.table.with_raw_response.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         )
 
         assert table.is_closed is True
@@ -1838,7 +1844,8 @@ class TestAsyncTable:
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         async with async_client.table.with_streaming_response.get_csv_backup(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            date="date",
         ) as table:
             assert not table.is_closed
             assert table.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1855,7 +1862,8 @@ class TestAsyncTable:
     async def test_path_params_get_csv_backup(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             await async_client.table.with_raw_response.get_csv_backup(
-                "",
+                table_id="",
+                date="date",
             )
 
     @pytest.mark.skip()
