@@ -114,14 +114,31 @@ from morta import Morta
 
 client = Morta()
 
-table = client.table.create(
-    columns=[{}],
-    name="name",
-    project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+client.hub.create_knowledge_base(
+    hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    source="source",
+    text="text",
     context={},
 )
-print(table.context)
 ```
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from morta import Morta
+
+client = Morta()
+
+client.hub.upload_template(
+    hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    file=Path("/path/to/file"),
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
