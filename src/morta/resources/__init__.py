@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .hub import (
+    HubResource,
+    AsyncHubResource,
+    HubResourceWithRawResponse,
+    AsyncHubResourceWithRawResponse,
+    HubResourceWithStreamingResponse,
+    AsyncHubResourceWithStreamingResponse,
+)
 from .user import (
     UserResource,
     AsyncUserResource,
@@ -15,6 +23,14 @@ from .table import (
     AsyncTableResourceWithRawResponse,
     TableResourceWithStreamingResponse,
     AsyncTableResourceWithStreamingResponse,
+)
+from .document import (
+    DocumentResource,
+    AsyncDocumentResource,
+    DocumentResourceWithRawResponse,
+    AsyncDocumentResourceWithRawResponse,
+    DocumentResourceWithStreamingResponse,
+    AsyncDocumentResourceWithStreamingResponse,
 )
 from .permissions import (
     PermissionsResource,
@@ -56,12 +72,24 @@ __all__ = [
     "AsyncUserResourceWithRawResponse",
     "UserResourceWithStreamingResponse",
     "AsyncUserResourceWithStreamingResponse",
+    "HubResource",
+    "AsyncHubResource",
+    "HubResourceWithRawResponse",
+    "AsyncHubResourceWithRawResponse",
+    "HubResourceWithStreamingResponse",
+    "AsyncHubResourceWithStreamingResponse",
     "TableResource",
     "AsyncTableResource",
     "TableResourceWithRawResponse",
     "AsyncTableResourceWithRawResponse",
     "TableResourceWithStreamingResponse",
     "AsyncTableResourceWithStreamingResponse",
+    "DocumentResource",
+    "AsyncDocumentResource",
+    "DocumentResourceWithRawResponse",
+    "AsyncDocumentResourceWithRawResponse",
+    "DocumentResourceWithStreamingResponse",
+    "AsyncDocumentResourceWithStreamingResponse",
     "NotificationsResource",
     "AsyncNotificationsResource",
     "NotificationsResourceWithRawResponse",

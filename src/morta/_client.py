@@ -29,8 +29,10 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.hub import hub
 from .resources.user import user
 from .resources.table import table
+from .resources.document import document
 from .resources.comment_thread import comment_thread
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Morta", "AsyncMorta", "Client", "AsyncClient"]
@@ -38,7 +40,9 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Morta", "A
 
 class Morta(SyncAPIClient):
     user: user.UserResource
+    hub: hub.HubResource
     table: table.TableResource
+    document: document.DocumentResource
     notifications: notifications.NotificationsResource
     comment_thread: comment_thread.CommentThreadResource
     permissions: permissions.PermissionsResource
@@ -101,7 +105,9 @@ class Morta(SyncAPIClient):
         )
 
         self.user = user.UserResource(self)
+        self.hub = hub.HubResource(self)
         self.table = table.TableResource(self)
+        self.document = document.DocumentResource(self)
         self.notifications = notifications.NotificationsResource(self)
         self.comment_thread = comment_thread.CommentThreadResource(self)
         self.permissions = permissions.PermissionsResource(self)
@@ -216,7 +222,9 @@ class Morta(SyncAPIClient):
 
 class AsyncMorta(AsyncAPIClient):
     user: user.AsyncUserResource
+    hub: hub.AsyncHubResource
     table: table.AsyncTableResource
+    document: document.AsyncDocumentResource
     notifications: notifications.AsyncNotificationsResource
     comment_thread: comment_thread.AsyncCommentThreadResource
     permissions: permissions.AsyncPermissionsResource
@@ -279,7 +287,9 @@ class AsyncMorta(AsyncAPIClient):
         )
 
         self.user = user.AsyncUserResource(self)
+        self.hub = hub.AsyncHubResource(self)
         self.table = table.AsyncTableResource(self)
+        self.document = document.AsyncDocumentResource(self)
         self.notifications = notifications.AsyncNotificationsResource(self)
         self.comment_thread = comment_thread.AsyncCommentThreadResource(self)
         self.permissions = permissions.AsyncPermissionsResource(self)
@@ -395,7 +405,9 @@ class AsyncMorta(AsyncAPIClient):
 class MortaWithRawResponse:
     def __init__(self, client: Morta) -> None:
         self.user = user.UserResourceWithRawResponse(client.user)
+        self.hub = hub.HubResourceWithRawResponse(client.hub)
         self.table = table.TableResourceWithRawResponse(client.table)
+        self.document = document.DocumentResourceWithRawResponse(client.document)
         self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
         self.comment_thread = comment_thread.CommentThreadResourceWithRawResponse(client.comment_thread)
         self.permissions = permissions.PermissionsResourceWithRawResponse(client.permissions)
@@ -405,7 +417,9 @@ class MortaWithRawResponse:
 class AsyncMortaWithRawResponse:
     def __init__(self, client: AsyncMorta) -> None:
         self.user = user.AsyncUserResourceWithRawResponse(client.user)
+        self.hub = hub.AsyncHubResourceWithRawResponse(client.hub)
         self.table = table.AsyncTableResourceWithRawResponse(client.table)
+        self.document = document.AsyncDocumentResourceWithRawResponse(client.document)
         self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
         self.comment_thread = comment_thread.AsyncCommentThreadResourceWithRawResponse(client.comment_thread)
         self.permissions = permissions.AsyncPermissionsResourceWithRawResponse(client.permissions)
@@ -415,7 +429,9 @@ class AsyncMortaWithRawResponse:
 class MortaWithStreamedResponse:
     def __init__(self, client: Morta) -> None:
         self.user = user.UserResourceWithStreamingResponse(client.user)
+        self.hub = hub.HubResourceWithStreamingResponse(client.hub)
         self.table = table.TableResourceWithStreamingResponse(client.table)
+        self.document = document.DocumentResourceWithStreamingResponse(client.document)
         self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
         self.comment_thread = comment_thread.CommentThreadResourceWithStreamingResponse(client.comment_thread)
         self.permissions = permissions.PermissionsResourceWithStreamingResponse(client.permissions)
@@ -425,7 +441,9 @@ class MortaWithStreamedResponse:
 class AsyncMortaWithStreamedResponse:
     def __init__(self, client: AsyncMorta) -> None:
         self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
+        self.hub = hub.AsyncHubResourceWithStreamingResponse(client.hub)
         self.table = table.AsyncTableResourceWithStreamingResponse(client.table)
+        self.document = document.AsyncDocumentResourceWithStreamingResponse(client.document)
         self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
         self.comment_thread = comment_thread.AsyncCommentThreadResourceWithStreamingResponse(client.comment_thread)
         self.permissions = permissions.AsyncPermissionsResourceWithStreamingResponse(client.permissions)
