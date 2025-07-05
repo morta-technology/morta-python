@@ -21,27 +21,9 @@ class ColumnAddParams(TypedDict, total=False):
 
     sort_order: Required[Annotated[int, PropertyInfo(alias="sortOrder")]]
 
-    aconex_synced: Annotated[int, PropertyInfo(alias="aconexSynced")]
-
-    aconex_workflows_synced: Annotated[int, PropertyInfo(alias="aconexWorkflowsSynced")]
-
     aggregate: int
 
     alter_options: Annotated[AlterOptions, PropertyInfo(alias="alterOptions")]
-
-    asite_documents_synced: Annotated[int, PropertyInfo(alias="asiteDocumentsSynced")]
-
-    asite_forms_synced: Annotated[int, PropertyInfo(alias="asiteFormsSynced")]
-
-    autodesk_bim360_checklists_synced: Annotated[int, PropertyInfo(alias="autodeskBim360ChecklistsSynced")]
-
-    autodesk_bim360_issues_synced: Annotated[int, PropertyInfo(alias="autodeskBim360IssuesSynced")]
-
-    autodesk_bim360_models_synced: Annotated[int, PropertyInfo(alias="autodeskBim360ModelsSynced")]
-
-    autodesk_bim360_synced: Annotated[int, PropertyInfo(alias="autodeskBim360Synced")]
-
-    autodesk_bim360_users_synced: Annotated[int, PropertyInfo(alias="autodeskBim360UsersSynced")]
 
     context: BaseRequestContextParam
 
@@ -71,6 +53,8 @@ class ColumnAddParams(TypedDict, total=False):
 
     is_joined: Annotated[Optional[bool], PropertyInfo(alias="isJoined")]
 
+    is_synced: Annotated[bool, PropertyInfo(alias="isSynced")]
+
     kind: Literal[
         "text",
         "datetime",
@@ -94,15 +78,9 @@ class ColumnAddParams(TypedDict, total=False):
 
     kind_options: Annotated[SelectOptionsLookupParam, PropertyInfo(alias="kindOptions")]
 
-    morta_synced: Annotated[int, PropertyInfo(alias="mortaSynced")]
-
     name: str
 
-    procore_synced: Annotated[int, PropertyInfo(alias="procoreSynced")]
-
     public_id: Annotated[str, PropertyInfo(alias="publicId")]
-
-    revizto_issues_synced: Annotated[int, PropertyInfo(alias="reviztoIssuesSynced")]
 
     script: Optional[str]
 
@@ -117,10 +95,6 @@ class ColumnAddParams(TypedDict, total=False):
     validation_no_blanks: Annotated[bool, PropertyInfo(alias="validationNoBlanks")]
 
     validation_no_duplicates: Annotated[bool, PropertyInfo(alias="validationNoDuplicates")]
-
-    viewpoint_rfis_synced: Annotated[int, PropertyInfo(alias="viewpointRfisSynced")]
-
-    viewpoint_synced: Annotated[int, PropertyInfo(alias="viewpointSynced")]
 
     width: int
 

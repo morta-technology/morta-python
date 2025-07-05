@@ -320,20 +320,11 @@ class TestViews:
             ],
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -380,6 +371,7 @@ class TestViews:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -398,12 +390,9 @@ class TestViews:
                         },
                     },
                     "locked": True,
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "sort_order": 0,
@@ -412,8 +401,6 @@ class TestViews:
                     "validation_message": "validationMessage",
                     "validation_no_blanks": True,
                     "validation_no_duplicates": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 100,
                 }
             ],
@@ -1399,20 +1386,11 @@ class TestAsyncViews:
             ],
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1459,6 +1437,7 @@ class TestAsyncViews:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -1477,12 +1456,9 @@ class TestAsyncViews:
                         },
                     },
                     "locked": True,
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "sort_order": 0,
@@ -1491,8 +1467,6 @@ class TestAsyncViews:
                     "validation_message": "validationMessage",
                     "validation_no_blanks": True,
                     "validation_no_duplicates": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 100,
                 }
             ],

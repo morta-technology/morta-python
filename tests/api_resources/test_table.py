@@ -58,20 +58,11 @@ class TestTable:
         table = client.table.create(
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "date_format": "dateFormat",
                     "decimal_places": 0,
                     "description": {
@@ -110,6 +101,7 @@ class TestTable:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -127,16 +119,11 @@ class TestTable:
                             "view_id": "viewId",
                         },
                     },
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "thousand_separator": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 0,
                 }
             ],
@@ -1226,20 +1213,11 @@ class TestAsyncTable:
         table = await async_client.table.create(
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "date_format": "dateFormat",
                     "decimal_places": 0,
                     "description": {
@@ -1278,6 +1256,7 @@ class TestAsyncTable:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -1295,16 +1274,11 @@ class TestAsyncTable:
                             "view_id": "viewId",
                         },
                     },
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "thousand_separator": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 0,
                 }
             ],
