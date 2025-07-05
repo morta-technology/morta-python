@@ -102,132 +102,24 @@ Methods:
 Types:
 
 ```python
-from morta.types import (
-    Answer,
-    BaseRequestContext,
-    SimpleHub,
-    UserHub,
-    HubCreateResponse,
-    HubRetrieveResponse,
-    HubUpdateResponse,
-    HubDeleteResponse,
-    HubAISearchResponse,
-    HubChangeUserRoleResponse,
-    HubCreateHeadingStylingResponse,
-    HubDeleteTopHeadingStylingResponse,
-    HubGetAIAnswersResponse,
-    HubGetDeletedDocumentsResponse,
-    HubGetDeletedTablesResponse,
-    HubGetDocumentsResponse,
-    HubGetDuplicatedChildrenResponse,
-    HubGetInvitedMembersResponse,
-    HubGetMembersResponse,
-    HubGetNotificationsResponse,
-    HubGetResourcesResponse,
-    HubGetSentNotificationsResponse,
-    HubGetTablesResponse,
-    HubGetTagsResponse,
-    HubGetVariablesResponse,
-    HubInviteMultipleUsersResponse,
-    HubPermanentlyDeleteResponse,
-    HubRemoveUserResponse,
-    HubRestoreResponse,
-    HubSearchResourcesResponse,
-    HubUpdateHeadingStylingResponse,
-    HubUploadTemplateResponse,
-)
+from morta.types import Answer, BaseRequestContext, SimpleHub, UserHub
 ```
-
-Methods:
-
-- <code title="post /v1/hub">client.hub.<a href="./src/morta/resources/hub/hub.py">create</a>(\*\*<a href="src/morta/types/hub_create_params.py">params</a>) -> <a href="./src/morta/types/hub_create_response.py">HubCreateResponse</a></code>
-- <code title="get /v1/hub/{hub_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">retrieve</a>(hub_id) -> <a href="./src/morta/types/hub_retrieve_response.py">HubRetrieveResponse</a></code>
-- <code title="put /v1/hub/{hub_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">update</a>(hub_id, \*\*<a href="src/morta/types/hub_update_params.py">params</a>) -> <a href="./src/morta/types/hub_update_response.py">HubUpdateResponse</a></code>
-- <code title="delete /v1/hub/{hub_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">delete</a>(hub_id) -> <a href="./src/morta/types/hub_delete_response.py">HubDeleteResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/search-ai">client.hub.<a href="./src/morta/resources/hub/hub.py">ai_search</a>(hub_id, \*\*<a href="src/morta/types/hub_ai_search_params.py">params</a>) -> <a href="./src/morta/types/hub_ai_search_response.py">HubAISearchResponse</a></code>
-- <code title="put /v1/hub/{hub_id}/change-user-role/{firebase_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">change_user_role</a>(firebase_id, \*, hub_id, \*\*<a href="src/morta/types/hub_change_user_role_params.py">params</a>) -> <a href="./src/morta/types/hub_change_user_role_response.py">HubChangeUserRoleResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/add_heading_styling">client.hub.<a href="./src/morta/resources/hub/hub.py">create_heading_styling</a>(hub_id) -> <a href="./src/morta/types/hub_create_heading_styling_response.py">HubCreateHeadingStylingResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/knowledge-base">client.hub.<a href="./src/morta/resources/hub/hub.py">create_knowledge_base</a>(hub_id, \*\*<a href="src/morta/types/hub_create_knowledge_base_params.py">params</a>) -> None</code>
-- <code title="delete /v1/hub/{hub_id}/delete_top_style">client.hub.<a href="./src/morta/resources/hub/hub.py">delete_top_heading_styling</a>(hub_id) -> <a href="./src/morta/types/hub_delete_top_heading_styling_response.py">HubDeleteTopHeadingStylingResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/duplicate">client.hub.<a href="./src/morta/resources/hub/hub.py">duplicate</a>(hub_id, \*\*<a href="src/morta/types/hub_duplicate_params.py">params</a>) -> None</code>
-- <code title="get /v1/hub/{hub_id}/ai-answers">client.hub.<a href="./src/morta/resources/hub/hub.py">get_ai_answers</a>(hub_id) -> <a href="./src/morta/types/hub_get_ai_answers_response.py">HubGetAIAnswersResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/deleted-documents">client.hub.<a href="./src/morta/resources/hub/hub.py">get_deleted_documents</a>(hub_id) -> <a href="./src/morta/types/hub_get_deleted_documents_response.py">HubGetDeletedDocumentsResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/deleted-tables">client.hub.<a href="./src/morta/resources/hub/hub.py">get_deleted_tables</a>(hub_id) -> <a href="./src/morta/types/hub_get_deleted_tables_response.py">HubGetDeletedTablesResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/documents">client.hub.<a href="./src/morta/resources/hub/hub.py">get_documents</a>(hub_id) -> <a href="./src/morta/types/hub_get_documents_response.py">HubGetDocumentsResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/duplicated-children">client.hub.<a href="./src/morta/resources/hub/hub.py">get_duplicated_children</a>(hub_id) -> <a href="./src/morta/types/hub_get_duplicated_children_response.py">HubGetDuplicatedChildrenResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/invited-members">client.hub.<a href="./src/morta/resources/hub/hub.py">get_invited_members</a>(hub_id) -> <a href="./src/morta/types/hub_get_invited_members_response.py">HubGetInvitedMembersResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/members">client.hub.<a href="./src/morta/resources/hub/hub.py">get_members</a>(hub_id) -> <a href="./src/morta/types/hub_get_members_response.py">HubGetMembersResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/notifications">client.hub.<a href="./src/morta/resources/hub/hub.py">get_notifications</a>(hub_id) -> <a href="./src/morta/types/hub_get_notifications_response.py">HubGetNotificationsResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/resources">client.hub.<a href="./src/morta/resources/hub/hub.py">get_resources</a>(hub_id, \*\*<a href="src/morta/types/hub_get_resources_params.py">params</a>) -> <a href="./src/morta/types/hub_get_resources_response.py">HubGetResourcesResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/sent-notifications">client.hub.<a href="./src/morta/resources/hub/hub.py">get_sent_notifications</a>(hub_id, \*\*<a href="src/morta/types/hub_get_sent_notifications_params.py">params</a>) -> <a href="./src/morta/types/hub_get_sent_notifications_response.py">HubGetSentNotificationsResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/tables">client.hub.<a href="./src/morta/resources/hub/hub.py">get_tables</a>(hub_id) -> <a href="./src/morta/types/hub_get_tables_response.py">HubGetTablesResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/tags">client.hub.<a href="./src/morta/resources/hub/hub.py">get_tags</a>(hub_id) -> <a href="./src/morta/types/hub_get_tags_response.py">HubGetTagsResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/variables">client.hub.<a href="./src/morta/resources/hub/hub.py">get_variables</a>(hub_id) -> <a href="./src/morta/types/hub_get_variables_response.py">HubGetVariablesResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/invite-multiple">client.hub.<a href="./src/morta/resources/hub/hub.py">invite_multiple_users</a>(hub_id, \*\*<a href="src/morta/types/hub_invite_multiple_users_params.py">params</a>) -> <a href="./src/morta/types/hub_invite_multiple_users_response.py">HubInviteMultipleUsersResponse</a></code>
-- <code title="delete /v1/hub/{hub_id}/permanent">client.hub.<a href="./src/morta/resources/hub/hub.py">permanently_delete</a>(hub_id) -> <a href="./src/morta/types/hub_permanently_delete_response.py">HubPermanentlyDeleteResponse</a></code>
-- <code title="delete /v1/hub/{hub_id}/remove-user/{firebase_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">remove_user</a>(firebase_id, \*, hub_id) -> <a href="./src/morta/types/hub_remove_user_response.py">HubRemoveUserResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/request-contributor-access">client.hub.<a href="./src/morta/resources/hub/hub.py">request_contributor_access</a>(hub_id) -> None</code>
-- <code title="put /v1/hub/{hub_id}/restore">client.hub.<a href="./src/morta/resources/hub/hub.py">restore</a>(hub_id) -> <a href="./src/morta/types/hub_restore_response.py">HubRestoreResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/search-resources">client.hub.<a href="./src/morta/resources/hub/hub.py">search_resources</a>(hub_id, \*\*<a href="src/morta/types/hub_search_resources_params.py">params</a>) -> <a href="./src/morta/types/hub_search_resources_response.py">HubSearchResourcesResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/set-column-coloring">client.hub.<a href="./src/morta/resources/hub/hub.py">set_column_coloring</a>(hub_id) -> None</code>
-- <code title="post /v1/hub/{hub_id}/set-column-format/{kind}">client.hub.<a href="./src/morta/resources/hub/hub.py">set_column_format</a>(kind, \*, hub_id) -> None</code>
-- <code title="post /v1/hub/{hub_id}/train-knowledge-base">client.hub.<a href="./src/morta/resources/hub/hub.py">train_knowledge_base</a>(hub_id) -> None</code>
-- <code title="post /v1/hub/{hub_id}/style/{style_id}">client.hub.<a href="./src/morta/resources/hub/hub.py">update_heading_styling</a>(style_id, \*, hub_id, \*\*<a href="src/morta/types/hub_update_heading_styling_params.py">params</a>) -> <a href="./src/morta/types/hub_update_heading_styling_response.py">HubUpdateHeadingStylingResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/upload-template">client.hub.<a href="./src/morta/resources/hub/hub.py">upload_template</a>(hub_id, \*\*<a href="src/morta/types/hub_upload_template_params.py">params</a>) -> <a href="./src/morta/types/hub_upload_template_response.py">HubUploadTemplateResponse</a></code>
-
-## AIAnswer
-
-Types:
-
-```python
-from morta.types.hub import AIAnswerVoteResponse
-```
-
-Methods:
-
-- <code title="post /v1/hub/{hub_id}/ai-answer/{answer_id}/vote">client.hub.ai_answer.<a href="./src/morta/resources/hub/ai_answer.py">vote</a>(answer_id, \*, hub_id, \*\*<a href="src/morta/types/hub/ai_answer_vote_params.py">params</a>) -> <a href="./src/morta/types/hub/ai_answer_vote_response.py">AIAnswerVoteResponse</a></code>
 
 ## Invite
 
 Types:
 
 ```python
-from morta.types.hub import (
-    InvitedMember,
-    InviteCreateResponse,
-    InviteUpdateResponse,
-    InviteDeleteResponse,
-    InviteResendResponse,
-)
+from morta.types.hub import InvitedMember
 ```
-
-Methods:
-
-- <code title="post /v1/hub/{hub_id}/invite">client.hub.invite.<a href="./src/morta/resources/hub/invite.py">create</a>(hub_id, \*\*<a href="src/morta/types/hub/invite_create_params.py">params</a>) -> <a href="./src/morta/types/hub/invite_create_response.py">InviteCreateResponse</a></code>
-- <code title="put /v1/hub/{hub_id}/invite/{invite_id}">client.hub.invite.<a href="./src/morta/resources/hub/invite.py">update</a>(invite_id, \*, hub_id, \*\*<a href="src/morta/types/hub/invite_update_params.py">params</a>) -> <a href="./src/morta/types/hub/invite_update_response.py">InviteUpdateResponse</a></code>
-- <code title="delete /v1/hub/{hub_id}/invite/{invite_id}">client.hub.invite.<a href="./src/morta/resources/hub/invite.py">delete</a>(invite_id, \*, hub_id) -> <a href="./src/morta/types/hub/invite_delete_response.py">InviteDeleteResponse</a></code>
-- <code title="post /v1/hub/{hub_id}/invite/{invite_id}">client.hub.invite.<a href="./src/morta/resources/hub/invite.py">resend</a>(invite_id, \*, hub_id) -> <a href="./src/morta/types/hub/invite_resend_response.py">InviteResendResponse</a></code>
 
 ## Secrets
 
 Types:
 
 ```python
-from morta.types.hub import (
-    HubSecret,
-    SecretCreateResponse,
-    SecretUpdateResponse,
-    SecretListResponse,
-    SecretDeleteResponse,
-)
+from morta.types.hub import HubSecret
 ```
-
-Methods:
-
-- <code title="post /v1/hub/{hub_id}/secrets">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">create</a>(hub_id, \*\*<a href="src/morta/types/hub/secret_create_params.py">params</a>) -> <a href="./src/morta/types/hub/secret_create_response.py">SecretCreateResponse</a></code>
-- <code title="put /v1/hub/{hub_id}/secrets/{secret_id}">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">update</a>(secret_id, \*, hub_id, \*\*<a href="src/morta/types/hub/secret_update_params.py">params</a>) -> <a href="./src/morta/types/hub/secret_update_response.py">SecretUpdateResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/secrets">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">list</a>(hub_id) -> <a href="./src/morta/types/hub/secret_list_response.py">SecretListResponse</a></code>
-- <code title="delete /v1/hub/{hub_id}/secrets/{secret_id}">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">delete</a>(secret_id, \*, hub_id) -> <a href="./src/morta/types/hub/secret_delete_response.py">SecretDeleteResponse</a></code>
 
 # Table
 
@@ -475,103 +367,24 @@ from morta.types import (
     MortaDocument,
     MortaDocumentSection,
     SimpleDocument,
-    DocumentCreateResponse,
-    DocumentRetrieveResponse,
-    DocumentUpdateResponse,
-    DocumentDeleteResponse,
-    DocumentCreateMultipleSectionsResponse,
-    DocumentCreateSectionsResponse,
-    DocumentGetDeletedSectionsResponse,
-    DocumentGetDuplicatedChildrenResponse,
-    DocumentRestoreResponse,
-    DocumentSyncTemplateResponse,
-    DocumentUpdateMultipleSectionsResponse,
-    DocumentUpdateSectionOrderResponse,
-    DocumentUpdateViewsPermissionsResponse,
 )
 ```
-
-Methods:
-
-- <code title="post /v1/document">client.document.<a href="./src/morta/resources/document/document.py">create</a>(\*\*<a href="src/morta/types/document_create_params.py">params</a>) -> <a href="./src/morta/types/document_create_response.py">DocumentCreateResponse</a></code>
-- <code title="get /v1/document/{document_id}">client.document.<a href="./src/morta/resources/document/document.py">retrieve</a>(document_id, \*\*<a href="src/morta/types/document_retrieve_params.py">params</a>) -> <a href="./src/morta/types/document_retrieve_response.py">DocumentRetrieveResponse</a></code>
-- <code title="put /v1/document/{document_id}">client.document.<a href="./src/morta/resources/document/document.py">update</a>(document_id, \*\*<a href="src/morta/types/document_update_params.py">params</a>) -> <a href="./src/morta/types/document_update_response.py">DocumentUpdateResponse</a></code>
-- <code title="delete /v1/document/{document_id}">client.document.<a href="./src/morta/resources/document/document.py">delete</a>(document_id) -> <a href="./src/morta/types/document_delete_response.py">DocumentDeleteResponse</a></code>
-- <code title="post /v1/document/{document_id}/multiple-section">client.document.<a href="./src/morta/resources/document/document.py">create_multiple_sections</a>(document_id, \*\*<a href="src/morta/types/document_create_multiple_sections_params.py">params</a>) -> <a href="./src/morta/types/document_create_multiple_sections_response.py">DocumentCreateMultipleSectionsResponse</a></code>
-- <code title="post /v1/document/{document_id}/sections">client.document.<a href="./src/morta/resources/document/document.py">create_sections</a>(document_id, \*\*<a href="src/morta/types/document_create_sections_params.py">params</a>) -> <a href="./src/morta/types/document_create_sections_response.py">DocumentCreateSectionsResponse</a></code>
-- <code title="get /v1/document/{document_id}/export">client.document.<a href="./src/morta/resources/document/document.py">export</a>(document_id, \*\*<a href="src/morta/types/document_export_params.py">params</a>) -> BinaryAPIResponse</code>
-- <code title="get /v1/document/{document_id}/deletedsections">client.document.<a href="./src/morta/resources/document/document.py">get_deleted_sections</a>(document_id, \*\*<a href="src/morta/types/document_get_deleted_sections_params.py">params</a>) -> <a href="./src/morta/types/document_get_deleted_sections_response.py">DocumentGetDeletedSectionsResponse</a></code>
-- <code title="get /v1/document/{document_id}/duplicated-children">client.document.<a href="./src/morta/resources/document/document.py">get_duplicated_children</a>(document_id) -> <a href="./src/morta/types/document_get_duplicated_children_response.py">DocumentGetDuplicatedChildrenResponse</a></code>
-- <code title="put /v1/document/{document_id}/restore">client.document.<a href="./src/morta/resources/document/document.py">restore</a>(document_id) -> <a href="./src/morta/types/document_restore_response.py">DocumentRestoreResponse</a></code>
-- <code title="get /v1/document/{document_id}/sync-template">client.document.<a href="./src/morta/resources/document/document.py">sync_template</a>(document_id) -> <a href="./src/morta/types/document_sync_template_response.py">DocumentSyncTemplateResponse</a></code>
-- <code title="put /v1/document/{document_id}/update-multiple-section">client.document.<a href="./src/morta/resources/document/document.py">update_multiple_sections</a>(document_id, \*\*<a href="src/morta/types/document_update_multiple_sections_params.py">params</a>) -> <a href="./src/morta/types/document_update_multiple_sections_response.py">DocumentUpdateMultipleSectionsResponse</a></code>
-- <code title="put /v1/document/{document_id}/changesectionorder">client.document.<a href="./src/morta/resources/document/document.py">update_section_order</a>(document_id, \*\*<a href="src/morta/types/document_update_section_order_params.py">params</a>) -> <a href="./src/morta/types/document_update_section_order_response.py">DocumentUpdateSectionOrderResponse</a></code>
-- <code title="put /v1/document/sync-views-permissions">client.document.<a href="./src/morta/resources/document/document.py">update_views_permissions</a>(\*\*<a href="src/morta/types/document_update_views_permissions_params.py">params</a>) -> <a href="./src/morta/types/document_update_views_permissions_response.py">DocumentUpdateViewsPermissionsResponse</a></code>
-
-## Duplicate
-
-Types:
-
-```python
-from morta.types.document import DuplicateGlobalResponse
-```
-
-Methods:
-
-- <code title="post /v1/document/{document_id}/duplicate">client.document.duplicate.<a href="./src/morta/resources/document/duplicate.py">duplicate</a>(document_id, \*\*<a href="src/morta/types/document/duplicate_duplicate_params.py">params</a>) -> None</code>
-- <code title="post /v1/document/duplicate">client.document.duplicate.<a href="./src/morta/resources/document/duplicate.py">global\_</a>(\*\*<a href="src/morta/types/document/duplicate_global_params.py">params</a>) -> <a href="./src/morta/types/document/duplicate_global_response.py">DuplicateGlobalResponse</a></code>
 
 ## Section
 
 Types:
 
 ```python
-from morta.types.document import (
-    CreateDocumentSection,
-    SectionCreateResponse,
-    SectionRetrieveResponse,
-    SectionUpdateResponse,
-    SectionDeleteResponse,
-    SectionDuplicateResponse,
-    SectionDuplicateAsyncResponse,
-    SectionRestoreResponse,
-)
+from morta.types.document import CreateDocumentSection
 ```
-
-Methods:
-
-- <code title="post /v1/document/{document_id}/section">client.document.section.<a href="./src/morta/resources/document/section/section.py">create</a>(document_id, \*\*<a href="src/morta/types/document/section_create_params.py">params</a>) -> <a href="./src/morta/types/document/section_create_response.py">SectionCreateResponse</a></code>
-- <code title="get /v1/document/{document_id}/section/{document_section_id}">client.document.section.<a href="./src/morta/resources/document/section/section.py">retrieve</a>(document_section_id, \*, document_id, \*\*<a href="src/morta/types/document/section_retrieve_params.py">params</a>) -> <a href="./src/morta/types/document/section_retrieve_response.py">SectionRetrieveResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}">client.document.section.<a href="./src/morta/resources/document/section/section.py">update</a>(document_section_id, \*, document_id, \*\*<a href="src/morta/types/document/section_update_params.py">params</a>) -> <a href="./src/morta/types/document/section_update_response.py">SectionUpdateResponse</a></code>
-- <code title="delete /v1/document/{document_id}/section/{document_section_id}">client.document.section.<a href="./src/morta/resources/document/section/section.py">delete</a>(document_section_id, \*, document_id) -> <a href="./src/morta/types/document/section_delete_response.py">SectionDeleteResponse</a></code>
-- <code title="post /v1/document/{document_id}/section/{document_section_id}/duplicate">client.document.section.<a href="./src/morta/resources/document/section/section.py">duplicate</a>(document_section_id, \*, document_id) -> <a href="./src/morta/types/document/section_duplicate_response.py">SectionDuplicateResponse</a></code>
-- <code title="post /v1/document/{document_id}/section/{document_section_id}/duplicate-async">client.document.section.<a href="./src/morta/resources/document/section/section.py">duplicate_async</a>(document_section_id, \*, document_id) -> <a href="./src/morta/types/document/section_duplicate_async_response.py">SectionDuplicateAsyncResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}/restore">client.document.section.<a href="./src/morta/resources/document/section/section.py">restore</a>(document_section_id, \*, document_id) -> <a href="./src/morta/types/document/section_restore_response.py">SectionRestoreResponse</a></code>
 
 ### Response
 
 Types:
 
 ```python
-from morta.types.document.section import (
-    DocumentResponse,
-    ResponseCreateResponse,
-    ResponseUpdateResponse,
-    ResponseDeleteResponse,
-    ResponseResetResponse,
-    ResponseRestoreResponse,
-    ResponseSubmitResponse,
-)
+from morta.types.document.section import DocumentResponse
 ```
-
-Methods:
-
-- <code title="post /v1/document/{document_id}/section/{document_section_id}/response">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">create</a>(document_section_id, \*, document_id, \*\*<a href="src/morta/types/document/section/response_create_params.py">params</a>) -> <a href="./src/morta/types/document/section/response_create_response.py">ResponseCreateResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}/response/{document_response_id}">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">update</a>(document_response_id, \*, document_id, document_section_id, \*\*<a href="src/morta/types/document/section/response_update_params.py">params</a>) -> <a href="./src/morta/types/document/section/response_update_response.py">ResponseUpdateResponse</a></code>
-- <code title="delete /v1/document/{document_id}/section/{document_section_id}/response/{document_response_id}">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">delete</a>(document_response_id, \*, document_id, document_section_id) -> <a href="./src/morta/types/document/section/response_delete_response.py">ResponseDeleteResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}/response/{document_response_id}/reset">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">reset</a>(document_response_id, \*, document_id, document_section_id) -> <a href="./src/morta/types/document/section/response_reset_response.py">ResponseResetResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}/response/{document_response_id}/restore">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">restore</a>(document_response_id, \*, document_id, document_section_id) -> <a href="./src/morta/types/document/section/response_restore_response.py">ResponseRestoreResponse</a></code>
-- <code title="put /v1/document/{document_id}/section/{document_section_id}/response/{document_response_id}/submit">client.document.section.response.<a href="./src/morta/resources/document/section/response.py">submit</a>(document_response_id, \*, document_id, document_section_id, \*\*<a href="src/morta/types/document/section/response_submit_params.py">params</a>) -> <a href="./src/morta/types/document/section/response_submit_response.py">ResponseSubmitResponse</a></code>
 
 # Notifications
 

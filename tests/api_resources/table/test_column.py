@@ -37,20 +37,11 @@ class TestColumn:
     def test_method_create_with_all_params(self, client: Morta) -> None:
         column = client.table.column.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -95,6 +86,7 @@ class TestColumn:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -112,16 +104,11 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             thousand_separator=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnCreateResponse, column, path=["response"])
@@ -175,20 +162,11 @@ class TestColumn:
         column = client.table.column.update(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -233,6 +211,7 @@ class TestColumn:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -250,16 +229,11 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             thousand_separator=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
@@ -545,20 +519,11 @@ class TestAsyncColumn:
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.column.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -603,6 +568,7 @@ class TestAsyncColumn:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -620,16 +586,11 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             thousand_separator=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnCreateResponse, column, path=["response"])
@@ -683,20 +644,11 @@ class TestAsyncColumn:
         column = await async_client.table.column.update(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -741,6 +693,7 @@ class TestAsyncColumn:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -758,16 +711,11 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             thousand_separator=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
