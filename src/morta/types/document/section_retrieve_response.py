@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
 
 __all__ = ["SectionRetrieveResponse"]
@@ -17,8 +16,3 @@ class SectionRetrieveResponse(BaseModel):
 
 
 from ..morta_document_section import MortaDocumentSection
-
-if PYDANTIC_V2:
-    SectionRetrieveResponse.model_rebuild()
-else:
-    SectionRetrieveResponse.update_forward_refs()  # type: ignore
