@@ -8,6 +8,7 @@ from datetime import datetime
 from pydantic import Field as FieldInfo
 
 from .draftjs import Draftjs
+from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 from .document.section.document_response import DocumentResponse
 
@@ -42,3 +43,9 @@ class DocumentSection1(BaseModel):
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     responses: Optional[List[DocumentResponse]] = None
+
+
+if PYDANTIC_V2:
+    DocumentSection1.model_rebuild()
+else:
+    DocumentSection1.update_forward_refs()  # type: ignore

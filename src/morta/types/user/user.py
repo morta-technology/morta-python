@@ -9,6 +9,7 @@ from typing_extensions import TypeAlias
 from pydantic import Field as FieldInfo
 
 from .api_key import APIKey
+from ..._compat import PYDANTIC_V2
 from ..._models import BaseModel
 from ..user_hub import UserHub
 
@@ -97,3 +98,9 @@ class User(BaseModel):
     viewpoint_connected: Optional[bool] = FieldInfo(alias="viewpointConnected", default=None)
 
     website: Optional[str] = None
+
+
+if PYDANTIC_V2:
+    User.model_rebuild()
+else:
+    User.update_forward_refs()  # type: ignore
