@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 
 __all__ = ["DocumentRetrieveResponse"]
@@ -16,3 +17,8 @@ class DocumentRetrieveResponse(BaseModel):
 
 
 from .morta_document import MortaDocument
+
+if PYDANTIC_V2:
+    DocumentRetrieveResponse.model_rebuild()
+else:
+    DocumentRetrieveResponse.update_forward_refs()  # type: ignore

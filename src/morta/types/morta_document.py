@@ -7,6 +7,7 @@ from datetime import datetime
 
 from pydantic import Field as FieldInfo
 
+from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 
 __all__ = ["MortaDocument"]
@@ -51,3 +52,8 @@ class MortaDocument(BaseModel):
 
 
 from .document_section_1 import DocumentSection1
+
+if PYDANTIC_V2:
+    MortaDocument.model_rebuild()
+else:
+    MortaDocument.update_forward_refs()  # type: ignore

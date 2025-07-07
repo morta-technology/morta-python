@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 
 __all__ = ["DocumentUpdateSectionOrderResponse"]
@@ -16,3 +17,8 @@ class DocumentUpdateSectionOrderResponse(BaseModel):
 
 
 from .morta_document import MortaDocument
+
+if PYDANTIC_V2:
+    DocumentUpdateSectionOrderResponse.model_rebuild()
+else:
+    DocumentUpdateSectionOrderResponse.update_forward_refs()  # type: ignore
