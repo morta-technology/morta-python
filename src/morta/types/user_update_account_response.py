@@ -8,7 +8,6 @@ from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 from .user_hub import UserHub
 from .user.api_key import APIKey
@@ -131,10 +130,3 @@ class UserUpdateAccountResponse(BaseModel):
 
 
 from .user.user import User
-
-if PYDANTIC_V2:
-    UserUpdateAccountResponse.model_rebuild()
-    Data.model_rebuild()
-else:
-    UserUpdateAccountResponse.update_forward_refs()  # type: ignore
-    Data.update_forward_refs()  # type: ignore
