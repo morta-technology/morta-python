@@ -79,7 +79,6 @@ pip install morta[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from morta import DefaultAioHttpClient
 from morta import AsyncMorta
@@ -87,7 +86,7 @@ from morta import AsyncMorta
 
 async def main() -> None:
     async with AsyncMorta(
-        api_key=os.environ.get("MORTA_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.user.retrieve_me()
