@@ -2,6 +2,26 @@
 
 from __future__ import annotations
 
+from . import (
+    user,
+    document,
+    morta_document,
+    document_section_1,
+    user_create_response,
+    morta_document_section,
+    user_retrieve_response,
+    document_delete_response,
+    document_restore_response,
+    user_retrieve_me_response,
+    document_retrieve_response,
+    user_update_account_response,
+    user_update_profile_response,
+    document_create_sections_response,
+    user_retrieve_by_public_id_response,
+    document_update_section_order_response,
+    document_update_multiple_sections_response,
+)
+from .. import _compat
 from .user import User as User
 from .event import Event as Event
 from .table import Table as Table
@@ -203,3 +223,64 @@ from .document_update_views_permissions_response import (
 from .integration_create_passthrough_download_params import (
     IntegrationCreatePassthroughDownloadParams as IntegrationCreatePassthroughDownloadParams,
 )
+
+# Rebuild cyclical models only after all modules are imported.
+# This ensures that, when building the deferred (due to cyclical references) model schema,
+# Pydantic can resolve the necessary references.
+# See: https://github.com/pydantic/pydantic/issues/11250 for more context.
+if _compat.PYDANTIC_V2:
+    user.user.User.model_rebuild(_parent_namespace_depth=0)
+    user_create_response.UserCreateResponse.model_rebuild(_parent_namespace_depth=0)
+    user_retrieve_response.UserRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
+    user_retrieve_by_public_id_response.UserRetrieveByPublicIDResponse.model_rebuild(_parent_namespace_depth=0)
+    user_retrieve_me_response.UserRetrieveMeResponse.model_rebuild(_parent_namespace_depth=0)
+    user_update_account_response.UserUpdateAccountResponse.model_rebuild(_parent_namespace_depth=0)
+    user_update_profile_response.UserUpdateProfileResponse.model_rebuild(_parent_namespace_depth=0)
+    document_section_1.DocumentSection1.model_rebuild(_parent_namespace_depth=0)
+    morta_document.MortaDocument.model_rebuild(_parent_namespace_depth=0)
+    morta_document_section.MortaDocumentSection.model_rebuild(_parent_namespace_depth=0)
+    document_retrieve_response.DocumentRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
+    document_delete_response.DocumentDeleteResponse.model_rebuild(_parent_namespace_depth=0)
+    document_create_sections_response.DocumentCreateSectionsResponse.model_rebuild(_parent_namespace_depth=0)
+    document_restore_response.DocumentRestoreResponse.model_rebuild(_parent_namespace_depth=0)
+    document_update_multiple_sections_response.DocumentUpdateMultipleSectionsResponse.model_rebuild(
+        _parent_namespace_depth=0
+    )
+    document_update_section_order_response.DocumentUpdateSectionOrderResponse.model_rebuild(_parent_namespace_depth=0)
+    document.duplicate_global_response.DuplicateGlobalResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_create_response.SectionCreateResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_retrieve_response.SectionRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_update_response.SectionUpdateResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_delete_response.SectionDeleteResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_duplicate_response.SectionDuplicateResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section_restore_response.SectionRestoreResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section.response_delete_response.ResponseDeleteResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section.response_reset_response.ResponseResetResponse.model_rebuild(_parent_namespace_depth=0)
+    document.section.response_submit_response.ResponseSubmitResponse.model_rebuild(_parent_namespace_depth=0)
+else:
+    user.user.User.update_forward_refs()  # type: ignore
+    user_create_response.UserCreateResponse.update_forward_refs()  # type: ignore
+    user_retrieve_response.UserRetrieveResponse.update_forward_refs()  # type: ignore
+    user_retrieve_by_public_id_response.UserRetrieveByPublicIDResponse.update_forward_refs()  # type: ignore
+    user_retrieve_me_response.UserRetrieveMeResponse.update_forward_refs()  # type: ignore
+    user_update_account_response.UserUpdateAccountResponse.update_forward_refs()  # type: ignore
+    user_update_profile_response.UserUpdateProfileResponse.update_forward_refs()  # type: ignore
+    document_section_1.DocumentSection1.update_forward_refs()  # type: ignore
+    morta_document.MortaDocument.update_forward_refs()  # type: ignore
+    morta_document_section.MortaDocumentSection.update_forward_refs()  # type: ignore
+    document_retrieve_response.DocumentRetrieveResponse.update_forward_refs()  # type: ignore
+    document_delete_response.DocumentDeleteResponse.update_forward_refs()  # type: ignore
+    document_create_sections_response.DocumentCreateSectionsResponse.update_forward_refs()  # type: ignore
+    document_restore_response.DocumentRestoreResponse.update_forward_refs()  # type: ignore
+    document_update_multiple_sections_response.DocumentUpdateMultipleSectionsResponse.update_forward_refs()  # type: ignore
+    document_update_section_order_response.DocumentUpdateSectionOrderResponse.update_forward_refs()  # type: ignore
+    document.duplicate_global_response.DuplicateGlobalResponse.update_forward_refs()  # type: ignore
+    document.section_create_response.SectionCreateResponse.update_forward_refs()  # type: ignore
+    document.section_retrieve_response.SectionRetrieveResponse.update_forward_refs()  # type: ignore
+    document.section_update_response.SectionUpdateResponse.update_forward_refs()  # type: ignore
+    document.section_delete_response.SectionDeleteResponse.update_forward_refs()  # type: ignore
+    document.section_duplicate_response.SectionDuplicateResponse.update_forward_refs()  # type: ignore
+    document.section_restore_response.SectionRestoreResponse.update_forward_refs()  # type: ignore
+    document.section.response_delete_response.ResponseDeleteResponse.update_forward_refs()  # type: ignore
+    document.section.response_reset_response.ResponseResetResponse.update_forward_refs()  # type: ignore
+    document.section.response_submit_response.ResponseSubmitResponse.update_forward_refs()  # type: ignore
