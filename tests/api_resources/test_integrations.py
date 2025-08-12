@@ -27,7 +27,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestIntegrations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_passthrough(self, client: Morta) -> None:
         integration = client.integrations.create_passthrough(
@@ -37,7 +37,7 @@ class TestIntegrations:
         )
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_passthrough_with_all_params(self, client: Morta) -> None:
         integration = client.integrations.create_passthrough(
@@ -56,7 +56,7 @@ class TestIntegrations:
         )
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_passthrough(self, client: Morta) -> None:
         response = client.integrations.with_raw_response.create_passthrough(
@@ -70,7 +70,7 @@ class TestIntegrations:
         integration = response.parse()
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_passthrough(self, client: Morta) -> None:
         with client.integrations.with_streaming_response.create_passthrough(
@@ -86,7 +86,6 @@ class TestIntegrations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_create_passthrough_download(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -103,7 +102,6 @@ class TestIntegrations:
         assert cast(Any, integration.is_closed) is True
         assert isinstance(integration, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_create_passthrough_download_with_all_params(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -129,7 +127,6 @@ class TestIntegrations:
         assert cast(Any, integration.is_closed) is True
         assert isinstance(integration, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_create_passthrough_download(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -148,7 +145,6 @@ class TestIntegrations:
         assert integration.json() == {"foo": "bar"}
         assert isinstance(integration, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_create_passthrough_download(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -175,7 +171,7 @@ class TestAsyncIntegrations:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_passthrough(self, async_client: AsyncMorta) -> None:
         integration = await async_client.integrations.create_passthrough(
@@ -185,7 +181,7 @@ class TestAsyncIntegrations:
         )
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_passthrough_with_all_params(self, async_client: AsyncMorta) -> None:
         integration = await async_client.integrations.create_passthrough(
@@ -204,7 +200,7 @@ class TestAsyncIntegrations:
         )
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_passthrough(self, async_client: AsyncMorta) -> None:
         response = await async_client.integrations.with_raw_response.create_passthrough(
@@ -218,7 +214,7 @@ class TestAsyncIntegrations:
         integration = await response.parse()
         assert_matches_type(IntegrationCreatePassthroughResponse, integration, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_passthrough(self, async_client: AsyncMorta) -> None:
         async with async_client.integrations.with_streaming_response.create_passthrough(
@@ -234,7 +230,6 @@ class TestAsyncIntegrations:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_create_passthrough_download(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
@@ -251,7 +246,6 @@ class TestAsyncIntegrations:
         assert cast(Any, integration.is_closed) is True
         assert isinstance(integration, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_create_passthrough_download_with_all_params(
@@ -279,7 +273,6 @@ class TestAsyncIntegrations:
         assert cast(Any, integration.is_closed) is True
         assert isinstance(integration, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_create_passthrough_download(
@@ -300,7 +293,6 @@ class TestAsyncIntegrations:
         assert await integration.json() == {"foo": "bar"}
         assert isinstance(integration, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_create_passthrough_download(
