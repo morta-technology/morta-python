@@ -23,7 +23,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPermissions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         permission = client.permissions.create(
@@ -34,7 +34,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         permission = client.permissions.create(
@@ -53,7 +53,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.create(
@@ -68,7 +68,7 @@ class TestPermissions:
         permission = response.parse()
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.create(
@@ -85,7 +85,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Morta) -> None:
         permission = client.permissions.retrieve(
@@ -94,7 +94,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.retrieve(
@@ -107,7 +107,7 @@ class TestPermissions:
         permission = response.parse()
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.retrieve(
@@ -122,7 +122,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         permission = client.permissions.update(
@@ -131,7 +131,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         permission = client.permissions.update(
@@ -146,7 +146,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.update(
@@ -159,7 +159,7 @@ class TestPermissions:
         permission = response.parse()
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.update(
@@ -174,7 +174,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -183,7 +183,7 @@ class TestPermissions:
                 role=0,
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         permission = client.permissions.delete(
@@ -191,7 +191,7 @@ class TestPermissions:
         )
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.delete(
@@ -203,7 +203,7 @@ class TestPermissions:
         permission = response.parse()
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.delete(
@@ -217,7 +217,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -225,7 +225,7 @@ class TestPermissions:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_all(self, client: Morta) -> None:
         permission = client.permissions.create_all(
@@ -236,7 +236,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_all_with_all_params(self, client: Morta) -> None:
         permission = client.permissions.create_all(
@@ -255,7 +255,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_all(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.create_all(
@@ -270,7 +270,7 @@ class TestPermissions:
         permission = response.parse()
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_all(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.create_all(
@@ -287,7 +287,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_request(self, client: Morta) -> None:
         permission = client.permissions.request(
@@ -297,7 +297,7 @@ class TestPermissions:
         )
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_request(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.request(
@@ -311,7 +311,7 @@ class TestPermissions:
         permission = response.parse()
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_request(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.request(
@@ -327,7 +327,7 @@ class TestPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_request(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -344,7 +344,7 @@ class TestPermissions:
                 type="project",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve_tag(self, client: Morta) -> None:
         permission = client.permissions.retrieve_tag(
@@ -352,7 +352,7 @@ class TestPermissions:
         )
         assert_matches_type(PermissionRetrieveTagResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve_tag(self, client: Morta) -> None:
         response = client.permissions.with_raw_response.retrieve_tag(
@@ -364,7 +364,7 @@ class TestPermissions:
         permission = response.parse()
         assert_matches_type(PermissionRetrieveTagResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_tag(self, client: Morta) -> None:
         with client.permissions.with_streaming_response.retrieve_tag(
@@ -384,7 +384,7 @@ class TestAsyncPermissions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.create(
@@ -395,7 +395,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.create(
@@ -414,7 +414,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.create(
@@ -429,7 +429,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert_matches_type(PermissionCreateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.create(
@@ -446,7 +446,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.retrieve(
@@ -455,7 +455,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.retrieve(
@@ -468,7 +468,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.retrieve(
@@ -483,7 +483,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.update(
@@ -492,7 +492,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.update(
@@ -507,7 +507,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.update(
@@ -520,7 +520,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert_matches_type(PermissionUpdateResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.update(
@@ -535,7 +535,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -544,7 +544,7 @@ class TestAsyncPermissions:
                 role=0,
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.delete(
@@ -552,7 +552,7 @@ class TestAsyncPermissions:
         )
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.delete(
@@ -564,7 +564,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.delete(
@@ -578,7 +578,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -586,7 +586,7 @@ class TestAsyncPermissions:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_all(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.create_all(
@@ -597,7 +597,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_all_with_all_params(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.create_all(
@@ -616,7 +616,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_all(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.create_all(
@@ -631,7 +631,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert_matches_type(PermissionCreateAllResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_all(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.create_all(
@@ -648,7 +648,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_request(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.request(
@@ -658,7 +658,7 @@ class TestAsyncPermissions:
         )
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_request(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.request(
@@ -672,7 +672,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert permission is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_request(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.request(
@@ -688,7 +688,7 @@ class TestAsyncPermissions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_request(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -705,7 +705,7 @@ class TestAsyncPermissions:
                 type="project",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve_tag(self, async_client: AsyncMorta) -> None:
         permission = await async_client.permissions.retrieve_tag(
@@ -713,7 +713,7 @@ class TestAsyncPermissions:
         )
         assert_matches_type(PermissionRetrieveTagResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_tag(self, async_client: AsyncMorta) -> None:
         response = await async_client.permissions.with_raw_response.retrieve_tag(
@@ -725,7 +725,7 @@ class TestAsyncPermissions:
         permission = await response.parse()
         assert_matches_type(PermissionRetrieveTagResponse, permission, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_tag(self, async_client: AsyncMorta) -> None:
         async with async_client.permissions.with_streaming_response.retrieve_tag(

@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAIAnswer:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_vote(self, client: Morta) -> None:
         ai_answer = client.hub.ai_answer.vote(
@@ -26,7 +26,7 @@ class TestAIAnswer:
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_vote_with_all_params(self, client: Morta) -> None:
         ai_answer = client.hub.ai_answer.vote(
@@ -37,7 +37,7 @@ class TestAIAnswer:
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_vote(self, client: Morta) -> None:
         response = client.hub.ai_answer.with_raw_response.vote(
@@ -50,7 +50,7 @@ class TestAIAnswer:
         ai_answer = response.parse()
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_vote(self, client: Morta) -> None:
         with client.hub.ai_answer.with_streaming_response.vote(
@@ -65,7 +65,7 @@ class TestAIAnswer:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_vote(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -86,7 +86,7 @@ class TestAsyncAIAnswer:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_vote(self, async_client: AsyncMorta) -> None:
         ai_answer = await async_client.hub.ai_answer.vote(
@@ -95,7 +95,7 @@ class TestAsyncAIAnswer:
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_vote_with_all_params(self, async_client: AsyncMorta) -> None:
         ai_answer = await async_client.hub.ai_answer.vote(
@@ -106,7 +106,7 @@ class TestAsyncAIAnswer:
         )
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_vote(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.ai_answer.with_raw_response.vote(
@@ -119,7 +119,7 @@ class TestAsyncAIAnswer:
         ai_answer = await response.parse()
         assert_matches_type(AIAnswerVoteResponse, ai_answer, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_vote(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.ai_answer.with_streaming_response.vote(
@@ -134,7 +134,7 @@ class TestAsyncAIAnswer:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_vote(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):

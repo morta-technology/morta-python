@@ -22,7 +22,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestInvite:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         invite = client.hub.invite.create(
@@ -31,7 +31,7 @@ class TestInvite:
         )
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         invite = client.hub.invite.create(
@@ -42,7 +42,7 @@ class TestInvite:
         )
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.hub.invite.with_raw_response.create(
@@ -55,7 +55,7 @@ class TestInvite:
         invite = response.parse()
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.hub.invite.with_streaming_response.create(
@@ -70,7 +70,7 @@ class TestInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_create(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -79,7 +79,7 @@ class TestInvite:
                 email="dev@stainless.com",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         invite = client.hub.invite.update(
@@ -88,7 +88,7 @@ class TestInvite:
         )
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         invite = client.hub.invite.update(
@@ -99,7 +99,7 @@ class TestInvite:
         )
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.hub.invite.with_raw_response.update(
@@ -112,7 +112,7 @@ class TestInvite:
         invite = response.parse()
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.hub.invite.with_streaming_response.update(
@@ -127,7 +127,7 @@ class TestInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -142,7 +142,7 @@ class TestInvite:
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         invite = client.hub.invite.delete(
@@ -151,7 +151,7 @@ class TestInvite:
         )
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.hub.invite.with_raw_response.delete(
@@ -164,7 +164,7 @@ class TestInvite:
         invite = response.parse()
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.hub.invite.with_streaming_response.delete(
@@ -179,7 +179,7 @@ class TestInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -194,7 +194,7 @@ class TestInvite:
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_resend(self, client: Morta) -> None:
         invite = client.hub.invite.resend(
@@ -203,7 +203,7 @@ class TestInvite:
         )
         assert_matches_type(InviteResendResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_resend(self, client: Morta) -> None:
         response = client.hub.invite.with_raw_response.resend(
@@ -216,7 +216,7 @@ class TestInvite:
         invite = response.parse()
         assert_matches_type(InviteResendResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_resend(self, client: Morta) -> None:
         with client.hub.invite.with_streaming_response.resend(
@@ -231,7 +231,7 @@ class TestInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_resend(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -252,7 +252,7 @@ class TestAsyncInvite:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.create(
@@ -261,7 +261,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.create(
@@ -272,7 +272,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.invite.with_raw_response.create(
@@ -285,7 +285,7 @@ class TestAsyncInvite:
         invite = await response.parse()
         assert_matches_type(InviteCreateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.invite.with_streaming_response.create(
@@ -300,7 +300,7 @@ class TestAsyncInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -309,7 +309,7 @@ class TestAsyncInvite:
                 email="dev@stainless.com",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.update(
@@ -318,7 +318,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.update(
@@ -329,7 +329,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.invite.with_raw_response.update(
@@ -342,7 +342,7 @@ class TestAsyncInvite:
         invite = await response.parse()
         assert_matches_type(InviteUpdateResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.invite.with_streaming_response.update(
@@ -357,7 +357,7 @@ class TestAsyncInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -372,7 +372,7 @@ class TestAsyncInvite:
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.delete(
@@ -381,7 +381,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.invite.with_raw_response.delete(
@@ -394,7 +394,7 @@ class TestAsyncInvite:
         invite = await response.parse()
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.invite.with_streaming_response.delete(
@@ -409,7 +409,7 @@ class TestAsyncInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
@@ -424,7 +424,7 @@ class TestAsyncInvite:
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_resend(self, async_client: AsyncMorta) -> None:
         invite = await async_client.hub.invite.resend(
@@ -433,7 +433,7 @@ class TestAsyncInvite:
         )
         assert_matches_type(InviteResendResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_resend(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.invite.with_raw_response.resend(
@@ -446,7 +446,7 @@ class TestAsyncInvite:
         invite = await response.parse()
         assert_matches_type(InviteResendResponse, invite, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_resend(self, async_client: AsyncMorta) -> None:
         async with async_client.hub.invite.with_streaming_response.resend(
@@ -461,7 +461,7 @@ class TestAsyncInvite:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_resend(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
