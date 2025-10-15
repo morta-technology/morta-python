@@ -14,7 +14,7 @@ from .response import (
     ResponseResourceWithStreamingResponse,
     AsyncResponseResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -67,16 +67,16 @@ class SectionResource(SyncAPIResource):
         document_id: str,
         *,
         name: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: section_create_params.Description | NotGiven = NOT_GIVEN,
-        parent_id: Optional[str] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        description: section_create_params.Description | Omit = omit,
+        parent_id: Optional[str] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionCreateResponse:
         """
         Create a new section within a specified document, with an option to set a parent
@@ -116,13 +116,13 @@ class SectionResource(SyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        main_parent_section: bool | NotGiven = NOT_GIVEN,
+        main_parent_section: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionRetrieveResponse:
         """
         Retrieve a specific Document section.
@@ -163,19 +163,19 @@ class SectionResource(SyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: section_update_params.Description | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        page_break_before: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_description: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_section: Optional[bool] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        description: section_update_params.Description | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        page_break_before: Optional[bool] | Omit = omit,
+        pdf_include_description: Optional[bool] | Omit = omit,
+        pdf_include_section: Optional[bool] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionUpdateResponse:
         """
         Update an existing document section's details by document section ID
@@ -225,7 +225,7 @@ class SectionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDeleteResponse:
         """
         Delete a specific document section.
@@ -263,7 +263,7 @@ class SectionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDuplicateResponse:
         """
         Duplicate a specific document section.
@@ -301,7 +301,7 @@ class SectionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDuplicateAsyncResponse:
         """
         Duplicate a specific document section asynchronously.
@@ -339,7 +339,7 @@ class SectionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionRestoreResponse:
         """
         Restore a previously deleted document section.
@@ -397,16 +397,16 @@ class AsyncSectionResource(AsyncAPIResource):
         document_id: str,
         *,
         name: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: section_create_params.Description | NotGiven = NOT_GIVEN,
-        parent_id: Optional[str] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        description: section_create_params.Description | Omit = omit,
+        parent_id: Optional[str] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionCreateResponse:
         """
         Create a new section within a specified document, with an option to set a parent
@@ -446,13 +446,13 @@ class AsyncSectionResource(AsyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        main_parent_section: bool | NotGiven = NOT_GIVEN,
+        main_parent_section: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionRetrieveResponse:
         """
         Retrieve a specific Document section.
@@ -493,19 +493,19 @@ class AsyncSectionResource(AsyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: section_update_params.Description | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        page_break_before: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_description: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_section: Optional[bool] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        description: section_update_params.Description | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        page_break_before: Optional[bool] | Omit = omit,
+        pdf_include_description: Optional[bool] | Omit = omit,
+        pdf_include_section: Optional[bool] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionUpdateResponse:
         """
         Update an existing document section's details by document section ID
@@ -555,7 +555,7 @@ class AsyncSectionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDeleteResponse:
         """
         Delete a specific document section.
@@ -593,7 +593,7 @@ class AsyncSectionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDuplicateResponse:
         """
         Duplicate a specific document section.
@@ -631,7 +631,7 @@ class AsyncSectionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionDuplicateAsyncResponse:
         """
         Duplicate a specific document section asynchronously.
@@ -669,7 +669,7 @@ class AsyncSectionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SectionRestoreResponse:
         """
         Restore a previously deleted document section.

@@ -2,20 +2,21 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["TableRetrieveParams"]
 
 
 class TableRetrieveParams(TypedDict, total=False):
-    columns: List[str]
+    columns: SequenceNotStr[str]
     """Specific columns to include in the response"""
 
-    distinct_columns: List[str]
+    distinct_columns: SequenceNotStr[str]
     """Columns to apply distinct filtering"""
 
     filter: str

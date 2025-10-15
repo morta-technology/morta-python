@@ -19,7 +19,7 @@ from .comment import (
     CommentResourceWithStreamingResponse,
     AsyncCommentResourceWithStreamingResponse,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -72,14 +72,14 @@ class CommentThreadResource(SyncAPIResource):
         comment_text: str,
         reference_id: str,
         reference_type: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        main_reference_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        main_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadCreateResponse:
         """
         Create a new comment thread
@@ -120,7 +120,7 @@ class CommentThreadResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadRetrieveResponse:
         """
         Retrieve a specific comment thread by its ID
@@ -149,13 +149,13 @@ class CommentThreadResource(SyncAPIResource):
         *,
         reference_id: str,
         reference_type: Literal["process_section", "table", "table_view"],
-        main_reference: str | NotGiven = NOT_GIVEN,
+        main_reference: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadListResponse:
         """
         Retrieve all comment threads associated with a specific reference
@@ -204,7 +204,7 @@ class CommentThreadResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadDeleteResponse:
         """
         Delete a comment thread
@@ -232,13 +232,13 @@ class CommentThreadResource(SyncAPIResource):
         self,
         *,
         reference_type: Literal["process_section", "table", "table_view"],
-        main_reference_id: str | NotGiven = NOT_GIVEN,
+        main_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadGetStatsResponse:
         """
         Retrieve statistics for comment threads based on reference type and main
@@ -285,7 +285,7 @@ class CommentThreadResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadReopenResponse:
         """
         Reopen a previously resolved comment thread
@@ -318,7 +318,7 @@ class CommentThreadResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadResolveResponse:
         """
         Resolve a comment thread
@@ -373,14 +373,14 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         comment_text: str,
         reference_id: str,
         reference_type: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        main_reference_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        main_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadCreateResponse:
         """
         Create a new comment thread
@@ -421,7 +421,7 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadRetrieveResponse:
         """
         Retrieve a specific comment thread by its ID
@@ -450,13 +450,13 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         *,
         reference_id: str,
         reference_type: Literal["process_section", "table", "table_view"],
-        main_reference: str | NotGiven = NOT_GIVEN,
+        main_reference: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadListResponse:
         """
         Retrieve all comment threads associated with a specific reference
@@ -505,7 +505,7 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadDeleteResponse:
         """
         Delete a comment thread
@@ -533,13 +533,13 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         self,
         *,
         reference_type: Literal["process_section", "table", "table_view"],
-        main_reference_id: str | NotGiven = NOT_GIVEN,
+        main_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadGetStatsResponse:
         """
         Retrieve statistics for comment threads based on reference type and main
@@ -586,7 +586,7 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadReopenResponse:
         """
         Reopen a previously resolved comment thread
@@ -619,7 +619,7 @@ class AsyncCommentThreadResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommentThreadResolveResponse:
         """
         Resolve a comment thread

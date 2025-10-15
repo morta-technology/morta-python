@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .draftjs_param import DraftjsParam
 from .base_request_context_param import BaseRequestContextParam
@@ -33,7 +34,7 @@ class DocumentUpdateParams(TypedDict, total=False):
 
     type: Optional[str]
 
-    variables: Optional[List[str]]
+    variables: Optional[SequenceNotStr[str]]
 
 
 Description: TypeAlias = Union[DraftjsParam, Optional[object]]

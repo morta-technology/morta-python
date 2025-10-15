@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -59,21 +59,21 @@ class ColumnResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        aggregate: int | NotGiven = NOT_GIVEN,
-        alter_options: column_create_params.AlterOptions | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        decimal_places: int | NotGiven = NOT_GIVEN,
-        description: column_create_params.Description | NotGiven = NOT_GIVEN,
-        display_link: bool | NotGiven = NOT_GIVEN,
-        export_width: Optional[int] | NotGiven = NOT_GIVEN,
-        formula: Optional[str] | NotGiven = NOT_GIVEN,
-        formula_enabled: bool | NotGiven = NOT_GIVEN,
-        header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        is_indexed: bool | NotGiven = NOT_GIVEN,
-        is_joined: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_synced: bool | NotGiven = NOT_GIVEN,
+        aggregate: int | Omit = omit,
+        alter_options: column_create_params.AlterOptions | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        date_format: Optional[str] | Omit = omit,
+        decimal_places: int | Omit = omit,
+        description: column_create_params.Description | Omit = omit,
+        display_link: bool | Omit = omit,
+        export_width: Optional[int] | Omit = omit,
+        formula: Optional[str] | Omit = omit,
+        formula_enabled: bool | Omit = omit,
+        header_background_color: Optional[str] | Omit = omit,
+        header_text_color: Optional[str] | Omit = omit,
+        is_indexed: bool | Omit = omit,
+        is_joined: Optional[bool] | Omit = omit,
+        is_synced: bool | Omit = omit,
         kind: Literal[
             "text",
             "datetime",
@@ -94,20 +94,20 @@ class ColumnResource(SyncAPIResource):
             "checkbox",
             "duration",
         ]
-        | NotGiven = NOT_GIVEN,
-        kind_options: SelectOptionsLookupParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        public_id: str | NotGiven = NOT_GIVEN,
-        script: Optional[str] | NotGiven = NOT_GIVEN,
-        script_enabled: bool | NotGiven = NOT_GIVEN,
-        thousand_separator: bool | NotGiven = NOT_GIVEN,
-        width: int | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        kind_options: SelectOptionsLookupParam | Omit = omit,
+        name: str | Omit = omit,
+        public_id: str | Omit = omit,
+        script: Optional[str] | Omit = omit,
+        script_enabled: bool | Omit = omit,
+        thousand_separator: bool | Omit = omit,
+        width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnCreateResponse:
         """
         Add a new column to an existing table.
@@ -164,21 +164,21 @@ class ColumnResource(SyncAPIResource):
         column_id: str,
         *,
         table_id: str,
-        aggregate: int | NotGiven = NOT_GIVEN,
-        alter_options: column_update_params.AlterOptions | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        decimal_places: int | NotGiven = NOT_GIVEN,
-        description: column_update_params.Description | NotGiven = NOT_GIVEN,
-        display_link: bool | NotGiven = NOT_GIVEN,
-        export_width: Optional[int] | NotGiven = NOT_GIVEN,
-        formula: Optional[str] | NotGiven = NOT_GIVEN,
-        formula_enabled: bool | NotGiven = NOT_GIVEN,
-        header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        is_indexed: bool | NotGiven = NOT_GIVEN,
-        is_joined: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_synced: bool | NotGiven = NOT_GIVEN,
+        aggregate: int | Omit = omit,
+        alter_options: column_update_params.AlterOptions | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        date_format: Optional[str] | Omit = omit,
+        decimal_places: int | Omit = omit,
+        description: column_update_params.Description | Omit = omit,
+        display_link: bool | Omit = omit,
+        export_width: Optional[int] | Omit = omit,
+        formula: Optional[str] | Omit = omit,
+        formula_enabled: bool | Omit = omit,
+        header_background_color: Optional[str] | Omit = omit,
+        header_text_color: Optional[str] | Omit = omit,
+        is_indexed: bool | Omit = omit,
+        is_joined: Optional[bool] | Omit = omit,
+        is_synced: bool | Omit = omit,
         kind: Literal[
             "text",
             "datetime",
@@ -199,20 +199,20 @@ class ColumnResource(SyncAPIResource):
             "checkbox",
             "duration",
         ]
-        | NotGiven = NOT_GIVEN,
-        kind_options: SelectOptionsLookupParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        public_id: str | NotGiven = NOT_GIVEN,
-        script: Optional[str] | NotGiven = NOT_GIVEN,
-        script_enabled: bool | NotGiven = NOT_GIVEN,
-        thousand_separator: bool | NotGiven = NOT_GIVEN,
-        width: int | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        kind_options: SelectOptionsLookupParam | Omit = omit,
+        name: str | Omit = omit,
+        public_id: str | Omit = omit,
+        script: Optional[str] | Omit = omit,
+        script_enabled: bool | Omit = omit,
+        thousand_separator: bool | Omit = omit,
+        width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnUpdateResponse:
         """
         Update the properties of a specific column in a table.
@@ -276,7 +276,7 @@ class ColumnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnDeleteResponse:
         """
         Delete a specific column from a table.
@@ -312,7 +312,7 @@ class ColumnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnCheckViewsResponse:
         """
         Retrieve all views in which a specific table column is used.
@@ -343,14 +343,14 @@ class ColumnResource(SyncAPIResource):
         column_id: str,
         *,
         table_id: str,
-        filter: str | NotGiven = NOT_GIVEN,
-        group_columns: List[str] | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        group_columns: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnGetDistinctValuesResponse:
         """
         Retrieve a list of distinct (unique) values for a specified column in a table.
@@ -400,7 +400,7 @@ class ColumnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnRestoreResponse:
         """
         Restore a previously deleted column in a table.
@@ -451,21 +451,21 @@ class AsyncColumnResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        aggregate: int | NotGiven = NOT_GIVEN,
-        alter_options: column_create_params.AlterOptions | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        decimal_places: int | NotGiven = NOT_GIVEN,
-        description: column_create_params.Description | NotGiven = NOT_GIVEN,
-        display_link: bool | NotGiven = NOT_GIVEN,
-        export_width: Optional[int] | NotGiven = NOT_GIVEN,
-        formula: Optional[str] | NotGiven = NOT_GIVEN,
-        formula_enabled: bool | NotGiven = NOT_GIVEN,
-        header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        is_indexed: bool | NotGiven = NOT_GIVEN,
-        is_joined: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_synced: bool | NotGiven = NOT_GIVEN,
+        aggregate: int | Omit = omit,
+        alter_options: column_create_params.AlterOptions | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        date_format: Optional[str] | Omit = omit,
+        decimal_places: int | Omit = omit,
+        description: column_create_params.Description | Omit = omit,
+        display_link: bool | Omit = omit,
+        export_width: Optional[int] | Omit = omit,
+        formula: Optional[str] | Omit = omit,
+        formula_enabled: bool | Omit = omit,
+        header_background_color: Optional[str] | Omit = omit,
+        header_text_color: Optional[str] | Omit = omit,
+        is_indexed: bool | Omit = omit,
+        is_joined: Optional[bool] | Omit = omit,
+        is_synced: bool | Omit = omit,
         kind: Literal[
             "text",
             "datetime",
@@ -486,20 +486,20 @@ class AsyncColumnResource(AsyncAPIResource):
             "checkbox",
             "duration",
         ]
-        | NotGiven = NOT_GIVEN,
-        kind_options: SelectOptionsLookupParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        public_id: str | NotGiven = NOT_GIVEN,
-        script: Optional[str] | NotGiven = NOT_GIVEN,
-        script_enabled: bool | NotGiven = NOT_GIVEN,
-        thousand_separator: bool | NotGiven = NOT_GIVEN,
-        width: int | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        kind_options: SelectOptionsLookupParam | Omit = omit,
+        name: str | Omit = omit,
+        public_id: str | Omit = omit,
+        script: Optional[str] | Omit = omit,
+        script_enabled: bool | Omit = omit,
+        thousand_separator: bool | Omit = omit,
+        width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnCreateResponse:
         """
         Add a new column to an existing table.
@@ -556,21 +556,21 @@ class AsyncColumnResource(AsyncAPIResource):
         column_id: str,
         *,
         table_id: str,
-        aggregate: int | NotGiven = NOT_GIVEN,
-        alter_options: column_update_params.AlterOptions | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        decimal_places: int | NotGiven = NOT_GIVEN,
-        description: column_update_params.Description | NotGiven = NOT_GIVEN,
-        display_link: bool | NotGiven = NOT_GIVEN,
-        export_width: Optional[int] | NotGiven = NOT_GIVEN,
-        formula: Optional[str] | NotGiven = NOT_GIVEN,
-        formula_enabled: bool | NotGiven = NOT_GIVEN,
-        header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        is_indexed: bool | NotGiven = NOT_GIVEN,
-        is_joined: Optional[bool] | NotGiven = NOT_GIVEN,
-        is_synced: bool | NotGiven = NOT_GIVEN,
+        aggregate: int | Omit = omit,
+        alter_options: column_update_params.AlterOptions | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        date_format: Optional[str] | Omit = omit,
+        decimal_places: int | Omit = omit,
+        description: column_update_params.Description | Omit = omit,
+        display_link: bool | Omit = omit,
+        export_width: Optional[int] | Omit = omit,
+        formula: Optional[str] | Omit = omit,
+        formula_enabled: bool | Omit = omit,
+        header_background_color: Optional[str] | Omit = omit,
+        header_text_color: Optional[str] | Omit = omit,
+        is_indexed: bool | Omit = omit,
+        is_joined: Optional[bool] | Omit = omit,
+        is_synced: bool | Omit = omit,
         kind: Literal[
             "text",
             "datetime",
@@ -591,20 +591,20 @@ class AsyncColumnResource(AsyncAPIResource):
             "checkbox",
             "duration",
         ]
-        | NotGiven = NOT_GIVEN,
-        kind_options: SelectOptionsLookupParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        public_id: str | NotGiven = NOT_GIVEN,
-        script: Optional[str] | NotGiven = NOT_GIVEN,
-        script_enabled: bool | NotGiven = NOT_GIVEN,
-        thousand_separator: bool | NotGiven = NOT_GIVEN,
-        width: int | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        kind_options: SelectOptionsLookupParam | Omit = omit,
+        name: str | Omit = omit,
+        public_id: str | Omit = omit,
+        script: Optional[str] | Omit = omit,
+        script_enabled: bool | Omit = omit,
+        thousand_separator: bool | Omit = omit,
+        width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnUpdateResponse:
         """
         Update the properties of a specific column in a table.
@@ -668,7 +668,7 @@ class AsyncColumnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnDeleteResponse:
         """
         Delete a specific column from a table.
@@ -704,7 +704,7 @@ class AsyncColumnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnCheckViewsResponse:
         """
         Retrieve all views in which a specific table column is used.
@@ -735,14 +735,14 @@ class AsyncColumnResource(AsyncAPIResource):
         column_id: str,
         *,
         table_id: str,
-        filter: str | NotGiven = NOT_GIVEN,
-        group_columns: List[str] | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        group_columns: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnGetDistinctValuesResponse:
         """
         Retrieve a list of distinct (unique) values for a specified column in a table.
@@ -792,7 +792,7 @@ class AsyncColumnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnRestoreResponse:
         """
         Restore a previously deleted column in a table.

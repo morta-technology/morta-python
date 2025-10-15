@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Mapping, Optional, cast
+from typing import Mapping, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -37,7 +37,18 @@ from .secrets import (
     SecretsResourceWithStreamingResponse,
     AsyncSecretsResourceWithStreamingResponse,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, FileTypes
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NoneType,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
 from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from .ai_answer import (
@@ -130,7 +141,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubCreateResponse:
         """
         Create a new hub with the specified name
@@ -162,7 +173,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRetrieveResponse:
         """
         Retrieve detailed information about a specific hub identified by its UUID
@@ -190,37 +201,37 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        ai_search_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
-        allow_document_export: Optional[bool] | NotGiven = NOT_GIVEN,
-        allow_table_export: Optional[bool] | NotGiven = NOT_GIVEN,
-        bulk_update_text: hub_update_params.BulkUpdateText | NotGiven = NOT_GIVEN,
-        default_banner: Optional[str] | NotGiven = NOT_GIVEN,
-        default_date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        default_datetime_format: Optional[str] | NotGiven = NOT_GIVEN,
-        default_header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        default_header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        default_process_id: Optional[str] | NotGiven = NOT_GIVEN,
-        domains_access: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        font_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        hide_process_created: Optional[bool] | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        mfa_required: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        primary_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        process_title_alignment: Optional[Literal["left", "center", "right"]] | NotGiven = NOT_GIVEN,
-        process_title_bold: Optional[bool] | NotGiven = NOT_GIVEN,
-        process_title_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        process_title_font_size: Optional[float] | NotGiven = NOT_GIVEN,
-        process_title_italic: Optional[bool] | NotGiven = NOT_GIVEN,
-        process_title_underline: Optional[bool] | NotGiven = NOT_GIVEN,
-        public: Optional[bool] | NotGiven = NOT_GIVEN,
-        word_template: Optional[str] | NotGiven = NOT_GIVEN,
+        ai_search_enabled: Optional[bool] | Omit = omit,
+        allow_document_export: Optional[bool] | Omit = omit,
+        allow_table_export: Optional[bool] | Omit = omit,
+        bulk_update_text: hub_update_params.BulkUpdateText | Omit = omit,
+        default_banner: Optional[str] | Omit = omit,
+        default_date_format: Optional[str] | Omit = omit,
+        default_datetime_format: Optional[str] | Omit = omit,
+        default_header_background_color: Optional[str] | Omit = omit,
+        default_header_text_color: Optional[str] | Omit = omit,
+        default_process_id: Optional[str] | Omit = omit,
+        domains_access: Optional[SequenceNotStr[str]] | Omit = omit,
+        font_colour: Optional[str] | Omit = omit,
+        hide_process_created: Optional[bool] | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        mfa_required: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        primary_colour: Optional[str] | Omit = omit,
+        process_title_alignment: Optional[Literal["left", "center", "right"]] | Omit = omit,
+        process_title_bold: Optional[bool] | Omit = omit,
+        process_title_colour: Optional[str] | Omit = omit,
+        process_title_font_size: Optional[float] | Omit = omit,
+        process_title_italic: Optional[bool] | Omit = omit,
+        process_title_underline: Optional[bool] | Omit = omit,
+        public: Optional[bool] | Omit = omit,
+        word_template: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUpdateResponse:
         """
         Update an existing hub's details by hub ID
@@ -283,7 +294,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubDeleteResponse:
         """
         Delete a specific hub identified by its UUID
@@ -312,13 +323,13 @@ class HubResource(SyncAPIResource):
         hub_id: str,
         *,
         search: str,
-        process_public_id: str | NotGiven = NOT_GIVEN,
+        process_public_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubAISearchResponse:
         """
         Perform an AI search operation within a specific hub, identified by its UUID
@@ -367,7 +378,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubChangeUserRoleResponse:
         """
         Change the role of a user in a specific hub, identified by the hub's UUID and
@@ -404,7 +415,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubCreateHeadingStylingResponse:
         """
         Create new heading styling for a specific hub
@@ -434,14 +445,14 @@ class HubResource(SyncAPIResource):
         *,
         source: str,
         text: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        link: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        link: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Create a new knowledge base entry for a hub
@@ -484,7 +495,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubDeleteTopHeadingStylingResponse:
         """
         Delete the top heading styling for a specific hub
@@ -512,15 +523,15 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        duplicate_permissions: bool | NotGiven = NOT_GIVEN,
-        lock_resource: bool | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        duplicate_permissions: bool | Omit = omit,
+        lock_resource: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Create a duplicate of an existing hub
@@ -562,7 +573,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetAIAnswersResponse:
         """
         Retrieve AI answers within a specific hub, identified by its UUID
@@ -595,7 +606,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDeletedDocumentsResponse:
         """
         Get all deleted documents associated with a specific hub, identified by its UUID
@@ -628,7 +639,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDeletedTablesResponse:
         """Retrieve all deleted tables from a specific hub, identified by its UUID.
 
@@ -663,7 +674,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDocumentsResponse:
         """
         Get all documents associated with a specific hub, identified by its UUID
@@ -696,7 +707,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a hub
@@ -729,7 +740,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetInvitedMembersResponse:
         """
         Retrieve all invited members for a specified hub
@@ -762,7 +773,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetMembersResponse:
         """
         Retrieve all members associated with a specified hub
@@ -795,7 +806,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetNotificationsResponse:
         """Retrieve all notifications associated with a specific hub.
 
@@ -825,19 +836,19 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        admin_view: Optional[bool] | NotGiven = NOT_GIVEN,
-        exclude_processes: Optional[bool] | NotGiven = NOT_GIVEN,
-        exclude_tables: Optional[bool] | NotGiven = NOT_GIVEN,
-        only_admin: bool | NotGiven = NOT_GIVEN,
-        only_deleted: Optional[bool] | NotGiven = NOT_GIVEN,
-        project_permissions: Optional[bool] | NotGiven = NOT_GIVEN,
-        type_id: Optional[str] | NotGiven = NOT_GIVEN,
+        admin_view: Optional[bool] | Omit = omit,
+        exclude_processes: Optional[bool] | Omit = omit,
+        exclude_tables: Optional[bool] | Omit = omit,
+        only_admin: bool | Omit = omit,
+        only_deleted: Optional[bool] | Omit = omit,
+        project_permissions: Optional[bool] | Omit = omit,
+        type_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetResourcesResponse:
         """
         Retrieve resources associated with a specific hub identified by its UUID
@@ -877,15 +888,15 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        notification_id: Optional[str] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
+        notification_id: Optional[str] | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetSentNotificationsResponse:
         """
         Retrieve all sent notifications for a specified hub
@@ -935,7 +946,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetTablesResponse:
         """
         Retrieve tables associated with a specific hub, identified by its UUID
@@ -968,7 +979,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetTagsResponse:
         """
         Retrieve all tags associated with a specified hub
@@ -1001,7 +1012,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetVariablesResponse:
         """
         Retrieve all variables associated with a specified hub
@@ -1029,15 +1040,15 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        emails: List[str] | NotGiven = NOT_GIVEN,
-        project_role: Literal["member", "admin", "owner"] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        emails: SequenceNotStr[str] | Omit = omit,
+        project_role: Literal["member", "admin", "owner"] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubInviteMultipleUsersResponse:
         """Invite multiple users to join a hub, by email.
 
@@ -1081,7 +1092,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubPermanentlyDeleteResponse:
         """
         Permanently delete a specific hub identified by its UUID
@@ -1115,7 +1126,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRemoveUserResponse:
         """
         Remove a user from a specific hub, identified by the hub's UUID and user's
@@ -1151,7 +1162,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Request contributor access to a hub
@@ -1185,7 +1196,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRestoreResponse:
         """
         Restore a specific hub, identified by its UUID, that has been previously deleted
@@ -1214,13 +1225,13 @@ class HubResource(SyncAPIResource):
         hub_id: str,
         *,
         search: str,
-        process_public_id: str | NotGiven = NOT_GIVEN,
+        process_public_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubSearchResourcesResponse:
         """
         Perform a search operation within a specific hub, identified by its UUID
@@ -1267,7 +1278,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Set column coloring for a hub
@@ -1302,7 +1313,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Set column date formatting for a hub
@@ -1338,7 +1349,7 @@ class HubResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Train the knowledge base for a hub
@@ -1368,20 +1379,20 @@ class HubResource(SyncAPIResource):
         style_id: str,
         *,
         hub_id: str,
-        bold: bool | NotGiven = NOT_GIVEN,
-        colour: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        font_size: float | NotGiven = NOT_GIVEN,
-        italic: bool | NotGiven = NOT_GIVEN,
-        numbering_style: int | NotGiven = NOT_GIVEN,
-        start_at0: bool | NotGiven = NOT_GIVEN,
-        underline: bool | NotGiven = NOT_GIVEN,
+        bold: bool | Omit = omit,
+        colour: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        font_size: float | Omit = omit,
+        italic: bool | Omit = omit,
+        numbering_style: int | Omit = omit,
+        start_at0: bool | Omit = omit,
+        underline: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUpdateHeadingStylingResponse:
         """
         Update heading styling for a specific hub
@@ -1424,13 +1435,13 @@ class HubResource(SyncAPIResource):
         self,
         hub_id: str,
         *,
-        file: FileTypes | NotGiven = NOT_GIVEN,
+        file: FileTypes | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUploadTemplateResponse:
         """
         Upload a template document for a hub
@@ -1504,7 +1515,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubCreateResponse:
         """
         Create a new hub with the specified name
@@ -1536,7 +1547,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRetrieveResponse:
         """
         Retrieve detailed information about a specific hub identified by its UUID
@@ -1564,37 +1575,37 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        ai_search_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
-        allow_document_export: Optional[bool] | NotGiven = NOT_GIVEN,
-        allow_table_export: Optional[bool] | NotGiven = NOT_GIVEN,
-        bulk_update_text: hub_update_params.BulkUpdateText | NotGiven = NOT_GIVEN,
-        default_banner: Optional[str] | NotGiven = NOT_GIVEN,
-        default_date_format: Optional[str] | NotGiven = NOT_GIVEN,
-        default_datetime_format: Optional[str] | NotGiven = NOT_GIVEN,
-        default_header_background_color: Optional[str] | NotGiven = NOT_GIVEN,
-        default_header_text_color: Optional[str] | NotGiven = NOT_GIVEN,
-        default_process_id: Optional[str] | NotGiven = NOT_GIVEN,
-        domains_access: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        font_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        hide_process_created: Optional[bool] | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        mfa_required: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        primary_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        process_title_alignment: Optional[Literal["left", "center", "right"]] | NotGiven = NOT_GIVEN,
-        process_title_bold: Optional[bool] | NotGiven = NOT_GIVEN,
-        process_title_colour: Optional[str] | NotGiven = NOT_GIVEN,
-        process_title_font_size: Optional[float] | NotGiven = NOT_GIVEN,
-        process_title_italic: Optional[bool] | NotGiven = NOT_GIVEN,
-        process_title_underline: Optional[bool] | NotGiven = NOT_GIVEN,
-        public: Optional[bool] | NotGiven = NOT_GIVEN,
-        word_template: Optional[str] | NotGiven = NOT_GIVEN,
+        ai_search_enabled: Optional[bool] | Omit = omit,
+        allow_document_export: Optional[bool] | Omit = omit,
+        allow_table_export: Optional[bool] | Omit = omit,
+        bulk_update_text: hub_update_params.BulkUpdateText | Omit = omit,
+        default_banner: Optional[str] | Omit = omit,
+        default_date_format: Optional[str] | Omit = omit,
+        default_datetime_format: Optional[str] | Omit = omit,
+        default_header_background_color: Optional[str] | Omit = omit,
+        default_header_text_color: Optional[str] | Omit = omit,
+        default_process_id: Optional[str] | Omit = omit,
+        domains_access: Optional[SequenceNotStr[str]] | Omit = omit,
+        font_colour: Optional[str] | Omit = omit,
+        hide_process_created: Optional[bool] | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        mfa_required: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        primary_colour: Optional[str] | Omit = omit,
+        process_title_alignment: Optional[Literal["left", "center", "right"]] | Omit = omit,
+        process_title_bold: Optional[bool] | Omit = omit,
+        process_title_colour: Optional[str] | Omit = omit,
+        process_title_font_size: Optional[float] | Omit = omit,
+        process_title_italic: Optional[bool] | Omit = omit,
+        process_title_underline: Optional[bool] | Omit = omit,
+        public: Optional[bool] | Omit = omit,
+        word_template: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUpdateResponse:
         """
         Update an existing hub's details by hub ID
@@ -1657,7 +1668,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubDeleteResponse:
         """
         Delete a specific hub identified by its UUID
@@ -1686,13 +1697,13 @@ class AsyncHubResource(AsyncAPIResource):
         hub_id: str,
         *,
         search: str,
-        process_public_id: str | NotGiven = NOT_GIVEN,
+        process_public_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubAISearchResponse:
         """
         Perform an AI search operation within a specific hub, identified by its UUID
@@ -1741,7 +1752,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubChangeUserRoleResponse:
         """
         Change the role of a user in a specific hub, identified by the hub's UUID and
@@ -1778,7 +1789,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubCreateHeadingStylingResponse:
         """
         Create new heading styling for a specific hub
@@ -1808,14 +1819,14 @@ class AsyncHubResource(AsyncAPIResource):
         *,
         source: str,
         text: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        link: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        link: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Create a new knowledge base entry for a hub
@@ -1858,7 +1869,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubDeleteTopHeadingStylingResponse:
         """
         Delete the top heading styling for a specific hub
@@ -1886,15 +1897,15 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        duplicate_permissions: bool | NotGiven = NOT_GIVEN,
-        lock_resource: bool | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        duplicate_permissions: bool | Omit = omit,
+        lock_resource: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Create a duplicate of an existing hub
@@ -1936,7 +1947,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetAIAnswersResponse:
         """
         Retrieve AI answers within a specific hub, identified by its UUID
@@ -1969,7 +1980,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDeletedDocumentsResponse:
         """
         Get all deleted documents associated with a specific hub, identified by its UUID
@@ -2002,7 +2013,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDeletedTablesResponse:
         """Retrieve all deleted tables from a specific hub, identified by its UUID.
 
@@ -2037,7 +2048,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDocumentsResponse:
         """
         Get all documents associated with a specific hub, identified by its UUID
@@ -2070,7 +2081,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a hub
@@ -2103,7 +2114,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetInvitedMembersResponse:
         """
         Retrieve all invited members for a specified hub
@@ -2136,7 +2147,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetMembersResponse:
         """
         Retrieve all members associated with a specified hub
@@ -2169,7 +2180,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetNotificationsResponse:
         """Retrieve all notifications associated with a specific hub.
 
@@ -2199,19 +2210,19 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        admin_view: Optional[bool] | NotGiven = NOT_GIVEN,
-        exclude_processes: Optional[bool] | NotGiven = NOT_GIVEN,
-        exclude_tables: Optional[bool] | NotGiven = NOT_GIVEN,
-        only_admin: bool | NotGiven = NOT_GIVEN,
-        only_deleted: Optional[bool] | NotGiven = NOT_GIVEN,
-        project_permissions: Optional[bool] | NotGiven = NOT_GIVEN,
-        type_id: Optional[str] | NotGiven = NOT_GIVEN,
+        admin_view: Optional[bool] | Omit = omit,
+        exclude_processes: Optional[bool] | Omit = omit,
+        exclude_tables: Optional[bool] | Omit = omit,
+        only_admin: bool | Omit = omit,
+        only_deleted: Optional[bool] | Omit = omit,
+        project_permissions: Optional[bool] | Omit = omit,
+        type_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetResourcesResponse:
         """
         Retrieve resources associated with a specific hub identified by its UUID
@@ -2251,15 +2262,15 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        notification_id: Optional[str] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
+        notification_id: Optional[str] | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetSentNotificationsResponse:
         """
         Retrieve all sent notifications for a specified hub
@@ -2309,7 +2320,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetTablesResponse:
         """
         Retrieve tables associated with a specific hub, identified by its UUID
@@ -2342,7 +2353,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetTagsResponse:
         """
         Retrieve all tags associated with a specified hub
@@ -2375,7 +2386,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubGetVariablesResponse:
         """
         Retrieve all variables associated with a specified hub
@@ -2403,15 +2414,15 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        emails: List[str] | NotGiven = NOT_GIVEN,
-        project_role: Literal["member", "admin", "owner"] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        emails: SequenceNotStr[str] | Omit = omit,
+        project_role: Literal["member", "admin", "owner"] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubInviteMultipleUsersResponse:
         """Invite multiple users to join a hub, by email.
 
@@ -2455,7 +2466,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubPermanentlyDeleteResponse:
         """
         Permanently delete a specific hub identified by its UUID
@@ -2489,7 +2500,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRemoveUserResponse:
         """
         Remove a user from a specific hub, identified by the hub's UUID and user's
@@ -2525,7 +2536,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Request contributor access to a hub
@@ -2559,7 +2570,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubRestoreResponse:
         """
         Restore a specific hub, identified by its UUID, that has been previously deleted
@@ -2588,13 +2599,13 @@ class AsyncHubResource(AsyncAPIResource):
         hub_id: str,
         *,
         search: str,
-        process_public_id: str | NotGiven = NOT_GIVEN,
+        process_public_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubSearchResourcesResponse:
         """
         Perform a search operation within a specific hub, identified by its UUID
@@ -2641,7 +2652,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Set column coloring for a hub
@@ -2676,7 +2687,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Set column date formatting for a hub
@@ -2712,7 +2723,7 @@ class AsyncHubResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Train the knowledge base for a hub
@@ -2742,20 +2753,20 @@ class AsyncHubResource(AsyncAPIResource):
         style_id: str,
         *,
         hub_id: str,
-        bold: bool | NotGiven = NOT_GIVEN,
-        colour: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        font_size: float | NotGiven = NOT_GIVEN,
-        italic: bool | NotGiven = NOT_GIVEN,
-        numbering_style: int | NotGiven = NOT_GIVEN,
-        start_at0: bool | NotGiven = NOT_GIVEN,
-        underline: bool | NotGiven = NOT_GIVEN,
+        bold: bool | Omit = omit,
+        colour: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        font_size: float | Omit = omit,
+        italic: bool | Omit = omit,
+        numbering_style: int | Omit = omit,
+        start_at0: bool | Omit = omit,
+        underline: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUpdateHeadingStylingResponse:
         """
         Update heading styling for a specific hub
@@ -2798,13 +2809,13 @@ class AsyncHubResource(AsyncAPIResource):
         self,
         hub_id: str,
         *,
-        file: FileTypes | NotGiven = NOT_GIVEN,
+        file: FileTypes | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HubUploadTemplateResponse:
         """
         Upload a template document for a hub

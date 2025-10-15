@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .create_notification_schema_header_param import CreateNotificationSchemaHeaderParam
 
@@ -18,9 +19,9 @@ class NotificationUpdateParams(TypedDict, total=False):
 
     description: Optional[str]
 
-    processes: List[str]
+    processes: SequenceNotStr[str]
 
-    tables: List[str]
+    tables: SequenceNotStr[str]
 
     triggers: Iterable[Trigger]
 

@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from datetime import datetime
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -54,13 +54,13 @@ class RowResource(SyncAPIResource):
         table_id: str,
         *,
         rows: Iterable[row_update_params.Row],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowUpdateResponse:
         """
         Update existing rows in the specified table.
@@ -96,13 +96,13 @@ class RowResource(SyncAPIResource):
         table_id: str,
         *,
         rows: Iterable[TableRowActionParam],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowAddResponse:
         """
         Add a new row to the specified table.
@@ -137,21 +137,21 @@ class RowResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        columns: List[str] | NotGiven = NOT_GIVEN,
-        distinct_columns: List[str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
-        last_created_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        last_updated_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        next_page_token: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        columns: SequenceNotStr[str] | Omit = omit,
+        distinct_columns: SequenceNotStr[str] | Omit = omit,
+        filter: str | Omit = omit,
+        last_created_at: Union[str, datetime] | Omit = omit,
+        last_updated_at: Union[str, datetime] | Omit = omit,
+        next_page_token: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowGetRowsResponse:
         """
         Retrieve rows from a table based on provided query parameters.
@@ -216,13 +216,13 @@ class RowResource(SyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         upsert_column_name: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowUpsertResponse:
         """
         Add or update a row in the specified table based on a unique column value.
@@ -280,13 +280,13 @@ class AsyncRowResource(AsyncAPIResource):
         table_id: str,
         *,
         rows: Iterable[row_update_params.Row],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowUpdateResponse:
         """
         Update existing rows in the specified table.
@@ -322,13 +322,13 @@ class AsyncRowResource(AsyncAPIResource):
         table_id: str,
         *,
         rows: Iterable[TableRowActionParam],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowAddResponse:
         """
         Add a new row to the specified table.
@@ -363,21 +363,21 @@ class AsyncRowResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        columns: List[str] | NotGiven = NOT_GIVEN,
-        distinct_columns: List[str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
-        last_created_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        last_updated_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        next_page_token: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        columns: SequenceNotStr[str] | Omit = omit,
+        distinct_columns: SequenceNotStr[str] | Omit = omit,
+        filter: str | Omit = omit,
+        last_created_at: Union[str, datetime] | Omit = omit,
+        last_updated_at: Union[str, datetime] | Omit = omit,
+        next_page_token: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowGetRowsResponse:
         """
         Retrieve rows from a table based on provided query parameters.
@@ -442,13 +442,13 @@ class AsyncRowResource(AsyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         upsert_column_name: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RowUpsertResponse:
         """
         Add or update a row in the specified table based on a unique column value.

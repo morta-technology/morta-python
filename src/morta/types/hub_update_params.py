@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["HubUpdateParams", "BulkUpdateText", "BulkUpdateTextBulkUpdateText"]
@@ -31,7 +32,7 @@ class HubUpdateParams(TypedDict, total=False):
 
     default_process_id: Annotated[Optional[str], PropertyInfo(alias="defaultProcessId")]
 
-    domains_access: Annotated[Optional[List[str]], PropertyInfo(alias="domainsAccess")]
+    domains_access: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="domainsAccess")]
 
     font_colour: Annotated[Optional[str], PropertyInfo(alias="fontColour")]
 
