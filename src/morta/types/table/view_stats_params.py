@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["ViewStatsParams"]
@@ -17,5 +17,5 @@ class ViewStatsParams(TypedDict, total=False):
     process_id: str
     """Optional UUID of a process to filter the data."""
 
-    sum_avg_max_min_count: Annotated[List[str], PropertyInfo(alias="sum, avg, max, min, count")]
+    sum_avg_max_min_count: Annotated[SequenceNotStr[str], PropertyInfo(alias="sum, avg, max, min, count")]
     """Specify columns to perform sum, average, max, min, or count operations."""

@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["TagBulkApplyParams"]
@@ -15,4 +15,4 @@ class TagBulkApplyParams(TypedDict, total=False):
 
     table_id: Required[Annotated[str, PropertyInfo(alias="tableId")]]
 
-    tag_reference_ids: Required[Annotated[List[str], PropertyInfo(alias="tagReferenceIds")]]
+    tag_reference_ids: Required[Annotated[SequenceNotStr[str], PropertyInfo(alias="tagReferenceIds")]]

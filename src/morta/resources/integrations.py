@@ -11,7 +11,7 @@ from ..types import (
     integration_create_passthrough_params,
     integration_create_passthrough_download_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -62,16 +62,16 @@ class IntegrationsResource(SyncAPIResource):
         method: Literal["GET", "PUT", "POST", "DELETE", "PATCH"],
         path: str,
         source_system: Literal["viewpoint", "aconex", "autodesk-bim360", "procore", "revizto", "morta", "asite"],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data: object | NotGiven = NOT_GIVEN,
-        headers: object | NotGiven = NOT_GIVEN,
-        on_behalf_user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data: object | Omit = omit,
+        headers: object | Omit = omit,
+        on_behalf_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IntegrationCreatePassthroughResponse:
         """
         Make a passthrough API call to an external source system.
@@ -111,16 +111,16 @@ class IntegrationsResource(SyncAPIResource):
         method: Literal["GET", "PUT", "POST", "DELETE", "PATCH"],
         path: str,
         source_system: Literal["viewpoint", "aconex", "autodesk-bim360", "procore", "revizto", "morta", "asite"],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data: object | NotGiven = NOT_GIVEN,
-        headers: object | NotGiven = NOT_GIVEN,
-        on_behalf_user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data: object | Omit = omit,
+        headers: object | Omit = omit,
+        on_behalf_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Make a passthrough API call to an external source system for downloading files.
@@ -182,16 +182,16 @@ class AsyncIntegrationsResource(AsyncAPIResource):
         method: Literal["GET", "PUT", "POST", "DELETE", "PATCH"],
         path: str,
         source_system: Literal["viewpoint", "aconex", "autodesk-bim360", "procore", "revizto", "morta", "asite"],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data: object | NotGiven = NOT_GIVEN,
-        headers: object | NotGiven = NOT_GIVEN,
-        on_behalf_user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data: object | Omit = omit,
+        headers: object | Omit = omit,
+        on_behalf_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IntegrationCreatePassthroughResponse:
         """
         Make a passthrough API call to an external source system.
@@ -231,16 +231,16 @@ class AsyncIntegrationsResource(AsyncAPIResource):
         method: Literal["GET", "PUT", "POST", "DELETE", "PATCH"],
         path: str,
         source_system: Literal["viewpoint", "aconex", "autodesk-bim360", "procore", "revizto", "morta", "asite"],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data: object | NotGiven = NOT_GIVEN,
-        headers: object | NotGiven = NOT_GIVEN,
-        on_behalf_user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data: object | Omit = omit,
+        headers: object | Omit = omit,
+        on_behalf_user_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Make a passthrough API call to an external source system for downloading files.

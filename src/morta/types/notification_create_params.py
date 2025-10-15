@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 from typing_extensions import Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .create_notification_schema_header_param import CreateNotificationSchemaHeaderParam
 
@@ -22,9 +23,9 @@ class NotificationCreateParams(TypedDict, total=False):
 
     custom_headers: Annotated[Iterable[CreateNotificationSchemaHeaderParam], PropertyInfo(alias="customHeaders")]
 
-    processes: List[str]
+    processes: SequenceNotStr[str]
 
-    tables: List[str]
+    tables: SequenceNotStr[str]
 
 
 class Trigger(TypedDict, total=False):

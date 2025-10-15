@@ -31,7 +31,7 @@ from .apikey import (
     AsyncApikeyResourceWithStreamingResponse,
 )
 from ...types import user_create_params, user_search_params, user_update_account_params, user_update_profile_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -98,19 +98,19 @@ class UserResource(SyncAPIResource):
         email: str,
         name: str,
         password: str,
-        opt_out_ai_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_duplication_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_hub_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_sync_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_welcome_email: bool | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        template: Optional[str] | NotGiven = NOT_GIVEN,
+        opt_out_ai_email: bool | Omit = omit,
+        opt_out_duplication_email: bool | Omit = omit,
+        opt_out_hub_email: bool | Omit = omit,
+        opt_out_sync_email: bool | Omit = omit,
+        opt_out_welcome_email: bool | Omit = omit,
+        project_id: str | Omit = omit,
+        template: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
         Create a new user
@@ -156,7 +156,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveResponse:
         """
         Get information on a specific user
@@ -189,7 +189,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListAchievementsResponse:
         """
         Get the achievement badges of a user by their Firebase ID
@@ -222,7 +222,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListContributionsResponse:
         """
         Get the number of contributions per day made by a user, identified by their
@@ -255,7 +255,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListOwnerHubsResponse:
         """Get all hubs where the user is the owner or an admin"""
         return self._get(
@@ -275,7 +275,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPinnedHubsResponse:
         """
         Get the hubs pinned by a user identified by their Firebase ID
@@ -308,7 +308,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPublicContributionsResponse:
         """
         Get the public contributions made by a user, identified by their Firebase ID
@@ -340,7 +340,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPublicHubsResponse:
         """Get all public hubs where the user is a member"""
         return self._get(
@@ -359,7 +359,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListTemplatesResponse:
         """Get all templates the currently logged in user has access to"""
         return self._get(
@@ -379,7 +379,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveByPublicIDResponse:
         """
         Get information on a specific user by their public ID
@@ -411,7 +411,7 @@ class UserResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveMeResponse:
         """Get info on the current user"""
         return self._get(
@@ -426,15 +426,15 @@ class UserResource(SyncAPIResource):
         self,
         *,
         query: str,
-        process_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        table_view_id: str | NotGiven = NOT_GIVEN,
+        process_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        table_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserSearchResponse:
         """
         Search for users by hub or process
@@ -479,22 +479,22 @@ class UserResource(SyncAPIResource):
     def update_account(
         self,
         *,
-        allow_support_access: Optional[bool] | NotGiven = NOT_GIVEN,
-        old_password: str | NotGiven = NOT_GIVEN,
-        opt_out_ai_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_duplication_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_hub_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_sync_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_welcome_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        password: str | NotGiven = NOT_GIVEN,
-        password_confirm: str | NotGiven = NOT_GIVEN,
-        two_factor_code: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_support_access: Optional[bool] | Omit = omit,
+        old_password: str | Omit = omit,
+        opt_out_ai_email: Optional[bool] | Omit = omit,
+        opt_out_duplication_email: Optional[bool] | Omit = omit,
+        opt_out_hub_email: Optional[bool] | Omit = omit,
+        opt_out_sync_email: Optional[bool] | Omit = omit,
+        opt_out_welcome_email: Optional[bool] | Omit = omit,
+        password: str | Omit = omit,
+        password_confirm: str | Omit = omit,
+        two_factor_code: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUpdateAccountResponse:
         """
         Update the account details for the currently logged in user
@@ -534,23 +534,23 @@ class UserResource(SyncAPIResource):
     def update_profile(
         self,
         *,
-        allow_support_access: Optional[bool] | NotGiven = NOT_GIVEN,
-        bio: Optional[str] | NotGiven = NOT_GIVEN,
-        linkedin: Optional[str] | NotGiven = NOT_GIVEN,
-        location: Optional[str] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        organisation: Optional[str] | NotGiven = NOT_GIVEN,
-        profile_picture: Optional[str] | NotGiven = NOT_GIVEN,
-        twitter: Optional[str] | NotGiven = NOT_GIVEN,
-        university: Optional[str] | NotGiven = NOT_GIVEN,
-        university_degree: Optional[str] | NotGiven = NOT_GIVEN,
-        website: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_support_access: Optional[bool] | Omit = omit,
+        bio: Optional[str] | Omit = omit,
+        linkedin: Optional[str] | Omit = omit,
+        location: Optional[str] | Omit = omit,
+        name: str | Omit = omit,
+        organisation: Optional[str] | Omit = omit,
+        profile_picture: Optional[str] | Omit = omit,
+        twitter: Optional[str] | Omit = omit,
+        university: Optional[str] | Omit = omit,
+        university_degree: Optional[str] | Omit = omit,
+        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUpdateProfileResponse:
         """
         Update the profile of the currently logged in user
@@ -627,19 +627,19 @@ class AsyncUserResource(AsyncAPIResource):
         email: str,
         name: str,
         password: str,
-        opt_out_ai_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_duplication_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_hub_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_sync_email: bool | NotGiven = NOT_GIVEN,
-        opt_out_welcome_email: bool | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        template: Optional[str] | NotGiven = NOT_GIVEN,
+        opt_out_ai_email: bool | Omit = omit,
+        opt_out_duplication_email: bool | Omit = omit,
+        opt_out_hub_email: bool | Omit = omit,
+        opt_out_sync_email: bool | Omit = omit,
+        opt_out_welcome_email: bool | Omit = omit,
+        project_id: str | Omit = omit,
+        template: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
         Create a new user
@@ -685,7 +685,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveResponse:
         """
         Get information on a specific user
@@ -718,7 +718,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListAchievementsResponse:
         """
         Get the achievement badges of a user by their Firebase ID
@@ -751,7 +751,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListContributionsResponse:
         """
         Get the number of contributions per day made by a user, identified by their
@@ -784,7 +784,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListOwnerHubsResponse:
         """Get all hubs where the user is the owner or an admin"""
         return await self._get(
@@ -804,7 +804,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPinnedHubsResponse:
         """
         Get the hubs pinned by a user identified by their Firebase ID
@@ -837,7 +837,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPublicContributionsResponse:
         """
         Get the public contributions made by a user, identified by their Firebase ID
@@ -869,7 +869,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListPublicHubsResponse:
         """Get all public hubs where the user is a member"""
         return await self._get(
@@ -888,7 +888,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListTemplatesResponse:
         """Get all templates the currently logged in user has access to"""
         return await self._get(
@@ -908,7 +908,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveByPublicIDResponse:
         """
         Get information on a specific user by their public ID
@@ -940,7 +940,7 @@ class AsyncUserResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserRetrieveMeResponse:
         """Get info on the current user"""
         return await self._get(
@@ -955,15 +955,15 @@ class AsyncUserResource(AsyncAPIResource):
         self,
         *,
         query: str,
-        process_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        table_view_id: str | NotGiven = NOT_GIVEN,
+        process_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        table_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserSearchResponse:
         """
         Search for users by hub or process
@@ -1008,22 +1008,22 @@ class AsyncUserResource(AsyncAPIResource):
     async def update_account(
         self,
         *,
-        allow_support_access: Optional[bool] | NotGiven = NOT_GIVEN,
-        old_password: str | NotGiven = NOT_GIVEN,
-        opt_out_ai_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_duplication_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_hub_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_sync_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        opt_out_welcome_email: Optional[bool] | NotGiven = NOT_GIVEN,
-        password: str | NotGiven = NOT_GIVEN,
-        password_confirm: str | NotGiven = NOT_GIVEN,
-        two_factor_code: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_support_access: Optional[bool] | Omit = omit,
+        old_password: str | Omit = omit,
+        opt_out_ai_email: Optional[bool] | Omit = omit,
+        opt_out_duplication_email: Optional[bool] | Omit = omit,
+        opt_out_hub_email: Optional[bool] | Omit = omit,
+        opt_out_sync_email: Optional[bool] | Omit = omit,
+        opt_out_welcome_email: Optional[bool] | Omit = omit,
+        password: str | Omit = omit,
+        password_confirm: str | Omit = omit,
+        two_factor_code: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUpdateAccountResponse:
         """
         Update the account details for the currently logged in user
@@ -1063,23 +1063,23 @@ class AsyncUserResource(AsyncAPIResource):
     async def update_profile(
         self,
         *,
-        allow_support_access: Optional[bool] | NotGiven = NOT_GIVEN,
-        bio: Optional[str] | NotGiven = NOT_GIVEN,
-        linkedin: Optional[str] | NotGiven = NOT_GIVEN,
-        location: Optional[str] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        organisation: Optional[str] | NotGiven = NOT_GIVEN,
-        profile_picture: Optional[str] | NotGiven = NOT_GIVEN,
-        twitter: Optional[str] | NotGiven = NOT_GIVEN,
-        university: Optional[str] | NotGiven = NOT_GIVEN,
-        university_degree: Optional[str] | NotGiven = NOT_GIVEN,
-        website: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_support_access: Optional[bool] | Omit = omit,
+        bio: Optional[str] | Omit = omit,
+        linkedin: Optional[str] | Omit = omit,
+        location: Optional[str] | Omit = omit,
+        name: str | Omit = omit,
+        organisation: Optional[str] | Omit = omit,
+        profile_picture: Optional[str] | Omit = omit,
+        twitter: Optional[str] | Omit = omit,
+        university: Optional[str] | Omit = omit,
+        university_degree: Optional[str] | Omit = omit,
+        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserUpdateProfileResponse:
         """
         Update the profile of the currently logged in user

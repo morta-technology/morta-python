@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ...._types import SequenceNotStr
 
 __all__ = ["ColumnDistinctParams"]
 
@@ -14,5 +15,5 @@ class ColumnDistinctParams(TypedDict, total=False):
     filter: str
     """Filters to apply to the data retrieval."""
 
-    group_columns: List[str]
+    group_columns: SequenceNotStr[str]
     """Optional columns to group the distinct values."""

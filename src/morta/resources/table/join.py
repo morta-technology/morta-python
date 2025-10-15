@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -51,17 +51,17 @@ class JoinResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data_columns: List[str] | NotGiven = NOT_GIVEN,
-        is_one_to_many: bool | NotGiven = NOT_GIVEN,
-        join_columns: Iterable[TableColumnJoinParam] | NotGiven = NOT_GIVEN,
-        join_view_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data_columns: SequenceNotStr[str] | Omit = omit,
+        is_one_to_many: bool | Omit = omit,
+        join_columns: Iterable[TableColumnJoinParam] | Omit = omit,
+        join_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinCreateResponse:
         """
         Create a join between two tables.
@@ -100,17 +100,17 @@ class JoinResource(SyncAPIResource):
         join_id: str,
         *,
         table_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data_columns: List[str] | NotGiven = NOT_GIVEN,
-        is_one_to_many: bool | NotGiven = NOT_GIVEN,
-        join_columns: Iterable[TableColumnJoinParam] | NotGiven = NOT_GIVEN,
-        join_view_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data_columns: SequenceNotStr[str] | Omit = omit,
+        is_one_to_many: bool | Omit = omit,
+        join_columns: Iterable[TableColumnJoinParam] | Omit = omit,
+        join_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinUpdateResponse:
         """
         Update an existing join on a table.
@@ -156,7 +156,7 @@ class JoinResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinDeleteResponse:
         """
         Delete a join from a table.
@@ -207,17 +207,17 @@ class AsyncJoinResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data_columns: List[str] | NotGiven = NOT_GIVEN,
-        is_one_to_many: bool | NotGiven = NOT_GIVEN,
-        join_columns: Iterable[TableColumnJoinParam] | NotGiven = NOT_GIVEN,
-        join_view_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data_columns: SequenceNotStr[str] | Omit = omit,
+        is_one_to_many: bool | Omit = omit,
+        join_columns: Iterable[TableColumnJoinParam] | Omit = omit,
+        join_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinCreateResponse:
         """
         Create a join between two tables.
@@ -256,17 +256,17 @@ class AsyncJoinResource(AsyncAPIResource):
         join_id: str,
         *,
         table_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        data_columns: List[str] | NotGiven = NOT_GIVEN,
-        is_one_to_many: bool | NotGiven = NOT_GIVEN,
-        join_columns: Iterable[TableColumnJoinParam] | NotGiven = NOT_GIVEN,
-        join_view_id: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        data_columns: SequenceNotStr[str] | Omit = omit,
+        is_one_to_many: bool | Omit = omit,
+        join_columns: Iterable[TableColumnJoinParam] | Omit = omit,
+        join_view_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinUpdateResponse:
         """
         Update an existing join on a table.
@@ -312,7 +312,7 @@ class AsyncJoinResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinDeleteResponse:
         """
         Delete a join from a table.

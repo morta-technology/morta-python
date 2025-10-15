@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -50,16 +50,16 @@ class ApikeyResource(SyncAPIResource):
         self,
         *,
         access_level: Literal[0, 1],
-        document_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        table_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyCreateResponse:
         """
         Create an API key for the currently logged in user
@@ -96,16 +96,16 @@ class ApikeyResource(SyncAPIResource):
         api_key_id: str,
         *,
         access_level: Literal[0, 1],
-        document_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        table_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyUpdateResponse:
         """
         Update an API key for the currently logged in user
@@ -148,7 +148,7 @@ class ApikeyResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyDeleteResponse:
         """
         Delete an API key for the currently logged in user
@@ -197,16 +197,16 @@ class AsyncApikeyResource(AsyncAPIResource):
         self,
         *,
         access_level: Literal[0, 1],
-        document_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        table_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyCreateResponse:
         """
         Create an API key for the currently logged in user
@@ -243,16 +243,16 @@ class AsyncApikeyResource(AsyncAPIResource):
         api_key_id: str,
         *,
         access_level: Literal[0, 1],
-        document_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        project_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        table_restrictions: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyUpdateResponse:
         """
         Update an API key for the currently logged in user
@@ -295,7 +295,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ApikeyDeleteResponse:
         """
         Delete an API key for the currently logged in user
