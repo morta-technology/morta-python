@@ -1,5 +1,58 @@
 # Changelog
 
+## 1.1.0 (2025-11-28)
+
+Full Changelog: [v1.0.1...v1.1.0](https://github.com/morta-technology/morta-python/compare/v1.0.1...v1.1.0)
+
+### Features
+
+* **api:** manual updates ([87d9617](https://github.com/morta-technology/morta-python/commit/87d9617d5073b1eeb1ab5ab745524f6707f457c2))
+* **api:** update via SDK Studio ([51a28e2](https://github.com/morta-technology/morta-python/commit/51a28e20d7932829c70b525d1ae062af9f9704fa))
+* **api:** update via SDK Studio ([7d97ebc](https://github.com/morta-technology/morta-python/commit/7d97ebc692232d98acc8f9caecaf168dcecee42c))
+* **api:** update via SDK Studio ([f139f40](https://github.com/morta-technology/morta-python/commit/f139f407bead2fabc27eee4b461e505955946e14))
+* **api:** update via SDK Studio ([187ac6b](https://github.com/morta-technology/morta-python/commit/187ac6bcf5d2f9d87d5b6396aec0fbeaed22303a))
+* **api:** update via SDK Studio ([555c015](https://github.com/morta-technology/morta-python/commit/555c0158594461bfa92fe202f29e085b3694173d))
+* **api:** update via SDK Studio ([3e1c49f](https://github.com/morta-technology/morta-python/commit/3e1c49fdee2931f50ee438473ac1c8335b1bcf82))
+* **api:** update via SDK Studio ([cd2a93b](https://github.com/morta-technology/morta-python/commit/cd2a93b3c7f583266a1133caf9d6a66d03ab39eb))
+* clean up environment call outs ([0136c74](https://github.com/morta-technology/morta-python/commit/0136c747916fecbbc2fb3cb78a616aad53d7ad33))
+* **client:** support file upload requests ([90cab0f](https://github.com/morta-technology/morta-python/commit/90cab0f72fa0e00ad480939b857bcdc9e93ab13b))
+
+
+### Bug Fixes
+
+* add missing import ([dce0033](https://github.com/morta-technology/morta-python/commit/dce003323f297f74ebc88bb0930fb193daf2d0c6))
+* **ci:** correct conditional ([8e8245e](https://github.com/morta-technology/morta-python/commit/8e8245e16903f7c4e0b13046cc5af18cb587c3e3))
+* **client:** don't send Content-Type header on GET requests ([582fe1d](https://github.com/morta-technology/morta-python/commit/582fe1d68576f8c3d120208dbab848317c82ff0f))
+* **parsing:** correctly handle nested discriminated unions ([eb07229](https://github.com/morta-technology/morta-python/commit/eb07229eb9eca1f69e2513cb7fb11d9febe7b602))
+* **parsing:** ignore empty metadata ([f0847f2](https://github.com/morta-technology/morta-python/commit/f0847f26b421ea6c59555bb462450966bdf7543f))
+* **parsing:** parse extra field types ([2a2742e](https://github.com/morta-technology/morta-python/commit/2a2742e0bc889c05925e12c0b854ee1373f757d2))
+
+
+### Chores
+
+* **ci:** change upload type ([db50c30](https://github.com/morta-technology/morta-python/commit/db50c30df7906a4476166b499dba85a071e2a446))
+* **ci:** only run for pushes and fork pull requests ([9f98261](https://github.com/morta-technology/morta-python/commit/9f98261cc65c3207abbd7a72f20b69059d96593f))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([8b71f21](https://github.com/morta-technology/morta-python/commit/8b71f2157e467b447fa6003ba9ca25dce4b53846))
+* **internal:** bump pinned h11 dep ([453cc7e](https://github.com/morta-technology/morta-python/commit/453cc7eafb0992a051b734ee01ef3101c8e3928f))
+* **internal:** change ci workflow machines ([2dc7f05](https://github.com/morta-technology/morta-python/commit/2dc7f05dc3e59e98ebabe944f88f2e692827bba7))
+* **internal:** codegen related update ([ea99d66](https://github.com/morta-technology/morta-python/commit/ea99d66b38e92f8bae30f47992330622ebf42db1))
+* **internal:** codegen related update ([3e6e3a5](https://github.com/morta-technology/morta-python/commit/3e6e3a5da56c47a4b1f85c235c0a70f61039624b))
+* **internal:** codegen related update ([28d45cf](https://github.com/morta-technology/morta-python/commit/28d45cf53a91ffd3d8bd21349d4812ecb999b954))
+* **internal:** codegen related update ([ffb23d1](https://github.com/morta-technology/morta-python/commit/ffb23d11f9d793c991d01d8cad82fcc3b8477ef0))
+* **internal:** codegen related update ([782ade2](https://github.com/morta-technology/morta-python/commit/782ade2ec9b9bffcb3b79d922f0df2c29619c39f))
+* **internal:** codegen related update ([d71d014](https://github.com/morta-technology/morta-python/commit/d71d014f4d35a0ddb2fa10f560506ad669c0d609))
+* **internal:** codegen related update ([799b166](https://github.com/morta-technology/morta-python/commit/799b1665f28527b3797c0cf0947162e71e369e2e))
+* **internal:** codegen related update ([ba95f8b](https://github.com/morta-technology/morta-python/commit/ba95f8b18e234628eb8e8ac8237b7903444d466f))
+* **internal:** codegen related update ([506b519](https://github.com/morta-technology/morta-python/commit/506b5197799007e81de3caa37b7b76ae87a3000d))
+* **internal:** fix ruff target version ([4b65407](https://github.com/morta-technology/morta-python/commit/4b65407db4f011b75179f81d46bb3926e86a1b4a))
+* **internal:** update comment in script ([7edbbee](https://github.com/morta-technology/morta-python/commit/7edbbee80e0f2b7306e3a50d6aaef01253cfd086))
+* **package:** mark python 3.13 as supported ([ed4b882](https://github.com/morta-technology/morta-python/commit/ed4b882fa175494dcfc81c499cc0c79ed6a16db5))
+* **project:** add settings file for vscode ([ba59cce](https://github.com/morta-technology/morta-python/commit/ba59ccec85c57ef0bb2d57755faaa387edf10319))
+* **readme:** fix version rendering on pypi ([656d8ef](https://github.com/morta-technology/morta-python/commit/656d8ef9ab9ce19be4b76b12a267dbaa7ae1e28c))
+* **types:** rebuild Pydantic models after all types are defined ([9bc2e47](https://github.com/morta-technology/morta-python/commit/9bc2e472cd3b1f4963aba811eaa74480c16bb41f))
+* update @stainless-api/prism-cli to v5.15.0 ([214b6fc](https://github.com/morta-technology/morta-python/commit/214b6fcab026c50fe36b7dea3ca1251147e7c94b))
+* update github action ([cf6b8ea](https://github.com/morta-technology/morta-python/commit/cf6b8ea3c91f032be8160935857c0395e96c865d))
+
 ## 1.0.1 (2025-06-26)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/morta-technology/morta-python/compare/v1.0.0...v1.0.1)
