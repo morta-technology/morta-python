@@ -13,9 +13,15 @@ __all__ = ["DocumentGetDuplicatedChildrenResponse", "Data"]
 class Data(BaseModel):
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
 
+    deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
+
+    deleted_by: Optional[str] = FieldInfo(alias="deletedBy", default=None)
+
     link: Optional[str] = None
 
     name: Optional[str] = None
+
+    public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     user: Optional[str] = None
 

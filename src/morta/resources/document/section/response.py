@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -55,14 +55,14 @@ class ResponseResource(SyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseCreateResponse:
         """
         Create a new response for a document section.
@@ -103,18 +103,18 @@ class ResponseResource(SyncAPIResource):
         *,
         document_id: str,
         document_section_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        enable_submission: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_response: Optional[bool] | NotGiven = NOT_GIVEN,
-        reset_after_response: Optional[bool] | NotGiven = NOT_GIVEN,
-        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | NotGiven = NOT_GIVEN,
-        type_options: object | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        enable_submission: Optional[bool] | Omit = omit,
+        pdf_include_response: Optional[bool] | Omit = omit,
+        reset_after_response: Optional[bool] | Omit = omit,
+        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | Omit = omit,
+        type_options: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseUpdateResponse:
         """
         Update an existing response for a document section.
@@ -168,7 +168,7 @@ class ResponseResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseDeleteResponse:
         """
         Delete a specific document response.
@@ -211,7 +211,7 @@ class ResponseResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseResetResponse:
         """
         Reset an existing document response to its initial state.
@@ -254,7 +254,7 @@ class ResponseResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseRestoreResponse:
         """
         Restore a previously deleted document response.
@@ -292,14 +292,14 @@ class ResponseResource(SyncAPIResource):
         *,
         document_id: str,
         document_section_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        response: object | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        response: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseSubmitResponse:
         """
         Submit a document response, marking it as completed.
@@ -364,14 +364,14 @@ class AsyncResponseResource(AsyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseCreateResponse:
         """
         Create a new response for a document section.
@@ -412,18 +412,18 @@ class AsyncResponseResource(AsyncAPIResource):
         *,
         document_id: str,
         document_section_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        enable_submission: Optional[bool] | NotGiven = NOT_GIVEN,
-        pdf_include_response: Optional[bool] | NotGiven = NOT_GIVEN,
-        reset_after_response: Optional[bool] | NotGiven = NOT_GIVEN,
-        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | NotGiven = NOT_GIVEN,
-        type_options: object | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        enable_submission: Optional[bool] | Omit = omit,
+        pdf_include_response: Optional[bool] | Omit = omit,
+        reset_after_response: Optional[bool] | Omit = omit,
+        type: Optional[Literal["Flexible", "File Upload", "Table", "Signature", "Selection"]] | Omit = omit,
+        type_options: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseUpdateResponse:
         """
         Update an existing response for a document section.
@@ -477,7 +477,7 @@ class AsyncResponseResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseDeleteResponse:
         """
         Delete a specific document response.
@@ -520,7 +520,7 @@ class AsyncResponseResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseResetResponse:
         """
         Reset an existing document response to its initial state.
@@ -563,7 +563,7 @@ class AsyncResponseResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseRestoreResponse:
         """
         Restore a previously deleted document response.
@@ -601,14 +601,14 @@ class AsyncResponseResource(AsyncAPIResource):
         *,
         document_id: str,
         document_section_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        response: object | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        response: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseSubmitResponse:
         """
         Submit a document response, marking it as completed.

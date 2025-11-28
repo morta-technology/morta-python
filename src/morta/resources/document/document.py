@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -19,7 +19,7 @@ from ...types import (
     document_update_multiple_sections_params,
     document_update_views_permissions_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .duplicate import (
@@ -107,13 +107,13 @@ class DocumentResource(SyncAPIResource):
         name: str,
         project_id: str,
         type: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateResponse:
         """
         Create a new document in a specified hub
@@ -148,13 +148,13 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        exclude_children: bool | NotGiven = NOT_GIVEN,
+        exclude_children: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentRetrieveResponse:
         """
         Retrieve detailed information of a specific document by its UUID
@@ -190,23 +190,23 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        allow_comments: bool | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: document_update_params.Description | NotGiven = NOT_GIVEN,
-        expand_by_default: bool | NotGiven = NOT_GIVEN,
-        is_template: bool | NotGiven = NOT_GIVEN,
-        locked_template: bool | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
-        variables: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        allow_comments: bool | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: document_update_params.Description | Omit = omit,
+        expand_by_default: bool | Omit = omit,
+        is_template: bool | Omit = omit,
+        locked_template: bool | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateResponse:
         """
         Update an existing documents's details by document ID
@@ -255,7 +255,7 @@ class DocumentResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentDeleteResponse:
         """
         Delete a document identified by its UUID
@@ -284,13 +284,13 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[CreateDocumentSectionParam],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateMultipleSectionsResponse:
         """
         Create multiple new sections within a specified document, each with an optional
@@ -326,14 +326,14 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        details: Iterable[CreateDocumentSectionParam] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        details: Iterable[CreateDocumentSectionParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateSectionsResponse:
         """
         Create multiple new sections within a document
@@ -368,15 +368,15 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | NotGiven = NOT_GIVEN,
-        page_orientation: Literal["portrait", "landscape"] | NotGiven = NOT_GIVEN,
-        table_links: bool | NotGiven = NOT_GIVEN,
+        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | Omit = omit,
+        page_orientation: Literal["portrait", "landscape"] | Omit = omit,
+        table_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Export a specific document by its UUID
@@ -425,13 +425,13 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        process_section_id: str | NotGiven = NOT_GIVEN,
+        process_section_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentGetDeletedSectionsResponse:
         """
         Retrieve all deleted sections of a specific document, with an optional filter
@@ -474,7 +474,7 @@ class DocumentResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a document
@@ -507,7 +507,7 @@ class DocumentResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentRestoreResponse:
         """
         Restore a deleted document identified by its UUID
@@ -540,7 +540,7 @@ class DocumentResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentSyncTemplateResponse:
         """
         Sync template changes to children of a document
@@ -569,13 +569,13 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[document_update_multiple_sections_params.Section],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateMultipleSectionsResponse:
         """
         Update multiple existing document sections.
@@ -610,14 +610,14 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        process_sections: Iterable[document_update_section_order_params.ProcessSection] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        process_sections: Iterable[document_update_section_order_params.ProcessSection] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateSectionOrderResponse:
         """
         Update the order of document sections within a document.
@@ -657,7 +657,7 @@ class DocumentResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateViewsPermissionsResponse:
         """
         Update permissions for all views using as reference the permissions in a
@@ -724,13 +724,13 @@ class AsyncDocumentResource(AsyncAPIResource):
         name: str,
         project_id: str,
         type: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateResponse:
         """
         Create a new document in a specified hub
@@ -765,13 +765,13 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        exclude_children: bool | NotGiven = NOT_GIVEN,
+        exclude_children: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentRetrieveResponse:
         """
         Retrieve detailed information of a specific document by its UUID
@@ -807,23 +807,23 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        allow_comments: bool | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: document_update_params.Description | NotGiven = NOT_GIVEN,
-        expand_by_default: bool | NotGiven = NOT_GIVEN,
-        is_template: bool | NotGiven = NOT_GIVEN,
-        locked_template: bool | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        plaintext_description: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
-        variables: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        allow_comments: bool | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: document_update_params.Description | Omit = omit,
+        expand_by_default: bool | Omit = omit,
+        is_template: bool | Omit = omit,
+        locked_template: bool | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        plaintext_description: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateResponse:
         """
         Update an existing documents's details by document ID
@@ -872,7 +872,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentDeleteResponse:
         """
         Delete a document identified by its UUID
@@ -901,13 +901,13 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[CreateDocumentSectionParam],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateMultipleSectionsResponse:
         """
         Create multiple new sections within a specified document, each with an optional
@@ -943,14 +943,14 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        details: Iterable[CreateDocumentSectionParam] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        details: Iterable[CreateDocumentSectionParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentCreateSectionsResponse:
         """
         Create multiple new sections within a document
@@ -985,15 +985,15 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | NotGiven = NOT_GIVEN,
-        page_orientation: Literal["portrait", "landscape"] | NotGiven = NOT_GIVEN,
-        table_links: bool | NotGiven = NOT_GIVEN,
+        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | Omit = omit,
+        page_orientation: Literal["portrait", "landscape"] | Omit = omit,
+        table_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Export a specific document by its UUID
@@ -1042,13 +1042,13 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        process_section_id: str | NotGiven = NOT_GIVEN,
+        process_section_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentGetDeletedSectionsResponse:
         """
         Retrieve all deleted sections of a specific document, with an optional filter
@@ -1091,7 +1091,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a document
@@ -1124,7 +1124,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentRestoreResponse:
         """
         Restore a deleted document identified by its UUID
@@ -1157,7 +1157,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentSyncTemplateResponse:
         """
         Sync template changes to children of a document
@@ -1186,13 +1186,13 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[document_update_multiple_sections_params.Section],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateMultipleSectionsResponse:
         """
         Update multiple existing document sections.
@@ -1227,14 +1227,14 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        process_sections: Iterable[document_update_section_order_params.ProcessSection] | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        process_sections: Iterable[document_update_section_order_params.ProcessSection] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateSectionOrderResponse:
         """
         Update the order of document sections within a document.
@@ -1274,7 +1274,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DocumentUpdateViewsPermissionsResponse:
         """
         Update permissions for all views using as reference the permissions in a

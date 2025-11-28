@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import Optional
 
-from .._compat import PYDANTIC_V2
 from .._models import BaseModel
 
 __all__ = ["UserRetrieveByPublicIDResponse"]
@@ -18,8 +17,3 @@ class UserRetrieveByPublicIDResponse(BaseModel):
 
 
 from .user.user import User
-
-if PYDANTIC_V2:
-    UserRetrieveByPublicIDResponse.model_rebuild()
-else:
-    UserRetrieveByPublicIDResponse.update_forward_refs()  # type: ignore

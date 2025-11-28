@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -54,19 +53,19 @@ class SyncResource(SyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        company_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        doc_types: List[str] | NotGiven = NOT_GIVEN,
-        enterprise_id: str | NotGiven = NOT_GIVEN,
-        folder_id: str | NotGiven = NOT_GIVEN,
-        hub_id: str | NotGiven = NOT_GIVEN,
-        license_id: str | NotGiven = NOT_GIVEN,
-        model_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_ids: List[str] | NotGiven = NOT_GIVEN,
-        properties: List[str] | NotGiven = NOT_GIVEN,
-        region: str | NotGiven = NOT_GIVEN,
-        top_folder_id: str | NotGiven = NOT_GIVEN,
+        company_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        doc_types: SequenceNotStr[str] | Omit = omit,
+        enterprise_id: str | Omit = omit,
+        folder_id: str | Omit = omit,
+        hub_id: str | Omit = omit,
+        license_id: str | Omit = omit,
+        model_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_ids: SequenceNotStr[str] | Omit = omit,
+        properties: SequenceNotStr[str] | Omit = omit,
+        region: str | Omit = omit,
+        top_folder_id: str | Omit = omit,
         type: Literal[
             "Projects",
             "Resources",
@@ -81,13 +80,13 @@ class SyncResource(SyncAPIResource):
             "AEC Data Model",
             "Forms",
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncUpdateResponse:
         """
         Update a synced table with a specified integration.
@@ -142,7 +141,7 @@ class SyncResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncDeleteIntegrationResponse:
         """
         Remove a specific integration from a table.
@@ -177,7 +176,7 @@ class SyncResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncGetSyncInfoResponse:
         """
         Retrieve the integration sync info of a given table.
@@ -210,7 +209,7 @@ class SyncResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncRetryIntegrationSyncResponse:
         """
         Retry a failed integration sync.
@@ -239,19 +238,19 @@ class SyncResource(SyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        company_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        doc_types: List[str] | NotGiven = NOT_GIVEN,
-        enterprise_id: str | NotGiven = NOT_GIVEN,
-        folder_id: str | NotGiven = NOT_GIVEN,
-        hub_id: str | NotGiven = NOT_GIVEN,
-        license_id: str | NotGiven = NOT_GIVEN,
-        model_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_ids: List[str] | NotGiven = NOT_GIVEN,
-        properties: List[str] | NotGiven = NOT_GIVEN,
-        region: str | NotGiven = NOT_GIVEN,
-        top_folder_id: str | NotGiven = NOT_GIVEN,
+        company_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        doc_types: SequenceNotStr[str] | Omit = omit,
+        enterprise_id: str | Omit = omit,
+        folder_id: str | Omit = omit,
+        hub_id: str | Omit = omit,
+        license_id: str | Omit = omit,
+        model_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_ids: SequenceNotStr[str] | Omit = omit,
+        properties: SequenceNotStr[str] | Omit = omit,
+        region: str | Omit = omit,
+        top_folder_id: str | Omit = omit,
         type: Literal[
             "Projects",
             "Resources",
@@ -266,13 +265,13 @@ class SyncResource(SyncAPIResource):
             "AEC Data Model",
             "Forms",
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSyncWithIntegrationResponse:
         """
         Sync a table with a specified integration.
@@ -343,19 +342,19 @@ class AsyncSyncResource(AsyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        company_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        doc_types: List[str] | NotGiven = NOT_GIVEN,
-        enterprise_id: str | NotGiven = NOT_GIVEN,
-        folder_id: str | NotGiven = NOT_GIVEN,
-        hub_id: str | NotGiven = NOT_GIVEN,
-        license_id: str | NotGiven = NOT_GIVEN,
-        model_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_ids: List[str] | NotGiven = NOT_GIVEN,
-        properties: List[str] | NotGiven = NOT_GIVEN,
-        region: str | NotGiven = NOT_GIVEN,
-        top_folder_id: str | NotGiven = NOT_GIVEN,
+        company_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        doc_types: SequenceNotStr[str] | Omit = omit,
+        enterprise_id: str | Omit = omit,
+        folder_id: str | Omit = omit,
+        hub_id: str | Omit = omit,
+        license_id: str | Omit = omit,
+        model_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_ids: SequenceNotStr[str] | Omit = omit,
+        properties: SequenceNotStr[str] | Omit = omit,
+        region: str | Omit = omit,
+        top_folder_id: str | Omit = omit,
         type: Literal[
             "Projects",
             "Resources",
@@ -370,13 +369,13 @@ class AsyncSyncResource(AsyncAPIResource):
             "AEC Data Model",
             "Forms",
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncUpdateResponse:
         """
         Update a synced table with a specified integration.
@@ -431,7 +430,7 @@ class AsyncSyncResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncDeleteIntegrationResponse:
         """
         Remove a specific integration from a table.
@@ -466,7 +465,7 @@ class AsyncSyncResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncGetSyncInfoResponse:
         """
         Retrieve the integration sync info of a given table.
@@ -499,7 +498,7 @@ class AsyncSyncResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncRetryIntegrationSyncResponse:
         """
         Retry a failed integration sync.
@@ -528,19 +527,19 @@ class AsyncSyncResource(AsyncAPIResource):
         integration_name: str,
         *,
         table_id: str,
-        company_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        doc_types: List[str] | NotGiven = NOT_GIVEN,
-        enterprise_id: str | NotGiven = NOT_GIVEN,
-        folder_id: str | NotGiven = NOT_GIVEN,
-        hub_id: str | NotGiven = NOT_GIVEN,
-        license_id: str | NotGiven = NOT_GIVEN,
-        model_id: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_ids: List[str] | NotGiven = NOT_GIVEN,
-        properties: List[str] | NotGiven = NOT_GIVEN,
-        region: str | NotGiven = NOT_GIVEN,
-        top_folder_id: str | NotGiven = NOT_GIVEN,
+        company_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        doc_types: SequenceNotStr[str] | Omit = omit,
+        enterprise_id: str | Omit = omit,
+        folder_id: str | Omit = omit,
+        hub_id: str | Omit = omit,
+        license_id: str | Omit = omit,
+        model_id: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_ids: SequenceNotStr[str] | Omit = omit,
+        properties: SequenceNotStr[str] | Omit = omit,
+        region: str | Omit = omit,
+        top_folder_id: str | Omit = omit,
         type: Literal[
             "Projects",
             "Resources",
@@ -555,13 +554,13 @@ class AsyncSyncResource(AsyncAPIResource):
             "AEC Data Model",
             "Forms",
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncSyncWithIntegrationResponse:
         """
         Sync a table with a specified integration.

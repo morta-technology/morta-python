@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -23,7 +23,7 @@ from .columns import (
     ColumnsResourceWithStreamingResponse,
     AsyncColumnsResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -108,32 +108,32 @@ class ViewsResource(SyncAPIResource):
         table_id: str,
         *,
         name: str,
-        allow_contributor_delete: bool | NotGiven = NOT_GIVEN,
-        chart_settings: view_create_params.ChartSettings | NotGiven = NOT_GIVEN,
-        collapsed_group_view: bool | NotGiven = NOT_GIVEN,
-        colour_settings: Iterable[ColourParam] | NotGiven = NOT_GIVEN,
-        columns: Iterable[view_create_params.Column] | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: view_create_params.Description | NotGiven = NOT_GIVEN,
-        disable_new_row: bool | NotGiven = NOT_GIVEN,
-        disable_sync_csv: bool | NotGiven = NOT_GIVEN,
-        display_comment_rows: int | NotGiven = NOT_GIVEN,
-        display_validation_error_rows: Literal[0, 1, 2] | NotGiven = NOT_GIVEN,
-        filter_settings: Iterable[FilterParam] | NotGiven = NOT_GIVEN,
-        frozen_index: int | NotGiven = NOT_GIVEN,
-        group_settings: Iterable[GroupParam] | NotGiven = NOT_GIVEN,
-        include_all_columns: bool | NotGiven = NOT_GIVEN,
-        is_default: bool | NotGiven = NOT_GIVEN,
-        row_height: int | NotGiven = NOT_GIVEN,
-        sort_settings: Iterable[SortParam] | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
-        unpack_multiselect_group_view: bool | NotGiven = NOT_GIVEN,
+        allow_contributor_delete: bool | Omit = omit,
+        chart_settings: view_create_params.ChartSettings | Omit = omit,
+        collapsed_group_view: bool | Omit = omit,
+        colour_settings: Iterable[ColourParam] | Omit = omit,
+        columns: Iterable[view_create_params.Column] | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: view_create_params.Description | Omit = omit,
+        disable_new_row: bool | Omit = omit,
+        disable_sync_csv: bool | Omit = omit,
+        display_comment_rows: int | Omit = omit,
+        display_validation_error_rows: Literal[0, 1, 2] | Omit = omit,
+        filter_settings: Iterable[FilterParam] | Omit = omit,
+        frozen_index: int | Omit = omit,
+        group_settings: Iterable[GroupParam] | Omit = omit,
+        include_all_columns: bool | Omit = omit,
+        is_default: bool | Omit = omit,
+        row_height: int | Omit = omit,
+        sort_settings: Iterable[SortParam] | Omit = omit,
+        type: int | Omit = omit,
+        unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewCreateResponse:
         """
         Create a new view for a specific table.
@@ -187,13 +187,13 @@ class ViewsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        ignore_cached_options: bool | NotGiven = NOT_GIVEN,
+        ignore_cached_options: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewRetrieveResponse:
         """
         Retrieve a specific view by its ID for a table.
@@ -229,31 +229,31 @@ class ViewsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        allow_contributor_delete: bool | NotGiven = NOT_GIVEN,
-        chart_settings: view_update_params.ChartSettings | NotGiven = NOT_GIVEN,
-        collapsed_group_view: bool | NotGiven = NOT_GIVEN,
-        colour_settings: Iterable[ColourParam] | NotGiven = NOT_GIVEN,
-        columns: Iterable[UpdateTableViewColumnParam] | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: view_update_params.Description | NotGiven = NOT_GIVEN,
-        disable_new_row: bool | NotGiven = NOT_GIVEN,
-        disable_sync_csv: bool | NotGiven = NOT_GIVEN,
-        display_comment_rows: int | NotGiven = NOT_GIVEN,
-        display_validation_error_rows: Literal[0, 1, 2] | NotGiven = NOT_GIVEN,
-        filter_settings: Iterable[FilterParam] | NotGiven = NOT_GIVEN,
-        frozen_index: int | NotGiven = NOT_GIVEN,
-        group_settings: Iterable[GroupParam] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        row_height: int | NotGiven = NOT_GIVEN,
-        sort_settings: Iterable[SortParam] | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
-        unpack_multiselect_group_view: bool | NotGiven = NOT_GIVEN,
+        allow_contributor_delete: bool | Omit = omit,
+        chart_settings: view_update_params.ChartSettings | Omit = omit,
+        collapsed_group_view: bool | Omit = omit,
+        colour_settings: Iterable[ColourParam] | Omit = omit,
+        columns: Iterable[UpdateTableViewColumnParam] | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: view_update_params.Description | Omit = omit,
+        disable_new_row: bool | Omit = omit,
+        disable_sync_csv: bool | Omit = omit,
+        display_comment_rows: int | Omit = omit,
+        display_validation_error_rows: Literal[0, 1, 2] | Omit = omit,
+        filter_settings: Iterable[FilterParam] | Omit = omit,
+        frozen_index: int | Omit = omit,
+        group_settings: Iterable[GroupParam] | Omit = omit,
+        name: str | Omit = omit,
+        row_height: int | Omit = omit,
+        sort_settings: Iterable[SortParam] | Omit = omit,
+        type: int | Omit = omit,
+        unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewUpdateResponse:
         """
         Update an existing view for a specific table.
@@ -305,13 +305,13 @@ class ViewsResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        ignore_columns: bool | NotGiven = NOT_GIVEN,
+        ignore_columns: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewListResponse:
         """
         Retrieve all views associated with a specific table.
@@ -350,7 +350,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDeleteResponse:
         """
         Delete a specific view of a table.
@@ -378,15 +378,15 @@ class ViewsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        process_id: str | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Download the data of a specific table view in CSV format.
@@ -438,7 +438,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDuplicateResponse:
         """
         Create a duplicate of an existing view for a specific table.
@@ -468,15 +468,15 @@ class ViewsResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        name: str | Omit = omit,
+        type: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDuplicateDefaultResponse:
         """
         Create a duplicate of the default view for a specific table.
@@ -513,13 +513,13 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         row_data: Dict[str, Optional[object]],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewPreviewRowResponse:
         """
         Preview the resulting row from given inputs in a specific table view.
@@ -559,7 +559,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewSetDefaultResponse:
         """
         Designate a specific table view as the default view for the table.
@@ -587,15 +587,15 @@ class ViewsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        sum_avg_max_min_count: List[str] | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        process_id: str | Omit = omit,
+        sum_avg_max_min_count: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewStatsResponse:
         """
         Retrieve statistical data for columns in a specific table view.
@@ -640,17 +640,17 @@ class ViewsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        page: int | Omit = omit,
+        process_id: str | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Stream the data of all rows for a specific table view.
@@ -703,13 +703,13 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         cells: Iterable[view_update_cells_params.Cell],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewUpdateCellsResponse:
         """
         Update specific cells in a table view.
@@ -774,32 +774,32 @@ class AsyncViewsResource(AsyncAPIResource):
         table_id: str,
         *,
         name: str,
-        allow_contributor_delete: bool | NotGiven = NOT_GIVEN,
-        chart_settings: view_create_params.ChartSettings | NotGiven = NOT_GIVEN,
-        collapsed_group_view: bool | NotGiven = NOT_GIVEN,
-        colour_settings: Iterable[ColourParam] | NotGiven = NOT_GIVEN,
-        columns: Iterable[view_create_params.Column] | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: view_create_params.Description | NotGiven = NOT_GIVEN,
-        disable_new_row: bool | NotGiven = NOT_GIVEN,
-        disable_sync_csv: bool | NotGiven = NOT_GIVEN,
-        display_comment_rows: int | NotGiven = NOT_GIVEN,
-        display_validation_error_rows: Literal[0, 1, 2] | NotGiven = NOT_GIVEN,
-        filter_settings: Iterable[FilterParam] | NotGiven = NOT_GIVEN,
-        frozen_index: int | NotGiven = NOT_GIVEN,
-        group_settings: Iterable[GroupParam] | NotGiven = NOT_GIVEN,
-        include_all_columns: bool | NotGiven = NOT_GIVEN,
-        is_default: bool | NotGiven = NOT_GIVEN,
-        row_height: int | NotGiven = NOT_GIVEN,
-        sort_settings: Iterable[SortParam] | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
-        unpack_multiselect_group_view: bool | NotGiven = NOT_GIVEN,
+        allow_contributor_delete: bool | Omit = omit,
+        chart_settings: view_create_params.ChartSettings | Omit = omit,
+        collapsed_group_view: bool | Omit = omit,
+        colour_settings: Iterable[ColourParam] | Omit = omit,
+        columns: Iterable[view_create_params.Column] | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: view_create_params.Description | Omit = omit,
+        disable_new_row: bool | Omit = omit,
+        disable_sync_csv: bool | Omit = omit,
+        display_comment_rows: int | Omit = omit,
+        display_validation_error_rows: Literal[0, 1, 2] | Omit = omit,
+        filter_settings: Iterable[FilterParam] | Omit = omit,
+        frozen_index: int | Omit = omit,
+        group_settings: Iterable[GroupParam] | Omit = omit,
+        include_all_columns: bool | Omit = omit,
+        is_default: bool | Omit = omit,
+        row_height: int | Omit = omit,
+        sort_settings: Iterable[SortParam] | Omit = omit,
+        type: int | Omit = omit,
+        unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewCreateResponse:
         """
         Create a new view for a specific table.
@@ -853,13 +853,13 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        ignore_cached_options: bool | NotGiven = NOT_GIVEN,
+        ignore_cached_options: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewRetrieveResponse:
         """
         Retrieve a specific view by its ID for a table.
@@ -895,31 +895,31 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        allow_contributor_delete: bool | NotGiven = NOT_GIVEN,
-        chart_settings: view_update_params.ChartSettings | NotGiven = NOT_GIVEN,
-        collapsed_group_view: bool | NotGiven = NOT_GIVEN,
-        colour_settings: Iterable[ColourParam] | NotGiven = NOT_GIVEN,
-        columns: Iterable[UpdateTableViewColumnParam] | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        description: view_update_params.Description | NotGiven = NOT_GIVEN,
-        disable_new_row: bool | NotGiven = NOT_GIVEN,
-        disable_sync_csv: bool | NotGiven = NOT_GIVEN,
-        display_comment_rows: int | NotGiven = NOT_GIVEN,
-        display_validation_error_rows: Literal[0, 1, 2] | NotGiven = NOT_GIVEN,
-        filter_settings: Iterable[FilterParam] | NotGiven = NOT_GIVEN,
-        frozen_index: int | NotGiven = NOT_GIVEN,
-        group_settings: Iterable[GroupParam] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        row_height: int | NotGiven = NOT_GIVEN,
-        sort_settings: Iterable[SortParam] | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
-        unpack_multiselect_group_view: bool | NotGiven = NOT_GIVEN,
+        allow_contributor_delete: bool | Omit = omit,
+        chart_settings: view_update_params.ChartSettings | Omit = omit,
+        collapsed_group_view: bool | Omit = omit,
+        colour_settings: Iterable[ColourParam] | Omit = omit,
+        columns: Iterable[UpdateTableViewColumnParam] | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        description: view_update_params.Description | Omit = omit,
+        disable_new_row: bool | Omit = omit,
+        disable_sync_csv: bool | Omit = omit,
+        display_comment_rows: int | Omit = omit,
+        display_validation_error_rows: Literal[0, 1, 2] | Omit = omit,
+        filter_settings: Iterable[FilterParam] | Omit = omit,
+        frozen_index: int | Omit = omit,
+        group_settings: Iterable[GroupParam] | Omit = omit,
+        name: str | Omit = omit,
+        row_height: int | Omit = omit,
+        sort_settings: Iterable[SortParam] | Omit = omit,
+        type: int | Omit = omit,
+        unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewUpdateResponse:
         """
         Update an existing view for a specific table.
@@ -971,13 +971,13 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        ignore_columns: bool | NotGiven = NOT_GIVEN,
+        ignore_columns: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewListResponse:
         """
         Retrieve all views associated with a specific table.
@@ -1016,7 +1016,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDeleteResponse:
         """
         Delete a specific view of a table.
@@ -1044,15 +1044,15 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        process_id: str | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Download the data of a specific table view in CSV format.
@@ -1104,7 +1104,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDuplicateResponse:
         """
         Create a duplicate of an existing view for a specific table.
@@ -1134,15 +1134,15 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        type: int | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        name: str | Omit = omit,
+        type: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewDuplicateDefaultResponse:
         """
         Create a duplicate of the default view for a specific table.
@@ -1179,13 +1179,13 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         row_data: Dict[str, Optional[object]],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewPreviewRowResponse:
         """
         Preview the resulting row from given inputs in a specific table view.
@@ -1225,7 +1225,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewSetDefaultResponse:
         """
         Designate a specific table view as the default view for the table.
@@ -1253,15 +1253,15 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        sum_avg_max_min_count: List[str] | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        process_id: str | Omit = omit,
+        sum_avg_max_min_count: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewStatsResponse:
         """
         Retrieve statistical data for columns in a specific table view.
@@ -1306,17 +1306,17 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        process_id: str | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        page: int | Omit = omit,
+        process_id: str | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Stream the data of all rows for a specific table view.
@@ -1369,13 +1369,13 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         cells: Iterable[view_update_cells_params.Cell],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ViewUpdateCellsResponse:
         """
         Update specific cells in a table view.

@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..base_request_context_param import BaseRequestContextParam
 
@@ -18,7 +18,7 @@ class SyncUpdateParams(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
-    doc_types: Annotated[List[str], PropertyInfo(alias="docTypes")]
+    doc_types: Annotated[SequenceNotStr[str], PropertyInfo(alias="docTypes")]
 
     enterprise_id: Annotated[str, PropertyInfo(alias="enterpriseId")]
 
@@ -32,9 +32,9 @@ class SyncUpdateParams(TypedDict, total=False):
 
     project_id: Annotated[str, PropertyInfo(alias="projectId")]
 
-    project_ids: Annotated[List[str], PropertyInfo(alias="projectIds")]
+    project_ids: Annotated[SequenceNotStr[str], PropertyInfo(alias="projectIds")]
 
-    properties: List[str]
+    properties: SequenceNotStr[str]
 
     region: str
 

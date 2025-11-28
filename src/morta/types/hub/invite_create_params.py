@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["InviteCreateParams"]
@@ -15,4 +15,4 @@ class InviteCreateParams(TypedDict, total=False):
 
     project_role: Annotated[Literal["member", "admin", "owner"], PropertyInfo(alias="projectRole")]
 
-    tags: List[str]
+    tags: SequenceNotStr[str]

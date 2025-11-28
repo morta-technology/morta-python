@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["SelectOptionsLookupParam", "TableOptions", "TableOptionsDependency"]
@@ -31,6 +32,6 @@ class TableOptions(TypedDict, total=False):
 class SelectOptionsLookupParam(TypedDict, total=False):
     autopopulate: bool
 
-    manual_options: Annotated[List[str], PropertyInfo(alias="manualOptions")]
+    manual_options: Annotated[SequenceNotStr[str], PropertyInfo(alias="manualOptions")]
 
     table_options: Annotated[TableOptions, PropertyInfo(alias="tableOptions")]

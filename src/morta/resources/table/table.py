@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -50,9 +50,10 @@ from ...types import (
     table_create_index_params,
     table_download_csv_params,
     table_update_cells_params,
+    table_get_csv_backup_params,
     table_get_statistics_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -146,15 +147,15 @@ class TableResource(SyncAPIResource):
         columns: Iterable[TableColumnParam],
         name: str,
         project_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        joins: Iterable[table_create_params.Join] | NotGiven = NOT_GIVEN,
-        type: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        joins: Iterable[table_create_params.Join] | Omit = omit,
+        type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCreateResponse:
         """
         Create a new document table within a hub.
@@ -191,22 +192,22 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        columns: List[str] | NotGiven = NOT_GIVEN,
-        distinct_columns: List[str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
-        ignore_cached_options: bool | NotGiven = NOT_GIVEN,
-        last_created_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        last_updated_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        next_page_token: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        columns: SequenceNotStr[str] | Omit = omit,
+        distinct_columns: SequenceNotStr[str] | Omit = omit,
+        filter: str | Omit = omit,
+        ignore_cached_options: bool | Omit = omit,
+        last_created_at: Union[str, datetime] | Omit = omit,
+        last_updated_at: Union[str, datetime] | Omit = omit,
+        next_page_token: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableRetrieveResponse:
         """
         Retrieve a table and its rows based on provided parameters
@@ -272,22 +273,22 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        allow_comments: bool | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        is_reference_table: bool | NotGiven = NOT_GIVEN,
-        joins: Iterable[table_update_params.Join] | NotGiven = NOT_GIVEN,
-        keep_colours_in_sync: bool | NotGiven = NOT_GIVEN,
-        keep_validations_in_sync: bool | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        sync_hourly_frequency: Literal[0, 24] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_comments: bool | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        is_reference_table: bool | Omit = omit,
+        joins: Iterable[table_update_params.Join] | Omit = omit,
+        keep_colours_in_sync: bool | Omit = omit,
+        keep_validations_in_sync: bool | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        name: str | Omit = omit,
+        sync_hourly_frequency: Literal[0, 24] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableUpdateResponse:
         """
         Update the properties of an existing table.
@@ -335,7 +336,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteResponse:
         """
         Delete a specified table by its UUID.
@@ -368,7 +369,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
         Check and return a list of documents, table joins, and selects where the
@@ -403,7 +404,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCreateIndexResponse:
         """
         Create an index on one or more columns of a table to improve query performance.
@@ -437,7 +438,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteRowsResponse:
         """
         Delete all rows or specific rows from a table.
@@ -465,14 +466,14 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Download the data of a specified table as a CSV file.
@@ -516,15 +517,15 @@ class TableResource(SyncAPIResource):
         table_id: str,
         *,
         target_project_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        duplicate_linked_tables: Optional[bool] | NotGiven = NOT_GIVEN,
-        duplicate_permissions: bool | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        duplicate_linked_tables: Optional[bool] | Omit = omit,
+        duplicate_permissions: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDuplicateResponse:
         """
         Create a duplicate of an existing table along with its data, settings, and
@@ -562,17 +563,20 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
+        date: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Get a CSV backup of a table at a specific date
 
         Args:
+          date: The date of the backup to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -587,7 +591,11 @@ class TableResource(SyncAPIResource):
         return self._get(
             f"/v1/table/{table_id}/csv-backup",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
             cast_to=BinaryAPIResponse,
         )
@@ -601,7 +609,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a table
@@ -636,7 +644,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Retrieve a file associated with a specific cell in a table.
@@ -679,14 +687,14 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        aggregation: Dict[str, str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
+        aggregation: Dict[str, str] | Omit = omit,
+        filter: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableGetStatisticsResponse:
         """
         Retrieve statistics for table columns based on specified parameters.
@@ -733,7 +741,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableListColumnsResponse:
         """
         Retrieve all active columns of a specific table.
@@ -766,7 +774,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableListJoinsResponse:
         """
         Retrieve all joins associated with a table.
@@ -799,7 +807,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableRestoreResponse:
         """
         Restore a previously deleted table using its UUID.
@@ -827,16 +835,16 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Stream the data of all rows for a specific table.
@@ -890,7 +898,7 @@ class TableResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableTruncateResponse:
         """
         Deletes all rows from the specified table.
@@ -919,13 +927,13 @@ class TableResource(SyncAPIResource):
         table_id: str,
         *,
         cells: Iterable[table_update_cells_params.Cell],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableUpdateCellsResponse:
         """
         Update specific cells in a table.
@@ -1003,15 +1011,15 @@ class AsyncTableResource(AsyncAPIResource):
         columns: Iterable[TableColumnParam],
         name: str,
         project_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        joins: Iterable[table_create_params.Join] | NotGiven = NOT_GIVEN,
-        type: str | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        joins: Iterable[table_create_params.Join] | Omit = omit,
+        type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCreateResponse:
         """
         Create a new document table within a hub.
@@ -1048,22 +1056,22 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        columns: List[str] | NotGiven = NOT_GIVEN,
-        distinct_columns: List[str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
-        ignore_cached_options: bool | NotGiven = NOT_GIVEN,
-        last_created_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        last_updated_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        next_page_token: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        columns: SequenceNotStr[str] | Omit = omit,
+        distinct_columns: SequenceNotStr[str] | Omit = omit,
+        filter: str | Omit = omit,
+        ignore_cached_options: bool | Omit = omit,
+        last_created_at: Union[str, datetime] | Omit = omit,
+        last_updated_at: Union[str, datetime] | Omit = omit,
+        next_page_token: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableRetrieveResponse:
         """
         Retrieve a table and its rows based on provided parameters
@@ -1129,22 +1137,22 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        allow_comments: bool | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        is_reference_table: bool | NotGiven = NOT_GIVEN,
-        joins: Iterable[table_update_params.Join] | NotGiven = NOT_GIVEN,
-        keep_colours_in_sync: bool | NotGiven = NOT_GIVEN,
-        keep_validations_in_sync: bool | NotGiven = NOT_GIVEN,
-        logo: Optional[str] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        sync_hourly_frequency: Literal[0, 24] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        allow_comments: bool | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        is_reference_table: bool | Omit = omit,
+        joins: Iterable[table_update_params.Join] | Omit = omit,
+        keep_colours_in_sync: bool | Omit = omit,
+        keep_validations_in_sync: bool | Omit = omit,
+        logo: Optional[str] | Omit = omit,
+        name: str | Omit = omit,
+        sync_hourly_frequency: Literal[0, 24] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableUpdateResponse:
         """
         Update the properties of an existing table.
@@ -1192,7 +1200,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteResponse:
         """
         Delete a specified table by its UUID.
@@ -1225,7 +1233,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
         Check and return a list of documents, table joins, and selects where the
@@ -1260,7 +1268,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCreateIndexResponse:
         """
         Create an index on one or more columns of a table to improve query performance.
@@ -1294,7 +1302,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteRowsResponse:
         """
         Delete all rows or specific rows from a table.
@@ -1322,14 +1330,14 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
         """
         Download the data of a specified table as a CSV file.
@@ -1373,15 +1381,15 @@ class AsyncTableResource(AsyncAPIResource):
         table_id: str,
         *,
         target_project_id: str,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        duplicate_linked_tables: Optional[bool] | NotGiven = NOT_GIVEN,
-        duplicate_permissions: bool | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
+        duplicate_linked_tables: Optional[bool] | Omit = omit,
+        duplicate_permissions: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDuplicateResponse:
         """
         Create a duplicate of an existing table along with its data, settings, and
@@ -1419,17 +1427,20 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
+        date: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Get a CSV backup of a table at a specific date
 
         Args:
+          date: The date of the backup to retrieve
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1444,7 +1455,11 @@ class AsyncTableResource(AsyncAPIResource):
         return await self._get(
             f"/v1/table/{table_id}/csv-backup",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
             cast_to=AsyncBinaryAPIResponse,
         )
@@ -1458,7 +1473,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableGetDuplicatedChildrenResponse:
         """
         Get duplicated children of a table
@@ -1493,7 +1508,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Retrieve a file associated with a specific cell in a table.
@@ -1536,14 +1551,14 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        aggregation: Dict[str, str] | NotGiven = NOT_GIVEN,
-        filter: str | NotGiven = NOT_GIVEN,
+        aggregation: Dict[str, str] | Omit = omit,
+        filter: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableGetStatisticsResponse:
         """
         Retrieve statistics for table columns based on specified parameters.
@@ -1590,7 +1605,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableListColumnsResponse:
         """
         Retrieve all active columns of a specific table.
@@ -1623,7 +1638,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableListJoinsResponse:
         """
         Retrieve all joins associated with a table.
@@ -1656,7 +1671,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableRestoreResponse:
         """
         Restore a previously deleted table using its UUID.
@@ -1684,16 +1699,16 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        filter: str | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        sort: str | NotGiven = NOT_GIVEN,
+        filter: str | Omit = omit,
+        page: int | Omit = omit,
+        size: int | Omit = omit,
+        sort: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Stream the data of all rows for a specific table.
@@ -1747,7 +1762,7 @@ class AsyncTableResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableTruncateResponse:
         """
         Deletes all rows from the specified table.
@@ -1776,13 +1791,13 @@ class AsyncTableResource(AsyncAPIResource):
         table_id: str,
         *,
         cells: Iterable[table_update_cells_params.Cell],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableUpdateCellsResponse:
         """
         Update specific cells in a table.

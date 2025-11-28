@@ -23,7 +23,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestColumns:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         column = client.table.views.columns.update(
@@ -32,26 +32,17 @@ class TestColumns:
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         column = client.table.views.columns.update(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -98,6 +89,7 @@ class TestColumns:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -116,12 +108,9 @@ class TestColumns:
                 },
             },
             locked=True,
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             required=True,
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             sort_order=0,
@@ -130,13 +119,11 @@ class TestColumns:
             validation_message="validationMessage",
             validation_no_blanks=True,
             validation_no_duplicates=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=100,
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.update(
@@ -149,7 +136,7 @@ class TestColumns:
         column = response.parse()
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.update(
@@ -164,7 +151,7 @@ class TestColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -179,7 +166,7 @@ class TestColumns:
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_add(self, client: Morta) -> None:
         column = client.table.views.columns.add(
@@ -190,7 +177,7 @@ class TestColumns:
         )
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_add_with_all_params(self, client: Morta) -> None:
         column = client.table.views.columns.add(
@@ -198,20 +185,11 @@ class TestColumns:
             locked=True,
             required=True,
             sort_order=0,
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -258,6 +236,7 @@ class TestColumns:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -275,11 +254,8 @@ class TestColumns:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             string_validation="stringValidation",
@@ -287,13 +263,11 @@ class TestColumns:
             validation_message="validationMessage",
             validation_no_blanks=True,
             validation_no_duplicates=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_add(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.add(
@@ -308,7 +282,7 @@ class TestColumns:
         column = response.parse()
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_add(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.add(
@@ -325,7 +299,7 @@ class TestColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_add(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -336,7 +310,7 @@ class TestColumns:
                 sort_order=0,
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_ai_formula_helper(self, client: Morta) -> None:
         column = client.table.views.columns.ai_formula_helper(
@@ -346,7 +320,7 @@ class TestColumns:
         )
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_ai_formula_helper(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.ai_formula_helper(
@@ -360,7 +334,7 @@ class TestColumns:
         column = response.parse()
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_ai_formula_helper(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.ai_formula_helper(
@@ -376,7 +350,7 @@ class TestColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_ai_formula_helper(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -393,7 +367,7 @@ class TestColumns:
                 text="text",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_distinct(self, client: Morta) -> None:
         column = client.table.views.columns.distinct(
@@ -402,7 +376,7 @@ class TestColumns:
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_distinct_with_all_params(self, client: Morta) -> None:
         column = client.table.views.columns.distinct(
@@ -413,7 +387,7 @@ class TestColumns:
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_distinct(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.distinct(
@@ -426,7 +400,7 @@ class TestColumns:
         column = response.parse()
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_distinct(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.distinct(
@@ -441,7 +415,7 @@ class TestColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_distinct(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -456,7 +430,7 @@ class TestColumns:
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_formula_info(self, client: Morta) -> None:
         column = client.table.views.columns.formula_info(
@@ -465,7 +439,7 @@ class TestColumns:
         )
         assert_matches_type(ColumnFormulaInfoResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_formula_info(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.formula_info(
@@ -478,7 +452,7 @@ class TestColumns:
         column = response.parse()
         assert_matches_type(ColumnFormulaInfoResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_formula_info(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.formula_info(
@@ -493,7 +467,7 @@ class TestColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_formula_info(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -514,7 +488,7 @@ class TestAsyncColumns:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.update(
@@ -523,26 +497,17 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.update(
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -589,6 +554,7 @@ class TestAsyncColumns:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -607,12 +573,9 @@ class TestAsyncColumns:
                 },
             },
             locked=True,
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             required=True,
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             sort_order=0,
@@ -621,13 +584,11 @@ class TestAsyncColumns:
             validation_message="validationMessage",
             validation_no_blanks=True,
             validation_no_duplicates=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=100,
         )
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.update(
@@ -640,7 +601,7 @@ class TestAsyncColumns:
         column = await response.parse()
         assert_matches_type(ColumnUpdateResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.update(
@@ -655,7 +616,7 @@ class TestAsyncColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -670,7 +631,7 @@ class TestAsyncColumns:
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_add(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.add(
@@ -681,7 +642,7 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_add_with_all_params(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.add(
@@ -689,20 +650,11 @@ class TestAsyncColumns:
             locked=True,
             required=True,
             sort_order=0,
-            aconex_synced=0,
-            aconex_workflows_synced=0,
             aggregate=0,
             alter_options={
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
-            asite_documents_synced=0,
-            asite_forms_synced=0,
-            autodesk_bim360_checklists_synced=0,
-            autodesk_bim360_issues_synced=0,
-            autodesk_bim360_models_synced=0,
-            autodesk_bim360_synced=0,
-            autodesk_bim360_users_synced=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -749,6 +701,7 @@ class TestAsyncColumns:
             header_text_color="headerTextColor",
             is_indexed=True,
             is_joined=True,
+            is_synced=True,
             kind="text",
             kind_options={
                 "autopopulate": True,
@@ -766,11 +719,8 @@ class TestAsyncColumns:
                     "view_id": "viewId",
                 },
             },
-            morta_synced=0,
             name="name",
-            procore_synced=0,
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            revizto_issues_synced=0,
             script="script",
             script_enabled=True,
             string_validation="stringValidation",
@@ -778,13 +728,11 @@ class TestAsyncColumns:
             validation_message="validationMessage",
             validation_no_blanks=True,
             validation_no_duplicates=True,
-            viewpoint_rfis_synced=0,
-            viewpoint_synced=0,
             width=0,
         )
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_add(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.add(
@@ -799,7 +747,7 @@ class TestAsyncColumns:
         column = await response.parse()
         assert_matches_type(ColumnAddResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_add(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.add(
@@ -816,7 +764,7 @@ class TestAsyncColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_add(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -827,7 +775,7 @@ class TestAsyncColumns:
                 sort_order=0,
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_ai_formula_helper(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.ai_formula_helper(
@@ -837,7 +785,7 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_ai_formula_helper(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.ai_formula_helper(
@@ -851,7 +799,7 @@ class TestAsyncColumns:
         column = await response.parse()
         assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_ai_formula_helper(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.ai_formula_helper(
@@ -867,7 +815,7 @@ class TestAsyncColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_ai_formula_helper(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -884,7 +832,7 @@ class TestAsyncColumns:
                 text="text",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_distinct(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.distinct(
@@ -893,7 +841,7 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_distinct_with_all_params(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.distinct(
@@ -904,7 +852,7 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_distinct(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.distinct(
@@ -917,7 +865,7 @@ class TestAsyncColumns:
         column = await response.parse()
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_distinct(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.distinct(
@@ -932,7 +880,7 @@ class TestAsyncColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_distinct(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -947,7 +895,7 @@ class TestAsyncColumns:
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_formula_info(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.formula_info(
@@ -956,7 +904,7 @@ class TestAsyncColumns:
         )
         assert_matches_type(ColumnFormulaInfoResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_formula_info(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.formula_info(
@@ -969,7 +917,7 @@ class TestAsyncColumns:
         column = await response.parse()
         assert_matches_type(ColumnFormulaInfoResponse, column, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_formula_info(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.formula_info(
@@ -984,7 +932,7 @@ class TestAsyncColumns:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_formula_info(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):

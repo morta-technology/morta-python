@@ -37,7 +37,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestViews:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         view = client.table.views.create(
@@ -46,7 +46,7 @@ class TestViews:
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         view = client.table.views.create(
@@ -191,7 +191,7 @@ class TestViews:
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.create(
@@ -204,7 +204,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.create(
@@ -219,7 +219,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_create(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -228,7 +228,7 @@ class TestViews:
                 name="x",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Morta) -> None:
         view = client.table.views.retrieve(
@@ -236,7 +236,7 @@ class TestViews:
         )
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Morta) -> None:
         view = client.table.views.retrieve(
@@ -245,7 +245,7 @@ class TestViews:
         )
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.retrieve(
@@ -257,7 +257,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.retrieve(
@@ -271,7 +271,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -279,7 +279,7 @@ class TestViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         view = client.table.views.update(
@@ -287,7 +287,7 @@ class TestViews:
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         view = client.table.views.update(
@@ -320,20 +320,11 @@ class TestViews:
             ],
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -380,6 +371,7 @@ class TestViews:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -398,12 +390,9 @@ class TestViews:
                         },
                     },
                     "locked": True,
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "sort_order": 0,
@@ -412,8 +401,6 @@ class TestViews:
                     "validation_message": "validationMessage",
                     "validation_no_blanks": True,
                     "validation_no_duplicates": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 100,
                 }
             ],
@@ -487,7 +474,7 @@ class TestViews:
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.update(
@@ -499,7 +486,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.update(
@@ -513,7 +500,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -521,7 +508,7 @@ class TestViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: Morta) -> None:
         view = client.table.views.list(
@@ -529,7 +516,7 @@ class TestViews:
         )
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Morta) -> None:
         view = client.table.views.list(
@@ -538,7 +525,7 @@ class TestViews:
         )
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.list(
@@ -550,7 +537,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.list(
@@ -564,7 +551,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -572,7 +559,7 @@ class TestViews:
                 table_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         view = client.table.views.delete(
@@ -580,7 +567,7 @@ class TestViews:
         )
         assert_matches_type(ViewDeleteResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.delete(
@@ -592,7 +579,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewDeleteResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.delete(
@@ -606,7 +593,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -614,7 +601,7 @@ class TestViews:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_download_csv(self, client: Morta) -> None:
         view = client.table.views.download_csv(
@@ -622,7 +609,7 @@ class TestViews:
         )
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_download_csv_with_all_params(self, client: Morta) -> None:
         view = client.table.views.download_csv(
@@ -633,7 +620,7 @@ class TestViews:
         )
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_download_csv(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.download_csv(
@@ -645,7 +632,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_download_csv(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.download_csv(
@@ -659,7 +646,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_download_csv(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -667,7 +654,7 @@ class TestViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_duplicate(self, client: Morta) -> None:
         view = client.table.views.duplicate(
@@ -676,7 +663,7 @@ class TestViews:
         )
         assert_matches_type(ViewDuplicateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_duplicate(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.duplicate(
@@ -689,7 +676,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewDuplicateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_duplicate(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.duplicate(
@@ -704,7 +691,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_duplicate(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -719,7 +706,7 @@ class TestViews:
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_duplicate_default(self, client: Morta) -> None:
         view = client.table.views.duplicate_default(
@@ -727,7 +714,7 @@ class TestViews:
         )
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_duplicate_default_with_all_params(self, client: Morta) -> None:
         view = client.table.views.duplicate_default(
@@ -743,7 +730,7 @@ class TestViews:
         )
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_duplicate_default(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.duplicate_default(
@@ -755,7 +742,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_duplicate_default(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.duplicate_default(
@@ -769,7 +756,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_duplicate_default(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -777,7 +764,7 @@ class TestViews:
                 table_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_preview_row(self, client: Morta) -> None:
         view = client.table.views.preview_row(
@@ -786,7 +773,7 @@ class TestViews:
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_preview_row_with_all_params(self, client: Morta) -> None:
         view = client.table.views.preview_row(
@@ -801,7 +788,7 @@ class TestViews:
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_preview_row(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.preview_row(
@@ -814,7 +801,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_preview_row(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.preview_row(
@@ -829,7 +816,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_preview_row(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -838,7 +825,7 @@ class TestViews:
                 row_data={"foo": "bar"},
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_set_default(self, client: Morta) -> None:
         view = client.table.views.set_default(
@@ -846,7 +833,7 @@ class TestViews:
         )
         assert_matches_type(ViewSetDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_set_default(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.set_default(
@@ -858,7 +845,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewSetDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_set_default(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.set_default(
@@ -872,7 +859,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_set_default(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -880,7 +867,7 @@ class TestViews:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_stats(self, client: Morta) -> None:
         view = client.table.views.stats(
@@ -888,7 +875,7 @@ class TestViews:
         )
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_stats_with_all_params(self, client: Morta) -> None:
         view = client.table.views.stats(
@@ -899,7 +886,7 @@ class TestViews:
         )
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_stats(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.stats(
@@ -911,7 +898,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_stats(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.stats(
@@ -925,7 +912,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_stats(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -933,7 +920,6 @@ class TestViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_stream_rows(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -948,7 +934,6 @@ class TestViews:
         assert cast(Any, view.is_closed) is True
         assert isinstance(view, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_stream_rows_with_all_params(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -968,7 +953,6 @@ class TestViews:
         assert cast(Any, view.is_closed) is True
         assert isinstance(view, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_stream_rows(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -985,7 +969,6 @@ class TestViews:
         assert view.json() == {"foo": "bar"}
         assert isinstance(view, BinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_stream_rows(self, client: Morta, respx_mock: MockRouter) -> None:
@@ -1004,7 +987,6 @@ class TestViews:
 
         assert cast(Any, view.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_path_params_stream_rows(self, client: Morta) -> None:
@@ -1013,7 +995,7 @@ class TestViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_cells(self, client: Morta) -> None:
         view = client.table.views.update_cells(
@@ -1028,7 +1010,7 @@ class TestViews:
         )
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_cells_with_all_params(self, client: Morta) -> None:
         view = client.table.views.update_cells(
@@ -1055,7 +1037,7 @@ class TestViews:
         )
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update_cells(self, client: Morta) -> None:
         response = client.table.views.with_raw_response.update_cells(
@@ -1074,7 +1056,7 @@ class TestViews:
         view = response.parse()
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update_cells(self, client: Morta) -> None:
         with client.table.views.with_streaming_response.update_cells(
@@ -1095,7 +1077,7 @@ class TestViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_update_cells(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1116,7 +1098,7 @@ class TestAsyncViews:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.create(
@@ -1125,7 +1107,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.create(
@@ -1270,7 +1252,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.create(
@@ -1283,7 +1265,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewCreateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.create(
@@ -1298,7 +1280,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1307,7 +1289,7 @@ class TestAsyncViews:
                 name="x",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.retrieve(
@@ -1315,7 +1297,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.retrieve(
@@ -1324,7 +1306,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.retrieve(
@@ -1336,7 +1318,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewRetrieveResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.retrieve(
@@ -1350,7 +1332,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1358,7 +1340,7 @@ class TestAsyncViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.update(
@@ -1366,7 +1348,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.update(
@@ -1399,20 +1381,11 @@ class TestAsyncViews:
             ],
             columns=[
                 {
-                    "aconex_synced": 0,
-                    "aconex_workflows_synced": 0,
                     "aggregate": 0,
                     "alter_options": {
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
-                    "asite_documents_synced": 0,
-                    "asite_forms_synced": 0,
-                    "autodesk_bim360_checklists_synced": 0,
-                    "autodesk_bim360_issues_synced": 0,
-                    "autodesk_bim360_models_synced": 0,
-                    "autodesk_bim360_synced": 0,
-                    "autodesk_bim360_users_synced": 0,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1459,6 +1432,7 @@ class TestAsyncViews:
                     "header_text_color": "headerTextColor",
                     "is_indexed": True,
                     "is_joined": True,
+                    "is_synced": True,
                     "kind": "text",
                     "kind_options": {
                         "autopopulate": True,
@@ -1477,12 +1451,9 @@ class TestAsyncViews:
                         },
                     },
                     "locked": True,
-                    "morta_synced": 0,
                     "name": "name",
-                    "procore_synced": 0,
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "revizto_issues_synced": 0,
                     "script": "script",
                     "script_enabled": True,
                     "sort_order": 0,
@@ -1491,8 +1462,6 @@ class TestAsyncViews:
                     "validation_message": "validationMessage",
                     "validation_no_blanks": True,
                     "validation_no_duplicates": True,
-                    "viewpoint_rfis_synced": 0,
-                    "viewpoint_synced": 0,
                     "width": 100,
                 }
             ],
@@ -1566,7 +1535,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.update(
@@ -1578,7 +1547,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewUpdateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.update(
@@ -1592,7 +1561,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1600,7 +1569,7 @@ class TestAsyncViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.list(
@@ -1608,7 +1577,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.list(
@@ -1617,7 +1586,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.list(
@@ -1629,7 +1598,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewListResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.list(
@@ -1643,7 +1612,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1651,7 +1620,7 @@ class TestAsyncViews:
                 table_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.delete(
@@ -1659,7 +1628,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewDeleteResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.delete(
@@ -1671,7 +1640,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewDeleteResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.delete(
@@ -1685,7 +1654,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1693,7 +1662,7 @@ class TestAsyncViews:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_download_csv(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.download_csv(
@@ -1701,7 +1670,7 @@ class TestAsyncViews:
         )
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_download_csv_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.download_csv(
@@ -1712,7 +1681,7 @@ class TestAsyncViews:
         )
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_download_csv(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.download_csv(
@@ -1724,7 +1693,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(str, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_download_csv(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.download_csv(
@@ -1738,7 +1707,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_download_csv(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1746,7 +1715,7 @@ class TestAsyncViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_duplicate(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.duplicate(
@@ -1755,7 +1724,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewDuplicateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_duplicate(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.duplicate(
@@ -1768,7 +1737,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewDuplicateResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_duplicate(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.duplicate(
@@ -1783,7 +1752,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_duplicate(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1798,7 +1767,7 @@ class TestAsyncViews:
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_duplicate_default(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.duplicate_default(
@@ -1806,7 +1775,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_duplicate_default_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.duplicate_default(
@@ -1822,7 +1791,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_duplicate_default(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.duplicate_default(
@@ -1834,7 +1803,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewDuplicateDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_duplicate_default(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.duplicate_default(
@@ -1848,7 +1817,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_duplicate_default(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1856,7 +1825,7 @@ class TestAsyncViews:
                 table_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_preview_row(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.preview_row(
@@ -1865,7 +1834,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_preview_row_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.preview_row(
@@ -1880,7 +1849,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_preview_row(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.preview_row(
@@ -1893,7 +1862,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_preview_row(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.preview_row(
@@ -1908,7 +1877,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_preview_row(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1917,7 +1886,7 @@ class TestAsyncViews:
                 row_data={"foo": "bar"},
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_set_default(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.set_default(
@@ -1925,7 +1894,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewSetDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_set_default(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.set_default(
@@ -1937,7 +1906,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewSetDefaultResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_set_default(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.set_default(
@@ -1951,7 +1920,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_set_default(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -1959,7 +1928,7 @@ class TestAsyncViews:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_stats(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.stats(
@@ -1967,7 +1936,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_stats_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.stats(
@@ -1978,7 +1947,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_stats(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.stats(
@@ -1990,7 +1959,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewStatsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_stats(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.stats(
@@ -2004,7 +1973,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_stats(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
@@ -2012,7 +1981,6 @@ class TestAsyncViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_stream_rows(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
@@ -2027,7 +1995,6 @@ class TestAsyncViews:
         assert cast(Any, view.is_closed) is True
         assert isinstance(view, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_stream_rows_with_all_params(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
@@ -2047,7 +2014,6 @@ class TestAsyncViews:
         assert cast(Any, view.is_closed) is True
         assert isinstance(view, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_stream_rows(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
@@ -2064,7 +2030,6 @@ class TestAsyncViews:
         assert await view.json() == {"foo": "bar"}
         assert isinstance(view, AsyncBinaryAPIResponse)
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_stream_rows(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
@@ -2083,7 +2048,6 @@ class TestAsyncViews:
 
         assert cast(Any, view.is_closed) is True
 
-    @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_path_params_stream_rows(self, async_client: AsyncMorta) -> None:
@@ -2092,7 +2056,7 @@ class TestAsyncViews:
                 view_id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_cells(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.update_cells(
@@ -2107,7 +2071,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_cells_with_all_params(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.update_cells(
@@ -2134,7 +2098,7 @@ class TestAsyncViews:
         )
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update_cells(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.with_raw_response.update_cells(
@@ -2153,7 +2117,7 @@ class TestAsyncViews:
         view = await response.parse()
         assert_matches_type(ViewUpdateCellsResponse, view, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update_cells(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.with_streaming_response.update_cells(
@@ -2174,7 +2138,7 @@ class TestAsyncViews:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_update_cells(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):

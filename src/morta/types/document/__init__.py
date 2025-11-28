@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from . import section as section
 from .document import Document as Document
 from .section_create_params import SectionCreateParams as SectionCreateParams
 from .section_update_params import SectionUpdateParams as SectionUpdateParams

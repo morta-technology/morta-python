@@ -1,4 +1,4 @@
 configured_endpoints: 181
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/morta-technology-ltd%2Fmorta-eb576d5ecef99bf2caea87288a396b987678ed17950bd7a29e566f2d88e17eb8.yml
-openapi_spec_hash: 5f02ac3ce73a64f3a2ea744949101fae
-config_hash: 57fa4fdaeef4624e5c7a9ad62767905d
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/morta-technology-ltd%2Fmorta-9c58c1c1e7e8f8bac06134e84be493ae0ada89c8080ab359b2542c3fcdf987c3.yml
+openapi_spec_hash: 94e86ff7b19ee38ade2f894d0035befb
+config_hash: ea01d30f9258c158414c79bcf135cd9b

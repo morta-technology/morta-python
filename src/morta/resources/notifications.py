@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import notification_create_params, notification_update_params, notification_list_events_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -57,15 +57,15 @@ class NotificationsResource(SyncAPIResource):
         project_id: str,
         triggers: Iterable[notification_create_params.Trigger],
         webhook_url: str,
-        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | NotGiven = NOT_GIVEN,
-        processes: List[str] | NotGiven = NOT_GIVEN,
-        tables: List[str] | NotGiven = NOT_GIVEN,
+        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | Omit = omit,
+        processes: SequenceNotStr[str] | Omit = omit,
+        tables: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
         """
         Create a new notification for a specific hub.
@@ -104,17 +104,17 @@ class NotificationsResource(SyncAPIResource):
         id: str,
         *,
         webhook_url: str,
-        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        processes: List[str] | NotGiven = NOT_GIVEN,
-        tables: List[str] | NotGiven = NOT_GIVEN,
-        triggers: Iterable[notification_update_params.Trigger] | NotGiven = NOT_GIVEN,
+        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        processes: SequenceNotStr[str] | Omit = omit,
+        tables: SequenceNotStr[str] | Omit = omit,
+        triggers: Iterable[notification_update_params.Trigger] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationUpdateResponse:
         """
         Update a specific notification by its ID.
@@ -158,7 +158,7 @@ class NotificationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationDeleteResponse:
         """
         Delete a specific notification by its ID.
@@ -190,7 +190,7 @@ class NotificationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationListEventTypesResponse:
         """Retrieve a list of all supported event types for notifications."""
         return self._get(
@@ -206,18 +206,18 @@ class NotificationsResource(SyncAPIResource):
         resource_id: str,
         *,
         type: Literal["process", "process_section", "process_response", "table", "project", "user"],
-        end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        search: str | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        users: List[str] | NotGiven = NOT_GIVEN,
-        verb: List[str] | NotGiven = NOT_GIVEN,
+        end_date: Union[str, datetime] | Omit = omit,
+        page: int | Omit = omit,
+        search: str | Omit = omit,
+        start_date: Union[str, datetime] | Omit = omit,
+        users: SequenceNotStr[str] | Omit = omit,
+        verb: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationListEventsResponse:
         """
         Retrieve all events associated with a specific resource, filtered by various
@@ -299,15 +299,15 @@ class AsyncNotificationsResource(AsyncAPIResource):
         project_id: str,
         triggers: Iterable[notification_create_params.Trigger],
         webhook_url: str,
-        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | NotGiven = NOT_GIVEN,
-        processes: List[str] | NotGiven = NOT_GIVEN,
-        tables: List[str] | NotGiven = NOT_GIVEN,
+        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | Omit = omit,
+        processes: SequenceNotStr[str] | Omit = omit,
+        tables: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
         """
         Create a new notification for a specific hub.
@@ -346,17 +346,17 @@ class AsyncNotificationsResource(AsyncAPIResource):
         id: str,
         *,
         webhook_url: str,
-        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        processes: List[str] | NotGiven = NOT_GIVEN,
-        tables: List[str] | NotGiven = NOT_GIVEN,
-        triggers: Iterable[notification_update_params.Trigger] | NotGiven = NOT_GIVEN,
+        custom_headers: Iterable[CreateNotificationSchemaHeaderParam] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        processes: SequenceNotStr[str] | Omit = omit,
+        tables: SequenceNotStr[str] | Omit = omit,
+        triggers: Iterable[notification_update_params.Trigger] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationUpdateResponse:
         """
         Update a specific notification by its ID.
@@ -400,7 +400,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationDeleteResponse:
         """
         Delete a specific notification by its ID.
@@ -432,7 +432,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationListEventTypesResponse:
         """Retrieve a list of all supported event types for notifications."""
         return await self._get(
@@ -448,18 +448,18 @@ class AsyncNotificationsResource(AsyncAPIResource):
         resource_id: str,
         *,
         type: Literal["process", "process_section", "process_response", "table", "project", "user"],
-        end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        page: int | NotGiven = NOT_GIVEN,
-        search: str | NotGiven = NOT_GIVEN,
-        start_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        users: List[str] | NotGiven = NOT_GIVEN,
-        verb: List[str] | NotGiven = NOT_GIVEN,
+        end_date: Union[str, datetime] | Omit = omit,
+        page: int | Omit = omit,
+        search: str | Omit = omit,
+        start_date: Union[str, datetime] | Omit = omit,
+        users: SequenceNotStr[str] | Omit = omit,
+        verb: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationListEventsResponse:
         """
         Retrieve all events associated with a specific resource, filtered by various

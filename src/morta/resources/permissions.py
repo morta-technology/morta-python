@@ -13,7 +13,7 @@ from ..types import (
     permission_create_all_params,
     permission_retrieve_tag_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -61,15 +61,15 @@ class PermissionsResource(SyncAPIResource):
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
         role: Literal[0, 1, 2, 3, 4],
-        attribute_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        tag_reference_id: str | NotGiven = NOT_GIVEN,
+        attribute_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        tag_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionCreateResponse:
         """
         Create permissions for a specific resource (such as a table, table view, or
@@ -114,7 +114,7 @@ class PermissionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionRetrieveResponse:
         """
         Retrieve permissions for a specified resource, such as a table, table view, or
@@ -157,13 +157,13 @@ class PermissionsResource(SyncAPIResource):
         id: str,
         *,
         role: Literal[0, 1, 2, 3, 4],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionUpdateResponse:
         """
         Update permissions for a specific resource (such as a table, table view, or
@@ -204,7 +204,7 @@ class PermissionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete permissions for a specific resource (such as a table, table view, or
@@ -237,15 +237,15 @@ class PermissionsResource(SyncAPIResource):
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
         role: Literal[0, 1, 2, 3, 4],
-        attribute_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        tag_reference_id: str | NotGiven = NOT_GIVEN,
+        attribute_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        tag_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionCreateAllResponse:
         """
         Create permissions for a specific resource (such as a table, table view, or
@@ -291,7 +291,7 @@ class PermissionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Request permissions for a specific resource (such as a table, table view, or
@@ -330,7 +330,7 @@ class PermissionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionRetrieveTagResponse:
         """
         Retrieve a tag by its public ID.
@@ -386,15 +386,15 @@ class AsyncPermissionsResource(AsyncAPIResource):
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
         role: Literal[0, 1, 2, 3, 4],
-        attribute_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        tag_reference_id: str | NotGiven = NOT_GIVEN,
+        attribute_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        tag_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionCreateResponse:
         """
         Create permissions for a specific resource (such as a table, table view, or
@@ -439,7 +439,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionRetrieveResponse:
         """
         Retrieve permissions for a specified resource, such as a table, table view, or
@@ -482,13 +482,13 @@ class AsyncPermissionsResource(AsyncAPIResource):
         id: str,
         *,
         role: Literal[0, 1, 2, 3, 4],
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionUpdateResponse:
         """
         Update permissions for a specific resource (such as a table, table view, or
@@ -529,7 +529,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete permissions for a specific resource (such as a table, table view, or
@@ -562,15 +562,15 @@ class AsyncPermissionsResource(AsyncAPIResource):
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
         role: Literal[0, 1, 2, 3, 4],
-        attribute_id: str | NotGiven = NOT_GIVEN,
-        context: BaseRequestContextParam | NotGiven = NOT_GIVEN,
-        tag_reference_id: str | NotGiven = NOT_GIVEN,
+        attribute_id: str | Omit = omit,
+        context: BaseRequestContextParam | Omit = omit,
+        tag_reference_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionCreateAllResponse:
         """
         Create permissions for a specific resource (such as a table, table view, or
@@ -616,7 +616,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Request permissions for a specific resource (such as a table, table view, or
@@ -655,7 +655,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PermissionRetrieveTagResponse:
         """
         Retrieve a tag by its public ID.

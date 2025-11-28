@@ -1,8 +1,9 @@
 # Morta Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/morta.svg?label=pypi%20(stable)>)](https://pypi.org/project/morta/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/morta.svg?label=pypi%20(stable))](https://pypi.org/project/morta/)
 
-The Morta Python library provides convenient access to the Morta REST API from any Python 3.8+
+The Morta Python library provides convenient access to the Morta REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -78,7 +79,6 @@ pip install morta[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from morta import DefaultAioHttpClient
 from morta import AsyncMorta
@@ -86,7 +86,7 @@ from morta import AsyncMorta
 
 async def main() -> None:
     async with AsyncMorta(
-        api_key=os.environ.get("MORTA_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.user.retrieve_me()
@@ -391,7 +391,7 @@ print(morta.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 
