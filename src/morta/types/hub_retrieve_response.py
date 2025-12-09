@@ -15,6 +15,10 @@ class DataFolderChildFolder(BaseModel):
 
 
 class DataFolder(BaseModel):
+    """
+    List of folders associated with the hub, each with a name and potentially child folders
+    """
+
     child_folders: Optional[List[DataFolderChildFolder]] = FieldInfo(alias="childFolders", default=None)
 
     name: Optional[str] = None
