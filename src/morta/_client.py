@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import permissions, integrations, notifications
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import MortaError, APIStatusError
 from ._base_client import (
@@ -29,27 +29,22 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.hub import hub
-from .resources.user import user
-from .resources.table import table
-from .resources.document import document
-from .resources.comment_thread import comment_thread
+
+if TYPE_CHECKING:
+    from .resources import hub, user, table, document, permissions, integrations, notifications, comment_thread
+    from .resources.hub.hub import HubResource, AsyncHubResource
+    from .resources.user.user import UserResource, AsyncUserResource
+    from .resources.permissions import PermissionsResource, AsyncPermissionsResource
+    from .resources.table.table import TableResource, AsyncTableResource
+    from .resources.integrations import IntegrationsResource, AsyncIntegrationsResource
+    from .resources.notifications import NotificationsResource, AsyncNotificationsResource
+    from .resources.document.document import DocumentResource, AsyncDocumentResource
+    from .resources.comment_thread.comment_thread import CommentThreadResource, AsyncCommentThreadResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Morta", "AsyncMorta", "Client", "AsyncClient"]
 
 
 class Morta(SyncAPIClient):
-    user: user.UserResource
-    hub: hub.HubResource
-    table: table.TableResource
-    document: document.DocumentResource
-    notifications: notifications.NotificationsResource
-    comment_thread: comment_thread.CommentThreadResource
-    permissions: permissions.PermissionsResource
-    integrations: integrations.IntegrationsResource
-    with_raw_response: MortaWithRawResponse
-    with_streaming_response: MortaWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -104,16 +99,61 @@ class Morta(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.UserResource(self)
-        self.hub = hub.HubResource(self)
-        self.table = table.TableResource(self)
-        self.document = document.DocumentResource(self)
-        self.notifications = notifications.NotificationsResource(self)
-        self.comment_thread = comment_thread.CommentThreadResource(self)
-        self.permissions = permissions.PermissionsResource(self)
-        self.integrations = integrations.IntegrationsResource(self)
-        self.with_raw_response = MortaWithRawResponse(self)
-        self.with_streaming_response = MortaWithStreamedResponse(self)
+    @cached_property
+    def user(self) -> UserResource:
+        from .resources.user import UserResource
+
+        return UserResource(self)
+
+    @cached_property
+    def hub(self) -> HubResource:
+        from .resources.hub import HubResource
+
+        return HubResource(self)
+
+    @cached_property
+    def table(self) -> TableResource:
+        from .resources.table import TableResource
+
+        return TableResource(self)
+
+    @cached_property
+    def document(self) -> DocumentResource:
+        from .resources.document import DocumentResource
+
+        return DocumentResource(self)
+
+    @cached_property
+    def notifications(self) -> NotificationsResource:
+        from .resources.notifications import NotificationsResource
+
+        return NotificationsResource(self)
+
+    @cached_property
+    def comment_thread(self) -> CommentThreadResource:
+        from .resources.comment_thread import CommentThreadResource
+
+        return CommentThreadResource(self)
+
+    @cached_property
+    def permissions(self) -> PermissionsResource:
+        from .resources.permissions import PermissionsResource
+
+        return PermissionsResource(self)
+
+    @cached_property
+    def integrations(self) -> IntegrationsResource:
+        from .resources.integrations import IntegrationsResource
+
+        return IntegrationsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> MortaWithRawResponse:
+        return MortaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> MortaWithStreamedResponse:
+        return MortaWithStreamedResponse(self)
 
     @property
     @override
@@ -221,17 +261,6 @@ class Morta(SyncAPIClient):
 
 
 class AsyncMorta(AsyncAPIClient):
-    user: user.AsyncUserResource
-    hub: hub.AsyncHubResource
-    table: table.AsyncTableResource
-    document: document.AsyncDocumentResource
-    notifications: notifications.AsyncNotificationsResource
-    comment_thread: comment_thread.AsyncCommentThreadResource
-    permissions: permissions.AsyncPermissionsResource
-    integrations: integrations.AsyncIntegrationsResource
-    with_raw_response: AsyncMortaWithRawResponse
-    with_streaming_response: AsyncMortaWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -286,16 +315,61 @@ class AsyncMorta(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.user = user.AsyncUserResource(self)
-        self.hub = hub.AsyncHubResource(self)
-        self.table = table.AsyncTableResource(self)
-        self.document = document.AsyncDocumentResource(self)
-        self.notifications = notifications.AsyncNotificationsResource(self)
-        self.comment_thread = comment_thread.AsyncCommentThreadResource(self)
-        self.permissions = permissions.AsyncPermissionsResource(self)
-        self.integrations = integrations.AsyncIntegrationsResource(self)
-        self.with_raw_response = AsyncMortaWithRawResponse(self)
-        self.with_streaming_response = AsyncMortaWithStreamedResponse(self)
+    @cached_property
+    def user(self) -> AsyncUserResource:
+        from .resources.user import AsyncUserResource
+
+        return AsyncUserResource(self)
+
+    @cached_property
+    def hub(self) -> AsyncHubResource:
+        from .resources.hub import AsyncHubResource
+
+        return AsyncHubResource(self)
+
+    @cached_property
+    def table(self) -> AsyncTableResource:
+        from .resources.table import AsyncTableResource
+
+        return AsyncTableResource(self)
+
+    @cached_property
+    def document(self) -> AsyncDocumentResource:
+        from .resources.document import AsyncDocumentResource
+
+        return AsyncDocumentResource(self)
+
+    @cached_property
+    def notifications(self) -> AsyncNotificationsResource:
+        from .resources.notifications import AsyncNotificationsResource
+
+        return AsyncNotificationsResource(self)
+
+    @cached_property
+    def comment_thread(self) -> AsyncCommentThreadResource:
+        from .resources.comment_thread import AsyncCommentThreadResource
+
+        return AsyncCommentThreadResource(self)
+
+    @cached_property
+    def permissions(self) -> AsyncPermissionsResource:
+        from .resources.permissions import AsyncPermissionsResource
+
+        return AsyncPermissionsResource(self)
+
+    @cached_property
+    def integrations(self) -> AsyncIntegrationsResource:
+        from .resources.integrations import AsyncIntegrationsResource
+
+        return AsyncIntegrationsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncMortaWithRawResponse:
+        return AsyncMortaWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncMortaWithStreamedResponse:
+        return AsyncMortaWithStreamedResponse(self)
 
     @property
     @override
@@ -403,51 +477,223 @@ class AsyncMorta(AsyncAPIClient):
 
 
 class MortaWithRawResponse:
+    _client: Morta
+
     def __init__(self, client: Morta) -> None:
-        self.user = user.UserResourceWithRawResponse(client.user)
-        self.hub = hub.HubResourceWithRawResponse(client.hub)
-        self.table = table.TableResourceWithRawResponse(client.table)
-        self.document = document.DocumentResourceWithRawResponse(client.document)
-        self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
-        self.comment_thread = comment_thread.CommentThreadResourceWithRawResponse(client.comment_thread)
-        self.permissions = permissions.PermissionsResourceWithRawResponse(client.permissions)
-        self.integrations = integrations.IntegrationsResourceWithRawResponse(client.integrations)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.UserResourceWithRawResponse:
+        from .resources.user import UserResourceWithRawResponse
+
+        return UserResourceWithRawResponse(self._client.user)
+
+    @cached_property
+    def hub(self) -> hub.HubResourceWithRawResponse:
+        from .resources.hub import HubResourceWithRawResponse
+
+        return HubResourceWithRawResponse(self._client.hub)
+
+    @cached_property
+    def table(self) -> table.TableResourceWithRawResponse:
+        from .resources.table import TableResourceWithRawResponse
+
+        return TableResourceWithRawResponse(self._client.table)
+
+    @cached_property
+    def document(self) -> document.DocumentResourceWithRawResponse:
+        from .resources.document import DocumentResourceWithRawResponse
+
+        return DocumentResourceWithRawResponse(self._client.document)
+
+    @cached_property
+    def notifications(self) -> notifications.NotificationsResourceWithRawResponse:
+        from .resources.notifications import NotificationsResourceWithRawResponse
+
+        return NotificationsResourceWithRawResponse(self._client.notifications)
+
+    @cached_property
+    def comment_thread(self) -> comment_thread.CommentThreadResourceWithRawResponse:
+        from .resources.comment_thread import CommentThreadResourceWithRawResponse
+
+        return CommentThreadResourceWithRawResponse(self._client.comment_thread)
+
+    @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithRawResponse:
+        from .resources.permissions import PermissionsResourceWithRawResponse
+
+        return PermissionsResourceWithRawResponse(self._client.permissions)
+
+    @cached_property
+    def integrations(self) -> integrations.IntegrationsResourceWithRawResponse:
+        from .resources.integrations import IntegrationsResourceWithRawResponse
+
+        return IntegrationsResourceWithRawResponse(self._client.integrations)
 
 
 class AsyncMortaWithRawResponse:
+    _client: AsyncMorta
+
     def __init__(self, client: AsyncMorta) -> None:
-        self.user = user.AsyncUserResourceWithRawResponse(client.user)
-        self.hub = hub.AsyncHubResourceWithRawResponse(client.hub)
-        self.table = table.AsyncTableResourceWithRawResponse(client.table)
-        self.document = document.AsyncDocumentResourceWithRawResponse(client.document)
-        self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
-        self.comment_thread = comment_thread.AsyncCommentThreadResourceWithRawResponse(client.comment_thread)
-        self.permissions = permissions.AsyncPermissionsResourceWithRawResponse(client.permissions)
-        self.integrations = integrations.AsyncIntegrationsResourceWithRawResponse(client.integrations)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.AsyncUserResourceWithRawResponse:
+        from .resources.user import AsyncUserResourceWithRawResponse
+
+        return AsyncUserResourceWithRawResponse(self._client.user)
+
+    @cached_property
+    def hub(self) -> hub.AsyncHubResourceWithRawResponse:
+        from .resources.hub import AsyncHubResourceWithRawResponse
+
+        return AsyncHubResourceWithRawResponse(self._client.hub)
+
+    @cached_property
+    def table(self) -> table.AsyncTableResourceWithRawResponse:
+        from .resources.table import AsyncTableResourceWithRawResponse
+
+        return AsyncTableResourceWithRawResponse(self._client.table)
+
+    @cached_property
+    def document(self) -> document.AsyncDocumentResourceWithRawResponse:
+        from .resources.document import AsyncDocumentResourceWithRawResponse
+
+        return AsyncDocumentResourceWithRawResponse(self._client.document)
+
+    @cached_property
+    def notifications(self) -> notifications.AsyncNotificationsResourceWithRawResponse:
+        from .resources.notifications import AsyncNotificationsResourceWithRawResponse
+
+        return AsyncNotificationsResourceWithRawResponse(self._client.notifications)
+
+    @cached_property
+    def comment_thread(self) -> comment_thread.AsyncCommentThreadResourceWithRawResponse:
+        from .resources.comment_thread import AsyncCommentThreadResourceWithRawResponse
+
+        return AsyncCommentThreadResourceWithRawResponse(self._client.comment_thread)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithRawResponse:
+        from .resources.permissions import AsyncPermissionsResourceWithRawResponse
+
+        return AsyncPermissionsResourceWithRawResponse(self._client.permissions)
+
+    @cached_property
+    def integrations(self) -> integrations.AsyncIntegrationsResourceWithRawResponse:
+        from .resources.integrations import AsyncIntegrationsResourceWithRawResponse
+
+        return AsyncIntegrationsResourceWithRawResponse(self._client.integrations)
 
 
 class MortaWithStreamedResponse:
+    _client: Morta
+
     def __init__(self, client: Morta) -> None:
-        self.user = user.UserResourceWithStreamingResponse(client.user)
-        self.hub = hub.HubResourceWithStreamingResponse(client.hub)
-        self.table = table.TableResourceWithStreamingResponse(client.table)
-        self.document = document.DocumentResourceWithStreamingResponse(client.document)
-        self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
-        self.comment_thread = comment_thread.CommentThreadResourceWithStreamingResponse(client.comment_thread)
-        self.permissions = permissions.PermissionsResourceWithStreamingResponse(client.permissions)
-        self.integrations = integrations.IntegrationsResourceWithStreamingResponse(client.integrations)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.UserResourceWithStreamingResponse:
+        from .resources.user import UserResourceWithStreamingResponse
+
+        return UserResourceWithStreamingResponse(self._client.user)
+
+    @cached_property
+    def hub(self) -> hub.HubResourceWithStreamingResponse:
+        from .resources.hub import HubResourceWithStreamingResponse
+
+        return HubResourceWithStreamingResponse(self._client.hub)
+
+    @cached_property
+    def table(self) -> table.TableResourceWithStreamingResponse:
+        from .resources.table import TableResourceWithStreamingResponse
+
+        return TableResourceWithStreamingResponse(self._client.table)
+
+    @cached_property
+    def document(self) -> document.DocumentResourceWithStreamingResponse:
+        from .resources.document import DocumentResourceWithStreamingResponse
+
+        return DocumentResourceWithStreamingResponse(self._client.document)
+
+    @cached_property
+    def notifications(self) -> notifications.NotificationsResourceWithStreamingResponse:
+        from .resources.notifications import NotificationsResourceWithStreamingResponse
+
+        return NotificationsResourceWithStreamingResponse(self._client.notifications)
+
+    @cached_property
+    def comment_thread(self) -> comment_thread.CommentThreadResourceWithStreamingResponse:
+        from .resources.comment_thread import CommentThreadResourceWithStreamingResponse
+
+        return CommentThreadResourceWithStreamingResponse(self._client.comment_thread)
+
+    @cached_property
+    def permissions(self) -> permissions.PermissionsResourceWithStreamingResponse:
+        from .resources.permissions import PermissionsResourceWithStreamingResponse
+
+        return PermissionsResourceWithStreamingResponse(self._client.permissions)
+
+    @cached_property
+    def integrations(self) -> integrations.IntegrationsResourceWithStreamingResponse:
+        from .resources.integrations import IntegrationsResourceWithStreamingResponse
+
+        return IntegrationsResourceWithStreamingResponse(self._client.integrations)
 
 
 class AsyncMortaWithStreamedResponse:
+    _client: AsyncMorta
+
     def __init__(self, client: AsyncMorta) -> None:
-        self.user = user.AsyncUserResourceWithStreamingResponse(client.user)
-        self.hub = hub.AsyncHubResourceWithStreamingResponse(client.hub)
-        self.table = table.AsyncTableResourceWithStreamingResponse(client.table)
-        self.document = document.AsyncDocumentResourceWithStreamingResponse(client.document)
-        self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
-        self.comment_thread = comment_thread.AsyncCommentThreadResourceWithStreamingResponse(client.comment_thread)
-        self.permissions = permissions.AsyncPermissionsResourceWithStreamingResponse(client.permissions)
-        self.integrations = integrations.AsyncIntegrationsResourceWithStreamingResponse(client.integrations)
+        self._client = client
+
+    @cached_property
+    def user(self) -> user.AsyncUserResourceWithStreamingResponse:
+        from .resources.user import AsyncUserResourceWithStreamingResponse
+
+        return AsyncUserResourceWithStreamingResponse(self._client.user)
+
+    @cached_property
+    def hub(self) -> hub.AsyncHubResourceWithStreamingResponse:
+        from .resources.hub import AsyncHubResourceWithStreamingResponse
+
+        return AsyncHubResourceWithStreamingResponse(self._client.hub)
+
+    @cached_property
+    def table(self) -> table.AsyncTableResourceWithStreamingResponse:
+        from .resources.table import AsyncTableResourceWithStreamingResponse
+
+        return AsyncTableResourceWithStreamingResponse(self._client.table)
+
+    @cached_property
+    def document(self) -> document.AsyncDocumentResourceWithStreamingResponse:
+        from .resources.document import AsyncDocumentResourceWithStreamingResponse
+
+        return AsyncDocumentResourceWithStreamingResponse(self._client.document)
+
+    @cached_property
+    def notifications(self) -> notifications.AsyncNotificationsResourceWithStreamingResponse:
+        from .resources.notifications import AsyncNotificationsResourceWithStreamingResponse
+
+        return AsyncNotificationsResourceWithStreamingResponse(self._client.notifications)
+
+    @cached_property
+    def comment_thread(self) -> comment_thread.AsyncCommentThreadResourceWithStreamingResponse:
+        from .resources.comment_thread import AsyncCommentThreadResourceWithStreamingResponse
+
+        return AsyncCommentThreadResourceWithStreamingResponse(self._client.comment_thread)
+
+    @cached_property
+    def permissions(self) -> permissions.AsyncPermissionsResourceWithStreamingResponse:
+        from .resources.permissions import AsyncPermissionsResourceWithStreamingResponse
+
+        return AsyncPermissionsResourceWithStreamingResponse(self._client.permissions)
+
+    @cached_property
+    def integrations(self) -> integrations.AsyncIntegrationsResourceWithStreamingResponse:
+        from .resources.integrations import AsyncIntegrationsResourceWithStreamingResponse
+
+        return AsyncIntegrationsResourceWithStreamingResponse(self._client.integrations)
 
 
 Client = Morta
