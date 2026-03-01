@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.2.0 (2026-01-24)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/morta-technology/morta-python/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([c8fbb1d](https://github.com/morta-technology/morta-python/commit/c8fbb1d243b5db1c8e2cdcc4ae73c562c9cc8cc0))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([a45cd02](https://github.com/morta-technology/morta-python/commit/a45cd022a8cb4f5d5ffc74b3ba8af948417e6638))
+* use async_to_httpx_files in patch method ([f84efeb](https://github.com/morta-technology/morta-python/commit/f84efeb47c0f4bfcc3847374e263e157ffe3d029))
+
+
+### Chores
+
+* add missing docstrings ([be6aaea](https://github.com/morta-technology/morta-python/commit/be6aaea7d82a3706cba1b08b1dbe1ca7abdcd0c4))
+* **ci:** upgrade `actions/github-script` ([8991d7e](https://github.com/morta-technology/morta-python/commit/8991d7e976790571555b634ed03e747d92b4df1c))
+* **docs:** use environment variables for authentication in code snippets ([4cde93c](https://github.com/morta-technology/morta-python/commit/4cde93c98bb07a05cfa5526f98ca5ddb0d9a5c85))
+* **internal:** add `--fix` argument to lint script ([bcef260](https://github.com/morta-technology/morta-python/commit/bcef260b322dcf4fbee19088d07512d25d046740))
+* **internal:** add missing files argument to base client ([684fe1f](https://github.com/morta-technology/morta-python/commit/684fe1f49cba936d1c596136cce6c8efc127a64f))
+* **internal:** codegen related update ([9878244](https://github.com/morta-technology/morta-python/commit/9878244b095697b0180177fe97c24c6d5c5d847f))
+* **internal:** update `actions/checkout` version ([0b78808](https://github.com/morta-technology/morta-python/commit/0b78808fd5bdcbb66c36c2b247a1dba13a4a2d69))
+* speedup initial import ([5d44502](https://github.com/morta-technology/morta-python/commit/5d44502fe3f2cd8e612eee4778b9de2ea763f6be))
+* update lockfile ([06335c1](https://github.com/morta-technology/morta-python/commit/06335c15214b25e0e0c7ef5098bf7bc6137dab6d))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([933889f](https://github.com/morta-technology/morta-python/commit/933889f5f03b7532d670a2df0ba3929f40456407))
+
 ## 1.1.0 (2025-11-28)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/morta-technology/morta-python/compare/v1.0.1...v1.1.0)

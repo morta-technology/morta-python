@@ -12,6 +12,8 @@ __all__ = ["HubGetResourcesResponse", "Data", "DataProcess", "DataTable"]
 
 
 class DataProcess(BaseModel):
+    """Details of the document, if the resource type is 'process'"""
+
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
 
     deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
@@ -28,6 +30,8 @@ class DataProcess(BaseModel):
 
 
 class DataTable(BaseModel):
+    """Details of the table, if the resource type is 'table'"""
+
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
 
     default_view_id: Optional[str] = FieldInfo(alias="defaultViewId", default=None)
