@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestDuplicate:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_duplicate(self, client: Morta) -> None:
         duplicate = client.document.duplicate.duplicate(
@@ -26,7 +26,7 @@ class TestDuplicate:
         )
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_duplicate_with_all_params(self, client: Morta) -> None:
         duplicate = client.document.duplicate.duplicate(
@@ -43,7 +43,7 @@ class TestDuplicate:
         )
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_duplicate(self, client: Morta) -> None:
         response = client.document.duplicate.with_raw_response.duplicate(
@@ -56,7 +56,7 @@ class TestDuplicate:
         duplicate = response.parse()
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_duplicate(self, client: Morta) -> None:
         with client.document.duplicate.with_streaming_response.duplicate(
@@ -71,7 +71,7 @@ class TestDuplicate:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_duplicate(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
@@ -80,7 +80,7 @@ class TestDuplicate:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_global(self, client: Morta) -> None:
         duplicate = client.document.duplicate.global_(
@@ -88,7 +88,7 @@ class TestDuplicate:
         )
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_global_with_all_params(self, client: Morta) -> None:
         duplicate = client.document.duplicate.global_(
@@ -103,7 +103,7 @@ class TestDuplicate:
         )
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_global(self, client: Morta) -> None:
         response = client.document.duplicate.with_raw_response.global_(
@@ -115,7 +115,7 @@ class TestDuplicate:
         duplicate = response.parse()
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_global(self, client: Morta) -> None:
         with client.document.duplicate.with_streaming_response.global_(
@@ -135,7 +135,7 @@ class TestAsyncDuplicate:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_duplicate(self, async_client: AsyncMorta) -> None:
         duplicate = await async_client.document.duplicate.duplicate(
@@ -144,7 +144,7 @@ class TestAsyncDuplicate:
         )
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_duplicate_with_all_params(self, async_client: AsyncMorta) -> None:
         duplicate = await async_client.document.duplicate.duplicate(
@@ -161,7 +161,7 @@ class TestAsyncDuplicate:
         )
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_duplicate(self, async_client: AsyncMorta) -> None:
         response = await async_client.document.duplicate.with_raw_response.duplicate(
@@ -174,7 +174,7 @@ class TestAsyncDuplicate:
         duplicate = await response.parse()
         assert duplicate is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_duplicate(self, async_client: AsyncMorta) -> None:
         async with async_client.document.duplicate.with_streaming_response.duplicate(
@@ -189,7 +189,7 @@ class TestAsyncDuplicate:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_duplicate(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
@@ -198,7 +198,7 @@ class TestAsyncDuplicate:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_global(self, async_client: AsyncMorta) -> None:
         duplicate = await async_client.document.duplicate.global_(
@@ -206,7 +206,7 @@ class TestAsyncDuplicate:
         )
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_global_with_all_params(self, async_client: AsyncMorta) -> None:
         duplicate = await async_client.document.duplicate.global_(
@@ -221,7 +221,7 @@ class TestAsyncDuplicate:
         )
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_global(self, async_client: AsyncMorta) -> None:
         response = await async_client.document.duplicate.with_raw_response.global_(
@@ -233,7 +233,7 @@ class TestAsyncDuplicate:
         duplicate = await response.parse()
         assert_matches_type(DuplicateGlobalResponse, duplicate, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_global(self, async_client: AsyncMorta) -> None:
         async with async_client.document.duplicate.with_streaming_response.global_(
