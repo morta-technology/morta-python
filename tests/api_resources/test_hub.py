@@ -1646,7 +1646,7 @@ class TestHub:
     def test_method_upload_template_with_all_params(self, client: Morta) -> None:
         hub = client.hub.upload_template(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(HubUploadTemplateResponse, hub, path=["response"])
 
@@ -3290,7 +3290,7 @@ class TestAsyncHub:
     async def test_method_upload_template_with_all_params(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.upload_template(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(HubUploadTemplateResponse, hub, path=["response"])
 
