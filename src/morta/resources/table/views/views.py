@@ -24,7 +24,7 @@ from .columns import (
     AsyncColumnsResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -150,7 +150,7 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -212,7 +212,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -270,7 +270,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             body=maybe_transform(
                 {
                     "allow_contributor_delete": allow_contributor_delete,
@@ -330,7 +330,7 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -367,7 +367,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._delete(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -410,7 +410,7 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/views/{view_id}/csv",
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -457,7 +457,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views/{view_id}/duplicate",
+            path_template("/v1/table/{table_id}/views/{view_id}/duplicate", table_id=table_id, view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -493,7 +493,7 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views/duplicate-default",
+            path_template("/v1/table/{table_id}/views/duplicate-default", table_id=table_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -536,7 +536,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/preview-row",
+            path_template("/v1/table/views/{view_id}/preview-row", view_id=view_id),
             body=maybe_transform(
                 {
                     "row_data": row_data,
@@ -576,7 +576,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/default",
+            path_template("/v1/table/views/{view_id}/default", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -618,7 +618,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/stats",
+            path_template("/v1/table/views/{view_id}/stats", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -678,7 +678,7 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/views/{view_id}/rows-stream",
+            path_template("/v1/table/views/{view_id}/rows-stream", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -726,7 +726,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}/cells",
+            path_template("/v1/table/views/{view_id}/cells", view_id=view_id),
             body=maybe_transform(
                 {
                     "cells": cells,
@@ -816,7 +816,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -878,7 +878,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -936,7 +936,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "allow_contributor_delete": allow_contributor_delete,
@@ -996,7 +996,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1033,7 +1033,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._delete(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1076,7 +1076,7 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/views/{view_id}/csv",
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1123,7 +1123,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views/{view_id}/duplicate",
+            path_template("/v1/table/{table_id}/views/{view_id}/duplicate", table_id=table_id, view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1159,7 +1159,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views/duplicate-default",
+            path_template("/v1/table/{table_id}/views/duplicate-default", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -1202,7 +1202,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/preview-row",
+            path_template("/v1/table/views/{view_id}/preview-row", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "row_data": row_data,
@@ -1242,7 +1242,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/default",
+            path_template("/v1/table/views/{view_id}/default", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1284,7 +1284,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/stats",
+            path_template("/v1/table/views/{view_id}/stats", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1344,7 +1344,7 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/views/{view_id}/rows-stream",
+            path_template("/v1/table/views/{view_id}/rows-stream", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1392,7 +1392,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}/cells",
+            path_template("/v1/table/views/{view_id}/cells", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "cells": cells,

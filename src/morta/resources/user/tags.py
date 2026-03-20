@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -72,7 +72,7 @@ class TagsResource(SyncAPIResource):
         if not tag_id:
             raise ValueError(f"Expected a non-empty value for `tag_id` but received {tag_id!r}")
         return self._delete(
-            f"/v1/user/{user_id}/tags/{tag_id}",
+            path_template("/v1/user/{user_id}/tags/{tag_id}", user_id=user_id, tag_id=tag_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -106,7 +106,7 @@ class TagsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._post(
-            f"/v1/user/{user_id}/tags",
+            path_template("/v1/user/{user_id}/tags", user_id=user_id),
             body=maybe_transform({"tag_reference_id": tag_reference_id}, tag_add_params.TagAddParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -143,7 +143,7 @@ class TagsResource(SyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return self._put(
-            f"/v1/user/{user_id}/tags",
+            path_template("/v1/user/{user_id}/tags", user_id=user_id),
             body=maybe_transform(
                 {
                     "project_id": project_id,
@@ -208,7 +208,7 @@ class AsyncTagsResource(AsyncAPIResource):
         if not tag_id:
             raise ValueError(f"Expected a non-empty value for `tag_id` but received {tag_id!r}")
         return await self._delete(
-            f"/v1/user/{user_id}/tags/{tag_id}",
+            path_template("/v1/user/{user_id}/tags/{tag_id}", user_id=user_id, tag_id=tag_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -242,7 +242,7 @@ class AsyncTagsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._post(
-            f"/v1/user/{user_id}/tags",
+            path_template("/v1/user/{user_id}/tags", user_id=user_id),
             body=await async_maybe_transform({"tag_reference_id": tag_reference_id}, tag_add_params.TagAddParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -279,7 +279,7 @@ class AsyncTagsResource(AsyncAPIResource):
         if not user_id:
             raise ValueError(f"Expected a non-empty value for `user_id` but received {user_id!r}")
         return await self._put(
-            f"/v1/user/{user_id}/tags",
+            path_template("/v1/user/{user_id}/tags", user_id=user_id),
             body=await async_maybe_transform(
                 {
                     "project_id": project_id,
