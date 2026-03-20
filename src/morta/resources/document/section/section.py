@@ -15,7 +15,7 @@ from .response import (
     AsyncResponseResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -94,7 +94,7 @@ class SectionResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/section",
+            path_template("/v1/document/{document_id}/section", document_id=document_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -145,7 +145,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._get(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -196,7 +200,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             body=maybe_transform(
                 {
                     "context": context,
@@ -246,7 +254,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._delete(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -284,7 +296,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -322,7 +338,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -360,7 +380,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}/restore",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/restore",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -424,7 +448,7 @@ class AsyncSectionResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/section",
+            path_template("/v1/document/{document_id}/section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -475,7 +499,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._get(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -526,7 +554,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -576,7 +608,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._delete(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -614,7 +650,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -652,7 +692,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -690,7 +734,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}/restore",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/restore",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

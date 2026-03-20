@@ -7,7 +7,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -105,7 +105,11 @@ class SyncResource(SyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return self._post(
-            f"/v1/table/{table_id}/sync/{integration_name}/update",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}/update",
+                table_id=table_id,
+                integration_name=integration_name,
+            ),
             body=maybe_transform(
                 {
                     "company_id": company_id,
@@ -160,7 +164,9 @@ class SyncResource(SyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return self._delete(
-            f"/v1/table/{table_id}/sync/{integration_name}",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}", table_id=table_id, integration_name=integration_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -193,7 +199,7 @@ class SyncResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/sync/info",
+            path_template("/v1/table/{table_id}/sync/info", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -226,7 +232,7 @@ class SyncResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/sync/manual",
+            path_template("/v1/table/{table_id}/sync/manual", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -290,7 +296,9 @@ class SyncResource(SyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return self._post(
-            f"/v1/table/{table_id}/sync/{integration_name}",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}", table_id=table_id, integration_name=integration_name
+            ),
             body=maybe_transform(
                 {
                     "company_id": company_id,
@@ -394,7 +402,11 @@ class AsyncSyncResource(AsyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return await self._post(
-            f"/v1/table/{table_id}/sync/{integration_name}/update",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}/update",
+                table_id=table_id,
+                integration_name=integration_name,
+            ),
             body=await async_maybe_transform(
                 {
                     "company_id": company_id,
@@ -449,7 +461,9 @@ class AsyncSyncResource(AsyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/sync/{integration_name}",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}", table_id=table_id, integration_name=integration_name
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -482,7 +496,7 @@ class AsyncSyncResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/sync/info",
+            path_template("/v1/table/{table_id}/sync/info", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -515,7 +529,7 @@ class AsyncSyncResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/sync/manual",
+            path_template("/v1/table/{table_id}/sync/manual", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -579,7 +593,9 @@ class AsyncSyncResource(AsyncAPIResource):
         if not integration_name:
             raise ValueError(f"Expected a non-empty value for `integration_name` but received {integration_name!r}")
         return await self._post(
-            f"/v1/table/{table_id}/sync/{integration_name}",
+            path_template(
+                "/v1/table/{table_id}/sync/{integration_name}", table_id=table_id, integration_name=integration_name
+            ),
             body=await async_maybe_transform(
                 {
                     "company_id": company_id,
