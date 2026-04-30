@@ -1,5 +1,40 @@
 # Changelog
 
+## 1.3.0 (2026-04-30)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/morta-technology/morta-python/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([95f6515](https://github.com/morta-technology/morta-python/commit/95f65152df0b16ff342a25f9bbc626190912f88f))
+* support setting headers via env ([fb8ae1f](https://github.com/morta-technology/morta-python/commit/fb8ae1f6baff735ec183942179252672a2638b6b))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([86f52bc](https://github.com/morta-technology/morta-python/commit/86f52bca16790c3b16dedc64e6394e019c656c17))
+* **deps:** bump minimum typing-extensions version ([53fbc8b](https://github.com/morta-technology/morta-python/commit/53fbc8bd416726176bdadb20fd5b5aa9be36a72d))
+* ensure file data are only sent as 1 parameter ([5dfe675](https://github.com/morta-technology/morta-python/commit/5dfe675dbc8da3176025be27598acd672e280894))
+* **pydantic:** do not pass `by_alias` unless set ([dc0d1b9](https://github.com/morta-technology/morta-python/commit/dc0d1b9310b99dbe96b353cb8d55799978d3b71f))
+* sanitize endpoint path params ([9aef574](https://github.com/morta-technology/morta-python/commit/9aef574d1d05ef1cc187d36bd512ba2622676e30))
+* use correct field name format for multipart file arrays ([1e81ab7](https://github.com/morta-technology/morta-python/commit/1e81ab73cfe5bf3c24e03fefe7cae7e612a36b6e))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([8e5deeb](https://github.com/morta-technology/morta-python/commit/8e5deeb830b4ad0279fb080626c586b65b38401e))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([aa31649](https://github.com/morta-technology/morta-python/commit/aa31649744b9aaeaf34593fd25979af4a5851faa))
+* **ci:** skip uploading artifacts on stainless-internal branches ([c48267a](https://github.com/morta-technology/morta-python/commit/c48267a4cb05729d424199f84443c46d5673e54e))
+* **internal:** codegen related update ([8d8d872](https://github.com/morta-technology/morta-python/commit/8d8d8729bc751aa1fbc7ecf4da3ae533343b7c1d))
+* **internal:** more robust bootstrap script ([d15b392](https://github.com/morta-technology/morta-python/commit/d15b39253541bf948f8e793e88425f1b8872ab4c))
+* **internal:** tweak CI branches ([d080040](https://github.com/morta-technology/morta-python/commit/d0800405a71c8fc6f7bdda37ed767f90277c56c9))
+* **internal:** update gitignore ([540dd5d](https://github.com/morta-technology/morta-python/commit/540dd5d31647ab8fd83fc650526749764455f6c0))
+* update placeholder string ([5c9bb2d](https://github.com/morta-technology/morta-python/commit/5c9bb2ddb7a5bbd1351a2ffe6ff05b7afd4d6930))
+
 ## 1.2.0 (2026-01-24)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/morta-technology/morta-python/compare/v1.1.0...v1.2.0)
