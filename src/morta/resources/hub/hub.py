@@ -37,6 +37,7 @@ from .secrets import (
     SecretsResourceWithStreamingResponse,
     AsyncSecretsResourceWithStreamingResponse,
 )
+from ..._files import deepcopy_with_paths
 from ..._types import (
     Body,
     Omit,
@@ -49,7 +50,7 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .ai_answer import (
     AIAnswerResource,
@@ -190,7 +191,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -248,7 +249,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._put(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "ai_search_enabled": ai_search_enabled,
@@ -311,7 +312,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._delete(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -350,7 +351,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/search-ai",
+            path_template("/v1/hub/{hub_id}/search-ai", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -398,7 +399,7 @@ class HubResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._put(
-            f"/v1/hub/{hub_id}/change-user-role/{firebase_id}",
+            path_template("/v1/hub/{hub_id}/change-user-role/{firebase_id}", hub_id=hub_id, firebase_id=firebase_id),
             body=maybe_transform({"role": role}, hub_change_user_role_params.HubChangeUserRoleParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -432,7 +433,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/add_heading_styling",
+            path_template("/v1/hub/{hub_id}/add_heading_styling", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -470,7 +471,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/knowledge-base",
+            path_template("/v1/hub/{hub_id}/knowledge-base", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "source": source,
@@ -512,7 +513,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._delete(
-            f"/v1/hub/{hub_id}/delete_top_style",
+            path_template("/v1/hub/{hub_id}/delete_top_style", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -549,7 +550,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/duplicate",
+            path_template("/v1/hub/{hub_id}/duplicate", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -590,7 +591,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/ai-answers",
+            path_template("/v1/hub/{hub_id}/ai-answers", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -623,7 +624,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/deleted-documents",
+            path_template("/v1/hub/{hub_id}/deleted-documents", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -658,7 +659,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/deleted-tables",
+            path_template("/v1/hub/{hub_id}/deleted-tables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -691,7 +692,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/documents",
+            path_template("/v1/hub/{hub_id}/documents", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -724,7 +725,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/duplicated-children",
+            path_template("/v1/hub/{hub_id}/duplicated-children", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -757,7 +758,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/invited-members",
+            path_template("/v1/hub/{hub_id}/invited-members", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -790,7 +791,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/members",
+            path_template("/v1/hub/{hub_id}/members", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -825,7 +826,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/notifications",
+            path_template("/v1/hub/{hub_id}/notifications", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -865,7 +866,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/resources",
+            path_template("/v1/hub/{hub_id}/resources", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "admin_view": admin_view,
@@ -919,7 +920,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/sent-notifications",
+            path_template("/v1/hub/{hub_id}/sent-notifications", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -963,7 +964,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/tables",
+            path_template("/v1/hub/{hub_id}/tables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -996,7 +997,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/tags",
+            path_template("/v1/hub/{hub_id}/tags", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1029,7 +1030,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/variables",
+            path_template("/v1/hub/{hub_id}/variables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1068,7 +1069,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/invite-multiple",
+            path_template("/v1/hub/{hub_id}/invite-multiple", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "emails": emails,
@@ -1109,7 +1110,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._delete(
-            f"/v1/hub/{hub_id}/permanent",
+            path_template("/v1/hub/{hub_id}/permanent", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1146,7 +1147,7 @@ class HubResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._delete(
-            f"/v1/hub/{hub_id}/remove-user/{firebase_id}",
+            path_template("/v1/hub/{hub_id}/remove-user/{firebase_id}", hub_id=hub_id, firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1180,7 +1181,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/request-contributor-access",
+            path_template("/v1/hub/{hub_id}/request-contributor-access", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1213,7 +1214,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._put(
-            f"/v1/hub/{hub_id}/restore",
+            path_template("/v1/hub/{hub_id}/restore", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1252,7 +1253,7 @@ class HubResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/search-resources",
+            path_template("/v1/hub/{hub_id}/search-resources", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1296,7 +1297,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/set-column-coloring",
+            path_template("/v1/hub/{hub_id}/set-column-coloring", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1333,7 +1334,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/set-column-format/{kind}",
+            path_template("/v1/hub/{hub_id}/set-column-format/{kind}", hub_id=hub_id, kind=kind),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1367,7 +1368,7 @@ class HubResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/train-knowledge-base",
+            path_template("/v1/hub/{hub_id}/train-knowledge-base", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1411,7 +1412,7 @@ class HubResource(SyncAPIResource):
         if not style_id:
             raise ValueError(f"Expected a non-empty value for `style_id` but received {style_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/style/{style_id}",
+            path_template("/v1/hub/{hub_id}/style/{style_id}", hub_id=hub_id, style_id=style_id),
             body=maybe_transform(
                 {
                     "bold": bold,
@@ -1457,14 +1458,14 @@ class HubResource(SyncAPIResource):
         """
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            f"/v1/hub/{hub_id}/upload-template",
+            path_template("/v1/hub/{hub_id}/upload-template", hub_id=hub_id),
             body=maybe_transform(body, hub_upload_template_params.HubUploadTemplateParams),
             files=files,
             options=make_request_options(
@@ -1564,7 +1565,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1622,7 +1623,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._put(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "ai_search_enabled": ai_search_enabled,
@@ -1685,7 +1686,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._delete(
-            f"/v1/hub/{hub_id}",
+            path_template("/v1/hub/{hub_id}", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1724,7 +1725,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/search-ai",
+            path_template("/v1/hub/{hub_id}/search-ai", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1772,7 +1773,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._put(
-            f"/v1/hub/{hub_id}/change-user-role/{firebase_id}",
+            path_template("/v1/hub/{hub_id}/change-user-role/{firebase_id}", hub_id=hub_id, firebase_id=firebase_id),
             body=await async_maybe_transform({"role": role}, hub_change_user_role_params.HubChangeUserRoleParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1806,7 +1807,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/add_heading_styling",
+            path_template("/v1/hub/{hub_id}/add_heading_styling", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1844,7 +1845,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/knowledge-base",
+            path_template("/v1/hub/{hub_id}/knowledge-base", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "source": source,
@@ -1886,7 +1887,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._delete(
-            f"/v1/hub/{hub_id}/delete_top_style",
+            path_template("/v1/hub/{hub_id}/delete_top_style", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1923,7 +1924,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/duplicate",
+            path_template("/v1/hub/{hub_id}/duplicate", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -1964,7 +1965,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/ai-answers",
+            path_template("/v1/hub/{hub_id}/ai-answers", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1997,7 +1998,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/deleted-documents",
+            path_template("/v1/hub/{hub_id}/deleted-documents", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2032,7 +2033,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/deleted-tables",
+            path_template("/v1/hub/{hub_id}/deleted-tables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2065,7 +2066,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/documents",
+            path_template("/v1/hub/{hub_id}/documents", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2098,7 +2099,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/duplicated-children",
+            path_template("/v1/hub/{hub_id}/duplicated-children", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2131,7 +2132,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/invited-members",
+            path_template("/v1/hub/{hub_id}/invited-members", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2164,7 +2165,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/members",
+            path_template("/v1/hub/{hub_id}/members", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2199,7 +2200,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/notifications",
+            path_template("/v1/hub/{hub_id}/notifications", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2239,7 +2240,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/resources",
+            path_template("/v1/hub/{hub_id}/resources", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "admin_view": admin_view,
@@ -2293,7 +2294,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/sent-notifications",
+            path_template("/v1/hub/{hub_id}/sent-notifications", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2337,7 +2338,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/tables",
+            path_template("/v1/hub/{hub_id}/tables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2370,7 +2371,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/tags",
+            path_template("/v1/hub/{hub_id}/tags", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2403,7 +2404,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/variables",
+            path_template("/v1/hub/{hub_id}/variables", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2442,7 +2443,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/invite-multiple",
+            path_template("/v1/hub/{hub_id}/invite-multiple", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "emails": emails,
@@ -2483,7 +2484,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._delete(
-            f"/v1/hub/{hub_id}/permanent",
+            path_template("/v1/hub/{hub_id}/permanent", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2520,7 +2521,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._delete(
-            f"/v1/hub/{hub_id}/remove-user/{firebase_id}",
+            path_template("/v1/hub/{hub_id}/remove-user/{firebase_id}", hub_id=hub_id, firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2554,7 +2555,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/request-contributor-access",
+            path_template("/v1/hub/{hub_id}/request-contributor-access", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2587,7 +2588,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._put(
-            f"/v1/hub/{hub_id}/restore",
+            path_template("/v1/hub/{hub_id}/restore", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2626,7 +2627,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/search-resources",
+            path_template("/v1/hub/{hub_id}/search-resources", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2670,7 +2671,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/set-column-coloring",
+            path_template("/v1/hub/{hub_id}/set-column-coloring", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2707,7 +2708,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `kind` but received {kind!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/set-column-format/{kind}",
+            path_template("/v1/hub/{hub_id}/set-column-format/{kind}", hub_id=hub_id, kind=kind),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2741,7 +2742,7 @@ class AsyncHubResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/train-knowledge-base",
+            path_template("/v1/hub/{hub_id}/train-knowledge-base", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -2785,7 +2786,7 @@ class AsyncHubResource(AsyncAPIResource):
         if not style_id:
             raise ValueError(f"Expected a non-empty value for `style_id` but received {style_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/style/{style_id}",
+            path_template("/v1/hub/{hub_id}/style/{style_id}", hub_id=hub_id, style_id=style_id),
             body=await async_maybe_transform(
                 {
                     "bold": bold,
@@ -2831,14 +2832,14 @@ class AsyncHubResource(AsyncAPIResource):
         """
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            f"/v1/hub/{hub_id}/upload-template",
+            path_template("/v1/hub/{hub_id}/upload-template", hub_id=hub_id),
             body=await async_maybe_transform(body, hub_upload_template_params.HubUploadTemplateParams),
             files=files,
             options=make_request_options(

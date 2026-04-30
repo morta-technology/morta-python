@@ -7,7 +7,7 @@ from typing import Iterable
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -78,7 +78,7 @@ class JoinResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/join",
+            path_template("/v1/table/{table_id}/join", table_id=table_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -129,7 +129,7 @@ class JoinResource(SyncAPIResource):
         if not join_id:
             raise ValueError(f"Expected a non-empty value for `join_id` but received {join_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/join/{join_id}",
+            path_template("/v1/table/{table_id}/join/{join_id}", table_id=table_id, join_id=join_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -175,7 +175,7 @@ class JoinResource(SyncAPIResource):
         if not join_id:
             raise ValueError(f"Expected a non-empty value for `join_id` but received {join_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/join/{join_id}",
+            path_template("/v1/table/{table_id}/join/{join_id}", table_id=table_id, join_id=join_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -234,7 +234,7 @@ class AsyncJoinResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/join",
+            path_template("/v1/table/{table_id}/join", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -285,7 +285,7 @@ class AsyncJoinResource(AsyncAPIResource):
         if not join_id:
             raise ValueError(f"Expected a non-empty value for `join_id` but received {join_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/join/{join_id}",
+            path_template("/v1/table/{table_id}/join/{join_id}", table_id=table_id, join_id=join_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -331,7 +331,7 @@ class AsyncJoinResource(AsyncAPIResource):
         if not join_id:
             raise ValueError(f"Expected a non-empty value for `join_id` but received {join_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/join/{join_id}",
+            path_template("/v1/table/{table_id}/join/{join_id}", table_id=table_id, join_id=join_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

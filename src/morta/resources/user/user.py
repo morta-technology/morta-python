@@ -32,7 +32,7 @@ from .apikey import (
 )
 from ...types import user_create_params, user_search_params, user_update_account_params, user_update_profile_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -173,7 +173,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}",
+            path_template("/v1/user/{firebase_id}", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -206,7 +206,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/achievements",
+            path_template("/v1/user/{firebase_id}/achievements", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -240,7 +240,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/contributions",
+            path_template("/v1/user/{firebase_id}/contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -292,7 +292,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/pinned-hubs",
+            path_template("/v1/user/{firebase_id}/pinned-hubs", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -325,7 +325,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/public-contributions",
+            path_template("/v1/user/{firebase_id}/public-contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -396,7 +396,7 @@ class UserResource(SyncAPIResource):
         if not public_id:
             raise ValueError(f"Expected a non-empty value for `public_id` but received {public_id!r}")
         return self._get(
-            f"/v1/user/public/{public_id}",
+            path_template("/v1/user/public/{public_id}", public_id=public_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -702,7 +702,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}",
+            path_template("/v1/user/{firebase_id}", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -735,7 +735,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/achievements",
+            path_template("/v1/user/{firebase_id}/achievements", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -769,7 +769,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/contributions",
+            path_template("/v1/user/{firebase_id}/contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -821,7 +821,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/pinned-hubs",
+            path_template("/v1/user/{firebase_id}/pinned-hubs", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -854,7 +854,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/public-contributions",
+            path_template("/v1/user/{firebase_id}/public-contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -925,7 +925,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not public_id:
             raise ValueError(f"Expected a non-empty value for `public_id` but received {public_id!r}")
         return await self._get(
-            f"/v1/user/public/{public_id}",
+            path_template("/v1/user/public/{public_id}", public_id=public_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -136,7 +136,7 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}/columns/{column_id}",
+            path_template("/v1/table/views/{view_id}/columns/{column_id}", view_id=view_id, column_id=column_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -258,7 +258,7 @@ class ColumnsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/columns",
+            path_template("/v1/table/views/{view_id}/columns", view_id=view_id),
             body=maybe_transform(
                 {
                     "locked": locked,
@@ -332,7 +332,9 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper", view_id=view_id, column_id=column_id
+            ),
             body=maybe_transform({"text": text}, column_ai_formula_helper_params.ColumnAIFormulaHelperParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -375,7 +377,9 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/distinct",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/distinct", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -421,7 +425,9 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/formula-info",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/formula-info", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -530,7 +536,7 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}/columns/{column_id}",
+            path_template("/v1/table/views/{view_id}/columns/{column_id}", view_id=view_id, column_id=column_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -652,7 +658,7 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/columns",
+            path_template("/v1/table/views/{view_id}/columns", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "locked": locked,
@@ -726,7 +732,9 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper", view_id=view_id, column_id=column_id
+            ),
             body=await async_maybe_transform(
                 {"text": text}, column_ai_formula_helper_params.ColumnAIFormulaHelperParams
             ),
@@ -771,7 +779,9 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/distinct",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/distinct", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -817,7 +827,9 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/formula-info",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/formula-info", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

@@ -14,7 +14,7 @@ from ..types import (
     permission_retrieve_tag_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -181,7 +181,7 @@ class PermissionsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._put(
-            f"/v1/permissions/{id}",
+            path_template("/v1/permissions/{id}", id=id),
             body=maybe_transform(
                 {
                     "role": role,
@@ -223,7 +223,7 @@ class PermissionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/permissions/{id}",
+            path_template("/v1/permissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -314,7 +314,7 @@ class PermissionsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
-            f"/v1/permissions/request/{hub_id}/{type}/{id}",
+            path_template("/v1/permissions/request/{hub_id}/{type}/{id}", hub_id=hub_id, type=type, id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -506,7 +506,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._put(
-            f"/v1/permissions/{id}",
+            path_template("/v1/permissions/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "role": role,
@@ -548,7 +548,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/permissions/{id}",
+            path_template("/v1/permissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -639,7 +639,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
-            f"/v1/permissions/request/{hub_id}/{type}/{id}",
+            path_template("/v1/permissions/request/{hub_id}/{type}/{id}", hub_id=hub_id, type=type, id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

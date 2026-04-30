@@ -54,7 +54,7 @@ from ...types import (
     table_get_statistics_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -244,7 +244,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -305,7 +305,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             body=maybe_transform(
                 {
                     "allow_comments": allow_comments,
@@ -353,7 +353,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -387,7 +387,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/used",
+            path_template("/v1/table/{table_id}/used", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -421,7 +421,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/indexes",
+            path_template("/v1/table/{table_id}/indexes", table_id=table_id),
             body=maybe_transform({"columns": columns}, table_create_index_params.TableCreateIndexParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -455,7 +455,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/rows",
+            path_template("/v1/table/{table_id}/rows", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -495,7 +495,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/csv",
+            path_template("/v1/table/{table_id}/csv", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -543,7 +543,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/duplicate",
+            path_template("/v1/table/{table_id}/duplicate", table_id=table_id),
             body=maybe_transform(
                 {
                     "target_project_id": target_project_id,
@@ -589,7 +589,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/csv-backup",
+            path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -626,7 +626,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/duplicated-children",
+            path_template("/v1/table/{table_id}/duplicated-children", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -666,7 +666,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/file",
+            path_template("/v1/table/{table_id}/file", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -715,7 +715,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/stats",
+            path_template("/v1/table/{table_id}/stats", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -758,7 +758,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/columns",
+            path_template("/v1/table/{table_id}/columns", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -791,7 +791,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/joins",
+            path_template("/v1/table/{table_id}/joins", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -824,7 +824,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/restore",
+            path_template("/v1/table/{table_id}/restore", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -870,7 +870,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/rows-stream",
+            path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -915,7 +915,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/truncate",
+            path_template("/v1/table/{table_id}/truncate", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -950,7 +950,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/cells",
+            path_template("/v1/table/{table_id}/cells", table_id=table_id),
             body=maybe_transform(
                 {
                     "cells": cells,
@@ -1108,7 +1108,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1169,7 +1169,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "allow_comments": allow_comments,
@@ -1217,7 +1217,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1251,7 +1251,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/used",
+            path_template("/v1/table/{table_id}/used", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1285,7 +1285,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/indexes",
+            path_template("/v1/table/{table_id}/indexes", table_id=table_id),
             body=await async_maybe_transform({"columns": columns}, table_create_index_params.TableCreateIndexParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1319,7 +1319,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/rows",
+            path_template("/v1/table/{table_id}/rows", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1359,7 +1359,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/csv",
+            path_template("/v1/table/{table_id}/csv", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1407,7 +1407,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/duplicate",
+            path_template("/v1/table/{table_id}/duplicate", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "target_project_id": target_project_id,
@@ -1453,7 +1453,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/csv-backup",
+            path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1490,7 +1490,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/duplicated-children",
+            path_template("/v1/table/{table_id}/duplicated-children", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1530,7 +1530,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/file",
+            path_template("/v1/table/{table_id}/file", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1579,7 +1579,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/stats",
+            path_template("/v1/table/{table_id}/stats", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1622,7 +1622,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/columns",
+            path_template("/v1/table/{table_id}/columns", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1655,7 +1655,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/joins",
+            path_template("/v1/table/{table_id}/joins", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1688,7 +1688,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/restore",
+            path_template("/v1/table/{table_id}/restore", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1734,7 +1734,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/rows-stream",
+            path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1779,7 +1779,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/truncate",
+            path_template("/v1/table/{table_id}/truncate", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1814,7 +1814,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/cells",
+            path_template("/v1/table/{table_id}/cells", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "cells": cells,

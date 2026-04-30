@@ -5,6 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import path_template
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -107,7 +108,7 @@ class HubsResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._put(
-            f"/v1/user/hubs/{hub_id}/tags",
+            path_template("/v1/user/hubs/{hub_id}/tags", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -140,7 +141,7 @@ class HubsResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._put(
-            f"/v1/user/hubs/{hub_id}/favourite",
+            path_template("/v1/user/hubs/{hub_id}/favourite", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -173,7 +174,7 @@ class HubsResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._put(
-            f"/v1/user/hubs/{hub_id}/pin",
+            path_template("/v1/user/hubs/{hub_id}/pin", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -265,7 +266,7 @@ class AsyncHubsResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._put(
-            f"/v1/user/hubs/{hub_id}/tags",
+            path_template("/v1/user/hubs/{hub_id}/tags", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -298,7 +299,7 @@ class AsyncHubsResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._put(
-            f"/v1/user/hubs/{hub_id}/favourite",
+            path_template("/v1/user/hubs/{hub_id}/favourite", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -331,7 +332,7 @@ class AsyncHubsResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._put(
-            f"/v1/user/hubs/{hub_id}/pin",
+            path_template("/v1/user/hubs/{hub_id}/pin", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

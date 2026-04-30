@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -73,7 +73,7 @@ class AIAnswerResource(SyncAPIResource):
         if not answer_id:
             raise ValueError(f"Expected a non-empty value for `answer_id` but received {answer_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/ai-answer/{answer_id}/vote",
+            path_template("/v1/hub/{hub_id}/ai-answer/{answer_id}/vote", hub_id=hub_id, answer_id=answer_id),
             body=maybe_transform(
                 {
                     "comment": comment,
@@ -140,7 +140,7 @@ class AsyncAIAnswerResource(AsyncAPIResource):
         if not answer_id:
             raise ValueError(f"Expected a non-empty value for `answer_id` but received {answer_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/ai-answer/{answer_id}/vote",
+            path_template("/v1/hub/{hub_id}/ai-answer/{answer_id}/vote", hub_id=hub_id, answer_id=answer_id),
             body=await async_maybe_transform(
                 {
                     "comment": comment,

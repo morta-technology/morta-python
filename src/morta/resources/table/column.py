@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -124,7 +124,7 @@ class ColumnResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/column",
+            path_template("/v1/table/{table_id}/column", table_id=table_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -231,7 +231,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -295,7 +295,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -331,7 +331,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/column/{column_id}/views",
+            path_template("/v1/table/{table_id}/column/{column_id}/views", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -373,7 +373,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/column/{column_id}/distinct",
+            path_template("/v1/table/{table_id}/column/{column_id}/distinct", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -419,7 +419,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/column/{column_id}/restore",
+            path_template("/v1/table/{table_id}/column/{column_id}/restore", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -516,7 +516,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/column",
+            path_template("/v1/table/{table_id}/column", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -623,7 +623,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -687,7 +687,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -723,7 +723,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/column/{column_id}/views",
+            path_template("/v1/table/{table_id}/column/{column_id}/views", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -765,7 +765,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/column/{column_id}/distinct",
+            path_template("/v1/table/{table_id}/column/{column_id}/distinct", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -811,7 +811,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/column/{column_id}/restore",
+            path_template("/v1/table/{table_id}/column/{column_id}/restore", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

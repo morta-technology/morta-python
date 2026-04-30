@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -122,7 +122,7 @@ class ApikeyResource(SyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return self._put(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             body=maybe_transform(
                 {
                     "access_level": access_level,
@@ -165,7 +165,7 @@ class ApikeyResource(SyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return self._delete(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -269,7 +269,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return await self._put(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             body=await async_maybe_transform(
                 {
                     "access_level": access_level,
@@ -312,7 +312,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return await self._delete(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
