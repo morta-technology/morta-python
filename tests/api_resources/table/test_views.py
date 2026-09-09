@@ -11,6 +11,7 @@ from respx import MockRouter
 
 from morta import Morta, AsyncMorta
 from tests.utils import assert_matches_type
+from morta._utils import parse_datetime
 from morta._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
@@ -23,6 +24,7 @@ from morta.types.table import (
     ViewCreateResponse,
     ViewDeleteResponse,
     ViewUpdateResponse,
+    ViewGetRowsResponse,
     ViewRetrieveResponse,
     ViewDuplicateResponse,
     ViewPreviewRowResponse,
@@ -53,15 +55,23 @@ class TestViews:
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="x",
             allow_contributor_delete=True,
+            calendar_settings={
+                "end_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "label_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "start_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
             chart_settings={
                 "aggregate": "sum",
                 "chart_type": "bar",
+                "column_gantt_deadline_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_end_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_start_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_label_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_stack_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "column_value_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "column_value_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "max_categories": 0,
                 "show_legend": True,
+                "show_percentage": True,
                 "show_title": True,
                 "show_values": True,
                 "sort_aggregate": "asc",
@@ -69,10 +79,14 @@ class TestViews:
             collapsed_group_view=True,
             colour_settings=[
                 {
+                    "apply_to_entire_row": True,
                     "background_colour": "backgroundColour",
                     "column_name": "columnName",
                     "filter_type": "eq",
+                    "font_bold": True,
                     "font_colour": "fontColour",
+                    "font_italic": True,
+                    "font_underline": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "value": {},
@@ -81,6 +95,7 @@ class TestViews:
             columns=[
                 {
                     "column_name": "columnName",
+                    "block_invalid_select_values": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "description": {
                         "content": {
@@ -120,6 +135,7 @@ class TestViews:
                     "validation_no_duplicates": True,
                 }
             ],
+            configuration_parent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -165,6 +181,7 @@ class TestViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "or_group": "orGroup",
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "value": {},
                 }
             ],
@@ -178,7 +195,25 @@ class TestViews:
             ],
             include_all_columns=True,
             is_default=True,
+            matrix_settings={
+                "data_column_widths": {"foo": 100},
+                "data_field_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "row_label_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            },
             row_height=0,
+            row_lock_settings=[
+                {
+                    "apply_to_entire_row": True,
+                    "column_name": "columnName",
+                    "filter_type": "eq",
+                    "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "multiple_values": [{}],
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "value": {},
+                }
+            ],
             sort_settings=[
                 {
                     "column_name": "columnName",
@@ -186,6 +221,12 @@ class TestViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            transpose_settings={
+                "data_column_widths": {"foo": 100},
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            tree_group_view=True,
             type=0,
             unpack_multiselect_group_view=True,
         )
@@ -293,15 +334,23 @@ class TestViews:
         view = client.table.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_contributor_delete=True,
+            calendar_settings={
+                "end_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "label_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "start_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
             chart_settings={
                 "aggregate": "sum",
                 "chart_type": "bar",
+                "column_gantt_deadline_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_end_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_start_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_label_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_stack_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "column_value_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "column_value_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "max_categories": 0,
                 "show_legend": True,
+                "show_percentage": True,
                 "show_title": True,
                 "show_values": True,
                 "sort_aggregate": "asc",
@@ -309,10 +358,14 @@ class TestViews:
             collapsed_group_view=True,
             colour_settings=[
                 {
+                    "apply_to_entire_row": True,
                     "background_colour": "backgroundColour",
                     "column_name": "columnName",
                     "filter_type": "eq",
+                    "font_bold": True,
                     "font_colour": "fontColour",
+                    "font_italic": True,
+                    "font_underline": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "value": {},
@@ -325,6 +378,7 @@ class TestViews:
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
+                    "block_invalid_select_values": True,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -333,6 +387,7 @@ class TestViews:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -366,6 +421,7 @@ class TestViews:
                     "export_width": 0,
                     "formula": "formula",
                     "formula_enabled": True,
+                    "form_width": 1,
                     "hard_validation": True,
                     "header_background_color": "headerBackgroundColor",
                     "header_text_color": "headerTextColor",
@@ -449,6 +505,7 @@ class TestViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "or_group": "orGroup",
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "value": {},
                 }
             ],
@@ -460,8 +517,26 @@ class TestViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            matrix_settings={
+                "data_column_widths": {"foo": 100},
+                "data_field_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "row_label_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            },
             name="x",
             row_height=0,
+            row_lock_settings=[
+                {
+                    "apply_to_entire_row": True,
+                    "column_name": "columnName",
+                    "filter_type": "eq",
+                    "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "multiple_values": [{}],
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "value": {},
+                }
+            ],
             sort_settings=[
                 {
                     "column_name": "columnName",
@@ -469,6 +544,12 @@ class TestViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            transpose_settings={
+                "data_column_widths": {"foo": 100},
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            tree_group_view=True,
             type=0,
             unpack_multiselect_group_view=True,
         )
@@ -599,6 +680,60 @@ class TestViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.table.views.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_csv(self, client: Morta) -> None:
+        view = client.table.views.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_csv_with_all_params(self, client: Morta) -> None:
+        view = client.table.views.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            display_comment_rows=0,
+            filter=[{}],
+            process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sort=["string"],
+        )
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_csv(self, client: Morta) -> None:
+        response = client.table.views.with_raw_response.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        view = response.parse()
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_csv(self, client: Morta) -> None:
+        with client.table.views.with_streaming_response.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            view = response.parse()
+            assert_matches_type(str, view, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_csv(self, client: Morta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            client.table.views.with_raw_response.csv(
+                view_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -766,6 +901,73 @@ class TestViews:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_get_rows(self, client: Morta) -> None:
+        view = client.table.views.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_rows_with_all_params(self, client: Morta) -> None:
+        view = client.table.views.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            alphabetical_column_sort=True,
+            columns=["string"],
+            distinct_columns=["string"],
+            expand="expand",
+            filter=[{}],
+            ignore_cached_options=True,
+            last_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            next_page_token="nextPageToken",
+            page=1,
+            process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sort=[{}],
+        )
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_rows(self, client: Morta) -> None:
+        response = client.table.views.with_raw_response.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        view = response.parse()
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_rows(self, client: Morta) -> None:
+        with client.table.views.with_streaming_response.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            view = response.parse()
+            assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get_rows(self, client: Morta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            client.table.views.with_raw_response.get_rows(
+                view_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_preview_row(self, client: Morta) -> None:
         view = client.table.views.preview_row(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -785,6 +987,7 @@ class TestViews:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            sort_order=0,
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 
@@ -1114,15 +1317,23 @@ class TestAsyncViews:
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="x",
             allow_contributor_delete=True,
+            calendar_settings={
+                "end_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "label_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "start_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
             chart_settings={
                 "aggregate": "sum",
                 "chart_type": "bar",
+                "column_gantt_deadline_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_end_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_start_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_label_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_stack_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "column_value_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "column_value_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "max_categories": 0,
                 "show_legend": True,
+                "show_percentage": True,
                 "show_title": True,
                 "show_values": True,
                 "sort_aggregate": "asc",
@@ -1130,10 +1341,14 @@ class TestAsyncViews:
             collapsed_group_view=True,
             colour_settings=[
                 {
+                    "apply_to_entire_row": True,
                     "background_colour": "backgroundColour",
                     "column_name": "columnName",
                     "filter_type": "eq",
+                    "font_bold": True,
                     "font_colour": "fontColour",
+                    "font_italic": True,
+                    "font_underline": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "value": {},
@@ -1142,6 +1357,7 @@ class TestAsyncViews:
             columns=[
                 {
                     "column_name": "columnName",
+                    "block_invalid_select_values": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "description": {
                         "content": {
@@ -1181,6 +1397,7 @@ class TestAsyncViews:
                     "validation_no_duplicates": True,
                 }
             ],
+            configuration_parent_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1226,6 +1443,7 @@ class TestAsyncViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "or_group": "orGroup",
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "value": {},
                 }
             ],
@@ -1239,7 +1457,25 @@ class TestAsyncViews:
             ],
             include_all_columns=True,
             is_default=True,
+            matrix_settings={
+                "data_column_widths": {"foo": 100},
+                "data_field_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "row_label_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            },
             row_height=0,
+            row_lock_settings=[
+                {
+                    "apply_to_entire_row": True,
+                    "column_name": "columnName",
+                    "filter_type": "eq",
+                    "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "multiple_values": [{}],
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "value": {},
+                }
+            ],
             sort_settings=[
                 {
                     "column_name": "columnName",
@@ -1247,6 +1483,12 @@ class TestAsyncViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            transpose_settings={
+                "data_column_widths": {"foo": 100},
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            tree_group_view=True,
             type=0,
             unpack_multiselect_group_view=True,
         )
@@ -1354,15 +1596,23 @@ class TestAsyncViews:
         view = await async_client.table.views.update(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_contributor_delete=True,
+            calendar_settings={
+                "end_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "label_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "start_column_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
             chart_settings={
                 "aggregate": "sum",
                 "chart_type": "bar",
+                "column_gantt_deadline_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_end_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_gantt_start_date_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_label_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "column_stack_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "column_value_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "column_value_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "max_categories": 0,
                 "show_legend": True,
+                "show_percentage": True,
                 "show_title": True,
                 "show_values": True,
                 "sort_aggregate": "asc",
@@ -1370,10 +1620,14 @@ class TestAsyncViews:
             collapsed_group_view=True,
             colour_settings=[
                 {
+                    "apply_to_entire_row": True,
                     "background_colour": "backgroundColour",
                     "column_name": "columnName",
                     "filter_type": "eq",
+                    "font_bold": True,
                     "font_colour": "fontColour",
+                    "font_italic": True,
+                    "font_underline": True,
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "value": {},
@@ -1386,6 +1640,7 @@ class TestAsyncViews:
                         "date_conversion_format": "DD/MM/YYYY",
                         "run_script_on_all_cells": True,
                     },
+                    "block_invalid_select_values": True,
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1394,6 +1649,7 @@ class TestAsyncViews:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -1427,6 +1683,7 @@ class TestAsyncViews:
                     "export_width": 0,
                     "formula": "formula",
                     "formula_enabled": True,
+                    "form_width": 1,
                     "hard_validation": True,
                     "header_background_color": "headerBackgroundColor",
                     "header_text_color": "headerTextColor",
@@ -1510,6 +1767,7 @@ class TestAsyncViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "multiple_values": [{}],
                     "or_group": "orGroup",
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "value": {},
                 }
             ],
@@ -1521,8 +1779,26 @@ class TestAsyncViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            matrix_settings={
+                "data_column_widths": {"foo": 100},
+                "data_field_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "row_label_column_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            },
             name="x",
             row_height=0,
+            row_lock_settings=[
+                {
+                    "apply_to_entire_row": True,
+                    "column_name": "columnName",
+                    "filter_type": "eq",
+                    "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "multiple_values": [{}],
+                    "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "value": {},
+                }
+            ],
             sort_settings=[
                 {
                     "column_name": "columnName",
@@ -1530,6 +1806,12 @@ class TestAsyncViews:
                     "column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            transpose_settings={
+                "data_column_widths": {"foo": 100},
+                "field_column_width": 100,
+                "pivot_column_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+            tree_group_view=True,
             type=0,
             unpack_multiselect_group_view=True,
         )
@@ -1660,6 +1942,60 @@ class TestAsyncViews:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.table.views.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_csv(self, async_client: AsyncMorta) -> None:
+        view = await async_client.table.views.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_csv_with_all_params(self, async_client: AsyncMorta) -> None:
+        view = await async_client.table.views.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            display_comment_rows=0,
+            filter=[{}],
+            process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sort=["string"],
+        )
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_csv(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.views.with_raw_response.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        view = await response.parse()
+        assert_matches_type(str, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_csv(self, async_client: AsyncMorta) -> None:
+        async with async_client.table.views.with_streaming_response.csv(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            view = await response.parse()
+            assert_matches_type(str, view, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_csv(self, async_client: AsyncMorta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            await async_client.table.views.with_raw_response.csv(
+                view_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1827,6 +2163,73 @@ class TestAsyncViews:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_get_rows(self, async_client: AsyncMorta) -> None:
+        view = await async_client.table.views.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_rows_with_all_params(self, async_client: AsyncMorta) -> None:
+        view = await async_client.table.views.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            alphabetical_column_sort=True,
+            columns=["string"],
+            distinct_columns=["string"],
+            expand="expand",
+            filter=[{}],
+            ignore_cached_options=True,
+            last_created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            next_page_token="nextPageToken",
+            page=1,
+            process_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            sort=[{}],
+        )
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_rows(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.views.with_raw_response.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        view = await response.parse()
+        assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_rows(self, async_client: AsyncMorta) -> None:
+        async with async_client.table.views.with_streaming_response.get_rows(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            view = await response.parse()
+            assert_matches_type(ViewGetRowsResponse, view, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get_rows(self, async_client: AsyncMorta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            await async_client.table.views.with_raw_response.get_rows(
+                view_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_preview_row(self, async_client: AsyncMorta) -> None:
         view = await async_client.table.views.preview_row(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1846,6 +2249,7 @@ class TestAsyncViews:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            sort_order=0,
         )
         assert_matches_type(ViewPreviewRowResponse, view, path=["response"])
 

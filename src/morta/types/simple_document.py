@@ -19,9 +19,15 @@ class Child(BaseModel):
 class SimpleDocument(BaseModel):
     allow_comments: Optional[bool] = FieldInfo(alias="allowComments", default=None)
 
+    banner_height: Optional[int] = FieldInfo(alias="bannerHeight", default=None)
+
     children: Optional[List[Child]] = None
 
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
+
+    default_format: Optional[str] = FieldInfo(alias="defaultFormat", default=None)
+
+    default_orientation: Optional[str] = FieldInfo(alias="defaultOrientation", default=None)
 
     deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
 

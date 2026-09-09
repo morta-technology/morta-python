@@ -26,6 +26,8 @@ class TableColumnParam(TypedDict, total=False):
 
     decimal_places: Annotated[int, PropertyInfo(alias="decimalPlaces")]
 
+    default_value: Annotated[Optional[str], PropertyInfo(alias="defaultValue")]
+
     description: Description
 
     display_link: Annotated[bool, PropertyInfo(alias="displayLink")]
@@ -65,6 +67,7 @@ class TableColumnParam(TypedDict, total=False):
         "vote",
         "checkbox",
         "duration",
+        "json",
     ]
 
     kind_options: Annotated[SelectOptionsLookupParam, PropertyInfo(alias="kindOptions")]

@@ -160,6 +160,7 @@ class TestDocument:
         document = client.document.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_comments=True,
+            banner_height=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1057,6 +1058,7 @@ class TestAsyncDocument:
         document = await async_client.document.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_comments=True,
+            banner_height=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

@@ -29,6 +29,7 @@ class TestSync:
         sync = client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
@@ -38,25 +39,15 @@ class TestSync:
         sync = client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            company_id="companyId",
+            type="hubs",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            doc_types=["string"],
-            enterprise_id="enterpriseId",
-            folder_id="folderId",
-            hub_id="hubId",
-            license_id="licenseId",
-            model_id="modelId",
-            project_id="projectId",
-            project_ids=["string"],
-            properties=["string"],
-            region="region",
-            top_folder_id="topFolderId",
-            type="Projects",
+            sync_all_hubs=True,
+            sync_fields={"foo": "bar"},
         )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
@@ -66,6 +57,7 @@ class TestSync:
         response = client.table.sync.with_raw_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         )
 
         assert response.is_closed is True
@@ -79,6 +71,7 @@ class TestSync:
         with client.table.sync.with_streaming_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -95,12 +88,14 @@ class TestSync:
             client.table.sync.with_raw_response.update(
                 integration_name="integration_name",
                 table_id="",
+                type="hubs",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
             client.table.sync.with_raw_response.update(
                 integration_name="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="hubs",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -254,25 +249,15 @@ class TestSync:
         sync = client.table.sync.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            company_id="companyId",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            doc_types=["string"],
-            enterprise_id="enterpriseId",
-            folder_id="folderId",
-            hub_id="hubId",
-            license_id="licenseId",
-            model_id="modelId",
-            project_id="projectId",
-            project_ids=["string"],
-            properties=["string"],
-            region="region",
-            top_folder_id="topFolderId",
-            type="Projects",
+            sync_all_hubs=True,
+            sync_fields={"foo": "bar"},
+            type="hubs",
         )
         assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
 
@@ -331,6 +316,7 @@ class TestAsyncSync:
         sync = await async_client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
@@ -340,25 +326,15 @@ class TestAsyncSync:
         sync = await async_client.table.sync.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            company_id="companyId",
+            type="hubs",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            doc_types=["string"],
-            enterprise_id="enterpriseId",
-            folder_id="folderId",
-            hub_id="hubId",
-            license_id="licenseId",
-            model_id="modelId",
-            project_id="projectId",
-            project_ids=["string"],
-            properties=["string"],
-            region="region",
-            top_folder_id="topFolderId",
-            type="Projects",
+            sync_all_hubs=True,
+            sync_fields={"foo": "bar"},
         )
         assert_matches_type(SyncUpdateResponse, sync, path=["response"])
 
@@ -368,6 +344,7 @@ class TestAsyncSync:
         response = await async_client.table.sync.with_raw_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         )
 
         assert response.is_closed is True
@@ -381,6 +358,7 @@ class TestAsyncSync:
         async with async_client.table.sync.with_streaming_response.update(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="hubs",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -397,12 +375,14 @@ class TestAsyncSync:
             await async_client.table.sync.with_raw_response.update(
                 integration_name="integration_name",
                 table_id="",
+                type="hubs",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `integration_name` but received ''"):
             await async_client.table.sync.with_raw_response.update(
                 integration_name="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                type="hubs",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -556,25 +536,15 @@ class TestAsyncSync:
         sync = await async_client.table.sync.sync_with_integration(
             integration_name="integration_name",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            company_id="companyId",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            doc_types=["string"],
-            enterprise_id="enterpriseId",
-            folder_id="folderId",
-            hub_id="hubId",
-            license_id="licenseId",
-            model_id="modelId",
-            project_id="projectId",
-            project_ids=["string"],
-            properties=["string"],
-            region="region",
-            top_folder_id="topFolderId",
-            type="Projects",
+            sync_all_hubs=True,
+            sync_fields={"foo": "bar"},
+            type="hubs",
         )
         assert_matches_type(SyncSyncWithIntegrationResponse, sync, path=["response"])
 

@@ -24,6 +24,7 @@ from morta.types import (
     TableCreateIndexResponse,
     TableListColumnsResponse,
     TableUpdateCellsResponse,
+    TableGetCsvBackupResponse,
     TableGetStatisticsResponse,
     TableGetDuplicatedChildrenResponse,
 )
@@ -65,6 +66,7 @@ class TestTable:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -119,7 +121,7 @@ class TestTable:
                             "view_id": "viewId",
                         },
                     },
-                    "name": "name",
+                    "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "script": "script",
                     "script_enabled": True,
@@ -269,7 +271,6 @@ class TestTable:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            is_reference_table=True,
             joins=[
                 {
                     "data_columns": [
@@ -293,7 +294,6 @@ class TestTable:
             ],
             keep_colours_in_sync=True,
             keep_validations_in_sync=True,
-            logo="logo",
             name="name",
             sync_hourly_frequency=0,
             type="type",
@@ -621,59 +621,45 @@ class TestTable:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_method_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    def test_method_get_csv_backup(self, client: Morta) -> None:
         table = client.table.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
-        assert table.is_closed
-        assert table.json() == {"foo": "bar"}
-        assert cast(Any, table.is_closed) is True
-        assert isinstance(table, BinaryAPIResponse)
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
-
-        table = client.table.with_raw_response.get_csv_backup(
+    def test_raw_response_get_csv_backup(self, client: Morta) -> None:
+        response = client.table.with_raw_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
 
-        assert table.is_closed is True
-        assert table.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert table.json() == {"foo": "bar"}
-        assert isinstance(table, BinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        table = response.parse()
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    def test_streaming_response_get_csv_backup(self, client: Morta) -> None:
         with client.table.with_streaming_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
-        ) as table:
-            assert not table.is_closed
-            assert table.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert table.json() == {"foo": "bar"}
-            assert cast(Any, table.is_closed) is True
-            assert isinstance(table, StreamedBinaryAPIResponse)
+            table = response.parse()
+            assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
-        assert cast(Any, table.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
     def test_path_params_get_csv_backup(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             client.table.with_raw_response.get_csv_backup(
@@ -1207,6 +1193,7 @@ class TestAsyncTable:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -1261,7 +1248,7 @@ class TestAsyncTable:
                             "view_id": "viewId",
                         },
                     },
-                    "name": "name",
+                    "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "script": "script",
                     "script_enabled": True,
@@ -1411,7 +1398,6 @@ class TestAsyncTable:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            is_reference_table=True,
             joins=[
                 {
                     "data_columns": [
@@ -1435,7 +1421,6 @@ class TestAsyncTable:
             ],
             keep_colours_in_sync=True,
             keep_validations_in_sync=True,
-            logo="logo",
             name="name",
             sync_hourly_frequency=0,
             type="type",
@@ -1763,59 +1748,45 @@ class TestAsyncTable:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_method_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    async def test_method_get_csv_backup(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
-        assert table.is_closed
-        assert await table.json() == {"foo": "bar"}
-        assert cast(Any, table.is_closed) is True
-        assert isinstance(table, AsyncBinaryAPIResponse)
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
-
-        table = await async_client.table.with_raw_response.get_csv_backup(
+    async def test_raw_response_get_csv_backup(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.with_raw_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
 
-        assert table.is_closed is True
-        assert table.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert await table.json() == {"foo": "bar"}
-        assert isinstance(table, AsyncBinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        table = await response.parse()
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    async def test_streaming_response_get_csv_backup(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
-        ) as table:
-            assert not table.is_closed
-            assert table.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert await table.json() == {"foo": "bar"}
-            assert cast(Any, table.is_closed) is True
-            assert isinstance(table, AsyncStreamedBinaryAPIResponse)
+            table = await response.parse()
+            assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
-        assert cast(Any, table.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
     async def test_path_params_get_csv_backup(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             await async_client.table.with_raw_response.get_csv_backup(
