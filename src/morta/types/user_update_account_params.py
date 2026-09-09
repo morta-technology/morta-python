@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -11,15 +12,21 @@ __all__ = ["UserUpdateAccountParams"]
 
 
 class UserUpdateAccountParams(TypedDict, total=False):
-    allow_support_access: Annotated[Optional[bool], PropertyInfo(alias="allowSupportAccess")]
+    allow_support_access_expires_at: Annotated[
+        Union[str, datetime, None], PropertyInfo(alias="allowSupportAccessExpiresAt", format="iso8601")
+    ]
 
     old_password: Annotated[str, PropertyInfo(alias="oldPassword")]
 
     opt_out_ai_email: Annotated[Optional[bool], PropertyInfo(alias="optOutAiEmail")]
 
+    opt_out_deprecation_email: Annotated[Optional[bool], PropertyInfo(alias="optOutDeprecationEmail")]
+
     opt_out_duplication_email: Annotated[Optional[bool], PropertyInfo(alias="optOutDuplicationEmail")]
 
     opt_out_hub_email: Annotated[Optional[bool], PropertyInfo(alias="optOutHubEmail")]
+
+    opt_out_mention_email: Annotated[Optional[bool], PropertyInfo(alias="optOutMentionEmail")]
 
     opt_out_sync_email: Annotated[Optional[bool], PropertyInfo(alias="optOutSyncEmail")]
 

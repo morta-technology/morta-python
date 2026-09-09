@@ -50,6 +50,7 @@ class TestColumn:
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -104,7 +105,7 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -175,6 +176,7 @@ class TestColumn:
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -229,7 +231,7 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -532,6 +534,7 @@ class TestAsyncColumn:
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -586,7 +589,7 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -657,6 +660,7 @@ class TestAsyncColumn:
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -711,7 +715,7 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,

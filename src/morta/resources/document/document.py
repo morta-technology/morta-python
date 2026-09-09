@@ -191,6 +191,7 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -227,6 +228,7 @@ class DocumentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,
@@ -808,6 +810,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -844,6 +847,7 @@ class AsyncDocumentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,

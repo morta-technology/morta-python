@@ -42,8 +42,6 @@ class DataTable(BaseModel):
 
     joins: Optional[List[TableJoin]] = None
 
-    logo: Optional[str] = None
-
     name: Optional[str] = None
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)

@@ -61,6 +61,7 @@ class TestRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowUpdateResponse, row, path=["response"])
 
@@ -175,7 +176,23 @@ class TestRows:
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         row = client.table.views.rows.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(RowDeleteResponse, row, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Morta) -> None:
+        row = client.table.views.rows.delete(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
         )
         assert_matches_type(RowDeleteResponse, row, path=["response"])
 
@@ -183,7 +200,8 @@ class TestRows:
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.table.views.rows.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
         assert response.is_closed is True
@@ -195,7 +213,8 @@ class TestRows:
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.table.views.rows.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -210,7 +229,8 @@ class TestRows:
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.table.views.rows.with_raw_response.delete(
-                "",
+                view_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -245,6 +265,7 @@ class TestRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowAddResponse, row, path=["response"])
 
@@ -319,6 +340,7 @@ class TestRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowUpsertResponse, row, path=["response"])
 
@@ -406,6 +428,7 @@ class TestAsyncRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowUpdateResponse, row, path=["response"])
 
@@ -520,7 +543,23 @@ class TestAsyncRows:
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         row = await async_client.table.views.rows.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(RowDeleteResponse, row, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncMorta) -> None:
+        row = await async_client.table.views.rows.delete(
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
         )
         assert_matches_type(RowDeleteResponse, row, path=["response"])
 
@@ -528,7 +567,8 @@ class TestAsyncRows:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.rows.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
         assert response.is_closed is True
@@ -540,7 +580,8 @@ class TestAsyncRows:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.rows.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -555,7 +596,8 @@ class TestAsyncRows:
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.table.views.rows.with_raw_response.delete(
-                "",
+                view_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -590,6 +632,7 @@ class TestAsyncRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowAddResponse, row, path=["response"])
 
@@ -664,6 +707,7 @@ class TestAsyncRows:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            next_row_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(RowUpsertResponse, row, path=["response"])
 
