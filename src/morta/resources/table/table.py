@@ -54,7 +54,7 @@ from ...types import (
     table_get_statistics_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -95,6 +95,7 @@ from ...types.table_delete_rows_response import TableDeleteRowsResponse
 from ...types.table_create_index_response import TableCreateIndexResponse
 from ...types.table_list_columns_response import TableListColumnsResponse
 from ...types.table_update_cells_response import TableUpdateCellsResponse
+from ...types.table_get_csv_backup_response import TableGetCsvBackupResponse
 from ...types.table_get_statistics_response import TableGetStatisticsResponse
 from ...types.table_get_duplicated_children_response import TableGetDuplicatedChildrenResponse
 
@@ -244,7 +245,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -275,11 +276,9 @@ class TableResource(SyncAPIResource):
         *,
         allow_comments: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
-        is_reference_table: bool | Omit = omit,
         joins: Iterable[table_update_params.Join] | Omit = omit,
         keep_colours_in_sync: bool | Omit = omit,
         keep_validations_in_sync: bool | Omit = omit,
-        logo: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
         type: Optional[str] | Omit = omit,
@@ -305,16 +304,14 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             body=maybe_transform(
                 {
                     "allow_comments": allow_comments,
                     "context": context,
-                    "is_reference_table": is_reference_table,
                     "joins": joins,
                     "keep_colours_in_sync": keep_colours_in_sync,
                     "keep_validations_in_sync": keep_validations_in_sync,
-                    "logo": logo,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
                     "type": type,
@@ -353,7 +350,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -372,7 +369,7 @@ class TableResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
-        Check and return a list of documents, table joins, and selects where the
+        Check and return a list of documents, table lookups, and selects where the
         specified table is used.
 
         Args:
@@ -387,7 +384,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/used",
+            path_template("/v1/table/{table_id}/used", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -421,7 +418,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/indexes",
+            path_template("/v1/table/{table_id}/indexes", table_id=table_id),
             body=maybe_transform({"columns": columns}, table_create_index_params.TableCreateIndexParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -455,7 +452,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/rows",
+            path_template("/v1/table/{table_id}/rows", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -495,7 +492,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/csv",
+            path_template("/v1/table/{table_id}/csv", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -543,7 +540,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/duplicate",
+            path_template("/v1/table/{table_id}/duplicate", table_id=table_id),
             body=maybe_transform(
                 {
                     "target_project_id": target_project_id,
@@ -570,9 +567,9 @@ class TableResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BinaryAPIResponse:
+    ) -> TableGetCsvBackupResponse:
         """
-        Get a CSV backup of a table at a specific date
+        Initiate the retrieval of a CSV backup for a table for a specific date.
 
         Args:
           date: The date of the backup to retrieve
@@ -587,9 +584,8 @@ class TableResource(SyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/csv-backup",
+            path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -597,7 +593,7 @@ class TableResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
-            cast_to=BinaryAPIResponse,
+            cast_to=TableGetCsvBackupResponse,
         )
 
     def get_duplicated_children(
@@ -626,7 +622,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/duplicated-children",
+            path_template("/v1/table/{table_id}/duplicated-children", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -666,7 +662,7 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/file",
+            path_template("/v1/table/{table_id}/file", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -715,7 +711,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/stats",
+            path_template("/v1/table/{table_id}/stats", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -758,7 +754,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/columns",
+            path_template("/v1/table/{table_id}/columns", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -791,7 +787,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/joins",
+            path_template("/v1/table/{table_id}/joins", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -824,7 +820,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/restore",
+            path_template("/v1/table/{table_id}/restore", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -868,9 +864,9 @@ class TableResource(SyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/{table_id}/rows-stream",
+            path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -915,7 +911,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/truncate",
+            path_template("/v1/table/{table_id}/truncate", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -950,7 +946,7 @@ class TableResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/cells",
+            path_template("/v1/table/{table_id}/cells", table_id=table_id),
             body=maybe_transform(
                 {
                     "cells": cells,
@@ -1108,7 +1104,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1139,11 +1135,9 @@ class AsyncTableResource(AsyncAPIResource):
         *,
         allow_comments: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
-        is_reference_table: bool | Omit = omit,
         joins: Iterable[table_update_params.Join] | Omit = omit,
         keep_colours_in_sync: bool | Omit = omit,
         keep_validations_in_sync: bool | Omit = omit,
-        logo: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
         type: Optional[str] | Omit = omit,
@@ -1169,16 +1163,14 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "allow_comments": allow_comments,
                     "context": context,
-                    "is_reference_table": is_reference_table,
                     "joins": joins,
                     "keep_colours_in_sync": keep_colours_in_sync,
                     "keep_validations_in_sync": keep_validations_in_sync,
-                    "logo": logo,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
                     "type": type,
@@ -1217,7 +1209,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}",
+            path_template("/v1/table/{table_id}", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1236,7 +1228,7 @@ class AsyncTableResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
-        Check and return a list of documents, table joins, and selects where the
+        Check and return a list of documents, table lookups, and selects where the
         specified table is used.
 
         Args:
@@ -1251,7 +1243,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/used",
+            path_template("/v1/table/{table_id}/used", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1285,7 +1277,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/indexes",
+            path_template("/v1/table/{table_id}/indexes", table_id=table_id),
             body=await async_maybe_transform({"columns": columns}, table_create_index_params.TableCreateIndexParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1319,7 +1311,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/rows",
+            path_template("/v1/table/{table_id}/rows", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1359,7 +1351,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/csv",
+            path_template("/v1/table/{table_id}/csv", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1407,7 +1399,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/duplicate",
+            path_template("/v1/table/{table_id}/duplicate", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "target_project_id": target_project_id,
@@ -1434,9 +1426,9 @@ class AsyncTableResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncBinaryAPIResponse:
+    ) -> TableGetCsvBackupResponse:
         """
-        Get a CSV backup of a table at a specific date
+        Initiate the retrieval of a CSV backup for a table for a specific date.
 
         Args:
           date: The date of the backup to retrieve
@@ -1451,9 +1443,8 @@ class AsyncTableResource(AsyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/csv-backup",
+            path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1461,7 +1452,7 @@ class AsyncTableResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
-            cast_to=AsyncBinaryAPIResponse,
+            cast_to=TableGetCsvBackupResponse,
         )
 
     async def get_duplicated_children(
@@ -1490,7 +1481,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/duplicated-children",
+            path_template("/v1/table/{table_id}/duplicated-children", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1530,7 +1521,7 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/file",
+            path_template("/v1/table/{table_id}/file", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1579,7 +1570,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/stats",
+            path_template("/v1/table/{table_id}/stats", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1622,7 +1613,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/columns",
+            path_template("/v1/table/{table_id}/columns", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1655,7 +1646,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/joins",
+            path_template("/v1/table/{table_id}/joins", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1688,7 +1679,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/restore",
+            path_template("/v1/table/{table_id}/restore", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1732,9 +1723,9 @@ class AsyncTableResource(AsyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/{table_id}/rows-stream",
+            path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1779,7 +1770,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/truncate",
+            path_template("/v1/table/{table_id}/truncate", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1814,7 +1805,7 @@ class AsyncTableResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/cells",
+            path_template("/v1/table/{table_id}/cells", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "cells": cells,
@@ -1860,9 +1851,8 @@ class TableResourceWithRawResponse:
         self.duplicate = to_raw_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = to_custom_raw_response_wrapper(
+        self.get_csv_backup = to_raw_response_wrapper(
             table.get_csv_backup,
-            BinaryAPIResponse,
         )
         self.get_duplicated_children = to_raw_response_wrapper(
             table.get_duplicated_children,
@@ -1946,9 +1936,8 @@ class AsyncTableResourceWithRawResponse:
         self.duplicate = async_to_raw_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = async_to_custom_raw_response_wrapper(
+        self.get_csv_backup = async_to_raw_response_wrapper(
             table.get_csv_backup,
-            AsyncBinaryAPIResponse,
         )
         self.get_duplicated_children = async_to_raw_response_wrapper(
             table.get_duplicated_children,
@@ -2032,9 +2021,8 @@ class TableResourceWithStreamingResponse:
         self.duplicate = to_streamed_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = to_custom_streamed_response_wrapper(
+        self.get_csv_backup = to_streamed_response_wrapper(
             table.get_csv_backup,
-            StreamedBinaryAPIResponse,
         )
         self.get_duplicated_children = to_streamed_response_wrapper(
             table.get_duplicated_children,
@@ -2118,9 +2106,8 @@ class AsyncTableResourceWithStreamingResponse:
         self.duplicate = async_to_streamed_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = async_to_custom_streamed_response_wrapper(
+        self.get_csv_backup = async_to_streamed_response_wrapper(
             table.get_csv_backup,
-            AsyncStreamedBinaryAPIResponse,
         )
         self.get_duplicated_children = async_to_streamed_response_wrapper(
             table.get_duplicated_children,

@@ -15,6 +15,7 @@ from morta.types import (
     UserRetrieveMeResponse,
     UserListOwnerHubsResponse,
     UserListTemplatesResponse,
+    UserRetrieveSitesResponse,
     UserUpdateAccountResponse,
     UserUpdateProfileResponse,
     UserListPinnedHubsResponse,
@@ -25,6 +26,7 @@ from morta.types import (
     UserListPublicContributionsResponse,
 )
 from tests.utils import assert_matches_type
+from morta._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -32,7 +34,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestUser:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         user = client.user.create(
@@ -42,7 +44,7 @@ class TestUser:
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         user = client.user.create(
@@ -50,8 +52,10 @@ class TestUser:
             name="name",
             password="password",
             opt_out_ai_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -59,7 +63,7 @@ class TestUser:
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.user.with_raw_response.create(
@@ -73,7 +77,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.user.with_streaming_response.create(
@@ -89,7 +93,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Morta) -> None:
         user = client.user.retrieve(
@@ -97,7 +101,7 @@ class TestUser:
         )
         assert_matches_type(UserRetrieveResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Morta) -> None:
         response = client.user.with_raw_response.retrieve(
@@ -109,7 +113,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserRetrieveResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Morta) -> None:
         with client.user.with_streaming_response.retrieve(
@@ -123,7 +127,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -131,7 +135,7 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_achievements(self, client: Morta) -> None:
         user = client.user.list_achievements(
@@ -139,7 +143,7 @@ class TestUser:
         )
         assert_matches_type(UserListAchievementsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_achievements(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_achievements(
@@ -151,7 +155,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListAchievementsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_achievements(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_achievements(
@@ -165,7 +169,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_achievements(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -173,7 +177,7 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_contributions(self, client: Morta) -> None:
         user = client.user.list_contributions(
@@ -181,7 +185,7 @@ class TestUser:
         )
         assert_matches_type(UserListContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_contributions(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_contributions(
@@ -193,7 +197,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_contributions(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_contributions(
@@ -207,7 +211,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_contributions(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -215,13 +219,13 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_owner_hubs(self, client: Morta) -> None:
         user = client.user.list_owner_hubs()
         assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_owner_hubs(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_owner_hubs()
@@ -231,7 +235,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_owner_hubs(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_owner_hubs() as response:
@@ -243,7 +247,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_pinned_hubs(self, client: Morta) -> None:
         user = client.user.list_pinned_hubs(
@@ -251,7 +255,7 @@ class TestUser:
         )
         assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_pinned_hubs(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_pinned_hubs(
@@ -263,7 +267,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_pinned_hubs(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_pinned_hubs(
@@ -277,7 +281,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_pinned_hubs(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -285,7 +289,7 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_public_contributions(self, client: Morta) -> None:
         user = client.user.list_public_contributions(
@@ -293,7 +297,7 @@ class TestUser:
         )
         assert_matches_type(UserListPublicContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_public_contributions(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_public_contributions(
@@ -305,7 +309,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListPublicContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_public_contributions(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_public_contributions(
@@ -319,7 +323,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_public_contributions(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -327,13 +331,13 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_public_hubs(self, client: Morta) -> None:
         user = client.user.list_public_hubs()
         assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_public_hubs(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_public_hubs()
@@ -343,7 +347,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_public_hubs(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_public_hubs() as response:
@@ -355,13 +359,13 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_templates(self, client: Morta) -> None:
         user = client.user.list_templates()
         assert_matches_type(UserListTemplatesResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_templates(self, client: Morta) -> None:
         response = client.user.with_raw_response.list_templates()
@@ -371,7 +375,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserListTemplatesResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_templates(self, client: Morta) -> None:
         with client.user.with_streaming_response.list_templates() as response:
@@ -383,7 +387,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_by_public_id(self, client: Morta) -> None:
         user = client.user.retrieve_by_public_id(
@@ -391,7 +395,7 @@ class TestUser:
         )
         assert_matches_type(UserRetrieveByPublicIDResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_by_public_id(self, client: Morta) -> None:
         response = client.user.with_raw_response.retrieve_by_public_id(
@@ -403,7 +407,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserRetrieveByPublicIDResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_by_public_id(self, client: Morta) -> None:
         with client.user.with_streaming_response.retrieve_by_public_id(
@@ -417,7 +421,7 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve_by_public_id(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `public_id` but received ''"):
@@ -425,13 +429,13 @@ class TestUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_me(self, client: Morta) -> None:
         user = client.user.retrieve_me()
         assert_matches_type(UserRetrieveMeResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_me(self, client: Morta) -> None:
         response = client.user.with_raw_response.retrieve_me()
@@ -441,7 +445,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserRetrieveMeResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_me(self, client: Morta) -> None:
         with client.user.with_streaming_response.retrieve_me() as response:
@@ -453,7 +457,35 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_sites(self, client: Morta) -> None:
+        user = client.user.retrieve_sites()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve_sites(self, client: Morta) -> None:
+        response = client.user.with_raw_response.retrieve_sites()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve_sites(self, client: Morta) -> None:
+        with client.user.with_streaming_response.retrieve_sites() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search(self, client: Morta) -> None:
         user = client.user.search(
@@ -461,7 +493,7 @@ class TestUser:
         )
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_with_all_params(self, client: Morta) -> None:
         user = client.user.search(
@@ -472,7 +504,7 @@ class TestUser:
         )
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: Morta) -> None:
         response = client.user.with_raw_response.search(
@@ -484,7 +516,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: Morta) -> None:
         with client.user.with_streaming_response.search(
@@ -498,21 +530,23 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_account(self, client: Morta) -> None:
         user = client.user.update_account()
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_account_with_all_params(self, client: Morta) -> None:
         user = client.user.update_account(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             old_password="oldPassword",
             opt_out_ai_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             password="password",
@@ -521,7 +555,7 @@ class TestUser:
         )
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update_account(self, client: Morta) -> None:
         response = client.user.with_raw_response.update_account()
@@ -531,7 +565,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update_account(self, client: Morta) -> None:
         with client.user.with_streaming_response.update_account() as response:
@@ -543,17 +577,17 @@ class TestUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_profile(self, client: Morta) -> None:
         user = client.user.update_profile()
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_profile_with_all_params(self, client: Morta) -> None:
         user = client.user.update_profile(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             bio="bio",
             linkedin="linkedin",
             location="location",
@@ -567,7 +601,7 @@ class TestUser:
         )
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update_profile(self, client: Morta) -> None:
         response = client.user.with_raw_response.update_profile()
@@ -577,7 +611,7 @@ class TestUser:
         user = response.parse()
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update_profile(self, client: Morta) -> None:
         with client.user.with_streaming_response.update_profile() as response:
@@ -595,7 +629,7 @@ class TestAsyncUser:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.create(
@@ -605,7 +639,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.create(
@@ -613,8 +647,10 @@ class TestAsyncUser:
             name="name",
             password="password",
             opt_out_ai_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -622,7 +658,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.create(
@@ -636,7 +672,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.create(
@@ -652,7 +688,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.retrieve(
@@ -660,7 +696,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserRetrieveResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.retrieve(
@@ -672,7 +708,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserRetrieveResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.retrieve(
@@ -686,7 +722,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -694,7 +730,7 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_achievements(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_achievements(
@@ -702,7 +738,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserListAchievementsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_achievements(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_achievements(
@@ -714,7 +750,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListAchievementsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_achievements(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_achievements(
@@ -728,7 +764,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_achievements(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -736,7 +772,7 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_contributions(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_contributions(
@@ -744,7 +780,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserListContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_contributions(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_contributions(
@@ -756,7 +792,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_contributions(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_contributions(
@@ -770,7 +806,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_contributions(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -778,13 +814,13 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_owner_hubs(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_owner_hubs()
         assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_owner_hubs(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_owner_hubs()
@@ -794,7 +830,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListOwnerHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_owner_hubs(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_owner_hubs() as response:
@@ -806,7 +842,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_pinned_hubs(
@@ -814,7 +850,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_pinned_hubs(
@@ -826,7 +862,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListPinnedHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_pinned_hubs(
@@ -840,7 +876,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_pinned_hubs(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -848,7 +884,7 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_public_contributions(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_public_contributions(
@@ -856,7 +892,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserListPublicContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_public_contributions(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_public_contributions(
@@ -868,7 +904,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListPublicContributionsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_public_contributions(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_public_contributions(
@@ -882,7 +918,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_public_contributions(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
@@ -890,13 +926,13 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_public_hubs(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_public_hubs()
         assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_public_hubs(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_public_hubs()
@@ -906,7 +942,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListPublicHubsResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_public_hubs(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_public_hubs() as response:
@@ -918,13 +954,13 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_templates(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.list_templates()
         assert_matches_type(UserListTemplatesResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_templates(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.list_templates()
@@ -934,7 +970,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserListTemplatesResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_templates(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.list_templates() as response:
@@ -946,7 +982,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_by_public_id(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.retrieve_by_public_id(
@@ -954,7 +990,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserRetrieveByPublicIDResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_by_public_id(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.retrieve_by_public_id(
@@ -966,7 +1002,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserRetrieveByPublicIDResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_by_public_id(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.retrieve_by_public_id(
@@ -980,7 +1016,7 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve_by_public_id(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `public_id` but received ''"):
@@ -988,13 +1024,13 @@ class TestAsyncUser:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_me(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.retrieve_me()
         assert_matches_type(UserRetrieveMeResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_me(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.retrieve_me()
@@ -1004,7 +1040,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserRetrieveMeResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_me(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.retrieve_me() as response:
@@ -1016,7 +1052,35 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        user = await async_client.user.retrieve_sites()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        response = await async_client.user.with_raw_response.retrieve_sites()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        async with async_client.user.with_streaming_response.retrieve_sites() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.search(
@@ -1024,7 +1088,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.search(
@@ -1035,7 +1099,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.search(
@@ -1047,7 +1111,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserSearchResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.search(
@@ -1061,21 +1125,23 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_account(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_account()
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_account_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_account(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             old_password="oldPassword",
             opt_out_ai_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             password="password",
@@ -1084,7 +1150,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update_account(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.update_account()
@@ -1094,7 +1160,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update_account(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.update_account() as response:
@@ -1106,17 +1172,17 @@ class TestAsyncUser:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_profile(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_profile()
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_profile_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_profile(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             bio="bio",
             linkedin="linkedin",
             location="location",
@@ -1130,7 +1196,7 @@ class TestAsyncUser:
         )
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update_profile(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.with_raw_response.update_profile()
@@ -1140,7 +1206,7 @@ class TestAsyncUser:
         user = await response.parse()
         assert_matches_type(UserUpdateProfileResponse, user, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update_profile(self, async_client: AsyncMorta) -> None:
         async with async_client.user.with_streaming_response.update_profile() as response:
