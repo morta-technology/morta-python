@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pydantic import Field as FieldInfo
 
@@ -28,6 +28,9 @@ class Data(BaseModel):
     folders: Optional[List[DataFolder]] = None
 
     project_details: Optional[SimpleHub] = FieldInfo(alias="projectDetails", default=None)
+
+    resource_folder_map: Optional[Dict[str, List[str]]] = FieldInfo(alias="resourceFolderMap", default=None)
+    """Mapping from resource public IDs to the list of folder IDs they belong to"""
 
     role: Optional[str] = None
     """User's role in the hub"""

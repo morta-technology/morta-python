@@ -16,6 +16,8 @@ __all__ = ["DocumentUpdateParams", "Description"]
 class DocumentUpdateParams(TypedDict, total=False):
     allow_comments: Annotated[bool, PropertyInfo(alias="allowComments")]
 
+    banner_height: Annotated[Optional[int], PropertyInfo(alias="bannerHeight")]
+
     context: BaseRequestContextParam
 
     description: Description

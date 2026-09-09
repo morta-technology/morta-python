@@ -1,62 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List, Union, Optional
 from datetime import datetime
+from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .project_list import ProjectList
+from .heading_style import HeadingStyle
+from .site_schema_with_org import SiteSchemaWithOrg
 
-__all__ = ["SimpleHub", "HeadingStyle", "ProjectList", "ProjectListUser"]
+__all__ = ["SimpleHub", "Site"]
 
-
-class HeadingStyle(BaseModel):
-    bold: Optional[bool] = None
-
-    colour: Optional[str] = None
-
-    font_size: Optional[float] = FieldInfo(alias="fontSize", default=None)
-
-    italic: Optional[bool] = None
-
-    level: Optional[int] = None
-
-    numbering_style: Optional[int] = FieldInfo(alias="numberingStyle", default=None)
-
-    public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
-
-    start_at0: Optional[bool] = FieldInfo(alias="startAt0", default=None)
-
-    underline: Optional[bool] = None
-
-
-class ProjectListUser(BaseModel):
-    email: Optional[str] = None
-
-    firebase_user_id: Optional[str] = FieldInfo(alias="firebaseUserId", default=None)
-
-    kind: Optional[str] = None
-
-    name: Optional[str] = None
-
-    public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
-
-
-class ProjectList(BaseModel):
-    created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
-
-    favourite: Optional[bool] = None
-
-    project_role: Optional[str] = FieldInfo(alias="projectRole", default=None)
-
-    updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
-
-    user: Optional[ProjectListUser] = None
+Site: TypeAlias = Union[SiteSchemaWithOrg, Optional[object]]
 
 
 class SimpleHub(BaseModel):
-    ai_search_enabled: Optional[bool] = FieldInfo(alias="aiSearchEnabled", default=None)
-
     allow_document_export: Optional[bool] = FieldInfo(alias="allowDocumentExport", default=None)
 
     allow_table_export: Optional[bool] = FieldInfo(alias="allowTableExport", default=None)
@@ -115,6 +75,12 @@ class SimpleHub(BaseModel):
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
+    site: Optional[Site] = None
+
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
+
+    word_table_style: Optional[str] = FieldInfo(alias="wordTableStyle", default=None)
+
+    word_table_styles: Optional[List[str]] = FieldInfo(alias="wordTableStyles", default=None)
 
     word_template: Optional[str] = FieldInfo(alias="wordTemplate", default=None)

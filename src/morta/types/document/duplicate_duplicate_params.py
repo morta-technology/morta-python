@@ -19,3 +19,5 @@ class DuplicateDuplicateParams(TypedDict, total=False):
     duplicate_linked_tables: Annotated[Optional[bool], PropertyInfo(alias="duplicateLinkedTables")]
 
     duplicate_permissions: Annotated[bool, PropertyInfo(alias="duplicatePermissions")]
+
+    lock_resource: Annotated[bool, PropertyInfo(alias="lockResource")]

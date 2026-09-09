@@ -20,7 +20,7 @@ from ...types import (
     document_update_views_permissions_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .duplicate import (
     DuplicateResource,
@@ -173,7 +173,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -191,6 +191,7 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -223,10 +224,11 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             body=maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,
@@ -272,7 +274,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._delete(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -308,7 +310,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/multiple-section",
+            path_template("/v1/document/{document_id}/multiple-section", document_id=document_id),
             body=maybe_transform(
                 {
                     "sections": sections,
@@ -350,7 +352,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/sections",
+            path_template("/v1/document/{document_id}/sections", document_id=document_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -403,7 +405,7 @@ class DocumentResource(SyncAPIResource):
             **(extra_headers or {}),
         }
         return self._get(
-            f"/v1/document/{document_id}/export",
+            path_template("/v1/document/{document_id}/export", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -451,7 +453,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}/deletedsections",
+            path_template("/v1/document/{document_id}/deletedsections", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -491,7 +493,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}/duplicated-children",
+            path_template("/v1/document/{document_id}/duplicated-children", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -524,7 +526,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/restore",
+            path_template("/v1/document/{document_id}/restore", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -557,7 +559,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}/sync-template",
+            path_template("/v1/document/{document_id}/sync-template", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -592,7 +594,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/update-multiple-section",
+            path_template("/v1/document/{document_id}/update-multiple-section", document_id=document_id),
             body=maybe_transform(
                 {
                     "sections": sections,
@@ -634,7 +636,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/changesectionorder",
+            path_template("/v1/document/{document_id}/changesectionorder", document_id=document_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -790,7 +792,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -808,6 +810,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -840,10 +843,11 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,
@@ -889,7 +893,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._delete(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -925,7 +929,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/multiple-section",
+            path_template("/v1/document/{document_id}/multiple-section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "sections": sections,
@@ -967,7 +971,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/sections",
+            path_template("/v1/document/{document_id}/sections", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -1020,7 +1024,7 @@ class AsyncDocumentResource(AsyncAPIResource):
             **(extra_headers or {}),
         }
         return await self._get(
-            f"/v1/document/{document_id}/export",
+            path_template("/v1/document/{document_id}/export", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1068,7 +1072,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}/deletedsections",
+            path_template("/v1/document/{document_id}/deletedsections", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1108,7 +1112,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}/duplicated-children",
+            path_template("/v1/document/{document_id}/duplicated-children", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1141,7 +1145,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/restore",
+            path_template("/v1/document/{document_id}/restore", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1174,7 +1178,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}/sync-template",
+            path_template("/v1/document/{document_id}/sync-template", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1209,7 +1213,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/update-multiple-section",
+            path_template("/v1/document/{document_id}/update-multiple-section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "sections": sections,
@@ -1251,7 +1255,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/changesectionorder",
+            path_template("/v1/document/{document_id}/changesectionorder", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "context": context,

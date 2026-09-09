@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -24,7 +25,7 @@ from .columns import (
     AsyncColumnsResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -42,10 +43,12 @@ from ...._response import (
     async_to_custom_streamed_response_wrapper,
 )
 from ....types.table import (
+    view_csv_params,
     view_list_params,
     view_stats_params,
     view_create_params,
     view_update_params,
+    view_get_rows_params,
     view_retrieve_params,
     view_preview_row_params,
     view_stream_rows_params,
@@ -58,12 +61,14 @@ from ....types.table.sort_param import SortParam
 from ....types.table.group_param import GroupParam
 from ....types.table.colour_param import ColourParam
 from ....types.table.filter_param import FilterParam
+from ....types.table.row_lock_param import RowLockParam
 from ....types.table.view_list_response import ViewListResponse
 from ....types.table.view_stats_response import ViewStatsResponse
 from ....types.base_request_context_param import BaseRequestContextParam
 from ....types.table.view_create_response import ViewCreateResponse
 from ....types.table.view_delete_response import ViewDeleteResponse
 from ....types.table.view_update_response import ViewUpdateResponse
+from ....types.table.view_get_rows_response import ViewGetRowsResponse
 from ....types.table.view_retrieve_response import ViewRetrieveResponse
 from ....types.table.view_duplicate_response import ViewDuplicateResponse
 from ....types.table.view_preview_row_response import ViewPreviewRowResponse
@@ -109,10 +114,12 @@ class ViewsResource(SyncAPIResource):
         *,
         name: str,
         allow_contributor_delete: bool | Omit = omit,
+        calendar_settings: view_create_params.CalendarSettings | Omit = omit,
         chart_settings: view_create_params.ChartSettings | Omit = omit,
         collapsed_group_view: bool | Omit = omit,
         colour_settings: Iterable[ColourParam] | Omit = omit,
         columns: Iterable[view_create_params.Column] | Omit = omit,
+        configuration_parent_id: Optional[str] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: view_create_params.Description | Omit = omit,
         disable_new_row: bool | Omit = omit,
@@ -124,8 +131,12 @@ class ViewsResource(SyncAPIResource):
         group_settings: Iterable[GroupParam] | Omit = omit,
         include_all_columns: bool | Omit = omit,
         is_default: bool | Omit = omit,
+        matrix_settings: view_create_params.MatrixSettings | Omit = omit,
         row_height: int | Omit = omit,
+        row_lock_settings: Iterable[RowLockParam] | Omit = omit,
         sort_settings: Iterable[SortParam] | Omit = omit,
+        transpose_settings: view_create_params.TransposeSettings | Omit = omit,
+        tree_group_view: bool | Omit = omit,
         type: int | Omit = omit,
         unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -150,15 +161,17 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             body=maybe_transform(
                 {
                     "name": name,
                     "allow_contributor_delete": allow_contributor_delete,
+                    "calendar_settings": calendar_settings,
                     "chart_settings": chart_settings,
                     "collapsed_group_view": collapsed_group_view,
                     "colour_settings": colour_settings,
                     "columns": columns,
+                    "configuration_parent_id": configuration_parent_id,
                     "context": context,
                     "description": description,
                     "disable_new_row": disable_new_row,
@@ -170,8 +183,12 @@ class ViewsResource(SyncAPIResource):
                     "group_settings": group_settings,
                     "include_all_columns": include_all_columns,
                     "is_default": is_default,
+                    "matrix_settings": matrix_settings,
                     "row_height": row_height,
+                    "row_lock_settings": row_lock_settings,
                     "sort_settings": sort_settings,
+                    "transpose_settings": transpose_settings,
+                    "tree_group_view": tree_group_view,
                     "type": type,
                     "unpack_multiselect_group_view": unpack_multiselect_group_view,
                 },
@@ -212,7 +229,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -230,6 +247,7 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         allow_contributor_delete: bool | Omit = omit,
+        calendar_settings: view_update_params.CalendarSettings | Omit = omit,
         chart_settings: view_update_params.ChartSettings | Omit = omit,
         collapsed_group_view: bool | Omit = omit,
         colour_settings: Iterable[ColourParam] | Omit = omit,
@@ -243,9 +261,13 @@ class ViewsResource(SyncAPIResource):
         filter_settings: Iterable[FilterParam] | Omit = omit,
         frozen_index: int | Omit = omit,
         group_settings: Iterable[GroupParam] | Omit = omit,
+        matrix_settings: view_update_params.MatrixSettings | Omit = omit,
         name: str | Omit = omit,
         row_height: int | Omit = omit,
+        row_lock_settings: Iterable[RowLockParam] | Omit = omit,
         sort_settings: Iterable[SortParam] | Omit = omit,
+        transpose_settings: view_update_params.TransposeSettings | Omit = omit,
+        tree_group_view: bool | Omit = omit,
         type: int | Omit = omit,
         unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -270,10 +292,11 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             body=maybe_transform(
                 {
                     "allow_contributor_delete": allow_contributor_delete,
+                    "calendar_settings": calendar_settings,
                     "chart_settings": chart_settings,
                     "collapsed_group_view": collapsed_group_view,
                     "colour_settings": colour_settings,
@@ -287,9 +310,13 @@ class ViewsResource(SyncAPIResource):
                     "filter_settings": filter_settings,
                     "frozen_index": frozen_index,
                     "group_settings": group_settings,
+                    "matrix_settings": matrix_settings,
                     "name": name,
                     "row_height": row_height,
+                    "row_lock_settings": row_lock_settings,
                     "sort_settings": sort_settings,
+                    "transpose_settings": transpose_settings,
+                    "tree_group_view": tree_group_view,
                     "type": type,
                     "unpack_multiselect_group_view": unpack_multiselect_group_view,
                 },
@@ -330,7 +357,7 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -367,11 +394,60 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._delete(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ViewDeleteResponse,
+        )
+
+    def csv(
+        self,
+        view_id: str,
+        *,
+        display_comment_rows: int | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        process_id: str | Omit = omit,
+        sort: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Same as the GET variant, but accepts filters/sort in a JSON body so the request
+        does not balloon the URL past Cloud Run's request-line limit when a view has
+        many filters.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
+        return self._post(
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
+            body=maybe_transform(
+                {
+                    "display_comment_rows": display_comment_rows,
+                    "filter": filter,
+                    "process_id": process_id,
+                    "sort": sort,
+                },
+                view_csv_params.ViewCsvParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
         )
 
     def download_csv(
@@ -410,7 +486,7 @@ class ViewsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/views/{view_id}/csv",
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -457,7 +533,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views/{view_id}/duplicate",
+            path_template("/v1/table/{table_id}/views/{view_id}/duplicate", table_id=table_id, view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -493,7 +569,7 @@ class ViewsResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/views/duplicate-default",
+            path_template("/v1/table/{table_id}/views/duplicate-default", table_id=table_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -508,12 +584,77 @@ class ViewsResource(SyncAPIResource):
             cast_to=ViewDuplicateDefaultResponse,
         )
 
+    def get_rows(
+        self,
+        view_id: str,
+        *,
+        row_ids: SequenceNotStr[str],
+        alphabetical_column_sort: bool | Omit = omit,
+        columns: Optional[SequenceNotStr[str]] | Omit = omit,
+        distinct_columns: Optional[SequenceNotStr[str]] | Omit = omit,
+        expand: str | Omit = omit,
+        filter: Optional[Iterable[object]] | Omit = omit,
+        ignore_cached_options: bool | Omit = omit,
+        last_created_at: Union[str, datetime, None] | Omit = omit,
+        last_updated_at: Union[str, datetime, None] | Omit = omit,
+        next_page_token: Optional[str] | Omit = omit,
+        page: int | Omit = omit,
+        process_id: Optional[str] | Omit = omit,
+        sort: Optional[Iterable[object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ViewGetRowsResponse:
+        """
+        Retrieve specific rows from a table view by their row IDs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        return self._post(
+            path_template("/v1/table/views/{view_id}/get-rows", view_id=view_id),
+            body=maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "alphabetical_column_sort": alphabetical_column_sort,
+                    "columns": columns,
+                    "distinct_columns": distinct_columns,
+                    "expand": expand,
+                    "filter": filter,
+                    "ignore_cached_options": ignore_cached_options,
+                    "last_created_at": last_created_at,
+                    "last_updated_at": last_updated_at,
+                    "next_page_token": next_page_token,
+                    "page": page,
+                    "process_id": process_id,
+                    "sort": sort,
+                },
+                view_get_rows_params.ViewGetRowsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ViewGetRowsResponse,
+        )
+
     def preview_row(
         self,
         view_id: str,
         *,
         row_data: Dict[str, Optional[object]],
         context: BaseRequestContextParam | Omit = omit,
+        sort_order: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -536,11 +677,12 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/preview-row",
+            path_template("/v1/table/views/{view_id}/preview-row", view_id=view_id),
             body=maybe_transform(
                 {
                     "row_data": row_data,
                     "context": context,
+                    "sort_order": sort_order,
                 },
                 view_preview_row_params.ViewPreviewRowParams,
             ),
@@ -576,7 +718,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/default",
+            path_template("/v1/table/views/{view_id}/default", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -618,7 +760,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/stats",
+            path_template("/v1/table/views/{view_id}/stats", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -676,9 +818,9 @@ class ViewsResource(SyncAPIResource):
         """
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return self._get(
-            f"/v1/table/views/{view_id}/rows-stream",
+            path_template("/v1/table/views/{view_id}/rows-stream", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -726,7 +868,7 @@ class ViewsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}/cells",
+            path_template("/v1/table/views/{view_id}/cells", view_id=view_id),
             body=maybe_transform(
                 {
                     "cells": cells,
@@ -775,10 +917,12 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         name: str,
         allow_contributor_delete: bool | Omit = omit,
+        calendar_settings: view_create_params.CalendarSettings | Omit = omit,
         chart_settings: view_create_params.ChartSettings | Omit = omit,
         collapsed_group_view: bool | Omit = omit,
         colour_settings: Iterable[ColourParam] | Omit = omit,
         columns: Iterable[view_create_params.Column] | Omit = omit,
+        configuration_parent_id: Optional[str] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: view_create_params.Description | Omit = omit,
         disable_new_row: bool | Omit = omit,
@@ -790,8 +934,12 @@ class AsyncViewsResource(AsyncAPIResource):
         group_settings: Iterable[GroupParam] | Omit = omit,
         include_all_columns: bool | Omit = omit,
         is_default: bool | Omit = omit,
+        matrix_settings: view_create_params.MatrixSettings | Omit = omit,
         row_height: int | Omit = omit,
+        row_lock_settings: Iterable[RowLockParam] | Omit = omit,
         sort_settings: Iterable[SortParam] | Omit = omit,
+        transpose_settings: view_create_params.TransposeSettings | Omit = omit,
+        tree_group_view: bool | Omit = omit,
         type: int | Omit = omit,
         unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -816,15 +964,17 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
                     "allow_contributor_delete": allow_contributor_delete,
+                    "calendar_settings": calendar_settings,
                     "chart_settings": chart_settings,
                     "collapsed_group_view": collapsed_group_view,
                     "colour_settings": colour_settings,
                     "columns": columns,
+                    "configuration_parent_id": configuration_parent_id,
                     "context": context,
                     "description": description,
                     "disable_new_row": disable_new_row,
@@ -836,8 +986,12 @@ class AsyncViewsResource(AsyncAPIResource):
                     "group_settings": group_settings,
                     "include_all_columns": include_all_columns,
                     "is_default": is_default,
+                    "matrix_settings": matrix_settings,
                     "row_height": row_height,
+                    "row_lock_settings": row_lock_settings,
                     "sort_settings": sort_settings,
+                    "transpose_settings": transpose_settings,
+                    "tree_group_view": tree_group_view,
                     "type": type,
                     "unpack_multiselect_group_view": unpack_multiselect_group_view,
                 },
@@ -878,7 +1032,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -896,6 +1050,7 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         allow_contributor_delete: bool | Omit = omit,
+        calendar_settings: view_update_params.CalendarSettings | Omit = omit,
         chart_settings: view_update_params.ChartSettings | Omit = omit,
         collapsed_group_view: bool | Omit = omit,
         colour_settings: Iterable[ColourParam] | Omit = omit,
@@ -909,9 +1064,13 @@ class AsyncViewsResource(AsyncAPIResource):
         filter_settings: Iterable[FilterParam] | Omit = omit,
         frozen_index: int | Omit = omit,
         group_settings: Iterable[GroupParam] | Omit = omit,
+        matrix_settings: view_update_params.MatrixSettings | Omit = omit,
         name: str | Omit = omit,
         row_height: int | Omit = omit,
+        row_lock_settings: Iterable[RowLockParam] | Omit = omit,
         sort_settings: Iterable[SortParam] | Omit = omit,
+        transpose_settings: view_update_params.TransposeSettings | Omit = omit,
+        tree_group_view: bool | Omit = omit,
         type: int | Omit = omit,
         unpack_multiselect_group_view: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -936,10 +1095,11 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "allow_contributor_delete": allow_contributor_delete,
+                    "calendar_settings": calendar_settings,
                     "chart_settings": chart_settings,
                     "collapsed_group_view": collapsed_group_view,
                     "colour_settings": colour_settings,
@@ -953,9 +1113,13 @@ class AsyncViewsResource(AsyncAPIResource):
                     "filter_settings": filter_settings,
                     "frozen_index": frozen_index,
                     "group_settings": group_settings,
+                    "matrix_settings": matrix_settings,
                     "name": name,
                     "row_height": row_height,
+                    "row_lock_settings": row_lock_settings,
                     "sort_settings": sort_settings,
+                    "transpose_settings": transpose_settings,
+                    "tree_group_view": tree_group_view,
                     "type": type,
                     "unpack_multiselect_group_view": unpack_multiselect_group_view,
                 },
@@ -996,7 +1160,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/views",
+            path_template("/v1/table/{table_id}/views", table_id=table_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1033,11 +1197,60 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._delete(
-            f"/v1/table/views/{view_id}",
+            path_template("/v1/table/views/{view_id}", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ViewDeleteResponse,
+        )
+
+    async def csv(
+        self,
+        view_id: str,
+        *,
+        display_comment_rows: int | Omit = omit,
+        filter: Iterable[object] | Omit = omit,
+        process_id: str | Omit = omit,
+        sort: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Same as the GET variant, but accepts filters/sort in a JSON body so the request
+        does not balloon the URL past Cloud Run's request-line limit when a view has
+        many filters.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
+        return await self._post(
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
+            body=await async_maybe_transform(
+                {
+                    "display_comment_rows": display_comment_rows,
+                    "filter": filter,
+                    "process_id": process_id,
+                    "sort": sort,
+                },
+                view_csv_params.ViewCsvParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
         )
 
     async def download_csv(
@@ -1076,7 +1289,7 @@ class AsyncViewsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         extra_headers = {"Accept": "text/csv", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/views/{view_id}/csv",
+            path_template("/v1/table/views/{view_id}/csv", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1123,7 +1336,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views/{view_id}/duplicate",
+            path_template("/v1/table/{table_id}/views/{view_id}/duplicate", table_id=table_id, view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1159,7 +1372,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/views/duplicate-default",
+            path_template("/v1/table/{table_id}/views/duplicate-default", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -1174,12 +1387,77 @@ class AsyncViewsResource(AsyncAPIResource):
             cast_to=ViewDuplicateDefaultResponse,
         )
 
+    async def get_rows(
+        self,
+        view_id: str,
+        *,
+        row_ids: SequenceNotStr[str],
+        alphabetical_column_sort: bool | Omit = omit,
+        columns: Optional[SequenceNotStr[str]] | Omit = omit,
+        distinct_columns: Optional[SequenceNotStr[str]] | Omit = omit,
+        expand: str | Omit = omit,
+        filter: Optional[Iterable[object]] | Omit = omit,
+        ignore_cached_options: bool | Omit = omit,
+        last_created_at: Union[str, datetime, None] | Omit = omit,
+        last_updated_at: Union[str, datetime, None] | Omit = omit,
+        next_page_token: Optional[str] | Omit = omit,
+        page: int | Omit = omit,
+        process_id: Optional[str] | Omit = omit,
+        sort: Optional[Iterable[object]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ViewGetRowsResponse:
+        """
+        Retrieve specific rows from a table view by their row IDs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        return await self._post(
+            path_template("/v1/table/views/{view_id}/get-rows", view_id=view_id),
+            body=await async_maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "alphabetical_column_sort": alphabetical_column_sort,
+                    "columns": columns,
+                    "distinct_columns": distinct_columns,
+                    "expand": expand,
+                    "filter": filter,
+                    "ignore_cached_options": ignore_cached_options,
+                    "last_created_at": last_created_at,
+                    "last_updated_at": last_updated_at,
+                    "next_page_token": next_page_token,
+                    "page": page,
+                    "process_id": process_id,
+                    "sort": sort,
+                },
+                view_get_rows_params.ViewGetRowsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ViewGetRowsResponse,
+        )
+
     async def preview_row(
         self,
         view_id: str,
         *,
         row_data: Dict[str, Optional[object]],
         context: BaseRequestContextParam | Omit = omit,
+        sort_order: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1202,11 +1480,12 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/preview-row",
+            path_template("/v1/table/views/{view_id}/preview-row", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "row_data": row_data,
                     "context": context,
+                    "sort_order": sort_order,
                 },
                 view_preview_row_params.ViewPreviewRowParams,
             ),
@@ -1242,7 +1521,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/default",
+            path_template("/v1/table/views/{view_id}/default", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1284,7 +1563,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/stats",
+            path_template("/v1/table/views/{view_id}/stats", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1342,9 +1621,9 @@ class AsyncViewsResource(AsyncAPIResource):
         """
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return await self._get(
-            f"/v1/table/views/{view_id}/rows-stream",
+            path_template("/v1/table/views/{view_id}/rows-stream", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1392,7 +1671,7 @@ class AsyncViewsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}/cells",
+            path_template("/v1/table/views/{view_id}/cells", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "cells": cells,
@@ -1426,6 +1705,9 @@ class ViewsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             views.delete,
         )
+        self.csv = to_raw_response_wrapper(
+            views.csv,
+        )
         self.download_csv = to_raw_response_wrapper(
             views.download_csv,
         )
@@ -1434,6 +1716,9 @@ class ViewsResourceWithRawResponse:
         )
         self.duplicate_default = to_raw_response_wrapper(
             views.duplicate_default,
+        )
+        self.get_rows = to_raw_response_wrapper(
+            views.get_rows,
         )
         self.preview_row = to_raw_response_wrapper(
             views.preview_row,
@@ -1480,6 +1765,9 @@ class AsyncViewsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             views.delete,
         )
+        self.csv = async_to_raw_response_wrapper(
+            views.csv,
+        )
         self.download_csv = async_to_raw_response_wrapper(
             views.download_csv,
         )
@@ -1488,6 +1776,9 @@ class AsyncViewsResourceWithRawResponse:
         )
         self.duplicate_default = async_to_raw_response_wrapper(
             views.duplicate_default,
+        )
+        self.get_rows = async_to_raw_response_wrapper(
+            views.get_rows,
         )
         self.preview_row = async_to_raw_response_wrapper(
             views.preview_row,
@@ -1534,6 +1825,9 @@ class ViewsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             views.delete,
         )
+        self.csv = to_streamed_response_wrapper(
+            views.csv,
+        )
         self.download_csv = to_streamed_response_wrapper(
             views.download_csv,
         )
@@ -1542,6 +1836,9 @@ class ViewsResourceWithStreamingResponse:
         )
         self.duplicate_default = to_streamed_response_wrapper(
             views.duplicate_default,
+        )
+        self.get_rows = to_streamed_response_wrapper(
+            views.get_rows,
         )
         self.preview_row = to_streamed_response_wrapper(
             views.preview_row,
@@ -1588,6 +1885,9 @@ class AsyncViewsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             views.delete,
         )
+        self.csv = async_to_streamed_response_wrapper(
+            views.csv,
+        )
         self.download_csv = async_to_streamed_response_wrapper(
             views.download_csv,
         )
@@ -1596,6 +1896,9 @@ class AsyncViewsResourceWithStreamingResponse:
         )
         self.duplicate_default = async_to_streamed_response_wrapper(
             views.duplicate_default,
+        )
+        self.get_rows = async_to_streamed_response_wrapper(
+            views.get_rows,
         )
         self.preview_row = async_to_streamed_response_wrapper(
             views.preview_row,
