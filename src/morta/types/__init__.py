@@ -3,21 +3,14 @@
 from __future__ import annotations
 
 from . import (
-    user,
     document,
     morta_document,
     document_section_1,
-    user_create_response,
     morta_document_section,
-    user_retrieve_response,
     document_delete_response,
     document_restore_response,
-    user_retrieve_me_response,
     document_retrieve_response,
-    user_update_account_response,
-    user_update_profile_response,
     document_create_sections_response,
-    user_retrieve_by_public_id_response,
     document_update_section_order_response,
     document_update_multiple_sections_response,
 )
@@ -37,9 +30,12 @@ from .user_hub import UserHub as UserHub
 from .simple_hub import SimpleHub as SimpleHub
 from .table_join import TableJoin as TableJoin
 from .notification import Notification as Notification
+from .organisation import Organisation as Organisation
+from .project_list import ProjectList as ProjectList
 from .summary_user import SummaryUser as SummaryUser
 from .access_policy import AccessPolicy as AccessPolicy
 from .draftjs_param import DraftjsParam as DraftjsParam
+from .heading_style import HeadingStyle as HeadingStyle
 from .comment_thread import CommentThread as CommentThread
 from .morta_document import MortaDocument as MortaDocument
 from .simple_document import SimpleDocument as SimpleDocument
@@ -48,14 +44,16 @@ from .hub_update_params import HubUpdateParams as HubUpdateParams
 from .document_section_1 import DocumentSection1 as DocumentSection1
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_search_params import UserSearchParams as UserSearchParams
+from .duplicated_children import DuplicatedChildren as DuplicatedChildren
 from .hub_create_response import HubCreateResponse as HubCreateResponse
 from .hub_delete_response import HubDeleteResponse as HubDeleteResponse
 from .hub_update_response import HubUpdateResponse as HubUpdateResponse
 from .table_create_params import TableCreateParams as TableCreateParams
 from .table_update_params import TableUpdateParams as TableUpdateParams
-from .hub_ai_search_params import HubAISearchParams as HubAISearchParams
+from .user_to_integration import UserToIntegration as UserToIntegration
 from .hub_duplicate_params import HubDuplicateParams as HubDuplicateParams
 from .hub_restore_response import HubRestoreResponse as HubRestoreResponse
+from .site_schema_with_org import SiteSchemaWithOrg as SiteSchemaWithOrg
 from .user_create_response import UserCreateResponse as UserCreateResponse
 from .user_search_response import UserSearchResponse as UserSearchResponse
 from .hub_get_tags_response import HubGetTagsResponse as HubGetTagsResponse
@@ -68,7 +66,6 @@ from .table_update_response import TableUpdateResponse as TableUpdateResponse
 from .document_create_params import DocumentCreateParams as DocumentCreateParams
 from .document_export_params import DocumentExportParams as DocumentExportParams
 from .document_update_params import DocumentUpdateParams as DocumentUpdateParams
-from .hub_ai_search_response import HubAISearchResponse as HubAISearchResponse
 from .morta_document_section import MortaDocumentSection as MortaDocumentSection
 from .table_duplicate_params import TableDuplicateParams as TableDuplicateParams
 from .table_restore_response import TableRestoreResponse as TableRestoreResponse
@@ -102,6 +99,7 @@ from .hub_get_variables_response import HubGetVariablesResponse as HubGetVariabl
 from .hub_upload_template_params import HubUploadTemplateParams as HubUploadTemplateParams
 from .notification_create_params import NotificationCreateParams as NotificationCreateParams
 from .notification_update_params import NotificationUpdateParams as NotificationUpdateParams
+from .organisation_update_params import OrganisationUpdateParams as OrganisationUpdateParams
 from .permission_create_response import PermissionCreateResponse as PermissionCreateResponse
 from .permission_retrieve_params import PermissionRetrieveParams as PermissionRetrieveParams
 from .permission_update_response import PermissionUpdateResponse as PermissionUpdateResponse
@@ -110,7 +108,6 @@ from .table_delete_rows_response import TableDeleteRowsResponse as TableDeleteRo
 from .user_update_account_params import UserUpdateAccountParams as UserUpdateAccountParams
 from .user_update_profile_params import UserUpdateProfileParams as UserUpdateProfileParams
 from .hub_change_user_role_params import HubChangeUserRoleParams as HubChangeUserRoleParams
-from .hub_get_ai_answers_response import HubGetAIAnswersResponse as HubGetAIAnswersResponse
 from .hub_search_resources_params import HubSearchResourcesParams as HubSearchResourcesParams
 from .table_create_index_response import TableCreateIndexResponse as TableCreateIndexResponse
 from .table_download_csv_response import TableDownloadCsvResponse as TableDownloadCsvResponse
@@ -128,16 +125,19 @@ from .notification_update_response import NotificationUpdateResponse as Notifica
 from .permission_create_all_params import PermissionCreateAllParams as PermissionCreateAllParams
 from .permission_retrieve_response import PermissionRetrieveResponse as PermissionRetrieveResponse
 from .user_list_templates_response import UserListTemplatesResponse as UserListTemplatesResponse
+from .user_retrieve_sites_response import UserRetrieveSitesResponse as UserRetrieveSitesResponse
 from .user_update_account_response import UserUpdateAccountResponse as UserUpdateAccountResponse
 from .user_update_profile_response import UserUpdateProfileResponse as UserUpdateProfileResponse
 from .hub_change_user_role_response import HubChangeUserRoleResponse as HubChangeUserRoleResponse
 from .hub_search_resources_response import HubSearchResourcesResponse as HubSearchResourcesResponse
 from .table_column_with_aggregation import TableColumnWithAggregation as TableColumnWithAggregation
+from .table_get_csv_backup_response import TableGetCsvBackupResponse as TableGetCsvBackupResponse
 from .table_get_statistics_response import TableGetStatisticsResponse as TableGetStatisticsResponse
 from .user_list_owner_hubs_response import UserListOwnerHubsResponse as UserListOwnerHubsResponse
 from .comment_thread_create_response import CommentThreadCreateResponse as CommentThreadCreateResponse
 from .comment_thread_delete_response import CommentThreadDeleteResponse as CommentThreadDeleteResponse
 from .comment_thread_reopen_response import CommentThreadReopenResponse as CommentThreadReopenResponse
+from .create_organisation_user_param import CreateOrganisationUserParam as CreateOrganisationUserParam
 from .hub_get_notifications_response import HubGetNotificationsResponse as HubGetNotificationsResponse
 from .permission_create_all_response import PermissionCreateAllResponse as PermissionCreateAllResponse
 from .permission_retrieve_tag_params import PermissionRetrieveTagParams as PermissionRetrieveTagParams
@@ -152,7 +152,6 @@ from .hub_permanently_delete_response import HubPermanentlyDeleteResponse as Hub
 from .notification_list_events_params import NotificationListEventsParams as NotificationListEventsParams
 from .user_list_achievements_response import UserListAchievementsResponse as UserListAchievementsResponse
 from .comment_thread_retrieve_response import CommentThreadRetrieveResponse as CommentThreadRetrieveResponse
-from .hub_create_knowledge_base_params import HubCreateKnowledgeBaseParams as HubCreateKnowledgeBaseParams
 from .hub_get_invited_members_response import HubGetInvitedMembersResponse as HubGetInvitedMembersResponse
 from .hub_invite_multiple_users_params import HubInviteMultipleUsersParams as HubInviteMultipleUsersParams
 from .permission_retrieve_tag_response import PermissionRetrieveTagResponse as PermissionRetrieveTagResponse
@@ -168,10 +167,12 @@ from .hub_invite_multiple_users_response import HubInviteMultipleUsersResponse a
 from .hub_create_heading_styling_response import HubCreateHeadingStylingResponse as HubCreateHeadingStylingResponse
 from .hub_get_sent_notifications_response import HubGetSentNotificationsResponse as HubGetSentNotificationsResponse
 from .hub_update_heading_styling_response import HubUpdateHeadingStylingResponse as HubUpdateHeadingStylingResponse
+from .organisation_retrieve_hubs_response import OrganisationRetrieveHubsResponse as OrganisationRetrieveHubsResponse
 from .user_retrieve_by_public_id_response import UserRetrieveByPublicIDResponse as UserRetrieveByPublicIDResponse
 from .document_get_deleted_sections_params import DocumentGetDeletedSectionsParams as DocumentGetDeletedSectionsParams
 from .document_update_section_order_params import DocumentUpdateSectionOrderParams as DocumentUpdateSectionOrderParams
 from .hub_get_duplicated_children_response import HubGetDuplicatedChildrenResponse as HubGetDuplicatedChildrenResponse
+from .organisation_retrieve_sites_response import OrganisationRetrieveSitesResponse as OrganisationRetrieveSitesResponse
 from .integration_create_passthrough_params import (
     IntegrationCreatePassthroughParams as IntegrationCreatePassthroughParams,
 )
@@ -229,13 +230,6 @@ from .integration_create_passthrough_download_params import (
 # Pydantic can resolve the necessary references.
 # See: https://github.com/pydantic/pydantic/issues/11250 for more context.
 if _compat.PYDANTIC_V1:
-    user.user.User.update_forward_refs()  # type: ignore
-    user_create_response.UserCreateResponse.update_forward_refs()  # type: ignore
-    user_retrieve_response.UserRetrieveResponse.update_forward_refs()  # type: ignore
-    user_retrieve_by_public_id_response.UserRetrieveByPublicIDResponse.update_forward_refs()  # type: ignore
-    user_retrieve_me_response.UserRetrieveMeResponse.update_forward_refs()  # type: ignore
-    user_update_account_response.UserUpdateAccountResponse.update_forward_refs()  # type: ignore
-    user_update_profile_response.UserUpdateProfileResponse.update_forward_refs()  # type: ignore
     document_section_1.DocumentSection1.update_forward_refs()  # type: ignore
     morta_document.MortaDocument.update_forward_refs()  # type: ignore
     morta_document_section.MortaDocumentSection.update_forward_refs()  # type: ignore
@@ -245,7 +239,6 @@ if _compat.PYDANTIC_V1:
     document_restore_response.DocumentRestoreResponse.update_forward_refs()  # type: ignore
     document_update_multiple_sections_response.DocumentUpdateMultipleSectionsResponse.update_forward_refs()  # type: ignore
     document_update_section_order_response.DocumentUpdateSectionOrderResponse.update_forward_refs()  # type: ignore
-    document.duplicate_global_response.DuplicateGlobalResponse.update_forward_refs()  # type: ignore
     document.section_create_response.SectionCreateResponse.update_forward_refs()  # type: ignore
     document.section_retrieve_response.SectionRetrieveResponse.update_forward_refs()  # type: ignore
     document.section_update_response.SectionUpdateResponse.update_forward_refs()  # type: ignore
@@ -256,13 +249,6 @@ if _compat.PYDANTIC_V1:
     document.section.response_reset_response.ResponseResetResponse.update_forward_refs()  # type: ignore
     document.section.response_submit_response.ResponseSubmitResponse.update_forward_refs()  # type: ignore
 else:
-    user.user.User.model_rebuild(_parent_namespace_depth=0)
-    user_create_response.UserCreateResponse.model_rebuild(_parent_namespace_depth=0)
-    user_retrieve_response.UserRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
-    user_retrieve_by_public_id_response.UserRetrieveByPublicIDResponse.model_rebuild(_parent_namespace_depth=0)
-    user_retrieve_me_response.UserRetrieveMeResponse.model_rebuild(_parent_namespace_depth=0)
-    user_update_account_response.UserUpdateAccountResponse.model_rebuild(_parent_namespace_depth=0)
-    user_update_profile_response.UserUpdateProfileResponse.model_rebuild(_parent_namespace_depth=0)
     document_section_1.DocumentSection1.model_rebuild(_parent_namespace_depth=0)
     morta_document.MortaDocument.model_rebuild(_parent_namespace_depth=0)
     morta_document_section.MortaDocumentSection.model_rebuild(_parent_namespace_depth=0)
@@ -274,7 +260,6 @@ else:
         _parent_namespace_depth=0
     )
     document_update_section_order_response.DocumentUpdateSectionOrderResponse.model_rebuild(_parent_namespace_depth=0)
-    document.duplicate_global_response.DuplicateGlobalResponse.model_rebuild(_parent_namespace_depth=0)
     document.section_create_response.SectionCreateResponse.model_rebuild(_parent_namespace_depth=0)
     document.section_retrieve_response.SectionRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
     document.section_update_response.SectionUpdateResponse.model_rebuild(_parent_namespace_depth=0)

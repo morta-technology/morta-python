@@ -24,6 +24,7 @@ from morta.types import (
     TableCreateIndexResponse,
     TableListColumnsResponse,
     TableUpdateCellsResponse,
+    TableGetCsvBackupResponse,
     TableGetStatisticsResponse,
     TableGetDuplicatedChildrenResponse,
 )
@@ -42,7 +43,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestTable:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         table = client.table.create(
@@ -52,7 +53,7 @@ class TestTable:
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         table = client.table.create(
@@ -65,6 +66,7 @@ class TestTable:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -119,7 +121,7 @@ class TestTable:
                             "view_id": "viewId",
                         },
                     },
-                    "name": "name",
+                    "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "script": "script",
                     "script_enabled": True,
@@ -159,7 +161,7 @@ class TestTable:
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.table.with_raw_response.create(
@@ -173,7 +175,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.table.with_streaming_response.create(
@@ -189,7 +191,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Morta) -> None:
         table = client.table.retrieve(
@@ -197,7 +199,7 @@ class TestTable:
         )
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Morta) -> None:
         table = client.table.retrieve(
@@ -215,7 +217,7 @@ class TestTable:
         )
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Morta) -> None:
         response = client.table.with_raw_response.retrieve(
@@ -227,7 +229,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Morta) -> None:
         with client.table.with_streaming_response.retrieve(
@@ -241,7 +243,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -249,7 +251,7 @@ class TestTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         table = client.table.update(
@@ -257,7 +259,7 @@ class TestTable:
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         table = client.table.update(
@@ -269,7 +271,6 @@ class TestTable:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            is_reference_table=True,
             joins=[
                 {
                     "data_columns": [
@@ -293,14 +294,13 @@ class TestTable:
             ],
             keep_colours_in_sync=True,
             keep_validations_in_sync=True,
-            logo="logo",
             name="name",
             sync_hourly_frequency=0,
             type="type",
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.table.with_raw_response.update(
@@ -312,7 +312,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.table.with_streaming_response.update(
@@ -326,7 +326,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -334,7 +334,7 @@ class TestTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         table = client.table.delete(
@@ -342,7 +342,7 @@ class TestTable:
         )
         assert_matches_type(TableDeleteResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.table.with_raw_response.delete(
@@ -354,7 +354,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableDeleteResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.table.with_streaming_response.delete(
@@ -368,7 +368,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -376,7 +376,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_check_usage(self, client: Morta) -> None:
         table = client.table.check_usage(
@@ -384,7 +384,7 @@ class TestTable:
         )
         assert_matches_type(TableCheckUsageResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_check_usage(self, client: Morta) -> None:
         response = client.table.with_raw_response.check_usage(
@@ -396,7 +396,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableCheckUsageResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_check_usage(self, client: Morta) -> None:
         with client.table.with_streaming_response.check_usage(
@@ -410,7 +410,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_check_usage(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -418,7 +418,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_index(self, client: Morta) -> None:
         table = client.table.create_index(
@@ -427,7 +427,7 @@ class TestTable:
         )
         assert_matches_type(TableCreateIndexResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_index(self, client: Morta) -> None:
         response = client.table.with_raw_response.create_index(
@@ -440,7 +440,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableCreateIndexResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_index(self, client: Morta) -> None:
         with client.table.with_streaming_response.create_index(
@@ -455,7 +455,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create_index(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -464,7 +464,7 @@ class TestTable:
                 columns=[{"public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_rows(self, client: Morta) -> None:
         table = client.table.delete_rows(
@@ -472,7 +472,7 @@ class TestTable:
         )
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete_rows(self, client: Morta) -> None:
         response = client.table.with_raw_response.delete_rows(
@@ -484,7 +484,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete_rows(self, client: Morta) -> None:
         with client.table.with_streaming_response.delete_rows(
@@ -498,7 +498,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete_rows(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -506,7 +506,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_download_csv(self, client: Morta) -> None:
         table = client.table.download_csv(
@@ -514,7 +514,7 @@ class TestTable:
         )
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_download_csv_with_all_params(self, client: Morta) -> None:
         table = client.table.download_csv(
@@ -524,7 +524,7 @@ class TestTable:
         )
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_download_csv(self, client: Morta) -> None:
         response = client.table.with_raw_response.download_csv(
@@ -536,7 +536,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_download_csv(self, client: Morta) -> None:
         with client.table.with_streaming_response.download_csv(
@@ -550,7 +550,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_download_csv(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -558,7 +558,7 @@ class TestTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_duplicate(self, client: Morta) -> None:
         table = client.table.duplicate(
@@ -567,7 +567,7 @@ class TestTable:
         )
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_duplicate_with_all_params(self, client: Morta) -> None:
         table = client.table.duplicate(
@@ -584,7 +584,7 @@ class TestTable:
         )
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_duplicate(self, client: Morta) -> None:
         response = client.table.with_raw_response.duplicate(
@@ -597,7 +597,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_duplicate(self, client: Morta) -> None:
         with client.table.with_streaming_response.duplicate(
@@ -612,7 +612,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_duplicate(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -621,59 +621,45 @@ class TestTable:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_method_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    def test_method_get_csv_backup(self, client: Morta) -> None:
         table = client.table.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
-        assert table.is_closed
-        assert table.json() == {"foo": "bar"}
-        assert cast(Any, table.is_closed) is True
-        assert isinstance(table, BinaryAPIResponse)
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
-
-        table = client.table.with_raw_response.get_csv_backup(
+    def test_raw_response_get_csv_backup(self, client: Morta) -> None:
+        response = client.table.with_raw_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
 
-        assert table.is_closed is True
-        assert table.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert table.json() == {"foo": "bar"}
-        assert isinstance(table, BinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        table = response.parse()
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_get_csv_backup(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    def test_streaming_response_get_csv_backup(self, client: Morta) -> None:
         with client.table.with_streaming_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
-        ) as table:
-            assert not table.is_closed
-            assert table.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert table.json() == {"foo": "bar"}
-            assert cast(Any, table.is_closed) is True
-            assert isinstance(table, StreamedBinaryAPIResponse)
+            table = response.parse()
+            assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
-        assert cast(Any, table.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
     def test_path_params_get_csv_backup(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             client.table.with_raw_response.get_csv_backup(
@@ -681,7 +667,7 @@ class TestTable:
                 date="date",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_duplicated_children(self, client: Morta) -> None:
         table = client.table.get_duplicated_children(
@@ -689,7 +675,7 @@ class TestTable:
         )
         assert_matches_type(TableGetDuplicatedChildrenResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_duplicated_children(self, client: Morta) -> None:
         response = client.table.with_raw_response.get_duplicated_children(
@@ -701,7 +687,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableGetDuplicatedChildrenResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_duplicated_children(self, client: Morta) -> None:
         with client.table.with_streaming_response.get_duplicated_children(
@@ -715,7 +701,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_duplicated_children(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -787,7 +773,7 @@ class TestTable:
                 filename="filename",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_statistics(self, client: Morta) -> None:
         table = client.table.get_statistics(
@@ -795,7 +781,7 @@ class TestTable:
         )
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_statistics_with_all_params(self, client: Morta) -> None:
         table = client.table.get_statistics(
@@ -805,7 +791,7 @@ class TestTable:
         )
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_statistics(self, client: Morta) -> None:
         response = client.table.with_raw_response.get_statistics(
@@ -817,7 +803,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_statistics(self, client: Morta) -> None:
         with client.table.with_streaming_response.get_statistics(
@@ -831,7 +817,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_statistics(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -839,7 +825,7 @@ class TestTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_columns(self, client: Morta) -> None:
         table = client.table.list_columns(
@@ -847,7 +833,7 @@ class TestTable:
         )
         assert_matches_type(TableListColumnsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_columns(self, client: Morta) -> None:
         response = client.table.with_raw_response.list_columns(
@@ -859,7 +845,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableListColumnsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_columns(self, client: Morta) -> None:
         with client.table.with_streaming_response.list_columns(
@@ -873,7 +859,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_columns(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -881,7 +867,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_joins(self, client: Morta) -> None:
         table = client.table.list_joins(
@@ -889,7 +875,7 @@ class TestTable:
         )
         assert_matches_type(TableListJoinsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_joins(self, client: Morta) -> None:
         response = client.table.with_raw_response.list_joins(
@@ -901,7 +887,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableListJoinsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_joins(self, client: Morta) -> None:
         with client.table.with_streaming_response.list_joins(
@@ -915,7 +901,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_joins(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -923,7 +909,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_restore(self, client: Morta) -> None:
         table = client.table.restore(
@@ -931,7 +917,7 @@ class TestTable:
         )
         assert_matches_type(TableRestoreResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_restore(self, client: Morta) -> None:
         response = client.table.with_raw_response.restore(
@@ -943,7 +929,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableRestoreResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_restore(self, client: Morta) -> None:
         with client.table.with_streaming_response.restore(
@@ -957,7 +943,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_restore(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1039,7 +1025,7 @@ class TestTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_truncate(self, client: Morta) -> None:
         table = client.table.truncate(
@@ -1047,7 +1033,7 @@ class TestTable:
         )
         assert_matches_type(TableTruncateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_truncate(self, client: Morta) -> None:
         response = client.table.with_raw_response.truncate(
@@ -1059,7 +1045,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableTruncateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_truncate(self, client: Morta) -> None:
         with client.table.with_streaming_response.truncate(
@@ -1073,7 +1059,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_truncate(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1081,7 +1067,7 @@ class TestTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_cells(self, client: Morta) -> None:
         table = client.table.update_cells(
@@ -1096,7 +1082,7 @@ class TestTable:
         )
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_cells_with_all_params(self, client: Morta) -> None:
         table = client.table.update_cells(
@@ -1123,7 +1109,7 @@ class TestTable:
         )
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update_cells(self, client: Morta) -> None:
         response = client.table.with_raw_response.update_cells(
@@ -1142,7 +1128,7 @@ class TestTable:
         table = response.parse()
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update_cells(self, client: Morta) -> None:
         with client.table.with_streaming_response.update_cells(
@@ -1163,7 +1149,7 @@ class TestTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update_cells(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1184,7 +1170,7 @@ class TestAsyncTable:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.create(
@@ -1194,7 +1180,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.create(
@@ -1207,6 +1193,7 @@ class TestAsyncTable:
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
+                    "default_value": "defaultValue",
                     "description": {
                         "content": {
                             "blocks": [
@@ -1261,7 +1248,7 @@ class TestAsyncTable:
                             "view_id": "viewId",
                         },
                     },
-                    "name": "name",
+                    "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "script": "script",
                     "script_enabled": True,
@@ -1301,7 +1288,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.create(
@@ -1315,7 +1302,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.create(
@@ -1331,7 +1318,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.retrieve(
@@ -1339,7 +1326,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.retrieve(
@@ -1357,7 +1344,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.retrieve(
@@ -1369,7 +1356,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableRetrieveResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.retrieve(
@@ -1383,7 +1370,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1391,7 +1378,7 @@ class TestAsyncTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.update(
@@ -1399,7 +1386,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.update(
@@ -1411,7 +1398,6 @@ class TestAsyncTable:
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
-            is_reference_table=True,
             joins=[
                 {
                     "data_columns": [
@@ -1435,14 +1421,13 @@ class TestAsyncTable:
             ],
             keep_colours_in_sync=True,
             keep_validations_in_sync=True,
-            logo="logo",
             name="name",
             sync_hourly_frequency=0,
             type="type",
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.update(
@@ -1454,7 +1439,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.update(
@@ -1468,7 +1453,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1476,7 +1461,7 @@ class TestAsyncTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.delete(
@@ -1484,7 +1469,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableDeleteResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.delete(
@@ -1496,7 +1481,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableDeleteResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.delete(
@@ -1510,7 +1495,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1518,7 +1503,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_check_usage(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.check_usage(
@@ -1526,7 +1511,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableCheckUsageResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_check_usage(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.check_usage(
@@ -1538,7 +1523,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableCheckUsageResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_check_usage(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.check_usage(
@@ -1552,7 +1537,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_check_usage(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1560,7 +1545,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_index(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.create_index(
@@ -1569,7 +1554,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableCreateIndexResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_index(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.create_index(
@@ -1582,7 +1567,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableCreateIndexResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_index(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.create_index(
@@ -1597,7 +1582,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create_index(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1606,7 +1591,7 @@ class TestAsyncTable:
                 columns=[{"public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_rows(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.delete_rows(
@@ -1614,7 +1599,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete_rows(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.delete_rows(
@@ -1626,7 +1611,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete_rows(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.delete_rows(
@@ -1640,7 +1625,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete_rows(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1648,7 +1633,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_download_csv(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.download_csv(
@@ -1656,7 +1641,7 @@ class TestAsyncTable:
         )
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_download_csv_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.download_csv(
@@ -1666,7 +1651,7 @@ class TestAsyncTable:
         )
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_download_csv(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.download_csv(
@@ -1678,7 +1663,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(str, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_download_csv(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.download_csv(
@@ -1692,7 +1677,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_download_csv(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1700,7 +1685,7 @@ class TestAsyncTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_duplicate(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.duplicate(
@@ -1709,7 +1694,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_duplicate_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.duplicate(
@@ -1726,7 +1711,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_duplicate(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.duplicate(
@@ -1739,7 +1724,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableDuplicateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_duplicate(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.duplicate(
@@ -1754,7 +1739,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_duplicate(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1763,59 +1748,45 @@ class TestAsyncTable:
                 target_project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_method_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    async def test_method_get_csv_backup(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
-        assert table.is_closed
-        assert await table.json() == {"foo": "bar"}
-        assert cast(Any, table.is_closed) is True
-        assert isinstance(table, AsyncBinaryAPIResponse)
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
-
-        table = await async_client.table.with_raw_response.get_csv_backup(
+    async def test_raw_response_get_csv_backup(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.with_raw_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
         )
 
-        assert table.is_closed is True
-        assert table.http_request.headers.get("X-Stainless-Lang") == "python"
-        assert await table.json() == {"foo": "bar"}
-        assert isinstance(table, AsyncBinaryAPIResponse)
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        table = await response.parse()
+        assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_get_csv_backup(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/table/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/csv-backup").mock(
-            return_value=httpx.Response(200, json={"foo": "bar"})
-        )
+    async def test_streaming_response_get_csv_backup(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.get_csv_backup(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             date="date",
-        ) as table:
-            assert not table.is_closed
-            assert table.http_request.headers.get("X-Stainless-Lang") == "python"
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            assert await table.json() == {"foo": "bar"}
-            assert cast(Any, table.is_closed) is True
-            assert isinstance(table, AsyncStreamedBinaryAPIResponse)
+            table = await response.parse()
+            assert_matches_type(TableGetCsvBackupResponse, table, path=["response"])
 
-        assert cast(Any, table.is_closed) is True
+        assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    @pytest.mark.respx(base_url=base_url)
     async def test_path_params_get_csv_backup(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             await async_client.table.with_raw_response.get_csv_backup(
@@ -1823,7 +1794,7 @@ class TestAsyncTable:
                 date="date",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.get_duplicated_children(
@@ -1831,7 +1802,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableGetDuplicatedChildrenResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.get_duplicated_children(
@@ -1843,7 +1814,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableGetDuplicatedChildrenResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.get_duplicated_children(
@@ -1857,7 +1828,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_duplicated_children(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1929,7 +1900,7 @@ class TestAsyncTable:
                 filename="filename",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_statistics(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.get_statistics(
@@ -1937,7 +1908,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_statistics_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.get_statistics(
@@ -1947,7 +1918,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_statistics(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.get_statistics(
@@ -1959,7 +1930,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableGetStatisticsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_statistics(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.get_statistics(
@@ -1973,7 +1944,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_statistics(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -1981,7 +1952,7 @@ class TestAsyncTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_columns(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.list_columns(
@@ -1989,7 +1960,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableListColumnsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_columns(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.list_columns(
@@ -2001,7 +1972,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableListColumnsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_columns(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.list_columns(
@@ -2015,7 +1986,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_columns(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -2023,7 +1994,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_joins(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.list_joins(
@@ -2031,7 +2002,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableListJoinsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_joins(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.list_joins(
@@ -2043,7 +2014,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableListJoinsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_joins(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.list_joins(
@@ -2057,7 +2028,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_joins(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -2065,7 +2036,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_restore(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.restore(
@@ -2073,7 +2044,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableRestoreResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_restore(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.restore(
@@ -2085,7 +2056,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableRestoreResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_restore(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.restore(
@@ -2099,7 +2070,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_restore(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -2181,7 +2152,7 @@ class TestAsyncTable:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_truncate(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.truncate(
@@ -2189,7 +2160,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableTruncateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_truncate(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.truncate(
@@ -2201,7 +2172,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableTruncateResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_truncate(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.truncate(
@@ -2215,7 +2186,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_truncate(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -2223,7 +2194,7 @@ class TestAsyncTable:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_cells(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.update_cells(
@@ -2238,7 +2209,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_cells_with_all_params(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.update_cells(
@@ -2265,7 +2236,7 @@ class TestAsyncTable:
         )
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update_cells(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.update_cells(
@@ -2284,7 +2255,7 @@ class TestAsyncTable:
         table = await response.parse()
         assert_matches_type(TableUpdateCellsResponse, table, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update_cells(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.update_cells(
@@ -2305,7 +2276,7 @@ class TestAsyncTable:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update_cells(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
