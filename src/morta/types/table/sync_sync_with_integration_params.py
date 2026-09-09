@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
-from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..base_request_context_param import BaseRequestContextParam
 
@@ -14,43 +14,38 @@ __all__ = ["SyncSyncWithIntegrationParams"]
 class SyncSyncWithIntegrationParams(TypedDict, total=False):
     table_id: Required[str]
 
-    company_id: Annotated[str, PropertyInfo(alias="companyId")]
-
     context: BaseRequestContextParam
 
-    doc_types: Annotated[SequenceNotStr[str], PropertyInfo(alias="docTypes")]
+    sync_all_hubs: Annotated[bool, PropertyInfo(alias="syncAllHubs")]
 
-    enterprise_id: Annotated[str, PropertyInfo(alias="enterpriseId")]
-
-    folder_id: Annotated[str, PropertyInfo(alias="folderId")]
-
-    hub_id: Annotated[str, PropertyInfo(alias="hubId")]
-
-    license_id: Annotated[str, PropertyInfo(alias="licenseId")]
-
-    model_id: Annotated[str, PropertyInfo(alias="modelId")]
-
-    project_id: Annotated[str, PropertyInfo(alias="projectId")]
-
-    project_ids: Annotated[SequenceNotStr[str], PropertyInfo(alias="projectIds")]
-
-    properties: SequenceNotStr[str]
-
-    region: str
-
-    top_folder_id: Annotated[str, PropertyInfo(alias="topFolderId")]
+    sync_fields: Annotated[Dict[str, object], PropertyInfo(alias="syncFields")]
 
     type: Literal[
-        "Projects",
-        "Resources",
-        "Users",
-        "Documents",
-        "Workflows",
-        "Comments",
-        "RFIs",
-        "Checklists",
-        "Columns",
-        "Issues",
-        "AEC Data Model",
-        "Forms",
+        "hubs",
+        "resources",
+        "users",
+        "documents",
+        "workflows",
+        "comments",
+        "table data",
+        "rfis",
+        "checklists",
+        "columns",
+        "issues",
+        "forms",
+        "mail",
+        "sheets",
+        "reviews",
+        "members",
+        "models",
+        "tasks",
+        "forms_headers",
+        "forms_fields",
+        "forms_templates",
+        "tasks_headers",
+        "tasks_fields",
+        "resource_permissions",
+        "workpackages",
+        "inspection_plans",
+        "inspection_plan_items",
     ]

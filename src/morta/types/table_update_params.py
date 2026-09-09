@@ -18,15 +18,11 @@ class TableUpdateParams(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
-    is_reference_table: Annotated[bool, PropertyInfo(alias="isReferenceTable")]
-
     joins: Iterable[Join]
 
     keep_colours_in_sync: Annotated[bool, PropertyInfo(alias="keepColoursInSync")]
 
     keep_validations_in_sync: Annotated[bool, PropertyInfo(alias="keepValidationsInSync")]
-
-    logo: Optional[str]
 
     name: str
 

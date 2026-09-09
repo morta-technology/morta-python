@@ -16,6 +16,14 @@ from .invite import (
     InviteResourceWithStreamingResponse,
     AsyncInviteResourceWithStreamingResponse,
 )
+from .scripts import (
+    ScriptsResource,
+    AsyncScriptsResource,
+    ScriptsResourceWithRawResponse,
+    AsyncScriptsResourceWithRawResponse,
+    ScriptsResourceWithStreamingResponse,
+    AsyncScriptsResourceWithStreamingResponse,
+)
 from .secrets import (
     SecretsResource,
     AsyncSecretsResource,
@@ -24,22 +32,8 @@ from .secrets import (
     SecretsResourceWithStreamingResponse,
     AsyncSecretsResourceWithStreamingResponse,
 )
-from .ai_answer import (
-    AIAnswerResource,
-    AsyncAIAnswerResource,
-    AIAnswerResourceWithRawResponse,
-    AsyncAIAnswerResourceWithRawResponse,
-    AIAnswerResourceWithStreamingResponse,
-    AsyncAIAnswerResourceWithStreamingResponse,
-)
 
 __all__ = [
-    "AIAnswerResource",
-    "AsyncAIAnswerResource",
-    "AIAnswerResourceWithRawResponse",
-    "AsyncAIAnswerResourceWithRawResponse",
-    "AIAnswerResourceWithStreamingResponse",
-    "AsyncAIAnswerResourceWithStreamingResponse",
     "InviteResource",
     "AsyncInviteResource",
     "InviteResourceWithRawResponse",
@@ -52,6 +46,12 @@ __all__ = [
     "AsyncSecretsResourceWithRawResponse",
     "SecretsResourceWithStreamingResponse",
     "AsyncSecretsResourceWithStreamingResponse",
+    "ScriptsResource",
+    "AsyncScriptsResource",
+    "ScriptsResourceWithRawResponse",
+    "AsyncScriptsResourceWithRawResponse",
+    "ScriptsResourceWithStreamingResponse",
+    "AsyncScriptsResourceWithStreamingResponse",
     "HubResource",
     "AsyncHubResource",
     "HubResourceWithRawResponse",

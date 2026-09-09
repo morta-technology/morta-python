@@ -17,9 +17,8 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.document import duplicate_global_params, duplicate_duplicate_params
+from ...types.document import duplicate_duplicate_params
 from ...types.base_request_context_param import BaseRequestContextParam
-from ...types.document.duplicate_global_response import DuplicateGlobalResponse
 
 __all__ = ["DuplicateResource", "AsyncDuplicateResource"]
 
@@ -52,6 +51,7 @@ class DuplicateResource(SyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         duplicate_linked_tables: Optional[bool] | Omit = omit,
         duplicate_permissions: bool | Omit = omit,
+        lock_resource: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -82,6 +82,7 @@ class DuplicateResource(SyncAPIResource):
                     "context": context,
                     "duplicate_linked_tables": duplicate_linked_tables,
                     "duplicate_permissions": duplicate_permissions,
+                    "lock_resource": lock_resource,
                 },
                 duplicate_duplicate_params.DuplicateDuplicateParams,
             ),
@@ -89,47 +90,6 @@ class DuplicateResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
-        )
-
-    def global_(
-        self,
-        *,
-        process_id: str,
-        context: BaseRequestContextParam | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DuplicateGlobalResponse:
-        """
-        Duplicate an existing document, optionally into a different hub
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/document/duplicate",
-            body=maybe_transform(
-                {
-                    "process_id": process_id,
-                    "context": context,
-                    "project_id": project_id,
-                },
-                duplicate_global_params.DuplicateGlobalParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DuplicateGlobalResponse,
         )
 
 
@@ -161,6 +121,7 @@ class AsyncDuplicateResource(AsyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         duplicate_linked_tables: Optional[bool] | Omit = omit,
         duplicate_permissions: bool | Omit = omit,
+        lock_resource: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -191,6 +152,7 @@ class AsyncDuplicateResource(AsyncAPIResource):
                     "context": context,
                     "duplicate_linked_tables": duplicate_linked_tables,
                     "duplicate_permissions": duplicate_permissions,
+                    "lock_resource": lock_resource,
                 },
                 duplicate_duplicate_params.DuplicateDuplicateParams,
             ),
@@ -198,47 +160,6 @@ class AsyncDuplicateResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
-        )
-
-    async def global_(
-        self,
-        *,
-        process_id: str,
-        context: BaseRequestContextParam | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DuplicateGlobalResponse:
-        """
-        Duplicate an existing document, optionally into a different hub
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/document/duplicate",
-            body=await async_maybe_transform(
-                {
-                    "process_id": process_id,
-                    "context": context,
-                    "project_id": project_id,
-                },
-                duplicate_global_params.DuplicateGlobalParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DuplicateGlobalResponse,
         )
 
 
@@ -249,9 +170,6 @@ class DuplicateResourceWithRawResponse:
         self.duplicate = to_raw_response_wrapper(
             duplicate.duplicate,
         )
-        self.global_ = to_raw_response_wrapper(
-            duplicate.global_,
-        )
 
 
 class AsyncDuplicateResourceWithRawResponse:
@@ -260,9 +178,6 @@ class AsyncDuplicateResourceWithRawResponse:
 
         self.duplicate = async_to_raw_response_wrapper(
             duplicate.duplicate,
-        )
-        self.global_ = async_to_raw_response_wrapper(
-            duplicate.global_,
         )
 
 
@@ -273,9 +188,6 @@ class DuplicateResourceWithStreamingResponse:
         self.duplicate = to_streamed_response_wrapper(
             duplicate.duplicate,
         )
-        self.global_ = to_streamed_response_wrapper(
-            duplicate.global_,
-        )
 
 
 class AsyncDuplicateResourceWithStreamingResponse:
@@ -284,7 +196,4 @@ class AsyncDuplicateResourceWithStreamingResponse:
 
         self.duplicate = async_to_streamed_response_wrapper(
             duplicate.duplicate,
-        )
-        self.global_ = async_to_streamed_response_wrapper(
-            duplicate.global_,
         )

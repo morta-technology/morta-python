@@ -16,7 +16,6 @@ from morta.types.document import (
     SectionRestoreResponse,
     SectionRetrieveResponse,
     SectionDuplicateResponse,
-    SectionDuplicateAsyncResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -378,58 +377,6 @@ class TestSection:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_section_id` but received ''"):
             client.document.section.with_raw_response.duplicate(
-                document_section_id="",
-                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_duplicate_async(self, client: Morta) -> None:
-        section = client.document.section.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_duplicate_async(self, client: Morta) -> None:
-        response = client.document.section.with_raw_response.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        section = response.parse()
-        assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_duplicate_async(self, client: Morta) -> None:
-        with client.document.section.with_streaming_response.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            section = response.parse()
-            assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_duplicate_async(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
-            client.document.section.with_raw_response.duplicate_async(
-                document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                document_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_section_id` but received ''"):
-            client.document.section.with_raw_response.duplicate_async(
                 document_section_id="",
                 document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
@@ -845,58 +792,6 @@ class TestAsyncSection:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_section_id` but received ''"):
             await async_client.document.section.with_raw_response.duplicate(
-                document_section_id="",
-                document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_duplicate_async(self, async_client: AsyncMorta) -> None:
-        section = await async_client.document.section.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_duplicate_async(self, async_client: AsyncMorta) -> None:
-        response = await async_client.document.section.with_raw_response.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        section = await response.parse()
-        assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_duplicate_async(self, async_client: AsyncMorta) -> None:
-        async with async_client.document.section.with_streaming_response.duplicate_async(
-            document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            section = await response.parse()
-            assert_matches_type(SectionDuplicateAsyncResponse, section, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_duplicate_async(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
-            await async_client.document.section.with_raw_response.duplicate_async(
-                document_section_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                document_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_section_id` but received ''"):
-            await async_client.document.section.with_raw_response.duplicate_async(
                 document_section_id="",
                 document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
