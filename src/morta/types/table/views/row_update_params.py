@@ -16,6 +16,8 @@ class RowUpdateParams(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
+    next_row_public_id: Annotated[Optional[str], PropertyInfo(alias="nextRowPublicId")]
+
 
 class Row(TypedDict, total=False):
     public_id: Required[Annotated[str, PropertyInfo(alias="publicId")]]
@@ -24,4 +26,4 @@ class Row(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
-    sort_order: Annotated[float, PropertyInfo(alias="sortOrder")]
+    sort_order: Annotated[Optional[float], PropertyInfo(alias="sortOrder")]

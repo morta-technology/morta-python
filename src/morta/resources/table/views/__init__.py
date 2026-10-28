@@ -16,6 +16,14 @@ from .views import (
     ViewsResourceWithStreamingResponse,
     AsyncViewsResourceWithStreamingResponse,
 )
+from .export import (
+    ExportResource,
+    AsyncExportResource,
+    ExportResourceWithRawResponse,
+    AsyncExportResourceWithRawResponse,
+    ExportResourceWithStreamingResponse,
+    AsyncExportResourceWithStreamingResponse,
+)
 from .columns import (
     ColumnsResource,
     AsyncColumnsResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncColumnsResourceWithRawResponse",
     "ColumnsResourceWithStreamingResponse",
     "AsyncColumnsResourceWithStreamingResponse",
+    "ExportResource",
+    "AsyncExportResource",
+    "ExportResourceWithRawResponse",
+    "AsyncExportResourceWithRawResponse",
+    "ExportResourceWithStreamingResponse",
+    "AsyncExportResourceWithStreamingResponse",
     "ViewsResource",
     "AsyncViewsResource",
     "ViewsResourceWithRawResponse",
