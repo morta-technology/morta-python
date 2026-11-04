@@ -44,12 +44,12 @@ class TestColumn:
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -90,6 +90,7 @@ class TestColumn:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -104,7 +105,7 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -169,12 +170,12 @@ class TestColumn:
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -215,6 +216,7 @@ class TestColumn:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -229,7 +231,7 @@ class TestColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -526,12 +528,12 @@ class TestAsyncColumn:
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -572,6 +574,7 @@ class TestAsyncColumn:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -586,7 +589,7 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -651,12 +654,12 @@ class TestAsyncColumn:
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -697,6 +700,7 @@ class TestAsyncColumn:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -711,7 +715,7 @@ class TestAsyncColumn:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,

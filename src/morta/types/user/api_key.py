@@ -24,4 +24,6 @@ class APIKey(BaseModel):
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
+    site_restrictions: Optional[List[str]] = FieldInfo(alias="siteRestrictions", default=None)
+
     table_restrictions: Optional[List[str]] = FieldInfo(alias="tableRestrictions", default=None)
