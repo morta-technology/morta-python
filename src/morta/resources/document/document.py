@@ -20,7 +20,7 @@ from ...types import (
     document_update_views_permissions_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .duplicate import (
     DuplicateResource,
@@ -60,7 +60,6 @@ from ...types.document_update_response import DocumentUpdateResponse
 from ...types.document_restore_response import DocumentRestoreResponse
 from ...types.base_request_context_param import BaseRequestContextParam
 from ...types.document_retrieve_response import DocumentRetrieveResponse
-from ...types.document_sync_template_response import DocumentSyncTemplateResponse
 from ...types.document_create_sections_response import DocumentCreateSectionsResponse
 from ...types.document.create_document_section_param import CreateDocumentSectionParam
 from ...types.document_get_deleted_sections_response import DocumentGetDeletedSectionsResponse
@@ -106,8 +105,9 @@ class DocumentResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        type: str,
         context: BaseRequestContextParam | Omit = omit,
+        folder_id: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -119,6 +119,9 @@ class DocumentResource(SyncAPIResource):
         Create a new document in a specified hub
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -133,8 +136,9 @@ class DocumentResource(SyncAPIResource):
                 {
                     "name": name,
                     "project_id": project_id,
-                    "type": type,
                     "context": context,
+                    "folder_id": folder_id,
+                    "type": type,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -173,7 +177,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -191,6 +195,7 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -212,6 +217,9 @@ class DocumentResource(SyncAPIResource):
         Update an existing documents's details by document ID
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -223,10 +231,11 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             body=maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,
@@ -272,7 +281,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._delete(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -308,7 +317,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/multiple-section",
+            path_template("/v1/document/{document_id}/multiple-section", document_id=document_id),
             body=maybe_transform(
                 {
                     "sections": sections,
@@ -350,7 +359,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/sections",
+            path_template("/v1/document/{document_id}/sections", document_id=document_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -368,9 +377,12 @@ class DocumentResource(SyncAPIResource):
         self,
         document_id: str,
         *,
-        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | Omit = omit,
+        iframe_links: bool | Omit = omit,
+        page_format: Literal["A2", "A3", "A4", "letter", "legal"] | Omit = omit,
         page_orientation: Literal["portrait", "landscape"] | Omit = omit,
+        set_default_format_and_orientation: bool | Omit = omit,
         table_links: bool | Omit = omit,
+        view_grids: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -378,15 +390,15 @@ class DocumentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
-        """
-        Export a specific document by its UUID
+        """Export a specific document by its UUID.
+
+        Same as the GET variant but accepts a
+        JSON body so the frontend can pass pre-computed matrix/transposed view layouts
+        (`viewGrids`); the backend renders those views in the correct arrangement while
+        still formatting cell values itself.
 
         Args:
-          page_format: Page format for the export
-
-          page_orientation: Page orientation for the export
-
-          table_links: Include table links in the export
+          view_grids: Map of view public id to its frontend-computed grid layout.
 
           extra_headers: Send extra headers
 
@@ -402,21 +414,21 @@ class DocumentResource(SyncAPIResource):
             "Accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             **(extra_headers or {}),
         }
-        return self._get(
-            f"/v1/document/{document_id}/export",
+        return self._post(
+            path_template("/v1/document/{document_id}/export", document_id=document_id),
+            body=maybe_transform(
+                {
+                    "iframe_links": iframe_links,
+                    "page_format": page_format,
+                    "page_orientation": page_orientation,
+                    "set_default_format_and_orientation": set_default_format_and_orientation,
+                    "table_links": table_links,
+                    "view_grids": view_grids,
+                },
+                document_export_params.DocumentExportParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "page_format": page_format,
-                        "page_orientation": page_orientation,
-                        "table_links": table_links,
-                    },
-                    document_export_params.DocumentExportParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=BinaryAPIResponse,
         )
@@ -451,7 +463,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}/deletedsections",
+            path_template("/v1/document/{document_id}/deletedsections", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -491,7 +503,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._get(
-            f"/v1/document/{document_id}/duplicated-children",
+            path_template("/v1/document/{document_id}/duplicated-children", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -524,44 +536,11 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/restore",
+            path_template("/v1/document/{document_id}/restore", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentRestoreResponse,
-        )
-
-    def sync_template(
-        self,
-        document_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DocumentSyncTemplateResponse:
-        """
-        Sync template changes to children of a document
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not document_id:
-            raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
-        return self._get(
-            f"/v1/document/{document_id}/sync-template",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DocumentSyncTemplateResponse,
         )
 
     def update_multiple_sections(
@@ -569,6 +548,7 @@ class DocumentResource(SyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[document_update_multiple_sections_params.Section],
+        client: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -581,6 +561,9 @@ class DocumentResource(SyncAPIResource):
         Update multiple existing document sections.
 
         Args:
+          client: Set to "web" by the Morta web app. A save without it may not remove a table
+              converted from a document response (409).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -592,7 +575,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/update-multiple-section",
+            path_template("/v1/document/{document_id}/update-multiple-section", document_id=document_id),
             body=maybe_transform(
                 {
                     "sections": sections,
@@ -601,7 +584,13 @@ class DocumentResource(SyncAPIResource):
                 document_update_multiple_sections_params.DocumentUpdateMultipleSectionsParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"client": client}, document_update_multiple_sections_params.DocumentUpdateMultipleSectionsParams
+                ),
             ),
             cast_to=DocumentUpdateMultipleSectionsResponse,
         )
@@ -634,7 +623,7 @@ class DocumentResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._put(
-            f"/v1/document/{document_id}/changesectionorder",
+            path_template("/v1/document/{document_id}/changesectionorder", document_id=document_id),
             body=maybe_transform(
                 {
                     "context": context,
@@ -723,8 +712,9 @@ class AsyncDocumentResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        type: str,
         context: BaseRequestContextParam | Omit = omit,
+        folder_id: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -736,6 +726,9 @@ class AsyncDocumentResource(AsyncAPIResource):
         Create a new document in a specified hub
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -750,8 +743,9 @@ class AsyncDocumentResource(AsyncAPIResource):
                 {
                     "name": name,
                     "project_id": project_id,
-                    "type": type,
                     "context": context,
+                    "folder_id": folder_id,
+                    "type": type,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -790,7 +784,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -808,6 +802,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         allow_comments: bool | Omit = omit,
+        banner_height: Optional[int] | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: document_update_params.Description | Omit = omit,
         expand_by_default: bool | Omit = omit,
@@ -829,6 +824,9 @@ class AsyncDocumentResource(AsyncAPIResource):
         Update an existing documents's details by document ID
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -840,10 +838,11 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "allow_comments": allow_comments,
+                    "banner_height": banner_height,
                     "context": context,
                     "description": description,
                     "expand_by_default": expand_by_default,
@@ -889,7 +888,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._delete(
-            f"/v1/document/{document_id}",
+            path_template("/v1/document/{document_id}", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -925,7 +924,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/multiple-section",
+            path_template("/v1/document/{document_id}/multiple-section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "sections": sections,
@@ -967,7 +966,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/sections",
+            path_template("/v1/document/{document_id}/sections", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -985,9 +984,12 @@ class AsyncDocumentResource(AsyncAPIResource):
         self,
         document_id: str,
         *,
-        page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"] | Omit = omit,
+        iframe_links: bool | Omit = omit,
+        page_format: Literal["A2", "A3", "A4", "letter", "legal"] | Omit = omit,
         page_orientation: Literal["portrait", "landscape"] | Omit = omit,
+        set_default_format_and_orientation: bool | Omit = omit,
         table_links: bool | Omit = omit,
+        view_grids: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -995,15 +997,15 @@ class AsyncDocumentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
-        """
-        Export a specific document by its UUID
+        """Export a specific document by its UUID.
+
+        Same as the GET variant but accepts a
+        JSON body so the frontend can pass pre-computed matrix/transposed view layouts
+        (`viewGrids`); the backend renders those views in the correct arrangement while
+        still formatting cell values itself.
 
         Args:
-          page_format: Page format for the export
-
-          page_orientation: Page orientation for the export
-
-          table_links: Include table links in the export
+          view_grids: Map of view public id to its frontend-computed grid layout.
 
           extra_headers: Send extra headers
 
@@ -1019,21 +1021,21 @@ class AsyncDocumentResource(AsyncAPIResource):
             "Accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             **(extra_headers or {}),
         }
-        return await self._get(
-            f"/v1/document/{document_id}/export",
+        return await self._post(
+            path_template("/v1/document/{document_id}/export", document_id=document_id),
+            body=await async_maybe_transform(
+                {
+                    "iframe_links": iframe_links,
+                    "page_format": page_format,
+                    "page_orientation": page_orientation,
+                    "set_default_format_and_orientation": set_default_format_and_orientation,
+                    "table_links": table_links,
+                    "view_grids": view_grids,
+                },
+                document_export_params.DocumentExportParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "page_format": page_format,
-                        "page_orientation": page_orientation,
-                        "table_links": table_links,
-                    },
-                    document_export_params.DocumentExportParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AsyncBinaryAPIResponse,
         )
@@ -1068,7 +1070,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}/deletedsections",
+            path_template("/v1/document/{document_id}/deletedsections", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1108,7 +1110,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._get(
-            f"/v1/document/{document_id}/duplicated-children",
+            path_template("/v1/document/{document_id}/duplicated-children", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1141,44 +1143,11 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/restore",
+            path_template("/v1/document/{document_id}/restore", document_id=document_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentRestoreResponse,
-        )
-
-    async def sync_template(
-        self,
-        document_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> DocumentSyncTemplateResponse:
-        """
-        Sync template changes to children of a document
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not document_id:
-            raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
-        return await self._get(
-            f"/v1/document/{document_id}/sync-template",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=DocumentSyncTemplateResponse,
         )
 
     async def update_multiple_sections(
@@ -1186,6 +1155,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         document_id: str,
         *,
         sections: Iterable[document_update_multiple_sections_params.Section],
+        client: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1198,6 +1168,9 @@ class AsyncDocumentResource(AsyncAPIResource):
         Update multiple existing document sections.
 
         Args:
+          client: Set to "web" by the Morta web app. A save without it may not remove a table
+              converted from a document response (409).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1209,7 +1182,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/update-multiple-section",
+            path_template("/v1/document/{document_id}/update-multiple-section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "sections": sections,
@@ -1218,7 +1191,13 @@ class AsyncDocumentResource(AsyncAPIResource):
                 document_update_multiple_sections_params.DocumentUpdateMultipleSectionsParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"client": client}, document_update_multiple_sections_params.DocumentUpdateMultipleSectionsParams
+                ),
             ),
             cast_to=DocumentUpdateMultipleSectionsResponse,
         )
@@ -1251,7 +1230,7 @@ class AsyncDocumentResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._put(
-            f"/v1/document/{document_id}/changesectionorder",
+            path_template("/v1/document/{document_id}/changesectionorder", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -1342,9 +1321,6 @@ class DocumentResourceWithRawResponse:
         self.restore = to_raw_response_wrapper(
             document.restore,
         )
-        self.sync_template = to_raw_response_wrapper(
-            document.sync_template,
-        )
         self.update_multiple_sections = to_raw_response_wrapper(
             document.update_multiple_sections,
         )
@@ -1398,9 +1374,6 @@ class AsyncDocumentResourceWithRawResponse:
         )
         self.restore = async_to_raw_response_wrapper(
             document.restore,
-        )
-        self.sync_template = async_to_raw_response_wrapper(
-            document.sync_template,
         )
         self.update_multiple_sections = async_to_raw_response_wrapper(
             document.update_multiple_sections,
@@ -1456,9 +1429,6 @@ class DocumentResourceWithStreamingResponse:
         self.restore = to_streamed_response_wrapper(
             document.restore,
         )
-        self.sync_template = to_streamed_response_wrapper(
-            document.sync_template,
-        )
         self.update_multiple_sections = to_streamed_response_wrapper(
             document.update_multiple_sections,
         )
@@ -1512,9 +1482,6 @@ class AsyncDocumentResourceWithStreamingResponse:
         )
         self.restore = async_to_streamed_response_wrapper(
             document.restore,
-        )
-        self.sync_template = async_to_streamed_response_wrapper(
-            document.sync_template,
         )
         self.update_multiple_sections = async_to_streamed_response_wrapper(
             document.update_multiple_sections,

@@ -13,7 +13,7 @@ __all__ = ["NotificationListEventsParams"]
 
 
 class NotificationListEventsParams(TypedDict, total=False):
-    type: Required[Literal["process", "process_section", "process_response", "table", "project", "user"]]
+    type: Required[Literal["process", "process_section", "table", "project", "user"]]
     """The type of the resource (e.g., user, process, table, project)."""
 
     end_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
@@ -32,4 +32,8 @@ class NotificationListEventsParams(TypedDict, total=False):
     """Optional UUID of a user to filter the events."""
 
     verb: SequenceNotStr[str]
-    """Optional list of verbs to filter the events."""
+    """Optional list of events to filter by, in `resource.verb` form (e.g.
+
+    `document.created`). Hub and document events match under either their current
+    (`hub.*`, `document.*`) or deprecated legacy (`project.*`, `process.*`) name.
+    """
