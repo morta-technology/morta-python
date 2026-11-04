@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestApikey:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         apikey = client.user.apikey.create(
@@ -29,7 +29,7 @@ class TestApikey:
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         apikey = client.user.apikey.create(
@@ -37,11 +37,12 @@ class TestApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.user.apikey.with_raw_response.create(
@@ -53,7 +54,7 @@ class TestApikey:
         apikey = response.parse()
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.user.apikey.with_streaming_response.create(
@@ -67,7 +68,7 @@ class TestApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         apikey = client.user.apikey.update(
@@ -76,7 +77,7 @@ class TestApikey:
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         apikey = client.user.apikey.update(
@@ -85,11 +86,12 @@ class TestApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.user.apikey.with_raw_response.update(
@@ -102,7 +104,7 @@ class TestApikey:
         apikey = response.parse()
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.user.apikey.with_streaming_response.update(
@@ -117,7 +119,7 @@ class TestApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `api_key_id` but received ''"):
@@ -126,7 +128,7 @@ class TestApikey:
                 access_level=0,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         apikey = client.user.apikey.delete(
@@ -134,7 +136,7 @@ class TestApikey:
         )
         assert_matches_type(ApikeyDeleteResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.user.apikey.with_raw_response.delete(
@@ -146,7 +148,7 @@ class TestApikey:
         apikey = response.parse()
         assert_matches_type(ApikeyDeleteResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.user.apikey.with_streaming_response.delete(
@@ -160,7 +162,7 @@ class TestApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `api_key_id` but received ''"):
@@ -174,7 +176,7 @@ class TestAsyncApikey:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         apikey = await async_client.user.apikey.create(
@@ -182,7 +184,7 @@ class TestAsyncApikey:
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         apikey = await async_client.user.apikey.create(
@@ -190,11 +192,12 @@ class TestAsyncApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.apikey.with_raw_response.create(
@@ -206,7 +209,7 @@ class TestAsyncApikey:
         apikey = await response.parse()
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.user.apikey.with_streaming_response.create(
@@ -220,7 +223,7 @@ class TestAsyncApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         apikey = await async_client.user.apikey.update(
@@ -229,7 +232,7 @@ class TestAsyncApikey:
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         apikey = await async_client.user.apikey.update(
@@ -238,11 +241,12 @@ class TestAsyncApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.apikey.with_raw_response.update(
@@ -255,7 +259,7 @@ class TestAsyncApikey:
         apikey = await response.parse()
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.user.apikey.with_streaming_response.update(
@@ -270,7 +274,7 @@ class TestAsyncApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `api_key_id` but received ''"):
@@ -279,7 +283,7 @@ class TestAsyncApikey:
                 access_level=0,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         apikey = await async_client.user.apikey.delete(
@@ -287,7 +291,7 @@ class TestAsyncApikey:
         )
         assert_matches_type(ApikeyDeleteResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.user.apikey.with_raw_response.delete(
@@ -299,7 +303,7 @@ class TestAsyncApikey:
         apikey = await response.parse()
         assert_matches_type(ApikeyDeleteResponse, apikey, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.user.apikey.with_streaming_response.delete(
@@ -313,7 +317,7 @@ class TestAsyncApikey:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `api_key_id` but received ''"):

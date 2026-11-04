@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -18,7 +18,9 @@ class IntegrationCreatePassthroughParams(TypedDict, total=False):
 
     source_system: Required[
         Annotated[
-            Literal["viewpoint", "aconex", "autodesk-bim360", "procore", "revizto", "morta", "asite"],
+            Literal[
+                "viewpoint", "aconex", "autodesk", "procore", "revizto", "morta", "asite", "sharepoint", "asta", "dalux"
+            ],
             PropertyInfo(alias="sourceSystem"),
         ]
     ]
@@ -27,6 +29,6 @@ class IntegrationCreatePassthroughParams(TypedDict, total=False):
 
     data: object
 
-    headers: object
+    headers: Optional[Dict[str, object]]
 
     on_behalf_user_id: Annotated[Optional[str], PropertyInfo(alias="onBehalfUserId")]
