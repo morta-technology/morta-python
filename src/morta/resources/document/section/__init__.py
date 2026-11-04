@@ -8,22 +8,22 @@ from .section import (
     SectionResourceWithStreamingResponse,
     AsyncSectionResourceWithStreamingResponse,
 )
-from .response import (
-    ResponseResource,
-    AsyncResponseResource,
-    ResponseResourceWithRawResponse,
-    AsyncResponseResourceWithRawResponse,
-    ResponseResourceWithStreamingResponse,
-    AsyncResponseResourceWithStreamingResponse,
+from .submission import (
+    SubmissionResource,
+    AsyncSubmissionResource,
+    SubmissionResourceWithRawResponse,
+    AsyncSubmissionResourceWithRawResponse,
+    SubmissionResourceWithStreamingResponse,
+    AsyncSubmissionResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "ResponseResource",
-    "AsyncResponseResource",
-    "ResponseResourceWithRawResponse",
-    "AsyncResponseResourceWithRawResponse",
-    "ResponseResourceWithStreamingResponse",
-    "AsyncResponseResourceWithStreamingResponse",
+    "SubmissionResource",
+    "AsyncSubmissionResource",
+    "SubmissionResourceWithRawResponse",
+    "AsyncSubmissionResourceWithRawResponse",
+    "SubmissionResourceWithStreamingResponse",
+    "AsyncSubmissionResourceWithStreamingResponse",
     "SectionResource",
     "AsyncSectionResource",
     "SectionResourceWithRawResponse",

@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -10,13 +11,7 @@ from ..._models import BaseModel
 from ..table_join import TableJoin
 from .table_column import TableColumn
 
-__all__ = ["Table", "SyncUser"]
-
-
-class SyncUser(BaseModel):
-    name: Optional[str] = None
-
-    public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
+__all__ = ["Table"]
 
 
 class Table(BaseModel):
@@ -34,53 +29,14 @@ class Table(BaseModel):
 
     failed_sync_attempts: Optional[int] = FieldInfo(alias="failedSyncAttempts", default=None)
 
-    is_aconex_synced: Optional[bool] = FieldInfo(alias="isAconexSynced", default=None)
-
-    is_aconex_workflows_synced: Optional[bool] = FieldInfo(alias="isAconexWorkflowsSynced", default=None)
-
-    is_asite_documents_synced: Optional[bool] = FieldInfo(alias="isAsiteDocumentsSynced", default=None)
-
-    is_asite_forms_synced: Optional[bool] = FieldInfo(alias="isAsiteFormsSynced", default=None)
-
-    is_autodesk_bim360_checklists_synced: Optional[bool] = FieldInfo(
-        alias="isAutodeskBim360ChecklistsSynced", default=None
-    )
-
-    is_autodesk_bim360_issues_synced: Optional[bool] = FieldInfo(alias="isAutodeskBim360IssuesSynced", default=None)
-
-    is_autodesk_bim360_models_synced: Optional[bool] = FieldInfo(alias="isAutodeskBim360ModelsSynced", default=None)
-
-    is_autodesk_bim360_synced: Optional[bool] = FieldInfo(alias="isAutodeskBim360Synced", default=None)
-
-    is_autodesk_bim360_users_synced: Optional[bool] = FieldInfo(alias="isAutodeskBim360UsersSynced", default=None)
+    folder_id: Optional[str] = FieldInfo(alias="folderId", default=None)
+    """The hub folder the resource is in; null at the hub's top level."""
 
     is_deleted: Optional[bool] = FieldInfo(alias="isDeleted", default=None)
 
-    is_morta_columns_synced: Optional[bool] = FieldInfo(alias="isMortaColumnsSynced", default=None)
-
-    is_morta_comments_synced: Optional[bool] = FieldInfo(alias="isMortaCommentsSynced", default=None)
-
-    is_morta_projects_synced: Optional[bool] = FieldInfo(alias="isMortaProjectsSynced", default=None)
-
-    is_morta_resources_synced: Optional[bool] = FieldInfo(alias="isMortaResourcesSynced", default=None)
-
-    is_morta_synced: Optional[bool] = FieldInfo(alias="isMortaSynced", default=None)
-
-    is_morta_users_synced: Optional[bool] = FieldInfo(alias="isMortaUsersSynced", default=None)
-
-    is_procore_synced: Optional[bool] = FieldInfo(alias="isProcoreSynced", default=None)
-
-    is_reference_table: Optional[bool] = FieldInfo(alias="isReferenceTable", default=None)
-
-    is_revizto_issues_synced: Optional[bool] = FieldInfo(alias="isReviztoIssuesSynced", default=None)
-
     is_synced: Optional[bool] = FieldInfo(alias="isSynced", default=None)
 
-    is_syncing: Optional[bool] = FieldInfo(alias="isSyncing", default=None)
-
-    is_viewpoint_rfis_synced: Optional[bool] = FieldInfo(alias="isViewpointRfisSynced", default=None)
-
-    is_viewpoint_synced: Optional[bool] = FieldInfo(alias="isViewpointSynced", default=None)
+    is_syncing: Optional[object] = FieldInfo(alias="isSyncing", default=None)
 
     joins: Optional[List[TableJoin]] = None
 
@@ -92,8 +48,6 @@ class Table(BaseModel):
 
     locked_from_duplication: Optional[bool] = FieldInfo(alias="lockedFromDuplication", default=None)
 
-    logo: Optional[str] = None
-
     name: Optional[str] = None
 
     project_name: Optional[str] = FieldInfo(alias="projectName", default=None)
@@ -104,10 +58,57 @@ class Table(BaseModel):
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
+    sync_all_hubs: Optional[bool] = FieldInfo(alias="syncAllHubs", default=None)
+
     sync_hourly_frequency: Optional[int] = FieldInfo(alias="syncHourlyFrequency", default=None)
 
-    sync_user: Optional[SyncUser] = FieldInfo(alias="syncUser", default=None)
+    sync_project_ids: Optional[List[str]] = FieldInfo(alias="syncProjectIds", default=None)
+
+    sync_provider: Optional[
+        Literal[
+            "viewpoint", "aconex", "autodesk", "procore", "revizto", "morta", "asite", "sharepoint", "asta", "dalux"
+        ]
+    ] = FieldInfo(alias="syncProvider", default=None)
+
+    sync_type: Optional[
+        Literal[
+            "hubs",
+            "resources",
+            "users",
+            "documents",
+            "workflows",
+            "comments",
+            "table data",
+            "rfis",
+            "checklists",
+            "columns",
+            "issues",
+            "forms",
+            "mail",
+            "sheets",
+            "reviews",
+            "members",
+            "models",
+            "tasks",
+            "forms_headers",
+            "forms_fields",
+            "forms_templates",
+            "tasks_headers",
+            "tasks_fields",
+            "resource_permissions",
+            "workpackages",
+            "inspection_plans",
+            "inspection_plan_items",
+            "locations",
+        ]
+    ] = FieldInfo(alias="syncType", default=None)
+
+    sync_view_ids: Optional[List[str]] = FieldInfo(alias="syncViewIds", default=None)
 
     type: Optional[str] = None
+    """Deprecated: the name of the folder the resource is in ("" at the top level).
+
+    Use folderId.
+    """
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
