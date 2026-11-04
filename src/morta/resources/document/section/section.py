@@ -6,17 +6,17 @@ from typing import Optional
 
 import httpx
 
-from .response import (
-    ResponseResource,
-    AsyncResponseResource,
-    ResponseResourceWithRawResponse,
-    AsyncResponseResourceWithRawResponse,
-    ResponseResourceWithStreamingResponse,
-    AsyncResponseResourceWithStreamingResponse,
-)
 from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
+from .submission import (
+    SubmissionResource,
+    AsyncSubmissionResource,
+    SubmissionResourceWithRawResponse,
+    AsyncSubmissionResourceWithRawResponse,
+    SubmissionResourceWithStreamingResponse,
+    AsyncSubmissionResourceWithStreamingResponse,
+)
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
     to_raw_response_wrapper,
@@ -33,15 +33,14 @@ from ....types.document.section_update_response import SectionUpdateResponse
 from ....types.document.section_restore_response import SectionRestoreResponse
 from ....types.document.section_retrieve_response import SectionRetrieveResponse
 from ....types.document.section_duplicate_response import SectionDuplicateResponse
-from ....types.document.section_duplicate_async_response import SectionDuplicateAsyncResponse
 
 __all__ = ["SectionResource", "AsyncSectionResource"]
 
 
 class SectionResource(SyncAPIResource):
     @cached_property
-    def response(self) -> ResponseResource:
-        return ResponseResource(self._client)
+    def submission(self) -> SubmissionResource:
+        return SubmissionResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> SectionResourceWithRawResponse:
@@ -94,7 +93,7 @@ class SectionResource(SyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return self._post(
-            f"/v1/document/{document_id}/section",
+            path_template("/v1/document/{document_id}/section", document_id=document_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -145,7 +144,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._get(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -163,6 +166,7 @@ class SectionResource(SyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
+        client: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: section_update_params.Description | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -181,6 +185,9 @@ class SectionResource(SyncAPIResource):
         Update an existing document section's details by document section ID
 
         Args:
+          client: Set to "web" by the Morta web app. A save without it may not remove a table
+              converted from a document response (409).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -196,7 +203,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             body=maybe_transform(
                 {
                     "context": context,
@@ -210,7 +221,11 @@ class SectionResource(SyncAPIResource):
                 section_update_params.SectionUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"client": client}, section_update_params.SectionUpdateParams),
             ),
             cast_to=SectionUpdateResponse,
         )
@@ -246,7 +261,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._delete(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -284,49 +303,15 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SectionDuplicateResponse,
-        )
-
-    def duplicate_async(
-        self,
-        document_section_id: str,
-        *,
-        document_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SectionDuplicateAsyncResponse:
-        """
-        Duplicate a specific document section asynchronously.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not document_id:
-            raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
-        if not document_section_id:
-            raise ValueError(
-                f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
-            )
-        return self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SectionDuplicateAsyncResponse,
         )
 
     def restore(
@@ -360,7 +345,11 @@ class SectionResource(SyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}/restore",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/restore",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -370,8 +359,8 @@ class SectionResource(SyncAPIResource):
 
 class AsyncSectionResource(AsyncAPIResource):
     @cached_property
-    def response(self) -> AsyncResponseResource:
-        return AsyncResponseResource(self._client)
+    def submission(self) -> AsyncSubmissionResource:
+        return AsyncSubmissionResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncSectionResourceWithRawResponse:
@@ -424,7 +413,7 @@ class AsyncSectionResource(AsyncAPIResource):
         if not document_id:
             raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
         return await self._post(
-            f"/v1/document/{document_id}/section",
+            path_template("/v1/document/{document_id}/section", document_id=document_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -475,7 +464,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._get(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -493,6 +486,7 @@ class AsyncSectionResource(AsyncAPIResource):
         document_section_id: str,
         *,
         document_id: str,
+        client: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         description: section_update_params.Description | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -511,6 +505,9 @@ class AsyncSectionResource(AsyncAPIResource):
         Update an existing document section's details by document section ID
 
         Args:
+          client: Set to "web" by the Morta web app. A save without it may not remove a table
+              converted from a document response (409).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -526,7 +523,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             body=await async_maybe_transform(
                 {
                     "context": context,
@@ -540,7 +541,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 section_update_params.SectionUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"client": client}, section_update_params.SectionUpdateParams),
             ),
             cast_to=SectionUpdateResponse,
         )
@@ -576,7 +581,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._delete(
-            f"/v1/document/{document_id}/section/{document_section_id}",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -614,49 +623,15 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/duplicate",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=SectionDuplicateResponse,
-        )
-
-    async def duplicate_async(
-        self,
-        document_section_id: str,
-        *,
-        document_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SectionDuplicateAsyncResponse:
-        """
-        Duplicate a specific document section asynchronously.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not document_id:
-            raise ValueError(f"Expected a non-empty value for `document_id` but received {document_id!r}")
-        if not document_section_id:
-            raise ValueError(
-                f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
-            )
-        return await self._post(
-            f"/v1/document/{document_id}/section/{document_section_id}/duplicate-async",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SectionDuplicateAsyncResponse,
         )
 
     async def restore(
@@ -690,7 +665,11 @@ class AsyncSectionResource(AsyncAPIResource):
                 f"Expected a non-empty value for `document_section_id` but received {document_section_id!r}"
             )
         return await self._put(
-            f"/v1/document/{document_id}/section/{document_section_id}/restore",
+            path_template(
+                "/v1/document/{document_id}/section/{document_section_id}/restore",
+                document_id=document_id,
+                document_section_id=document_section_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -717,16 +696,13 @@ class SectionResourceWithRawResponse:
         self.duplicate = to_raw_response_wrapper(
             section.duplicate,
         )
-        self.duplicate_async = to_raw_response_wrapper(
-            section.duplicate_async,
-        )
         self.restore = to_raw_response_wrapper(
             section.restore,
         )
 
     @cached_property
-    def response(self) -> ResponseResourceWithRawResponse:
-        return ResponseResourceWithRawResponse(self._section.response)
+    def submission(self) -> SubmissionResourceWithRawResponse:
+        return SubmissionResourceWithRawResponse(self._section.submission)
 
 
 class AsyncSectionResourceWithRawResponse:
@@ -748,16 +724,13 @@ class AsyncSectionResourceWithRawResponse:
         self.duplicate = async_to_raw_response_wrapper(
             section.duplicate,
         )
-        self.duplicate_async = async_to_raw_response_wrapper(
-            section.duplicate_async,
-        )
         self.restore = async_to_raw_response_wrapper(
             section.restore,
         )
 
     @cached_property
-    def response(self) -> AsyncResponseResourceWithRawResponse:
-        return AsyncResponseResourceWithRawResponse(self._section.response)
+    def submission(self) -> AsyncSubmissionResourceWithRawResponse:
+        return AsyncSubmissionResourceWithRawResponse(self._section.submission)
 
 
 class SectionResourceWithStreamingResponse:
@@ -779,16 +752,13 @@ class SectionResourceWithStreamingResponse:
         self.duplicate = to_streamed_response_wrapper(
             section.duplicate,
         )
-        self.duplicate_async = to_streamed_response_wrapper(
-            section.duplicate_async,
-        )
         self.restore = to_streamed_response_wrapper(
             section.restore,
         )
 
     @cached_property
-    def response(self) -> ResponseResourceWithStreamingResponse:
-        return ResponseResourceWithStreamingResponse(self._section.response)
+    def submission(self) -> SubmissionResourceWithStreamingResponse:
+        return SubmissionResourceWithStreamingResponse(self._section.submission)
 
 
 class AsyncSectionResourceWithStreamingResponse:
@@ -810,13 +780,10 @@ class AsyncSectionResourceWithStreamingResponse:
         self.duplicate = async_to_streamed_response_wrapper(
             section.duplicate,
         )
-        self.duplicate_async = async_to_streamed_response_wrapper(
-            section.duplicate_async,
-        )
         self.restore = async_to_streamed_response_wrapper(
             section.restore,
         )
 
     @cached_property
-    def response(self) -> AsyncResponseResourceWithStreamingResponse:
-        return AsyncResponseResourceWithStreamingResponse(self._section.response)
+    def submission(self) -> AsyncSubmissionResourceWithStreamingResponse:
+        return AsyncSubmissionResourceWithStreamingResponse(self._section.submission)

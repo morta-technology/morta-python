@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestJoin:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Morta) -> None:
         join = client.table.join.create(
@@ -29,14 +29,13 @@ class TestJoin:
         )
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Morta) -> None:
         join = client.table.join.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -52,7 +51,7 @@ class TestJoin:
         )
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Morta) -> None:
         response = client.table.join.with_raw_response.create(
@@ -64,7 +63,7 @@ class TestJoin:
         join = response.parse()
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Morta) -> None:
         with client.table.join.with_streaming_response.create(
@@ -78,7 +77,7 @@ class TestJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -86,7 +85,7 @@ class TestJoin:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Morta) -> None:
         join = client.table.join.update(
@@ -95,7 +94,7 @@ class TestJoin:
         )
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Morta) -> None:
         join = client.table.join.update(
@@ -103,7 +102,6 @@ class TestJoin:
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -119,7 +117,7 @@ class TestJoin:
         )
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Morta) -> None:
         response = client.table.join.with_raw_response.update(
@@ -132,7 +130,7 @@ class TestJoin:
         join = response.parse()
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Morta) -> None:
         with client.table.join.with_streaming_response.update(
@@ -147,7 +145,7 @@ class TestJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -162,7 +160,7 @@ class TestJoin:
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Morta) -> None:
         join = client.table.join.delete(
@@ -171,7 +169,7 @@ class TestJoin:
         )
         assert_matches_type(JoinDeleteResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Morta) -> None:
         response = client.table.join.with_raw_response.delete(
@@ -184,7 +182,7 @@ class TestJoin:
         join = response.parse()
         assert_matches_type(JoinDeleteResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Morta) -> None:
         with client.table.join.with_streaming_response.delete(
@@ -199,7 +197,7 @@ class TestJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -220,7 +218,7 @@ class TestAsyncJoin:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncMorta) -> None:
         join = await async_client.table.join.create(
@@ -228,14 +226,13 @@ class TestAsyncJoin:
         )
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
         join = await async_client.table.join.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -251,7 +248,7 @@ class TestAsyncJoin:
         )
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.join.with_raw_response.create(
@@ -263,7 +260,7 @@ class TestAsyncJoin:
         join = await response.parse()
         assert_matches_type(JoinCreateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMorta) -> None:
         async with async_client.table.join.with_streaming_response.create(
@@ -277,7 +274,7 @@ class TestAsyncJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -285,7 +282,7 @@ class TestAsyncJoin:
                 table_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncMorta) -> None:
         join = await async_client.table.join.update(
@@ -294,7 +291,7 @@ class TestAsyncJoin:
         )
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         join = await async_client.table.join.update(
@@ -302,7 +299,6 @@ class TestAsyncJoin:
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -318,7 +314,7 @@ class TestAsyncJoin:
         )
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.join.with_raw_response.update(
@@ -331,7 +327,7 @@ class TestAsyncJoin:
         join = await response.parse()
         assert_matches_type(JoinUpdateResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncMorta) -> None:
         async with async_client.table.join.with_streaming_response.update(
@@ -346,7 +342,7 @@ class TestAsyncJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
@@ -361,7 +357,7 @@ class TestAsyncJoin:
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncMorta) -> None:
         join = await async_client.table.join.delete(
@@ -370,7 +366,7 @@ class TestAsyncJoin:
         )
         assert_matches_type(JoinDeleteResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.join.with_raw_response.delete(
@@ -383,7 +379,7 @@ class TestAsyncJoin:
         join = await response.parse()
         assert_matches_type(JoinDeleteResponse, join, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncMorta) -> None:
         async with async_client.table.join.with_streaming_response.delete(
@@ -398,7 +394,7 @@ class TestAsyncJoin:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
