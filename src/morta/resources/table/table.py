@@ -95,6 +95,7 @@ from ...types.table_delete_rows_response import TableDeleteRowsResponse
 from ...types.table_create_index_response import TableCreateIndexResponse
 from ...types.table_list_columns_response import TableListColumnsResponse
 from ...types.table_update_cells_response import TableUpdateCellsResponse
+from ...types.table_get_csv_backup_response import TableGetCsvBackupResponse
 from ...types.table_get_statistics_response import TableGetStatisticsResponse
 from ...types.table_get_duplicated_children_response import TableGetDuplicatedChildrenResponse
 
@@ -148,8 +149,9 @@ class TableResource(SyncAPIResource):
         name: str,
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
+        folder_id: Optional[str] | Omit = omit,
         joins: Iterable[table_create_params.Join] | Omit = omit,
-        type: str | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -161,6 +163,9 @@ class TableResource(SyncAPIResource):
         Create a new document table within a hub.
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -177,6 +182,7 @@ class TableResource(SyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "context": context,
+                    "folder_id": folder_id,
                     "joins": joins,
                     "type": type,
                 },
@@ -275,11 +281,9 @@ class TableResource(SyncAPIResource):
         *,
         allow_comments: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
-        is_reference_table: bool | Omit = omit,
         joins: Iterable[table_update_params.Join] | Omit = omit,
         keep_colours_in_sync: bool | Omit = omit,
         keep_validations_in_sync: bool | Omit = omit,
-        logo: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
         type: Optional[str] | Omit = omit,
@@ -294,6 +298,9 @@ class TableResource(SyncAPIResource):
         Update the properties of an existing table.
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -310,11 +317,9 @@ class TableResource(SyncAPIResource):
                 {
                     "allow_comments": allow_comments,
                     "context": context,
-                    "is_reference_table": is_reference_table,
                     "joins": joins,
                     "keep_colours_in_sync": keep_colours_in_sync,
                     "keep_validations_in_sync": keep_validations_in_sync,
-                    "logo": logo,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
                     "type": type,
@@ -372,7 +377,7 @@ class TableResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
-        Check and return a list of documents, table joins, and selects where the
+        Check and return a list of documents, table lookups, and selects where the
         specified table is used.
 
         Args:
@@ -570,9 +575,9 @@ class TableResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BinaryAPIResponse:
+    ) -> TableGetCsvBackupResponse:
         """
-        Get a CSV backup of a table at a specific date
+        Initiate the retrieval of a CSV backup for a table for a specific date.
 
         Args:
           date: The date of the backup to retrieve
@@ -587,7 +592,6 @@ class TableResource(SyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return self._get(
             path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
@@ -597,7 +601,7 @@ class TableResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
-            cast_to=BinaryAPIResponse,
+            cast_to=TableGetCsvBackupResponse,
         )
 
     def get_duplicated_children(
@@ -836,6 +840,7 @@ class TableResource(SyncAPIResource):
         table_id: str,
         *,
         filter: str | Omit = omit,
+        format: Literal["rows", "columnar"] | Omit = omit,
         page: int | Omit = omit,
         size: int | Omit = omit,
         sort: str | Omit = omit,
@@ -851,6 +856,10 @@ class TableResource(SyncAPIResource):
 
         Args:
           filter: Filters to apply to the streaming data.
+
+          format: Wire format of the stream. `rows` (default) sends each row as an array;
+              `columnar` sends each batch as column blobs (16-byte binary ids, little-endian
+              float64 sort orders, typed dictionary indices).
 
           page: Page number for pagination
 
@@ -868,7 +877,7 @@ class TableResource(SyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return self._get(
             path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
@@ -879,6 +888,7 @@ class TableResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "filter": filter,
+                        "format": format,
                         "page": page,
                         "size": size,
                         "sort": sort,
@@ -1012,8 +1022,9 @@ class AsyncTableResource(AsyncAPIResource):
         name: str,
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
+        folder_id: Optional[str] | Omit = omit,
         joins: Iterable[table_create_params.Join] | Omit = omit,
-        type: str | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1025,6 +1036,9 @@ class AsyncTableResource(AsyncAPIResource):
         Create a new document table within a hub.
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1041,6 +1055,7 @@ class AsyncTableResource(AsyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "context": context,
+                    "folder_id": folder_id,
                     "joins": joins,
                     "type": type,
                 },
@@ -1139,11 +1154,9 @@ class AsyncTableResource(AsyncAPIResource):
         *,
         allow_comments: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
-        is_reference_table: bool | Omit = omit,
         joins: Iterable[table_update_params.Join] | Omit = omit,
         keep_colours_in_sync: bool | Omit = omit,
         keep_validations_in_sync: bool | Omit = omit,
-        logo: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
         type: Optional[str] | Omit = omit,
@@ -1158,6 +1171,9 @@ class AsyncTableResource(AsyncAPIResource):
         Update the properties of an existing table.
 
         Args:
+          type: Deprecated: files the resource into the top-level folder of that name; creates
+              it if missing (hub Owners only).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1174,11 +1190,9 @@ class AsyncTableResource(AsyncAPIResource):
                 {
                     "allow_comments": allow_comments,
                     "context": context,
-                    "is_reference_table": is_reference_table,
                     "joins": joins,
                     "keep_colours_in_sync": keep_colours_in_sync,
                     "keep_validations_in_sync": keep_validations_in_sync,
-                    "logo": logo,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
                     "type": type,
@@ -1236,7 +1250,7 @@ class AsyncTableResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableCheckUsageResponse:
         """
-        Check and return a list of documents, table joins, and selects where the
+        Check and return a list of documents, table lookups, and selects where the
         specified table is used.
 
         Args:
@@ -1434,9 +1448,9 @@ class AsyncTableResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncBinaryAPIResponse:
+    ) -> TableGetCsvBackupResponse:
         """
-        Get a CSV backup of a table at a specific date
+        Initiate the retrieval of a CSV backup for a table for a specific date.
 
         Args:
           date: The date of the backup to retrieve
@@ -1451,7 +1465,6 @@ class AsyncTableResource(AsyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
         return await self._get(
             path_template("/v1/table/{table_id}/csv-backup", table_id=table_id),
             options=make_request_options(
@@ -1461,7 +1474,7 @@ class AsyncTableResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"date": date}, table_get_csv_backup_params.TableGetCsvBackupParams),
             ),
-            cast_to=AsyncBinaryAPIResponse,
+            cast_to=TableGetCsvBackupResponse,
         )
 
     async def get_duplicated_children(
@@ -1700,6 +1713,7 @@ class AsyncTableResource(AsyncAPIResource):
         table_id: str,
         *,
         filter: str | Omit = omit,
+        format: Literal["rows", "columnar"] | Omit = omit,
         page: int | Omit = omit,
         size: int | Omit = omit,
         sort: str | Omit = omit,
@@ -1715,6 +1729,10 @@ class AsyncTableResource(AsyncAPIResource):
 
         Args:
           filter: Filters to apply to the streaming data.
+
+          format: Wire format of the stream. `rows` (default) sends each row as an array;
+              `columnar` sends each batch as column blobs (16-byte binary ids, little-endian
+              float64 sort orders, typed dictionary indices).
 
           page: Page number for pagination
 
@@ -1732,7 +1750,7 @@ class AsyncTableResource(AsyncAPIResource):
         """
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
-        extra_headers = {"Accept": "application/x-msgppack", **(extra_headers or {})}
+        extra_headers = {"Accept": "application/x-msgpack", **(extra_headers or {})}
         return await self._get(
             path_template("/v1/table/{table_id}/rows-stream", table_id=table_id),
             options=make_request_options(
@@ -1743,6 +1761,7 @@ class AsyncTableResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "filter": filter,
+                        "format": format,
                         "page": page,
                         "size": size,
                         "sort": sort,
@@ -1860,9 +1879,8 @@ class TableResourceWithRawResponse:
         self.duplicate = to_raw_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = to_custom_raw_response_wrapper(
+        self.get_csv_backup = to_raw_response_wrapper(
             table.get_csv_backup,
-            BinaryAPIResponse,
         )
         self.get_duplicated_children = to_raw_response_wrapper(
             table.get_duplicated_children,
@@ -1946,9 +1964,8 @@ class AsyncTableResourceWithRawResponse:
         self.duplicate = async_to_raw_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = async_to_custom_raw_response_wrapper(
+        self.get_csv_backup = async_to_raw_response_wrapper(
             table.get_csv_backup,
-            AsyncBinaryAPIResponse,
         )
         self.get_duplicated_children = async_to_raw_response_wrapper(
             table.get_duplicated_children,
@@ -2032,9 +2049,8 @@ class TableResourceWithStreamingResponse:
         self.duplicate = to_streamed_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = to_custom_streamed_response_wrapper(
+        self.get_csv_backup = to_streamed_response_wrapper(
             table.get_csv_backup,
-            StreamedBinaryAPIResponse,
         )
         self.get_duplicated_children = to_streamed_response_wrapper(
             table.get_duplicated_children,
@@ -2118,9 +2134,8 @@ class AsyncTableResourceWithStreamingResponse:
         self.duplicate = async_to_streamed_response_wrapper(
             table.duplicate,
         )
-        self.get_csv_backup = async_to_custom_streamed_response_wrapper(
+        self.get_csv_backup = async_to_streamed_response_wrapper(
             table.get_csv_backup,
-            AsyncStreamedBinaryAPIResponse,
         )
         self.get_duplicated_children = async_to_streamed_response_wrapper(
             table.get_duplicated_children,
