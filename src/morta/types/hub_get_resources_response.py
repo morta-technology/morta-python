@@ -18,6 +18,9 @@ class DataProcess(BaseModel):
 
     deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
 
+    folder_id: Optional[str] = FieldInfo(alias="folderId", default=None)
+    """The hub folder the resource is in; null at the hub's top level."""
+
     logo: Optional[str] = None
 
     name: Optional[str] = None
@@ -25,6 +28,10 @@ class DataProcess(BaseModel):
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     type: Optional[str] = None
+    """Deprecated: the name of the folder the resource is in ("" at the top level).
+
+    Use folderId.
+    """
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
@@ -38,17 +45,22 @@ class DataTable(BaseModel):
 
     deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
 
+    folder_id: Optional[str] = FieldInfo(alias="folderId", default=None)
+    """The hub folder the resource is in; null at the hub's top level."""
+
     is_deleted: Optional[bool] = FieldInfo(alias="isDeleted", default=None)
 
     joins: Optional[List[TableJoin]] = None
-
-    logo: Optional[str] = None
 
     name: Optional[str] = None
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     type: Optional[str] = None
+    """Deprecated: the name of the folder the resource is in ("" at the top level).
+
+    Use folderId.
+    """
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
