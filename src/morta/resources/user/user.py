@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -31,8 +33,16 @@ from .apikey import (
     AsyncApikeyResourceWithStreamingResponse,
 )
 from ...types import user_create_params, user_search_params, user_update_account_params, user_update_profile_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -41,12 +51,21 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .notifications import (
+    NotificationsResource,
+    AsyncNotificationsResource,
+    NotificationsResourceWithRawResponse,
+    AsyncNotificationsResourceWithRawResponse,
+    NotificationsResourceWithStreamingResponse,
+    AsyncNotificationsResourceWithStreamingResponse,
+)
 from ..._base_client import make_request_options
 from ...types.user_create_response import UserCreateResponse
 from ...types.user_search_response import UserSearchResponse
 from ...types.user_retrieve_response import UserRetrieveResponse
 from ...types.user_retrieve_me_response import UserRetrieveMeResponse
 from ...types.user_list_templates_response import UserListTemplatesResponse
+from ...types.user_retrieve_sites_response import UserRetrieveSitesResponse
 from ...types.user_update_account_response import UserUpdateAccountResponse
 from ...types.user_update_profile_response import UserUpdateProfileResponse
 from ...types.user_list_owner_hubs_response import UserListOwnerHubsResponse
@@ -74,6 +93,14 @@ class UserResource(SyncAPIResource):
         return TagsResource(self._client)
 
     @cached_property
+    def sessions(self) -> SessionsResource:
+        return SessionsResource(self._client)
+
+    @cached_property
+    def notifications(self) -> NotificationsResource:
+        return NotificationsResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> UserResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -99,8 +126,12 @@ class UserResource(SyncAPIResource):
         name: str,
         password: str,
         opt_out_ai_email: bool | Omit = omit,
+        opt_out_community_email: bool | Omit = omit,
+        opt_out_deprecation_email: bool | Omit = omit,
         opt_out_duplication_email: bool | Omit = omit,
         opt_out_hub_email: bool | Omit = omit,
+        opt_out_marketing_email: bool | Omit = omit,
+        opt_out_mention_email: bool | Omit = omit,
         opt_out_sync_email: bool | Omit = omit,
         opt_out_welcome_email: bool | Omit = omit,
         project_id: str | Omit = omit,
@@ -132,8 +163,12 @@ class UserResource(SyncAPIResource):
                     "name": name,
                     "password": password,
                     "opt_out_ai_email": opt_out_ai_email,
+                    "opt_out_community_email": opt_out_community_email,
+                    "opt_out_deprecation_email": opt_out_deprecation_email,
                     "opt_out_duplication_email": opt_out_duplication_email,
                     "opt_out_hub_email": opt_out_hub_email,
+                    "opt_out_marketing_email": opt_out_marketing_email,
+                    "opt_out_mention_email": opt_out_mention_email,
                     "opt_out_sync_email": opt_out_sync_email,
                     "opt_out_welcome_email": opt_out_welcome_email,
                     "project_id": project_id,
@@ -173,7 +208,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}",
+            path_template("/v1/user/{firebase_id}", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -206,7 +241,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/achievements",
+            path_template("/v1/user/{firebase_id}/achievements", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -240,7 +275,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/contributions",
+            path_template("/v1/user/{firebase_id}/contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -292,7 +327,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/pinned-hubs",
+            path_template("/v1/user/{firebase_id}/pinned-hubs", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -325,7 +360,7 @@ class UserResource(SyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return self._get(
-            f"/v1/user/{firebase_id}/public-contributions",
+            path_template("/v1/user/{firebase_id}/public-contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -370,6 +405,34 @@ class UserResource(SyncAPIResource):
             cast_to=UserListTemplatesResponse,
         )
 
+    def request_paid_seat(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Ask the admins of the current user's organisation (found by the user's
+        organisation role, or else their email's domain) for a paid seat. Each admin is
+        emailed a link to give one: the organisation's dashboard on the Scale Up plan;
+        on Team and Professional, the Seats page of a team they manage (the default team
+        first), or the dashboard if they manage none. Only for a user without a paid
+        seat, in an organisation with admins. Each user can ask once in 24 hours; the
+        request is recorded on the user (paidSeatRequestedAt on /me).
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/v1/user/request-paid-seat",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def retrieve_by_public_id(
         self,
         public_id: str,
@@ -396,7 +459,7 @@ class UserResource(SyncAPIResource):
         if not public_id:
             raise ValueError(f"Expected a non-empty value for `public_id` but received {public_id!r}")
         return self._get(
-            f"/v1/user/public/{public_id}",
+            path_template("/v1/user/public/{public_id}", public_id=public_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -420,6 +483,30 @@ class UserResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserRetrieveMeResponse,
+        )
+
+    def retrieve_sites(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRetrieveSitesResponse:
+        """Get all sites the currently logged in user has access to.
+
+        Each site carries
+        `canCreateHub`, and `metadata.hubCreationRestricted` is true when the user's
+        organisation only lets Site Admins create hubs.
+        """
+        return self._get(
+            "/v1/user/sites",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRetrieveSitesResponse,
         )
 
     def search(
@@ -479,15 +566,21 @@ class UserResource(SyncAPIResource):
     def update_account(
         self,
         *,
-        allow_support_access: Optional[bool] | Omit = omit,
+        allow_support_access_expires_at: Union[str, datetime, None] | Omit = omit,
         old_password: str | Omit = omit,
         opt_out_ai_email: Optional[bool] | Omit = omit,
+        opt_out_assignment_email: Optional[bool] | Omit = omit,
+        opt_out_community_email: bool | Omit = omit,
+        opt_out_deprecation_email: Optional[bool] | Omit = omit,
         opt_out_duplication_email: Optional[bool] | Omit = omit,
         opt_out_hub_email: Optional[bool] | Omit = omit,
+        opt_out_marketing_email: bool | Omit = omit,
+        opt_out_mention_email: Optional[bool] | Omit = omit,
         opt_out_sync_email: Optional[bool] | Omit = omit,
         opt_out_welcome_email: Optional[bool] | Omit = omit,
         password: str | Omit = omit,
         password_confirm: str | Omit = omit,
+        theme: Literal["light", "dark", "system"] | Omit = omit,
         two_factor_code: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -512,15 +605,21 @@ class UserResource(SyncAPIResource):
             "/v1/user/account",
             body=maybe_transform(
                 {
-                    "allow_support_access": allow_support_access,
+                    "allow_support_access_expires_at": allow_support_access_expires_at,
                     "old_password": old_password,
                     "opt_out_ai_email": opt_out_ai_email,
+                    "opt_out_assignment_email": opt_out_assignment_email,
+                    "opt_out_community_email": opt_out_community_email,
+                    "opt_out_deprecation_email": opt_out_deprecation_email,
                     "opt_out_duplication_email": opt_out_duplication_email,
                     "opt_out_hub_email": opt_out_hub_email,
+                    "opt_out_marketing_email": opt_out_marketing_email,
+                    "opt_out_mention_email": opt_out_mention_email,
                     "opt_out_sync_email": opt_out_sync_email,
                     "opt_out_welcome_email": opt_out_welcome_email,
                     "password": password,
                     "password_confirm": password_confirm,
+                    "theme": theme,
                     "two_factor_code": two_factor_code,
                 },
                 user_update_account_params.UserUpdateAccountParams,
@@ -534,7 +633,7 @@ class UserResource(SyncAPIResource):
     def update_profile(
         self,
         *,
-        allow_support_access: Optional[bool] | Omit = omit,
+        allow_support_access_expires_at: Union[str, datetime, None] | Omit = omit,
         bio: Optional[str] | Omit = omit,
         linkedin: Optional[str] | Omit = omit,
         location: Optional[str] | Omit = omit,
@@ -568,7 +667,7 @@ class UserResource(SyncAPIResource):
             "/v1/user",
             body=maybe_transform(
                 {
-                    "allow_support_access": allow_support_access,
+                    "allow_support_access_expires_at": allow_support_access_expires_at,
                     "bio": bio,
                     "linkedin": linkedin,
                     "location": location,
@@ -603,6 +702,14 @@ class AsyncUserResource(AsyncAPIResource):
         return AsyncTagsResource(self._client)
 
     @cached_property
+    def sessions(self) -> AsyncSessionsResource:
+        return AsyncSessionsResource(self._client)
+
+    @cached_property
+    def notifications(self) -> AsyncNotificationsResource:
+        return AsyncNotificationsResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncUserResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -628,8 +735,12 @@ class AsyncUserResource(AsyncAPIResource):
         name: str,
         password: str,
         opt_out_ai_email: bool | Omit = omit,
+        opt_out_community_email: bool | Omit = omit,
+        opt_out_deprecation_email: bool | Omit = omit,
         opt_out_duplication_email: bool | Omit = omit,
         opt_out_hub_email: bool | Omit = omit,
+        opt_out_marketing_email: bool | Omit = omit,
+        opt_out_mention_email: bool | Omit = omit,
         opt_out_sync_email: bool | Omit = omit,
         opt_out_welcome_email: bool | Omit = omit,
         project_id: str | Omit = omit,
@@ -661,8 +772,12 @@ class AsyncUserResource(AsyncAPIResource):
                     "name": name,
                     "password": password,
                     "opt_out_ai_email": opt_out_ai_email,
+                    "opt_out_community_email": opt_out_community_email,
+                    "opt_out_deprecation_email": opt_out_deprecation_email,
                     "opt_out_duplication_email": opt_out_duplication_email,
                     "opt_out_hub_email": opt_out_hub_email,
+                    "opt_out_marketing_email": opt_out_marketing_email,
+                    "opt_out_mention_email": opt_out_mention_email,
                     "opt_out_sync_email": opt_out_sync_email,
                     "opt_out_welcome_email": opt_out_welcome_email,
                     "project_id": project_id,
@@ -702,7 +817,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}",
+            path_template("/v1/user/{firebase_id}", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -735,7 +850,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/achievements",
+            path_template("/v1/user/{firebase_id}/achievements", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -769,7 +884,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/contributions",
+            path_template("/v1/user/{firebase_id}/contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -821,7 +936,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/pinned-hubs",
+            path_template("/v1/user/{firebase_id}/pinned-hubs", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -854,7 +969,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not firebase_id:
             raise ValueError(f"Expected a non-empty value for `firebase_id` but received {firebase_id!r}")
         return await self._get(
-            f"/v1/user/{firebase_id}/public-contributions",
+            path_template("/v1/user/{firebase_id}/public-contributions", firebase_id=firebase_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -899,6 +1014,34 @@ class AsyncUserResource(AsyncAPIResource):
             cast_to=UserListTemplatesResponse,
         )
 
+    async def request_paid_seat(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Ask the admins of the current user's organisation (found by the user's
+        organisation role, or else their email's domain) for a paid seat. Each admin is
+        emailed a link to give one: the organisation's dashboard on the Scale Up plan;
+        on Team and Professional, the Seats page of a team they manage (the default team
+        first), or the dashboard if they manage none. Only for a user without a paid
+        seat, in an organisation with admins. Each user can ask once in 24 hours; the
+        request is recorded on the user (paidSeatRequestedAt on /me).
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/v1/user/request-paid-seat",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def retrieve_by_public_id(
         self,
         public_id: str,
@@ -925,7 +1068,7 @@ class AsyncUserResource(AsyncAPIResource):
         if not public_id:
             raise ValueError(f"Expected a non-empty value for `public_id` but received {public_id!r}")
         return await self._get(
-            f"/v1/user/public/{public_id}",
+            path_template("/v1/user/public/{public_id}", public_id=public_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -949,6 +1092,30 @@ class AsyncUserResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserRetrieveMeResponse,
+        )
+
+    async def retrieve_sites(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserRetrieveSitesResponse:
+        """Get all sites the currently logged in user has access to.
+
+        Each site carries
+        `canCreateHub`, and `metadata.hubCreationRestricted` is true when the user's
+        organisation only lets Site Admins create hubs.
+        """
+        return await self._get(
+            "/v1/user/sites",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserRetrieveSitesResponse,
         )
 
     async def search(
@@ -1008,15 +1175,21 @@ class AsyncUserResource(AsyncAPIResource):
     async def update_account(
         self,
         *,
-        allow_support_access: Optional[bool] | Omit = omit,
+        allow_support_access_expires_at: Union[str, datetime, None] | Omit = omit,
         old_password: str | Omit = omit,
         opt_out_ai_email: Optional[bool] | Omit = omit,
+        opt_out_assignment_email: Optional[bool] | Omit = omit,
+        opt_out_community_email: bool | Omit = omit,
+        opt_out_deprecation_email: Optional[bool] | Omit = omit,
         opt_out_duplication_email: Optional[bool] | Omit = omit,
         opt_out_hub_email: Optional[bool] | Omit = omit,
+        opt_out_marketing_email: bool | Omit = omit,
+        opt_out_mention_email: Optional[bool] | Omit = omit,
         opt_out_sync_email: Optional[bool] | Omit = omit,
         opt_out_welcome_email: Optional[bool] | Omit = omit,
         password: str | Omit = omit,
         password_confirm: str | Omit = omit,
+        theme: Literal["light", "dark", "system"] | Omit = omit,
         two_factor_code: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1041,15 +1214,21 @@ class AsyncUserResource(AsyncAPIResource):
             "/v1/user/account",
             body=await async_maybe_transform(
                 {
-                    "allow_support_access": allow_support_access,
+                    "allow_support_access_expires_at": allow_support_access_expires_at,
                     "old_password": old_password,
                     "opt_out_ai_email": opt_out_ai_email,
+                    "opt_out_assignment_email": opt_out_assignment_email,
+                    "opt_out_community_email": opt_out_community_email,
+                    "opt_out_deprecation_email": opt_out_deprecation_email,
                     "opt_out_duplication_email": opt_out_duplication_email,
                     "opt_out_hub_email": opt_out_hub_email,
+                    "opt_out_marketing_email": opt_out_marketing_email,
+                    "opt_out_mention_email": opt_out_mention_email,
                     "opt_out_sync_email": opt_out_sync_email,
                     "opt_out_welcome_email": opt_out_welcome_email,
                     "password": password,
                     "password_confirm": password_confirm,
+                    "theme": theme,
                     "two_factor_code": two_factor_code,
                 },
                 user_update_account_params.UserUpdateAccountParams,
@@ -1063,7 +1242,7 @@ class AsyncUserResource(AsyncAPIResource):
     async def update_profile(
         self,
         *,
-        allow_support_access: Optional[bool] | Omit = omit,
+        allow_support_access_expires_at: Union[str, datetime, None] | Omit = omit,
         bio: Optional[str] | Omit = omit,
         linkedin: Optional[str] | Omit = omit,
         location: Optional[str] | Omit = omit,
@@ -1097,7 +1276,7 @@ class AsyncUserResource(AsyncAPIResource):
             "/v1/user",
             body=await async_maybe_transform(
                 {
-                    "allow_support_access": allow_support_access,
+                    "allow_support_access_expires_at": allow_support_access_expires_at,
                     "bio": bio,
                     "linkedin": linkedin,
                     "location": location,
@@ -1149,11 +1328,17 @@ class UserResourceWithRawResponse:
         self.list_templates = to_raw_response_wrapper(
             user.list_templates,
         )
+        self.request_paid_seat = to_raw_response_wrapper(
+            user.request_paid_seat,
+        )
         self.retrieve_by_public_id = to_raw_response_wrapper(
             user.retrieve_by_public_id,
         )
         self.retrieve_me = to_raw_response_wrapper(
             user.retrieve_me,
+        )
+        self.retrieve_sites = to_raw_response_wrapper(
+            user.retrieve_sites,
         )
         self.search = to_raw_response_wrapper(
             user.search,
@@ -1176,6 +1361,14 @@ class UserResourceWithRawResponse:
     @cached_property
     def tags(self) -> TagsResourceWithRawResponse:
         return TagsResourceWithRawResponse(self._user.tags)
+
+    @cached_property
+    def sessions(self) -> SessionsResourceWithRawResponse:
+        return SessionsResourceWithRawResponse(self._user.sessions)
+
+    @cached_property
+    def notifications(self) -> NotificationsResourceWithRawResponse:
+        return NotificationsResourceWithRawResponse(self._user.notifications)
 
 
 class AsyncUserResourceWithRawResponse:
@@ -1209,11 +1402,17 @@ class AsyncUserResourceWithRawResponse:
         self.list_templates = async_to_raw_response_wrapper(
             user.list_templates,
         )
+        self.request_paid_seat = async_to_raw_response_wrapper(
+            user.request_paid_seat,
+        )
         self.retrieve_by_public_id = async_to_raw_response_wrapper(
             user.retrieve_by_public_id,
         )
         self.retrieve_me = async_to_raw_response_wrapper(
             user.retrieve_me,
+        )
+        self.retrieve_sites = async_to_raw_response_wrapper(
+            user.retrieve_sites,
         )
         self.search = async_to_raw_response_wrapper(
             user.search,
@@ -1236,6 +1435,14 @@ class AsyncUserResourceWithRawResponse:
     @cached_property
     def tags(self) -> AsyncTagsResourceWithRawResponse:
         return AsyncTagsResourceWithRawResponse(self._user.tags)
+
+    @cached_property
+    def sessions(self) -> AsyncSessionsResourceWithRawResponse:
+        return AsyncSessionsResourceWithRawResponse(self._user.sessions)
+
+    @cached_property
+    def notifications(self) -> AsyncNotificationsResourceWithRawResponse:
+        return AsyncNotificationsResourceWithRawResponse(self._user.notifications)
 
 
 class UserResourceWithStreamingResponse:
@@ -1269,11 +1476,17 @@ class UserResourceWithStreamingResponse:
         self.list_templates = to_streamed_response_wrapper(
             user.list_templates,
         )
+        self.request_paid_seat = to_streamed_response_wrapper(
+            user.request_paid_seat,
+        )
         self.retrieve_by_public_id = to_streamed_response_wrapper(
             user.retrieve_by_public_id,
         )
         self.retrieve_me = to_streamed_response_wrapper(
             user.retrieve_me,
+        )
+        self.retrieve_sites = to_streamed_response_wrapper(
+            user.retrieve_sites,
         )
         self.search = to_streamed_response_wrapper(
             user.search,
@@ -1296,6 +1509,14 @@ class UserResourceWithStreamingResponse:
     @cached_property
     def tags(self) -> TagsResourceWithStreamingResponse:
         return TagsResourceWithStreamingResponse(self._user.tags)
+
+    @cached_property
+    def sessions(self) -> SessionsResourceWithStreamingResponse:
+        return SessionsResourceWithStreamingResponse(self._user.sessions)
+
+    @cached_property
+    def notifications(self) -> NotificationsResourceWithStreamingResponse:
+        return NotificationsResourceWithStreamingResponse(self._user.notifications)
 
 
 class AsyncUserResourceWithStreamingResponse:
@@ -1329,11 +1550,17 @@ class AsyncUserResourceWithStreamingResponse:
         self.list_templates = async_to_streamed_response_wrapper(
             user.list_templates,
         )
+        self.request_paid_seat = async_to_streamed_response_wrapper(
+            user.request_paid_seat,
+        )
         self.retrieve_by_public_id = async_to_streamed_response_wrapper(
             user.retrieve_by_public_id,
         )
         self.retrieve_me = async_to_streamed_response_wrapper(
             user.retrieve_me,
+        )
+        self.retrieve_sites = async_to_streamed_response_wrapper(
+            user.retrieve_sites,
         )
         self.search = async_to_streamed_response_wrapper(
             user.search,
@@ -1356,3 +1583,11 @@ class AsyncUserResourceWithStreamingResponse:
     @cached_property
     def tags(self) -> AsyncTagsResourceWithStreamingResponse:
         return AsyncTagsResourceWithStreamingResponse(self._user.tags)
+
+    @cached_property
+    def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
+        return AsyncSessionsResourceWithStreamingResponse(self._user.sessions)
+
+    @cached_property
+    def notifications(self) -> AsyncNotificationsResourceWithStreamingResponse:
+        return AsyncNotificationsResourceWithStreamingResponse(self._user.notifications)
