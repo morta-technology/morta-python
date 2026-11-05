@@ -20,4 +20,6 @@ class ApikeyCreateParams(TypedDict, total=False):
 
     project_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="projectRestrictions")]
 
+    site_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="siteRestrictions")]
+
     table_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="tableRestrictions")]
