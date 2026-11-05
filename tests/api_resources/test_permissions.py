@@ -45,7 +45,6 @@ class TestPermissions:
             attribute_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -139,7 +138,6 @@ class TestPermissions:
             role=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -247,7 +245,6 @@ class TestPermissions:
             attribute_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -293,7 +290,7 @@ class TestPermissions:
         permission = client.permissions.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         )
         assert permission is None
 
@@ -303,7 +300,7 @@ class TestPermissions:
         response = client.permissions.with_raw_response.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         )
 
         assert response.is_closed is True
@@ -317,7 +314,7 @@ class TestPermissions:
         with client.permissions.with_streaming_response.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -334,14 +331,14 @@ class TestPermissions:
             client.permissions.with_raw_response.request(
                 id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 hub_id="",
-                type="project",
+                type="hub",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.permissions.with_raw_response.request(
                 id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                type="project",
+                type="hub",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -406,7 +403,6 @@ class TestAsyncPermissions:
             attribute_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -500,7 +496,6 @@ class TestAsyncPermissions:
             role=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -608,7 +603,6 @@ class TestAsyncPermissions:
             attribute_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -654,7 +648,7 @@ class TestAsyncPermissions:
         permission = await async_client.permissions.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         )
         assert permission is None
 
@@ -664,7 +658,7 @@ class TestAsyncPermissions:
         response = await async_client.permissions.with_raw_response.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         )
 
         assert response.is_closed is True
@@ -678,7 +672,7 @@ class TestAsyncPermissions:
         async with async_client.permissions.with_streaming_response.request(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="project",
+            type="hub",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -695,14 +689,14 @@ class TestAsyncPermissions:
             await async_client.permissions.with_raw_response.request(
                 id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 hub_id="",
-                type="project",
+                type="hub",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.permissions.with_raw_response.request(
                 id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                type="project",
+                type="hub",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
