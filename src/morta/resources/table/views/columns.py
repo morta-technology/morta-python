@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -22,7 +22,7 @@ from ....types.table.views import (
     column_add_params,
     column_update_params,
     column_distinct_params,
-    column_ai_formula_helper_params,
+    column_validate_formula_params,
 )
 from ....types.base_request_context_param import BaseRequestContextParam
 from ....types.table.views.column_add_response import ColumnAddResponse
@@ -30,7 +30,7 @@ from ....types.table.select_options_lookup_param import SelectOptionsLookupParam
 from ....types.table.views.column_update_response import ColumnUpdateResponse
 from ....types.table.views.column_distinct_response import ColumnDistinctResponse
 from ....types.table.views.column_formula_info_response import ColumnFormulaInfoResponse
-from ....types.table.views.column_ai_formula_helper_response import ColumnAIFormulaHelperResponse
+from ....types.table.views.column_validate_formula_response import ColumnValidateFormulaResponse
 
 __all__ = ["ColumnsResource", "AsyncColumnsResource"]
 
@@ -62,15 +62,18 @@ class ColumnsResource(SyncAPIResource):
         view_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_update_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         display_validation_error: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
         formula: Optional[str] | Omit = omit,
         formula_enabled: bool | Omit = omit,
+        form_width: Optional[int] | Omit = omit,
         hard_validation: bool | Omit = omit,
         header_background_color: Optional[str] | Omit = omit,
         header_text_color: Optional[str] | Omit = omit,
@@ -96,6 +99,7 @@ class ColumnsResource(SyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -136,20 +140,23 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}/columns/{column_id}",
+            path_template("/v1/table/views/{view_id}/columns/{column_id}", view_id=view_id, column_id=column_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "display_validation_error": display_validation_error,
                     "export_width": export_width,
                     "formula": formula,
                     "formula_enabled": formula_enabled,
+                    "form_width": form_width,
                     "hard_validation": hard_validation,
                     "header_background_color": header_background_color,
                     "header_text_color": header_text_color,
@@ -184,20 +191,22 @@ class ColumnsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        locked: bool,
         required: bool,
         sort_order: int,
         aggregate: int | Omit = omit,
         alter_options: column_add_params.AlterOptions | Omit = omit,
+        block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_add_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         display_validation_error: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
         formula: Optional[str] | Omit = omit,
         formula_enabled: bool | Omit = omit,
+        form_width: Optional[int] | Omit = omit,
         hard_validation: bool | Omit = omit,
         header_background_color: Optional[str] | Omit = omit,
         header_text_color: Optional[str] | Omit = omit,
@@ -223,9 +232,11 @@ class ColumnsResource(SyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
+        locked: bool | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
         script: Optional[str] | Omit = omit,
@@ -258,23 +269,25 @@ class ColumnsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/columns",
+            path_template("/v1/table/views/{view_id}/columns", view_id=view_id),
             body=maybe_transform(
                 {
-                    "locked": locked,
                     "required": required,
                     "sort_order": sort_order,
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "display_validation_error": display_validation_error,
                     "export_width": export_width,
                     "formula": formula,
                     "formula_enabled": formula_enabled,
+                    "form_width": form_width,
                     "hard_validation": hard_validation,
                     "header_background_color": header_background_color,
                     "header_text_color": header_text_color,
@@ -283,6 +296,7 @@ class ColumnsResource(SyncAPIResource):
                     "is_synced": is_synced,
                     "kind": kind,
                     "kind_options": kind_options,
+                    "locked": locked,
                     "name": name,
                     "public_id": public_id,
                     "script": script,
@@ -300,44 +314,6 @@ class ColumnsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ColumnAddResponse,
-        )
-
-    def ai_formula_helper(
-        self,
-        column_id: str,
-        *,
-        view_id: str,
-        text: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ColumnAIFormulaHelperResponse:
-        """
-        Get AI formula helper for a specific column in a table view.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not view_id:
-            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        if not column_id:
-            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
-        return self._post(
-            f"/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper",
-            body=maybe_transform({"text": text}, column_ai_formula_helper_params.ColumnAIFormulaHelperParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ColumnAIFormulaHelperResponse,
         )
 
     def distinct(
@@ -375,7 +351,9 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/distinct",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/distinct", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -421,11 +399,56 @@ class ColumnsResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/formula-info",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/formula-info", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ColumnFormulaInfoResponse,
+        )
+
+    def validate_formula(
+        self,
+        column_id: str,
+        *,
+        view_id: str,
+        formula: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ColumnValidateFormulaResponse:
+        """
+        Read-only preflight of a formula's structure (syntax, function arguments,
+        literal types, regex patterns and AUTONUMBER arguments) using the same rules as
+        the AI helper. Nothing is saved or executed; table-dependent checks still run on
+        save.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        return self._post(
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/validate-formula", view_id=view_id, column_id=column_id
+            ),
+            body=maybe_transform({"formula": formula}, column_validate_formula_params.ColumnValidateFormulaParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ColumnValidateFormulaResponse,
         )
 
 
@@ -456,15 +479,18 @@ class AsyncColumnsResource(AsyncAPIResource):
         view_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_update_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         display_validation_error: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
         formula: Optional[str] | Omit = omit,
         formula_enabled: bool | Omit = omit,
+        form_width: Optional[int] | Omit = omit,
         hard_validation: bool | Omit = omit,
         header_background_color: Optional[str] | Omit = omit,
         header_text_color: Optional[str] | Omit = omit,
@@ -490,6 +516,7 @@ class AsyncColumnsResource(AsyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -530,20 +557,23 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}/columns/{column_id}",
+            path_template("/v1/table/views/{view_id}/columns/{column_id}", view_id=view_id, column_id=column_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "display_validation_error": display_validation_error,
                     "export_width": export_width,
                     "formula": formula,
                     "formula_enabled": formula_enabled,
+                    "form_width": form_width,
                     "hard_validation": hard_validation,
                     "header_background_color": header_background_color,
                     "header_text_color": header_text_color,
@@ -578,20 +608,22 @@ class AsyncColumnsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        locked: bool,
         required: bool,
         sort_order: int,
         aggregate: int | Omit = omit,
         alter_options: column_add_params.AlterOptions | Omit = omit,
+        block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_add_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         display_validation_error: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
         formula: Optional[str] | Omit = omit,
         formula_enabled: bool | Omit = omit,
+        form_width: Optional[int] | Omit = omit,
         hard_validation: bool | Omit = omit,
         header_background_color: Optional[str] | Omit = omit,
         header_text_color: Optional[str] | Omit = omit,
@@ -617,9 +649,11 @@ class AsyncColumnsResource(AsyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
+        locked: bool | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
         script: Optional[str] | Omit = omit,
@@ -652,23 +686,25 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/columns",
+            path_template("/v1/table/views/{view_id}/columns", view_id=view_id),
             body=await async_maybe_transform(
                 {
-                    "locked": locked,
                     "required": required,
                     "sort_order": sort_order,
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "display_validation_error": display_validation_error,
                     "export_width": export_width,
                     "formula": formula,
                     "formula_enabled": formula_enabled,
+                    "form_width": form_width,
                     "hard_validation": hard_validation,
                     "header_background_color": header_background_color,
                     "header_text_color": header_text_color,
@@ -677,6 +713,7 @@ class AsyncColumnsResource(AsyncAPIResource):
                     "is_synced": is_synced,
                     "kind": kind,
                     "kind_options": kind_options,
+                    "locked": locked,
                     "name": name,
                     "public_id": public_id,
                     "script": script,
@@ -694,46 +731,6 @@ class AsyncColumnsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ColumnAddResponse,
-        )
-
-    async def ai_formula_helper(
-        self,
-        column_id: str,
-        *,
-        view_id: str,
-        text: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ColumnAIFormulaHelperResponse:
-        """
-        Get AI formula helper for a specific column in a table view.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not view_id:
-            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
-        if not column_id:
-            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
-        return await self._post(
-            f"/v1/table/views/{view_id}/column/{column_id}/ai-formula-helper",
-            body=await async_maybe_transform(
-                {"text": text}, column_ai_formula_helper_params.ColumnAIFormulaHelperParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ColumnAIFormulaHelperResponse,
         )
 
     async def distinct(
@@ -771,7 +768,9 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/distinct",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/distinct", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -817,11 +816,58 @@ class AsyncColumnsResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/column/{column_id}/formula-info",
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/formula-info", view_id=view_id, column_id=column_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ColumnFormulaInfoResponse,
+        )
+
+    async def validate_formula(
+        self,
+        column_id: str,
+        *,
+        view_id: str,
+        formula: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ColumnValidateFormulaResponse:
+        """
+        Read-only preflight of a formula's structure (syntax, function arguments,
+        literal types, regex patterns and AUTONUMBER arguments) using the same rules as
+        the AI helper. Nothing is saved or executed; table-dependent checks still run on
+        save.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not view_id:
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        return await self._post(
+            path_template(
+                "/v1/table/views/{view_id}/column/{column_id}/validate-formula", view_id=view_id, column_id=column_id
+            ),
+            body=await async_maybe_transform(
+                {"formula": formula}, column_validate_formula_params.ColumnValidateFormulaParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ColumnValidateFormulaResponse,
         )
 
 
@@ -835,14 +881,14 @@ class ColumnsResourceWithRawResponse:
         self.add = to_raw_response_wrapper(
             columns.add,
         )
-        self.ai_formula_helper = to_raw_response_wrapper(
-            columns.ai_formula_helper,
-        )
         self.distinct = to_raw_response_wrapper(
             columns.distinct,
         )
         self.formula_info = to_raw_response_wrapper(
             columns.formula_info,
+        )
+        self.validate_formula = to_raw_response_wrapper(
+            columns.validate_formula,
         )
 
 
@@ -856,14 +902,14 @@ class AsyncColumnsResourceWithRawResponse:
         self.add = async_to_raw_response_wrapper(
             columns.add,
         )
-        self.ai_formula_helper = async_to_raw_response_wrapper(
-            columns.ai_formula_helper,
-        )
         self.distinct = async_to_raw_response_wrapper(
             columns.distinct,
         )
         self.formula_info = async_to_raw_response_wrapper(
             columns.formula_info,
+        )
+        self.validate_formula = async_to_raw_response_wrapper(
+            columns.validate_formula,
         )
 
 
@@ -877,14 +923,14 @@ class ColumnsResourceWithStreamingResponse:
         self.add = to_streamed_response_wrapper(
             columns.add,
         )
-        self.ai_formula_helper = to_streamed_response_wrapper(
-            columns.ai_formula_helper,
-        )
         self.distinct = to_streamed_response_wrapper(
             columns.distinct,
         )
         self.formula_info = to_streamed_response_wrapper(
             columns.formula_info,
+        )
+        self.validate_formula = to_streamed_response_wrapper(
+            columns.validate_formula,
         )
 
 
@@ -898,12 +944,12 @@ class AsyncColumnsResourceWithStreamingResponse:
         self.add = async_to_streamed_response_wrapper(
             columns.add,
         )
-        self.ai_formula_helper = async_to_streamed_response_wrapper(
-            columns.ai_formula_helper,
-        )
         self.distinct = async_to_streamed_response_wrapper(
             columns.distinct,
         )
         self.formula_info = async_to_streamed_response_wrapper(
             columns.formula_info,
+        )
+        self.validate_formula = async_to_streamed_response_wrapper(
+            columns.validate_formula,
         )
