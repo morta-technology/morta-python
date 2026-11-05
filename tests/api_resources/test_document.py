@@ -16,7 +16,6 @@ from morta.types import (
     DocumentUpdateResponse,
     DocumentRestoreResponse,
     DocumentRetrieveResponse,
-    DocumentSyncTemplateResponse,
     DocumentCreateSectionsResponse,
     DocumentGetDeletedSectionsResponse,
     DocumentUpdateSectionOrderResponse,
@@ -45,7 +44,6 @@ class TestDocument:
         document = client.document.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -55,13 +53,13 @@ class TestDocument:
         document = client.document.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            folder_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -71,7 +69,6 @@ class TestDocument:
         response = client.document.with_raw_response.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
 
         assert response.is_closed is True
@@ -85,7 +82,6 @@ class TestDocument:
         with client.document.with_streaming_response.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -160,9 +156,9 @@ class TestDocument:
         document = client.document.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_comments=True,
+            banner_height=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -300,7 +296,6 @@ class TestDocument:
                     "name": "name",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -338,7 +333,6 @@ class TestDocument:
             ],
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -397,7 +391,6 @@ class TestDocument:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -406,7 +399,6 @@ class TestDocument:
                     "name": "name",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -482,7 +474,7 @@ class TestDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_export(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         document = client.document.export(
@@ -496,14 +488,17 @@ class TestDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_method_export_with_all_params(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         document = client.document.export(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_format="A1",
+            iframe_links=True,
+            page_format="A2",
             page_orientation="portrait",
+            set_default_format_and_orientation=True,
             table_links=True,
+            view_grids={},
         )
         assert document.is_closed
         assert document.json() == {"foo": "bar"}
@@ -513,7 +508,7 @@ class TestDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_export(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
 
@@ -529,7 +524,7 @@ class TestDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     def test_streaming_response_export(self, client: Morta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         with client.document.with_streaming_response.export(
@@ -689,48 +684,6 @@ class TestDocument:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_sync_template(self, client: Morta) -> None:
-        document = client.document.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_sync_template(self, client: Morta) -> None:
-        response = client.document.with_raw_response.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        document = response.parse()
-        assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_sync_template(self, client: Morta) -> None:
-        with client.document.with_streaming_response.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            document = response.parse()
-            assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_sync_template(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
-            client.document.with_raw_response.sync_template(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_update_multiple_sections(self, client: Morta) -> None:
         document = client.document.update_multiple_sections(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -748,7 +701,6 @@ class TestDocument:
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -787,9 +739,9 @@ class TestDocument:
                     "plaintext_description": "plaintextDescription",
                 }
             ],
+            client="client",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -848,7 +800,6 @@ class TestDocument:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -942,7 +893,6 @@ class TestAsyncDocument:
         document = await async_client.document.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -952,13 +902,13 @@ class TestAsyncDocument:
         document = await async_client.document.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
+            folder_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -968,7 +918,6 @@ class TestAsyncDocument:
         response = await async_client.document.with_raw_response.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
 
         assert response.is_closed is True
@@ -982,7 +931,6 @@ class TestAsyncDocument:
         async with async_client.document.with_streaming_response.create(
             name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1057,9 +1005,9 @@ class TestAsyncDocument:
         document = await async_client.document.update(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             allow_comments=True,
+            banner_height=0,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -1197,7 +1145,6 @@ class TestAsyncDocument:
                     "name": "name",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -1235,7 +1182,6 @@ class TestAsyncDocument:
             ],
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -1294,7 +1240,6 @@ class TestAsyncDocument:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -1303,7 +1248,6 @@ class TestAsyncDocument:
                     "name": "name",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -1379,7 +1323,7 @@ class TestAsyncDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_export(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         document = await async_client.document.export(
@@ -1393,14 +1337,17 @@ class TestAsyncDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_export_with_all_params(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         document = await async_client.document.export(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_format="A1",
+            iframe_links=True,
+            page_format="A2",
             page_orientation="portrait",
+            set_default_format_and_orientation=True,
             table_links=True,
+            view_grids={},
         )
         assert document.is_closed
         assert await document.json() == {"foo": "bar"}
@@ -1410,7 +1357,7 @@ class TestAsyncDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_export(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
 
@@ -1426,7 +1373,7 @@ class TestAsyncDocument:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_streaming_response_export(self, async_client: AsyncMorta, respx_mock: MockRouter) -> None:
-        respx_mock.get("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
+        respx_mock.post("/v1/document/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/export").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
         async with async_client.document.with_streaming_response.export(
@@ -1586,48 +1533,6 @@ class TestAsyncDocument:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_sync_template(self, async_client: AsyncMorta) -> None:
-        document = await async_client.document.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_sync_template(self, async_client: AsyncMorta) -> None:
-        response = await async_client.document.with_raw_response.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        document = await response.parse()
-        assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_sync_template(self, async_client: AsyncMorta) -> None:
-        async with async_client.document.with_streaming_response.sync_template(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            document = await response.parse()
-            assert_matches_type(DocumentSyncTemplateResponse, document, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_sync_template(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `document_id` but received ''"):
-            await async_client.document.with_raw_response.sync_template(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_update_multiple_sections(self, async_client: AsyncMorta) -> None:
         document = await async_client.document.update_multiple_sections(
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1645,7 +1550,6 @@ class TestAsyncDocument:
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "context": {
                         "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
@@ -1684,9 +1588,9 @@ class TestAsyncDocument:
                     "plaintext_description": "plaintextDescription",
                 }
             ],
+            client="client",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -1745,7 +1649,6 @@ class TestAsyncDocument:
             document_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },

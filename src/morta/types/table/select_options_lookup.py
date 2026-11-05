@@ -30,6 +30,8 @@ class TableOptions(BaseModel):
 class SelectOptionsLookup(BaseModel):
     autopopulate: Optional[bool] = None
 
+    expand_options_via_cell_entry: Optional[bool] = FieldInfo(alias="expandOptionsViaCellEntry", default=None)
+
     manual_options: Optional[List[str]] = FieldInfo(alias="manualOptions", default=None)
 
     table_options: Optional[TableOptions] = FieldInfo(alias="tableOptions", default=None)
