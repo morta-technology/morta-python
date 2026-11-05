@@ -32,6 +32,8 @@ class TableOptions(TypedDict, total=False):
 class SelectOptionsLookupParam(TypedDict, total=False):
     autopopulate: bool
 
+    expand_options_via_cell_entry: Annotated[bool, PropertyInfo(alias="expandOptionsViaCellEntry")]
+
     manual_options: Annotated[SequenceNotStr[str], PropertyInfo(alias="manualOptions")]
 
     table_options: Annotated[TableOptions, PropertyInfo(alias="tableOptions")]
