@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -11,7 +11,7 @@ __all__ = ["Chart"]
 
 
 class Chart(BaseModel):
-    aggregate: Optional[Literal["sum", "count", "avg"]] = None
+    aggregate: Optional[Literal["sum", "count", "avg", "earliest", "latest"]] = None
 
     chart_type: Optional[
         Literal[
@@ -32,8 +32,12 @@ class Chart(BaseModel):
             "scatter",
             "bubble",
             "gantt",
+            "s-curve",
+            "card",
         ]
     ] = FieldInfo(alias="chartType", default=None)
+
+    column_gantt_deadline_id: Optional[str] = FieldInfo(alias="columnGanttDeadlineId", default=None)
 
     column_gantt_end_date_id: Optional[str] = FieldInfo(alias="columnGanttEndDateId", default=None)
 
@@ -43,9 +47,15 @@ class Chart(BaseModel):
 
     column_stack_id: Optional[str] = FieldInfo(alias="columnStackId", default=None)
 
-    column_value_id: Optional[str] = FieldInfo(alias="columnValueId", default=None)
+    column_value_ids: Optional[List[str]] = FieldInfo(alias="columnValueIds", default=None)
+
+    max_categories: Optional[int] = FieldInfo(alias="maxCategories", default=None)
+
+    show_card_label: Optional[bool] = FieldInfo(alias="showCardLabel", default=None)
 
     show_legend: Optional[bool] = FieldInfo(alias="showLegend", default=None)
+
+    show_percentage: Optional[bool] = FieldInfo(alias="showPercentage", default=None)
 
     show_title: Optional[bool] = FieldInfo(alias="showTitle", default=None)
 
