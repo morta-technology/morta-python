@@ -15,15 +15,24 @@ __all__ = ["MortaDocument"]
 class MortaDocument(BaseModel):
     allow_comments: Optional[bool] = FieldInfo(alias="allowComments", default=None)
 
+    banner_height: Optional[int] = FieldInfo(alias="bannerHeight", default=None)
+
     children: Optional[List["DocumentSection1"]] = None
 
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
+
+    default_format: Optional[str] = FieldInfo(alias="defaultFormat", default=None)
+
+    default_orientation: Optional[str] = FieldInfo(alias="defaultOrientation", default=None)
 
     deleted_at: Optional[datetime] = FieldInfo(alias="deletedAt", default=None)
 
     description: Optional[object] = None
 
     expand_by_default: Optional[bool] = FieldInfo(alias="expandByDefault", default=None)
+
+    folder_id: Optional[str] = FieldInfo(alias="folderId", default=None)
+    """The hub folder the resource is in; null at the hub's top level."""
 
     is_deleted: Optional[bool] = FieldInfo(alias="isDeleted", default=None)
 
@@ -42,6 +51,10 @@ class MortaDocument(BaseModel):
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     type: Optional[str] = None
+    """Deprecated: the name of the folder the resource is in ("" at the top level).
+
+    Use folderId.
+    """
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
