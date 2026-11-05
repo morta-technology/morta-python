@@ -26,6 +26,8 @@ class TableColumn(BaseModel):
 
     decimal_places: Optional[int] = FieldInfo(alias="decimalPlaces", default=None)
 
+    default_value: Optional[str] = FieldInfo(alias="defaultValue", default=None)
+
     description: Optional[Description] = None
 
     display_link: Optional[bool] = FieldInfo(alias="displayLink", default=None)
@@ -66,6 +68,7 @@ class TableColumn(BaseModel):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
     ] = None
 

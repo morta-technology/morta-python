@@ -64,7 +64,7 @@ class JoinResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinCreateResponse:
         """
-        Create a join between two tables.
+        Create a lookup between two tables.
 
         Args:
           extra_headers: Send extra headers
@@ -159,7 +159,7 @@ class JoinResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinDeleteResponse:
         """
-        Delete a join from a table.
+        Delete a lookup from a table.
 
         Args:
           extra_headers: Send extra headers
@@ -220,7 +220,7 @@ class AsyncJoinResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinCreateResponse:
         """
-        Create a join between two tables.
+        Create a lookup between two tables.
 
         Args:
           extra_headers: Send extra headers
@@ -315,7 +315,7 @@ class AsyncJoinResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JoinDeleteResponse:
         """
-        Delete a join from a table.
+        Delete a lookup from a table.
 
         Args:
           extra_headers: Send extra headers
