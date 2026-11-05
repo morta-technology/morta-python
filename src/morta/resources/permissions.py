@@ -260,7 +260,7 @@ class PermissionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._put(
             "/v1/permissions/all",
             body=maybe_transform(
                 {
@@ -285,7 +285,7 @@ class PermissionsResource(SyncAPIResource):
         id: str,
         *,
         hub_id: str,
-        type: Literal["project", "process", "table", "view"],
+        type: Literal["hub", "document", "table", "view"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -585,7 +585,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return await self._put(
             "/v1/permissions/all",
             body=await async_maybe_transform(
                 {
@@ -610,7 +610,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         id: str,
         *,
         hub_id: str,
-        type: Literal["project", "process", "table", "view"],
+        type: Literal["hub", "document", "table", "view"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
