@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -53,6 +53,7 @@ class ApikeyResource(SyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,6 +82,7 @@ class ApikeyResource(SyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_create_params.ApikeyCreateParams,
@@ -99,6 +101,7 @@ class ApikeyResource(SyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,13 +125,14 @@ class ApikeyResource(SyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return self._put(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             body=maybe_transform(
                 {
                     "access_level": access_level,
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_update_params.ApikeyUpdateParams,
@@ -165,7 +169,7 @@ class ApikeyResource(SyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return self._delete(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -200,6 +204,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -228,6 +233,7 @@ class AsyncApikeyResource(AsyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_create_params.ApikeyCreateParams,
@@ -246,6 +252,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -269,13 +276,14 @@ class AsyncApikeyResource(AsyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return await self._put(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             body=await async_maybe_transform(
                 {
                     "access_level": access_level,
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_update_params.ApikeyUpdateParams,
@@ -312,7 +320,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         if not api_key_id:
             raise ValueError(f"Expected a non-empty value for `api_key_id` but received {api_key_id!r}")
         return await self._delete(
-            f"/v1/user/apikey/{api_key_id}",
+            path_template("/v1/user/apikey/{api_key_id}", api_key_id=api_key_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
