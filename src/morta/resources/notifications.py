@@ -10,7 +10,7 @@ import httpx
 
 from ..types import notification_create_params, notification_update_params, notification_list_events_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -131,7 +131,7 @@ class NotificationsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._put(
-            f"/v1/notifications/{id}",
+            path_template("/v1/notifications/{id}", id=id),
             body=maybe_transform(
                 {
                     "webhook_url": webhook_url,
@@ -175,7 +175,7 @@ class NotificationsResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/v1/notifications/{id}",
+            path_template("/v1/notifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -205,7 +205,7 @@ class NotificationsResource(SyncAPIResource):
         self,
         resource_id: str,
         *,
-        type: Literal["process", "process_section", "process_response", "table", "project", "user"],
+        type: Literal["process", "process_section", "table", "project", "user"],
         end_date: Union[str, datetime] | Omit = omit,
         page: int | Omit = omit,
         search: str | Omit = omit,
@@ -236,7 +236,9 @@ class NotificationsResource(SyncAPIResource):
 
           users: Optional UUID of a user to filter the events.
 
-          verb: Optional list of verbs to filter the events.
+          verb: Optional list of events to filter by, in `resource.verb` form (e.g.
+              `document.created`). Hub and document events match under either their current
+              (`hub.*`, `document.*`) or deprecated legacy (`project.*`, `process.*`) name.
 
           extra_headers: Send extra headers
 
@@ -249,7 +251,7 @@ class NotificationsResource(SyncAPIResource):
         if not resource_id:
             raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
         return self._get(
-            f"/v1/notifications/events/{resource_id}",
+            path_template("/v1/notifications/events/{resource_id}", resource_id=resource_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -373,7 +375,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._put(
-            f"/v1/notifications/{id}",
+            path_template("/v1/notifications/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "webhook_url": webhook_url,
@@ -417,7 +419,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/v1/notifications/{id}",
+            path_template("/v1/notifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -447,7 +449,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         self,
         resource_id: str,
         *,
-        type: Literal["process", "process_section", "process_response", "table", "project", "user"],
+        type: Literal["process", "process_section", "table", "project", "user"],
         end_date: Union[str, datetime] | Omit = omit,
         page: int | Omit = omit,
         search: str | Omit = omit,
@@ -478,7 +480,9 @@ class AsyncNotificationsResource(AsyncAPIResource):
 
           users: Optional UUID of a user to filter the events.
 
-          verb: Optional list of verbs to filter the events.
+          verb: Optional list of events to filter by, in `resource.verb` form (e.g.
+              `document.created`). Hub and document events match under either their current
+              (`hub.*`, `document.*`) or deprecated legacy (`project.*`, `process.*`) name.
 
           extra_headers: Send extra headers
 
@@ -491,7 +495,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         if not resource_id:
             raise ValueError(f"Expected a non-empty value for `resource_id` but received {resource_id!r}")
         return await self._get(
-            f"/v1/notifications/events/{resource_id}",
+            path_template("/v1/notifications/events/{resource_id}", resource_id=resource_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
