@@ -35,14 +35,29 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import hub, user, table, document, permissions, integrations, notifications, comment_thread
+    from .resources import (
+        ai,
+        hub,
+        user,
+        table,
+        teams,
+        document,
+        permissions,
+        integrations,
+        organisation,
+        notifications,
+        comment_thread,
+    )
+    from .resources.ai.ai import AIResource, AsyncAIResource
     from .resources.hub.hub import HubResource, AsyncHubResource
     from .resources.user.user import UserResource, AsyncUserResource
     from .resources.permissions import PermissionsResource, AsyncPermissionsResource
     from .resources.table.table import TableResource, AsyncTableResource
-    from .resources.integrations import IntegrationsResource, AsyncIntegrationsResource
+    from .resources.teams.teams import TeamsResource, AsyncTeamsResource
     from .resources.notifications import NotificationsResource, AsyncNotificationsResource
     from .resources.document.document import DocumentResource, AsyncDocumentResource
+    from .resources.integrations.integrations import IntegrationsResource, AsyncIntegrationsResource
+    from .resources.organisation.organisation import OrganisationResource, AsyncOrganisationResource
     from .resources.comment_thread.comment_thread import CommentThreadResource, AsyncCommentThreadResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Morta", "AsyncMorta", "Client", "AsyncClient"]
@@ -159,6 +174,24 @@ class Morta(SyncAPIClient):
         from .resources.integrations import IntegrationsResource
 
         return IntegrationsResource(self)
+
+    @cached_property
+    def ai(self) -> AIResource:
+        from .resources.ai import AIResource
+
+        return AIResource(self)
+
+    @cached_property
+    def organisation(self) -> OrganisationResource:
+        from .resources.organisation import OrganisationResource
+
+        return OrganisationResource(self)
+
+    @cached_property
+    def teams(self) -> TeamsResource:
+        from .resources.teams import TeamsResource
+
+        return TeamsResource(self)
 
     @cached_property
     def with_raw_response(self) -> MortaWithRawResponse:
@@ -386,6 +419,24 @@ class AsyncMorta(AsyncAPIClient):
         return AsyncIntegrationsResource(self)
 
     @cached_property
+    def ai(self) -> AsyncAIResource:
+        from .resources.ai import AsyncAIResource
+
+        return AsyncAIResource(self)
+
+    @cached_property
+    def organisation(self) -> AsyncOrganisationResource:
+        from .resources.organisation import AsyncOrganisationResource
+
+        return AsyncOrganisationResource(self)
+
+    @cached_property
+    def teams(self) -> AsyncTeamsResource:
+        from .resources.teams import AsyncTeamsResource
+
+        return AsyncTeamsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncMortaWithRawResponse:
         return AsyncMortaWithRawResponse(self)
 
@@ -552,6 +603,24 @@ class MortaWithRawResponse:
 
         return IntegrationsResourceWithRawResponse(self._client.integrations)
 
+    @cached_property
+    def ai(self) -> ai.AIResourceWithRawResponse:
+        from .resources.ai import AIResourceWithRawResponse
+
+        return AIResourceWithRawResponse(self._client.ai)
+
+    @cached_property
+    def organisation(self) -> organisation.OrganisationResourceWithRawResponse:
+        from .resources.organisation import OrganisationResourceWithRawResponse
+
+        return OrganisationResourceWithRawResponse(self._client.organisation)
+
+    @cached_property
+    def teams(self) -> teams.TeamsResourceWithRawResponse:
+        from .resources.teams import TeamsResourceWithRawResponse
+
+        return TeamsResourceWithRawResponse(self._client.teams)
+
 
 class AsyncMortaWithRawResponse:
     _client: AsyncMorta
@@ -606,6 +675,24 @@ class AsyncMortaWithRawResponse:
         from .resources.integrations import AsyncIntegrationsResourceWithRawResponse
 
         return AsyncIntegrationsResourceWithRawResponse(self._client.integrations)
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithRawResponse:
+        from .resources.ai import AsyncAIResourceWithRawResponse
+
+        return AsyncAIResourceWithRawResponse(self._client.ai)
+
+    @cached_property
+    def organisation(self) -> organisation.AsyncOrganisationResourceWithRawResponse:
+        from .resources.organisation import AsyncOrganisationResourceWithRawResponse
+
+        return AsyncOrganisationResourceWithRawResponse(self._client.organisation)
+
+    @cached_property
+    def teams(self) -> teams.AsyncTeamsResourceWithRawResponse:
+        from .resources.teams import AsyncTeamsResourceWithRawResponse
+
+        return AsyncTeamsResourceWithRawResponse(self._client.teams)
 
 
 class MortaWithStreamedResponse:
@@ -662,6 +749,24 @@ class MortaWithStreamedResponse:
 
         return IntegrationsResourceWithStreamingResponse(self._client.integrations)
 
+    @cached_property
+    def ai(self) -> ai.AIResourceWithStreamingResponse:
+        from .resources.ai import AIResourceWithStreamingResponse
+
+        return AIResourceWithStreamingResponse(self._client.ai)
+
+    @cached_property
+    def organisation(self) -> organisation.OrganisationResourceWithStreamingResponse:
+        from .resources.organisation import OrganisationResourceWithStreamingResponse
+
+        return OrganisationResourceWithStreamingResponse(self._client.organisation)
+
+    @cached_property
+    def teams(self) -> teams.TeamsResourceWithStreamingResponse:
+        from .resources.teams import TeamsResourceWithStreamingResponse
+
+        return TeamsResourceWithStreamingResponse(self._client.teams)
+
 
 class AsyncMortaWithStreamedResponse:
     _client: AsyncMorta
@@ -716,6 +821,24 @@ class AsyncMortaWithStreamedResponse:
         from .resources.integrations import AsyncIntegrationsResourceWithStreamingResponse
 
         return AsyncIntegrationsResourceWithStreamingResponse(self._client.integrations)
+
+    @cached_property
+    def ai(self) -> ai.AsyncAIResourceWithStreamingResponse:
+        from .resources.ai import AsyncAIResourceWithStreamingResponse
+
+        return AsyncAIResourceWithStreamingResponse(self._client.ai)
+
+    @cached_property
+    def organisation(self) -> organisation.AsyncOrganisationResourceWithStreamingResponse:
+        from .resources.organisation import AsyncOrganisationResourceWithStreamingResponse
+
+        return AsyncOrganisationResourceWithStreamingResponse(self._client.organisation)
+
+    @cached_property
+    def teams(self) -> teams.AsyncTeamsResourceWithStreamingResponse:
+        from .resources.teams import AsyncTeamsResourceWithStreamingResponse
+
+        return AsyncTeamsResourceWithStreamingResponse(self._client.teams)
 
 
 Client = Morta
