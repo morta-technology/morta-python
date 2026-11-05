@@ -18,7 +18,7 @@ class Data(BaseModel):
 
 
 class Metadata(BaseModel):
-    next_page_token: Optional[str] = None
+    next_page_token: Optional[str] = FieldInfo(alias="nextPageToken", default=None)
 
     size: Optional[int] = None
 

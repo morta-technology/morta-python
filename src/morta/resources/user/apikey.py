@@ -53,6 +53,7 @@ class ApikeyResource(SyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,6 +82,7 @@ class ApikeyResource(SyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_create_params.ApikeyCreateParams,
@@ -99,6 +101,7 @@ class ApikeyResource(SyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -129,6 +132,7 @@ class ApikeyResource(SyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_update_params.ApikeyUpdateParams,
@@ -200,6 +204,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -228,6 +233,7 @@ class AsyncApikeyResource(AsyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_create_params.ApikeyCreateParams,
@@ -246,6 +252,7 @@ class AsyncApikeyResource(AsyncAPIResource):
         document_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         project_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
+        site_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         table_restrictions: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -276,6 +283,7 @@ class AsyncApikeyResource(AsyncAPIResource):
                     "document_restrictions": document_restrictions,
                     "name": name,
                     "project_restrictions": project_restrictions,
+                    "site_restrictions": site_restrictions,
                     "table_restrictions": table_restrictions,
                 },
                 apikey_update_params.ApikeyUpdateParams,
