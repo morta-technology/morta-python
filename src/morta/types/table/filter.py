@@ -34,6 +34,7 @@ class Filter(BaseModel):
         "ends_with",
         "is_valid",
         "is_not_valid",
+        "all_values",
     ] = FieldInfo(alias="filterType")
 
     column_id: Optional[str] = FieldInfo(alias="columnId", default=None)
@@ -41,5 +42,7 @@ class Filter(BaseModel):
     multiple_values: Optional[List[Optional[object]]] = FieldInfo(alias="multipleValues", default=None)
 
     or_group: Optional[str] = FieldInfo(alias="orGroup", default=None)
+
+    public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
     value: Optional[object] = None

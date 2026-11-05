@@ -15,8 +15,6 @@ __all__ = ["ColumnAddParams", "AlterOptions", "Description"]
 
 
 class ColumnAddParams(TypedDict, total=False):
-    locked: Required[bool]
-
     required: Required[bool]
 
     sort_order: Required[Annotated[int, PropertyInfo(alias="sortOrder")]]
@@ -25,11 +23,15 @@ class ColumnAddParams(TypedDict, total=False):
 
     alter_options: Annotated[AlterOptions, PropertyInfo(alias="alterOptions")]
 
+    block_invalid_select_values: Annotated[bool, PropertyInfo(alias="blockInvalidSelectValues")]
+
     context: BaseRequestContextParam
 
     date_format: Annotated[Optional[str], PropertyInfo(alias="dateFormat")]
 
     decimal_places: Annotated[int, PropertyInfo(alias="decimalPlaces")]
+
+    default_value: Annotated[Optional[str], PropertyInfo(alias="defaultValue")]
 
     description: Description
 
@@ -42,6 +44,8 @@ class ColumnAddParams(TypedDict, total=False):
     formula: Optional[str]
 
     formula_enabled: Annotated[bool, PropertyInfo(alias="formulaEnabled")]
+
+    form_width: Annotated[Optional[int], PropertyInfo(alias="formWidth")]
 
     hard_validation: Annotated[bool, PropertyInfo(alias="hardValidation")]
 
@@ -74,9 +78,12 @@ class ColumnAddParams(TypedDict, total=False):
         "vote",
         "checkbox",
         "duration",
+        "json",
     ]
 
     kind_options: Annotated[SelectOptionsLookupParam, PropertyInfo(alias="kindOptions")]
+
+    locked: bool
 
     name: str
 

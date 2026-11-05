@@ -11,6 +11,8 @@ __all__ = ["Colour"]
 
 
 class Colour(BaseModel):
+    apply_to_entire_row: bool = FieldInfo(alias="applyToEntireRow")
+
     background_colour: str = FieldInfo(alias="backgroundColour")
 
     column_name: str = FieldInfo(alias="columnName")
@@ -36,9 +38,16 @@ class Colour(BaseModel):
         "ends_with",
         "is_valid",
         "is_not_valid",
+        "all_values",
     ] = FieldInfo(alias="filterType")
 
+    font_bold: bool = FieldInfo(alias="fontBold")
+
     font_colour: str = FieldInfo(alias="fontColour")
+
+    font_italic: bool = FieldInfo(alias="fontItalic")
+
+    font_underline: bool = FieldInfo(alias="fontUnderline")
 
     column_id: Optional[str] = FieldInfo(alias="columnId", default=None)
 
