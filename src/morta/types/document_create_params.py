@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -15,6 +16,12 @@ class DocumentCreateParams(TypedDict, total=False):
 
     project_id: Required[Annotated[str, PropertyInfo(alias="projectId")]]
 
-    type: Required[str]
-
     context: BaseRequestContextParam
+
+    folder_id: Annotated[Optional[str], PropertyInfo(alias="folderId")]
+
+    type: Optional[str]
+    """
+    Deprecated: files the resource into the top-level folder of that name; creates
+    it if missing (hub Owners only).
+    """
