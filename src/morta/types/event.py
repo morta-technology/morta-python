@@ -19,6 +19,8 @@ class Event(BaseModel):
 
     context: Optional[object] = None
 
+    context_embed_submission_id: Optional[int] = FieldInfo(alias="contextEmbedSubmissionId", default=None)
+
     context_process_id: Optional[int] = FieldInfo(alias="contextProcessId", default=None)
 
     context_process_response_id: Optional[int] = FieldInfo(alias="contextProcessResponseId", default=None)

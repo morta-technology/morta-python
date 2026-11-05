@@ -22,9 +22,13 @@ class TableViewColumn(BaseModel):
 
     alter_options: Optional[AlterOptions] = FieldInfo(alias="alterOptions", default=None)
 
+    block_invalid_select_values: Optional[bool] = FieldInfo(alias="blockInvalidSelectValues", default=None)
+
     date_format: Optional[str] = FieldInfo(alias="dateFormat", default=None)
 
     decimal_places: Optional[int] = FieldInfo(alias="decimalPlaces", default=None)
+
+    default_value: Optional[str] = FieldInfo(alias="defaultValue", default=None)
 
     description: Optional[Description] = None
 
@@ -37,6 +41,8 @@ class TableViewColumn(BaseModel):
     formula: Optional[str] = None
 
     formula_enabled: Optional[bool] = FieldInfo(alias="formulaEnabled", default=None)
+
+    form_width: Optional[int] = FieldInfo(alias="formWidth", default=None)
 
     hard_validation: Optional[bool] = FieldInfo(alias="hardValidation", default=None)
 
@@ -70,6 +76,7 @@ class TableViewColumn(BaseModel):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
     ] = None
 
