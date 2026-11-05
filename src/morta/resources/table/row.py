@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Union, Iterable, Optional
 from datetime import datetime
 
 import httpx
@@ -25,6 +25,7 @@ from ...types.table.row_upsert_response import RowUpsertResponse
 from ...types.base_request_context_param import BaseRequestContextParam
 from ...types.table.row_get_rows_response import RowGetRowsResponse
 from ...types.table.table_row_action_param import TableRowActionParam
+from ...types.table.preview_table_row_param import PreviewTableRowParam
 
 __all__ = ["RowResource", "AsyncRowResource"]
 
@@ -55,6 +56,7 @@ class RowResource(SyncAPIResource):
         *,
         rows: Iterable[row_update_params.Row],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -82,6 +84,7 @@ class RowResource(SyncAPIResource):
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_update_params.RowUpdateParams,
             ),
@@ -97,6 +100,7 @@ class RowResource(SyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -124,6 +128,7 @@ class RowResource(SyncAPIResource):
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_add_params.RowAddParams,
             ),
@@ -214,9 +219,10 @@ class RowResource(SyncAPIResource):
         self,
         table_id: str,
         *,
-        rows: Iterable[TableRowActionParam],
+        rows: Iterable[PreviewTableRowParam],
         upsert_column_name: str,
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -245,6 +251,7 @@ class RowResource(SyncAPIResource):
                     "rows": rows,
                     "upsert_column_name": upsert_column_name,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_upsert_params.RowUpsertParams,
             ),
@@ -281,6 +288,7 @@ class AsyncRowResource(AsyncAPIResource):
         *,
         rows: Iterable[row_update_params.Row],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -308,6 +316,7 @@ class AsyncRowResource(AsyncAPIResource):
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_update_params.RowUpdateParams,
             ),
@@ -323,6 +332,7 @@ class AsyncRowResource(AsyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -350,6 +360,7 @@ class AsyncRowResource(AsyncAPIResource):
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_add_params.RowAddParams,
             ),
@@ -440,9 +451,10 @@ class AsyncRowResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
-        rows: Iterable[TableRowActionParam],
+        rows: Iterable[PreviewTableRowParam],
         upsert_column_name: str,
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -471,6 +483,7 @@ class AsyncRowResource(AsyncAPIResource):
                     "rows": rows,
                     "upsert_column_name": upsert_column_name,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_upsert_params.RowUpsertParams,
             ),

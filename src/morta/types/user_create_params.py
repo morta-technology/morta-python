@@ -19,9 +19,17 @@ class UserCreateParams(TypedDict, total=False):
 
     opt_out_ai_email: Annotated[bool, PropertyInfo(alias="optOutAiEmail")]
 
+    opt_out_community_email: Annotated[bool, PropertyInfo(alias="optOutCommunityEmail")]
+
+    opt_out_deprecation_email: Annotated[bool, PropertyInfo(alias="optOutDeprecationEmail")]
+
     opt_out_duplication_email: Annotated[bool, PropertyInfo(alias="optOutDuplicationEmail")]
 
     opt_out_hub_email: Annotated[bool, PropertyInfo(alias="optOutHubEmail")]
+
+    opt_out_marketing_email: Annotated[bool, PropertyInfo(alias="optOutMarketingEmail")]
+
+    opt_out_mention_email: Annotated[bool, PropertyInfo(alias="optOutMentionEmail")]
 
     opt_out_sync_email: Annotated[bool, PropertyInfo(alias="optOutSyncEmail")]
 
