@@ -205,7 +205,7 @@ class NotificationsResource(SyncAPIResource):
         self,
         resource_id: str,
         *,
-        type: Literal["process", "process_section", "process_response", "table", "project", "user"],
+        type: Literal["process", "process_section", "table", "project", "user"],
         end_date: Union[str, datetime] | Omit = omit,
         page: int | Omit = omit,
         search: str | Omit = omit,
@@ -236,7 +236,9 @@ class NotificationsResource(SyncAPIResource):
 
           users: Optional UUID of a user to filter the events.
 
-          verb: Optional list of verbs to filter the events.
+          verb: Optional list of events to filter by, in `resource.verb` form (e.g.
+              `document.created`). Hub and document events match under either their current
+              (`hub.*`, `document.*`) or deprecated legacy (`project.*`, `process.*`) name.
 
           extra_headers: Send extra headers
 
@@ -447,7 +449,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
         self,
         resource_id: str,
         *,
-        type: Literal["process", "process_section", "process_response", "table", "project", "user"],
+        type: Literal["process", "process_section", "table", "project", "user"],
         end_date: Union[str, datetime] | Omit = omit,
         page: int | Omit = omit,
         search: str | Omit = omit,
@@ -478,7 +480,9 @@ class AsyncNotificationsResource(AsyncAPIResource):
 
           users: Optional UUID of a user to filter the events.
 
-          verb: Optional list of verbs to filter the events.
+          verb: Optional list of events to filter by, in `resource.verb` form (e.g.
+              `document.created`). Hub and document events match under either their current
+              (`hub.*`, `document.*`) or deprecated legacy (`project.*`, `process.*`) name.
 
           extra_headers: Send extra headers
 

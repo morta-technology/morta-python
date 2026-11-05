@@ -19,3 +19,12 @@ class DuplicateDuplicateParams(TypedDict, total=False):
     duplicate_linked_tables: Annotated[Optional[bool], PropertyInfo(alias="duplicateLinkedTables")]
 
     duplicate_permissions: Annotated[bool, PropertyInfo(alias="duplicatePermissions")]
+
+    folder_id: Annotated[Optional[str], PropertyInfo(alias="folderId")]
+    """A folder in the target hub to file the copy (and any tables copied with it) in.
+
+    Omitted or null: a copy in the same hub goes in the original's folder, one in
+    another hub at its top level.
+    """
+
+    lock_resource: Annotated[bool, PropertyInfo(alias="lockResource")]

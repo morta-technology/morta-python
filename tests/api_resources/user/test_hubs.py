@@ -31,6 +31,14 @@ class TestHubs:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Morta) -> None:
+        hub = client.user.hubs.list(
+            include_deleted=True,
+        )
+        assert_matches_type(HubListResponse, hub, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Morta) -> None:
         response = client.user.hubs.with_raw_response.list()
 
@@ -215,6 +223,14 @@ class TestAsyncHubs:
     @parametrize
     async def test_method_list(self, async_client: AsyncMorta) -> None:
         hub = await async_client.user.hubs.list()
+        assert_matches_type(HubListResponse, hub, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncMorta) -> None:
+        hub = await async_client.user.hubs.list(
+            include_deleted=True,
+        )
         assert_matches_type(HubListResponse, hub, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
