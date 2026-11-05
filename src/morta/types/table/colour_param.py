@@ -11,6 +11,8 @@ __all__ = ["ColourParam"]
 
 
 class ColourParam(TypedDict, total=False):
+    apply_to_entire_row: Required[Annotated[bool, PropertyInfo(alias="applyToEntireRow")]]
+
     background_colour: Required[Annotated[str, PropertyInfo(alias="backgroundColour")]]
 
     column_name: Required[Annotated[str, PropertyInfo(alias="columnName")]]
@@ -38,12 +40,19 @@ class ColourParam(TypedDict, total=False):
                 "ends_with",
                 "is_valid",
                 "is_not_valid",
+                "all_values",
             ],
             PropertyInfo(alias="filterType"),
         ]
     ]
 
+    font_bold: Required[Annotated[bool, PropertyInfo(alias="fontBold")]]
+
     font_colour: Required[Annotated[str, PropertyInfo(alias="fontColour")]]
+
+    font_italic: Required[Annotated[bool, PropertyInfo(alias="fontItalic")]]
+
+    font_underline: Required[Annotated[bool, PropertyInfo(alias="fontUnderline")]]
 
     column_id: Annotated[str, PropertyInfo(alias="columnId")]
 
