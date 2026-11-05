@@ -12,8 +12,6 @@ __all__ = ["HubUpdateParams", "BulkUpdateText", "BulkUpdateTextBulkUpdateText"]
 
 
 class HubUpdateParams(TypedDict, total=False):
-    ai_search_enabled: Annotated[Optional[bool], PropertyInfo(alias="aiSearchEnabled")]
-
     allow_document_export: Annotated[Optional[bool], PropertyInfo(alias="allowDocumentExport")]
 
     allow_table_export: Annotated[Optional[bool], PropertyInfo(alias="allowTableExport")]
@@ -61,6 +59,10 @@ class HubUpdateParams(TypedDict, total=False):
     process_title_underline: Annotated[Optional[bool], PropertyInfo(alias="processTitleUnderline")]
 
     public: Optional[bool]
+
+    site: Optional[str]
+
+    word_table_style: Annotated[Optional[str], PropertyInfo(alias="wordTableStyle")]
 
     word_template: Annotated[Optional[str], PropertyInfo(alias="wordTemplate")]
 

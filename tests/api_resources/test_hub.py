@@ -14,12 +14,10 @@ from morta.types import (
     HubUpdateResponse,
     HubGetTagsResponse,
     HubRestoreResponse,
-    HubAISearchResponse,
     HubRetrieveResponse,
     HubGetTablesResponse,
     HubGetMembersResponse,
     HubRemoveUserResponse,
-    HubGetAIAnswersResponse,
     HubGetDocumentsResponse,
     HubGetResourcesResponse,
     HubGetVariablesResponse,
@@ -51,6 +49,15 @@ class TestHub:
     def test_method_create(self, client: Morta) -> None:
         hub = client.hub.create(
             name="name",
+        )
+        assert_matches_type(HubCreateResponse, hub, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Morta) -> None:
+        hub = client.hub.create(
+            name="name",
+            site="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(HubCreateResponse, hub, path=["response"])
 
@@ -135,7 +142,6 @@ class TestHub:
     def test_method_update_with_all_params(self, client: Morta) -> None:
         hub = client.hub.update(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ai_search_enabled=True,
             allow_document_export=True,
             allow_table_export=True,
             bulk_update_text={
@@ -162,6 +168,8 @@ class TestHub:
             process_title_italic=True,
             process_title_underline=True,
             public=True,
+            site="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            word_table_style="wordTableStyle",
             word_template="wordTemplate",
         )
         assert_matches_type(HubUpdateResponse, hub, path=["response"])
@@ -244,67 +252,11 @@ class TestHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_ai_search(self, client: Morta) -> None:
-        hub = client.hub.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        )
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_ai_search_with_all_params(self, client: Morta) -> None:
-        hub = client.hub.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-            process_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_ai_search(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_ai_search(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_ai_search(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.ai_search(
-                hub_id="",
-                search="search",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_change_user_role(self, client: Morta) -> None:
         hub = client.hub.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         )
         assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
 
@@ -314,7 +266,7 @@ class TestHub:
         response = client.hub.with_raw_response.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         )
 
         assert response.is_closed is True
@@ -328,7 +280,7 @@ class TestHub:
         with client.hub.with_streaming_response.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -345,14 +297,14 @@ class TestHub:
             client.hub.with_raw_response.change_user_role(
                 firebase_id="firebase_id",
                 hub_id="",
-                role="owner",
+                role="member",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
             client.hub.with_raw_response.change_user_role(
                 firebase_id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                role="owner",
+                role="member",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -395,73 +347,6 @@ class TestHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             client.hub.with_raw_response.create_heading_styling(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_knowledge_base(self, client: Morta) -> None:
-        hub = client.hub.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_knowledge_base_with_all_params(self, client: Morta) -> None:
-        hub = client.hub.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-            context={
-                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            },
-            link="link",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_knowledge_base(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_knowledge_base(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_create_knowledge_base(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.create_knowledge_base(
-                hub_id="",
-                source="source",
-                text="text",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -521,7 +406,6 @@ class TestHub:
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -562,48 +446,6 @@ class TestHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             client.hub.with_raw_response.duplicate(
                 hub_id="",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_ai_answers(self, client: Morta) -> None:
-        hub = client.hub.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_get_ai_answers(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_get_ai_answers(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_get_ai_answers(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.get_ai_answers(
-                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1285,48 +1127,6 @@ class TestHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_request_contributor_access(self, client: Morta) -> None:
-        hub = client.hub.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_request_contributor_access(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_request_contributor_access(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_request_contributor_access(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.request_contributor_access(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_restore(self, client: Morta) -> None:
         hub = client.hub.restore(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1519,48 +1319,6 @@ class TestHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_train_knowledge_base(self, client: Morta) -> None:
-        hub = client.hub.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_train_knowledge_base(self, client: Morta) -> None:
-        response = client.hub.with_raw_response.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_train_knowledge_base(self, client: Morta) -> None:
-        with client.hub.with_streaming_response.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_train_knowledge_base(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            client.hub.with_raw_response.train_knowledge_base(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_method_update_heading_styling(self, client: Morta) -> None:
         hub = client.hub.update_heading_styling(
             style_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1578,7 +1336,6 @@ class TestHub:
             colour="colour",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -1700,6 +1457,15 @@ class TestAsyncHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncMorta) -> None:
+        hub = await async_client.hub.create(
+            name="name",
+            site="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(HubCreateResponse, hub, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_raw_response_create(self, async_client: AsyncMorta) -> None:
         response = await async_client.hub.with_raw_response.create(
             name="name",
@@ -1779,7 +1545,6 @@ class TestAsyncHub:
     async def test_method_update_with_all_params(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.update(
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ai_search_enabled=True,
             allow_document_export=True,
             allow_table_export=True,
             bulk_update_text={
@@ -1806,6 +1571,8 @@ class TestAsyncHub:
             process_title_italic=True,
             process_title_underline=True,
             public=True,
+            site="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            word_table_style="wordTableStyle",
             word_template="wordTemplate",
         )
         assert_matches_type(HubUpdateResponse, hub, path=["response"])
@@ -1888,67 +1655,11 @@ class TestAsyncHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_ai_search(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        )
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_ai_search_with_all_params(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-            process_public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_ai_search(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_ai_search(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.ai_search(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            search="search",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubAISearchResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_ai_search(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.ai_search(
-                hub_id="",
-                search="search",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_change_user_role(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         )
         assert_matches_type(HubChangeUserRoleResponse, hub, path=["response"])
 
@@ -1958,7 +1669,7 @@ class TestAsyncHub:
         response = await async_client.hub.with_raw_response.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         )
 
         assert response.is_closed is True
@@ -1972,7 +1683,7 @@ class TestAsyncHub:
         async with async_client.hub.with_streaming_response.change_user_role(
             firebase_id="firebase_id",
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            role="owner",
+            role="member",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1989,14 +1700,14 @@ class TestAsyncHub:
             await async_client.hub.with_raw_response.change_user_role(
                 firebase_id="firebase_id",
                 hub_id="",
-                role="owner",
+                role="member",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `firebase_id` but received ''"):
             await async_client.hub.with_raw_response.change_user_role(
                 firebase_id="",
                 hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                role="owner",
+                role="member",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -2039,73 +1750,6 @@ class TestAsyncHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             await async_client.hub.with_raw_response.create_heading_styling(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_knowledge_base(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_knowledge_base_with_all_params(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-            context={
-                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            },
-            link="link",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_knowledge_base(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_knowledge_base(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.create_knowledge_base(
-            hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source="source",
-            text="text",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_create_knowledge_base(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.create_knowledge_base(
-                hub_id="",
-                source="source",
-                text="text",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -2165,7 +1809,6 @@ class TestAsyncHub:
             hub_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
@@ -2206,48 +1849,6 @@ class TestAsyncHub:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
             await async_client.hub.with_raw_response.duplicate(
                 hub_id="",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_ai_answers(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_get_ai_answers(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_get_ai_answers(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.get_ai_answers(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert_matches_type(HubGetAIAnswersResponse, hub, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_get_ai_answers(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.get_ai_answers(
-                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -2929,48 +2530,6 @@ class TestAsyncHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_request_contributor_access(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_request_contributor_access(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_request_contributor_access(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.request_contributor_access(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_request_contributor_access(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.request_contributor_access(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_restore(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.restore(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3163,48 +2722,6 @@ class TestAsyncHub:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_train_knowledge_base(self, async_client: AsyncMorta) -> None:
-        hub = await async_client.hub.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_train_knowledge_base(self, async_client: AsyncMorta) -> None:
-        response = await async_client.hub.with_raw_response.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        hub = await response.parse()
-        assert hub is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_train_knowledge_base(self, async_client: AsyncMorta) -> None:
-        async with async_client.hub.with_streaming_response.train_knowledge_base(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            hub = await response.parse()
-            assert hub is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_train_knowledge_base(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `hub_id` but received ''"):
-            await async_client.hub.with_raw_response.train_knowledge_base(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_method_update_heading_styling(self, async_client: AsyncMorta) -> None:
         hub = await async_client.hub.update_heading_styling(
             style_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3222,7 +2739,6 @@ class TestAsyncHub:
             colour="colour",
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
