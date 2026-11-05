@@ -15,6 +15,13 @@ __all__ = ["DocumentUpdateMultipleSectionsParams", "Section", "SectionDescriptio
 class DocumentUpdateMultipleSectionsParams(TypedDict, total=False):
     sections: Required[Iterable[Section]]
 
+    client: str
+    """Set to "web" by the Morta web app.
+
+    A save without it may not remove a table converted from a document response
+    (409).
+    """
+
     context: BaseRequestContextParam
 
 
