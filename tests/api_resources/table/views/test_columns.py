@@ -14,7 +14,7 @@ from morta.types.table.views import (
     ColumnUpdateResponse,
     ColumnDistinctResponse,
     ColumnFormulaInfoResponse,
-    ColumnAIFormulaHelperResponse,
+    ColumnValidateFormulaResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -43,14 +43,15 @@ class TestColumns:
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
+            block_invalid_select_values=True,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -84,6 +85,7 @@ class TestColumns:
             export_width=0,
             formula="formula",
             formula_enabled=True,
+            form_width=1,
             hard_validation=True,
             header_background_color="headerBackgroundColor",
             header_text_color="headerTextColor",
@@ -93,6 +95,7 @@ class TestColumns:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -171,7 +174,6 @@ class TestColumns:
     def test_method_add(self, client: Morta) -> None:
         column = client.table.views.columns.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         )
@@ -182,7 +184,6 @@ class TestColumns:
     def test_method_add_with_all_params(self, client: Morta) -> None:
         column = client.table.views.columns.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
             aggregate=0,
@@ -190,14 +191,15 @@ class TestColumns:
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
+            block_invalid_select_values=True,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -231,6 +233,7 @@ class TestColumns:
             export_width=0,
             formula="formula",
             formula_enabled=True,
+            form_width=1,
             hard_validation=True,
             header_background_color="headerBackgroundColor",
             header_text_color="headerTextColor",
@@ -240,6 +243,7 @@ class TestColumns:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -254,7 +258,8 @@ class TestColumns:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            locked=True,
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -272,7 +277,6 @@ class TestColumns:
     def test_raw_response_add(self, client: Morta) -> None:
         response = client.table.views.columns.with_raw_response.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         )
@@ -287,7 +291,6 @@ class TestColumns:
     def test_streaming_response_add(self, client: Morta) -> None:
         with client.table.views.columns.with_streaming_response.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         ) as response:
@@ -305,66 +308,8 @@ class TestColumns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             client.table.views.columns.with_raw_response.add(
                 view_id="",
-                locked=True,
                 required=True,
                 sort_order=0,
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_ai_formula_helper(self, client: Morta) -> None:
-        column = client.table.views.columns.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        )
-        assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_ai_formula_helper(self, client: Morta) -> None:
-        response = client.table.views.columns.with_raw_response.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        column = response.parse()
-        assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_ai_formula_helper(self, client: Morta) -> None:
-        with client.table.views.columns.with_streaming_response.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            column = response.parse()
-            assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_ai_formula_helper(self, client: Morta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
-            client.table.views.columns.with_raw_response.ai_formula_helper(
-                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_id="",
-                text="text",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
-            client.table.views.columns.with_raw_response.ai_formula_helper(
-                column_id="",
-                view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                text="text",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -482,6 +427,63 @@ class TestColumns:
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_validate_formula(self, client: Morta) -> None:
+        column = client.table.views.columns.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        )
+        assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_validate_formula(self, client: Morta) -> None:
+        response = client.table.views.columns.with_raw_response.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        column = response.parse()
+        assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_validate_formula(self, client: Morta) -> None:
+        with client.table.views.columns.with_streaming_response.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            column = response.parse()
+            assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_validate_formula(self, client: Morta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            client.table.views.columns.with_raw_response.validate_formula(
+                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                view_id="",
+                formula="formula",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
+            client.table.views.columns.with_raw_response.validate_formula(
+                column_id="",
+                view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                formula="formula",
+            )
+
 
 class TestAsyncColumns:
     parametrize = pytest.mark.parametrize(
@@ -508,14 +510,15 @@ class TestAsyncColumns:
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
+            block_invalid_select_values=True,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -549,6 +552,7 @@ class TestAsyncColumns:
             export_width=0,
             formula="formula",
             formula_enabled=True,
+            form_width=1,
             hard_validation=True,
             header_background_color="headerBackgroundColor",
             header_text_color="headerTextColor",
@@ -558,6 +562,7 @@ class TestAsyncColumns:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -636,7 +641,6 @@ class TestAsyncColumns:
     async def test_method_add(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         )
@@ -647,7 +651,6 @@ class TestAsyncColumns:
     async def test_method_add_with_all_params(self, async_client: AsyncMorta) -> None:
         column = await async_client.table.views.columns.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
             aggregate=0,
@@ -655,14 +658,15 @@ class TestAsyncColumns:
                 "date_conversion_format": "DD/MM/YYYY",
                 "run_script_on_all_cells": True,
             },
+            block_invalid_select_values=True,
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "process_response_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             date_format="dateFormat",
             decimal_places=0,
+            default_value="defaultValue",
             description={
                 "content": {
                     "blocks": [
@@ -696,6 +700,7 @@ class TestAsyncColumns:
             export_width=0,
             formula="formula",
             formula_enabled=True,
+            form_width=1,
             hard_validation=True,
             header_background_color="headerBackgroundColor",
             header_text_color="headerTextColor",
@@ -705,6 +710,7 @@ class TestAsyncColumns:
             kind="text",
             kind_options={
                 "autopopulate": True,
+                "expand_options_via_cell_entry": True,
                 "manual_options": ["string"],
                 "table_options": {
                     "column_id": "columnId",
@@ -719,7 +725,8 @@ class TestAsyncColumns:
                     "view_id": "viewId",
                 },
             },
-            name="name",
+            locked=True,
+            name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             script="script",
             script_enabled=True,
@@ -737,7 +744,6 @@ class TestAsyncColumns:
     async def test_raw_response_add(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.views.columns.with_raw_response.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         )
@@ -752,7 +758,6 @@ class TestAsyncColumns:
     async def test_streaming_response_add(self, async_client: AsyncMorta) -> None:
         async with async_client.table.views.columns.with_streaming_response.add(
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            locked=True,
             required=True,
             sort_order=0,
         ) as response:
@@ -770,66 +775,8 @@ class TestAsyncColumns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
             await async_client.table.views.columns.with_raw_response.add(
                 view_id="",
-                locked=True,
                 required=True,
                 sort_order=0,
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_ai_formula_helper(self, async_client: AsyncMorta) -> None:
-        column = await async_client.table.views.columns.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        )
-        assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_ai_formula_helper(self, async_client: AsyncMorta) -> None:
-        response = await async_client.table.views.columns.with_raw_response.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        column = await response.parse()
-        assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_ai_formula_helper(self, async_client: AsyncMorta) -> None:
-        async with async_client.table.views.columns.with_streaming_response.ai_formula_helper(
-            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            text="text",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            column = await response.parse()
-            assert_matches_type(ColumnAIFormulaHelperResponse, column, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_ai_formula_helper(self, async_client: AsyncMorta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
-            await async_client.table.views.columns.with_raw_response.ai_formula_helper(
-                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                view_id="",
-                text="text",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
-            await async_client.table.views.columns.with_raw_response.ai_formula_helper(
-                column_id="",
-                view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                text="text",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -945,4 +892,61 @@ class TestAsyncColumns:
             await async_client.table.views.columns.with_raw_response.formula_info(
                 column_id="",
                 view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_validate_formula(self, async_client: AsyncMorta) -> None:
+        column = await async_client.table.views.columns.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        )
+        assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_validate_formula(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.views.columns.with_raw_response.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        column = await response.parse()
+        assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_validate_formula(self, async_client: AsyncMorta) -> None:
+        async with async_client.table.views.columns.with_streaming_response.validate_formula(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            formula="formula",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            column = await response.parse()
+            assert_matches_type(ColumnValidateFormulaResponse, column, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_validate_formula(self, async_client: AsyncMorta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `view_id` but received ''"):
+            await async_client.table.views.columns.with_raw_response.validate_formula(
+                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                view_id="",
+                formula="formula",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
+            await async_client.table.views.columns.with_raw_response.validate_formula(
+                column_id="",
+                view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                formula="formula",
             )
