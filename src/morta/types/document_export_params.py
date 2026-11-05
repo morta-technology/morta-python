@@ -2,17 +2,23 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["DocumentExportParams"]
 
 
 class DocumentExportParams(TypedDict, total=False):
-    page_format: Literal["A1", "A2", "A3", "A4", "letter", "legal"]
-    """Page format for the export"""
+    iframe_links: Annotated[bool, PropertyInfo(alias="iframeLinks")]
 
-    page_orientation: Literal["portrait", "landscape"]
-    """Page orientation for the export"""
+    page_format: Annotated[Literal["A2", "A3", "A4", "letter", "legal"], PropertyInfo(alias="pageFormat")]
 
-    table_links: bool
-    """Include table links in the export"""
+    page_orientation: Annotated[Literal["portrait", "landscape"], PropertyInfo(alias="pageOrientation")]
+
+    set_default_format_and_orientation: Annotated[bool, PropertyInfo(alias="setDefaultFormatAndOrientation")]
+
+    table_links: Annotated[bool, PropertyInfo(alias="tableLinks")]
+
+    view_grids: Annotated[object, PropertyInfo(alias="viewGrids")]
+    """Map of view public id to its frontend-computed grid layout."""

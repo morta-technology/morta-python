@@ -36,6 +36,7 @@ class FilterParam(TypedDict, total=False):
                 "ends_with",
                 "is_valid",
                 "is_not_valid",
+                "all_values",
             ],
             PropertyInfo(alias="filterType"),
         ]
@@ -46,5 +47,7 @@ class FilterParam(TypedDict, total=False):
     multiple_values: Annotated[Iterable[Optional[object]], PropertyInfo(alias="multipleValues")]
 
     or_group: Annotated[str, PropertyInfo(alias="orGroup")]
+
+    public_id: Annotated[str, PropertyInfo(alias="publicId")]
 
     value: object
