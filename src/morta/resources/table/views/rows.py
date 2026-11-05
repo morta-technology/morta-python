@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -17,10 +17,17 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._base_client import make_request_options
-from ....types.table.views import row_add_params, row_list_params, row_update_params, row_upsert_params
+from ....types.table.views import (
+    row_add_params,
+    row_list_params,
+    row_delete_params,
+    row_update_params,
+    row_upsert_params,
+)
 from ....types.base_request_context_param import BaseRequestContextParam
 from ....types.table.table_row_action_param import TableRowActionParam
 from ....types.table.views.row_add_response import RowAddResponse
+from ....types.table.preview_table_row_param import PreviewTableRowParam
 from ....types.table.views.row_list_response import RowListResponse
 from ....types.table.views.row_delete_response import RowDeleteResponse
 from ....types.table.views.row_update_response import RowUpdateResponse
@@ -55,6 +62,7 @@ class RowsResource(SyncAPIResource):
         *,
         rows: Iterable[row_update_params.Row],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,11 +85,12 @@ class RowsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._put(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             body=maybe_transform(
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_update_params.RowUpdateParams,
             ),
@@ -138,7 +147,7 @@ class RowsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -162,6 +171,8 @@ class RowsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
+        row_ids: SequenceNotStr[str],
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -184,7 +195,14 @@ class RowsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._delete(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
+            body=maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "context": context,
+                },
+                row_delete_params.RowDeleteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -197,6 +215,7 @@ class RowsResource(SyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,11 +238,12 @@ class RowsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             body=maybe_transform(
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_add_params.RowAddParams,
             ),
@@ -237,9 +257,10 @@ class RowsResource(SyncAPIResource):
         self,
         view_id: str,
         *,
-        rows: Iterable[TableRowActionParam],
+        rows: Iterable[PreviewTableRowParam],
         upsert_column_name: str,
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -262,12 +283,13 @@ class RowsResource(SyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._post(
-            f"/v1/table/views/{view_id}/rows/upsert",
+            path_template("/v1/table/views/{view_id}/rows/upsert", view_id=view_id),
             body=maybe_transform(
                 {
                     "rows": rows,
                     "upsert_column_name": upsert_column_name,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_upsert_params.RowUpsertParams,
             ),
@@ -304,6 +326,7 @@ class AsyncRowsResource(AsyncAPIResource):
         *,
         rows: Iterable[row_update_params.Row],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -326,11 +349,12 @@ class AsyncRowsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._put(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_update_params.RowUpdateParams,
             ),
@@ -387,7 +411,7 @@ class AsyncRowsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -411,6 +435,8 @@ class AsyncRowsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
+        row_ids: SequenceNotStr[str],
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -433,7 +459,14 @@ class AsyncRowsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._delete(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
+            body=await async_maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "context": context,
+                },
+                row_delete_params.RowDeleteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -446,6 +479,7 @@ class AsyncRowsResource(AsyncAPIResource):
         *,
         rows: Iterable[TableRowActionParam],
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -468,11 +502,12 @@ class AsyncRowsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/rows",
+            path_template("/v1/table/views/{view_id}/rows", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "rows": rows,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_add_params.RowAddParams,
             ),
@@ -486,9 +521,10 @@ class AsyncRowsResource(AsyncAPIResource):
         self,
         view_id: str,
         *,
-        rows: Iterable[TableRowActionParam],
+        rows: Iterable[PreviewTableRowParam],
         upsert_column_name: str,
         context: BaseRequestContextParam | Omit = omit,
+        next_row_public_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -511,12 +547,13 @@ class AsyncRowsResource(AsyncAPIResource):
         if not view_id:
             raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._post(
-            f"/v1/table/views/{view_id}/rows/upsert",
+            path_template("/v1/table/views/{view_id}/rows/upsert", view_id=view_id),
             body=await async_maybe_transform(
                 {
                     "rows": rows,
                     "upsert_column_name": upsert_column_name,
                     "context": context,
+                    "next_row_public_id": next_row_public_id,
                 },
                 row_upsert_params.RowUpsertParams,
             ),
