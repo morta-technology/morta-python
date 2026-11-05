@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -64,6 +64,7 @@ class ColumnResource(SyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_create_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
@@ -93,6 +94,7 @@ class ColumnResource(SyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -124,7 +126,7 @@ class ColumnResource(SyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._post(
-            f"/v1/table/{table_id}/column",
+            path_template("/v1/table/{table_id}/column", table_id=table_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -132,6 +134,7 @@ class ColumnResource(SyncAPIResource):
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "export_width": export_width,
@@ -169,6 +172,7 @@ class ColumnResource(SyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_update_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
@@ -198,6 +202,7 @@ class ColumnResource(SyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -231,7 +236,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             body=maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -239,6 +244,7 @@ class ColumnResource(SyncAPIResource):
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "export_width": export_width,
@@ -295,7 +301,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._delete(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -331,7 +337,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/column/{column_id}/views",
+            path_template("/v1/table/{table_id}/column/{column_id}/views", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -373,7 +379,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._get(
-            f"/v1/table/{table_id}/column/{column_id}/distinct",
+            path_template("/v1/table/{table_id}/column/{column_id}/distinct", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -419,7 +425,7 @@ class ColumnResource(SyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return self._put(
-            f"/v1/table/{table_id}/column/{column_id}/restore",
+            path_template("/v1/table/{table_id}/column/{column_id}/restore", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -456,6 +462,7 @@ class AsyncColumnResource(AsyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_create_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
@@ -485,6 +492,7 @@ class AsyncColumnResource(AsyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -516,7 +524,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not table_id:
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._post(
-            f"/v1/table/{table_id}/column",
+            path_template("/v1/table/{table_id}/column", table_id=table_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -524,6 +532,7 @@ class AsyncColumnResource(AsyncAPIResource):
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "export_width": export_width,
@@ -561,6 +570,7 @@ class AsyncColumnResource(AsyncAPIResource):
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
+        default_value: Optional[str] | Omit = omit,
         description: column_update_params.Description | Omit = omit,
         display_link: bool | Omit = omit,
         export_width: Optional[int] | Omit = omit,
@@ -590,6 +600,7 @@ class AsyncColumnResource(AsyncAPIResource):
             "vote",
             "checkbox",
             "duration",
+            "json",
         ]
         | Omit = omit,
         kind_options: SelectOptionsLookupParam | Omit = omit,
@@ -623,7 +634,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             body=await async_maybe_transform(
                 {
                     "aggregate": aggregate,
@@ -631,6 +642,7 @@ class AsyncColumnResource(AsyncAPIResource):
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
+                    "default_value": default_value,
                     "description": description,
                     "display_link": display_link,
                     "export_width": export_width,
@@ -687,7 +699,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._delete(
-            f"/v1/table/{table_id}/column/{column_id}",
+            path_template("/v1/table/{table_id}/column/{column_id}", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -723,7 +735,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/column/{column_id}/views",
+            path_template("/v1/table/{table_id}/column/{column_id}/views", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -765,7 +777,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._get(
-            f"/v1/table/{table_id}/column/{column_id}/distinct",
+            path_template("/v1/table/{table_id}/column/{column_id}/distinct", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -811,7 +823,7 @@ class AsyncColumnResource(AsyncAPIResource):
         if not column_id:
             raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
         return await self._put(
-            f"/v1/table/{table_id}/column/{column_id}/restore",
+            path_template("/v1/table/{table_id}/column/{column_id}/restore", table_id=table_id, column_id=column_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
