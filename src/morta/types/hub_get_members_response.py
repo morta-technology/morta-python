@@ -15,6 +15,8 @@ class DataUser(BaseModel):
 
     firebase_user_id: Optional[str] = FieldInfo(alias="firebaseUserId", default=None)
 
+    is_service_account: Optional[bool] = FieldInfo(alias="isServiceAccount", default=None)
+
     kind: Optional[str] = None
 
     name: Optional[str] = None
@@ -29,9 +31,9 @@ class DataUser(BaseModel):
 class Data(BaseModel):
     created_at: Optional[datetime] = FieldInfo(alias="createdAt", default=None)
 
-    favourite: Optional[bool] = None
+    role: Optional[str] = None
 
-    project_role: Optional[str] = FieldInfo(alias="projectRole", default=None)
+    role_assigned_method: Optional[str] = FieldInfo(alias="roleAssignedMethod", default=None)
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
