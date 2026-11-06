@@ -32,6 +32,22 @@ from .apikey import (
     ApikeyResourceWithStreamingResponse,
     AsyncApikeyResourceWithStreamingResponse,
 )
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
+)
+from .notifications import (
+    NotificationsResource,
+    AsyncNotificationsResource,
+    NotificationsResourceWithRawResponse,
+    AsyncNotificationsResourceWithRawResponse,
+    NotificationsResourceWithStreamingResponse,
+    AsyncNotificationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ApikeyResource",
@@ -52,6 +68,18 @@ __all__ = [
     "AsyncTagsResourceWithRawResponse",
     "TagsResourceWithStreamingResponse",
     "AsyncTagsResourceWithStreamingResponse",
+    "SessionsResource",
+    "AsyncSessionsResource",
+    "SessionsResourceWithRawResponse",
+    "AsyncSessionsResourceWithRawResponse",
+    "SessionsResourceWithStreamingResponse",
+    "AsyncSessionsResourceWithStreamingResponse",
+    "NotificationsResource",
+    "AsyncNotificationsResource",
+    "NotificationsResourceWithRawResponse",
+    "AsyncNotificationsResourceWithRawResponse",
+    "NotificationsResourceWithStreamingResponse",
+    "AsyncNotificationsResourceWithStreamingResponse",
     "UserResource",
     "AsyncUserResource",
     "UserResourceWithRawResponse",
