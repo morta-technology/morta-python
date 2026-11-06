@@ -6,9 +6,14 @@ from datetime import datetime
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
-from .user_hub import UserHub
 
-__all__ = ["Answer"]
+__all__ = ["Answer", "User"]
+
+
+class User(BaseModel):
+    email: Optional[str] = None
+
+    name: Optional[str] = None
 
 
 class Answer(BaseModel):
@@ -26,4 +31,4 @@ class Answer(BaseModel):
 
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
-    user: Optional[UserHub] = None
+    user: Optional[User] = None

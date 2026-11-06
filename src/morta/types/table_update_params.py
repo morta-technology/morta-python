@@ -8,7 +8,7 @@ from typing_extensions import Literal, Annotated, TypedDict
 from .._utils import PropertyInfo
 from .base_request_context_param import BaseRequestContextParam
 from .table.table_column_join_param import TableColumnJoinParam
-from .table_join_imported_columns_param import TableJoinImportedColumnsParam
+from .table_join_imported_columns1_param import TableJoinImportedColumns1Param
 
 __all__ = ["TableUpdateParams", "Join"]
 
@@ -18,25 +18,25 @@ class TableUpdateParams(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
-    is_reference_table: Annotated[bool, PropertyInfo(alias="isReferenceTable")]
-
     joins: Iterable[Join]
 
     keep_colours_in_sync: Annotated[bool, PropertyInfo(alias="keepColoursInSync")]
 
     keep_validations_in_sync: Annotated[bool, PropertyInfo(alias="keepValidationsInSync")]
 
-    logo: Optional[str]
-
     name: str
 
     sync_hourly_frequency: Annotated[Literal[0, 24], PropertyInfo(alias="syncHourlyFrequency")]
 
     type: Optional[str]
+    """
+    Deprecated: files the resource into the top-level folder of that name; creates
+    it if missing (hub Owners only).
+    """
 
 
 class Join(TypedDict, total=False):
-    data_columns: Annotated[Iterable[TableJoinImportedColumnsParam], PropertyInfo(alias="dataColumns")]
+    data_columns: Annotated[Iterable[TableJoinImportedColumns1Param], PropertyInfo(alias="dataColumns")]
 
     is_one_to_many: Annotated[bool, PropertyInfo(alias="isOneToMany")]
 
