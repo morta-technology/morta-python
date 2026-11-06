@@ -15,3 +15,5 @@ class ViewPreviewRowParams(TypedDict, total=False):
     row_data: Required[Annotated[Dict[str, Optional[object]], PropertyInfo(alias="rowData")]]
 
     context: BaseRequestContextParam
+
+    sort_order: Annotated[Optional[float], PropertyInfo(alias="sortOrder")]

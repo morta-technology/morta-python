@@ -15,6 +15,7 @@ from morta.types import (
     UserRetrieveMeResponse,
     UserListOwnerHubsResponse,
     UserListTemplatesResponse,
+    UserRetrieveSitesResponse,
     UserUpdateAccountResponse,
     UserUpdateProfileResponse,
     UserListPinnedHubsResponse,
@@ -25,6 +26,7 @@ from morta.types import (
     UserListPublicContributionsResponse,
 )
 from tests.utils import assert_matches_type
+from morta._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -50,8 +52,12 @@ class TestUser:
             name="name",
             password="password",
             opt_out_ai_email=True,
+            opt_out_community_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_marketing_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -385,6 +391,34 @@ class TestUser:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_request_paid_seat(self, client: Morta) -> None:
+        user = client.user.request_paid_seat()
+        assert user is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_request_paid_seat(self, client: Morta) -> None:
+        response = client.user.with_raw_response.request_paid_seat()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert user is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_request_paid_seat(self, client: Morta) -> None:
+        with client.user.with_streaming_response.request_paid_seat() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert user is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_retrieve_by_public_id(self, client: Morta) -> None:
         user = client.user.retrieve_by_public_id(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -455,6 +489,34 @@ class TestUser:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_retrieve_sites(self, client: Morta) -> None:
+        user = client.user.retrieve_sites()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve_sites(self, client: Morta) -> None:
+        response = client.user.with_raw_response.retrieve_sites()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = response.parse()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve_sites(self, client: Morta) -> None:
+        with client.user.with_streaming_response.retrieve_sites() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = response.parse()
+            assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_search(self, client: Morta) -> None:
         user = client.user.search(
             query="query",
@@ -508,15 +570,21 @@ class TestUser:
     @parametrize
     def test_method_update_account_with_all_params(self, client: Morta) -> None:
         user = client.user.update_account(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             old_password="oldPassword",
             opt_out_ai_email=True,
+            opt_out_assignment_email=True,
+            opt_out_community_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_marketing_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             password="password",
             password_confirm="passwordConfirm",
+            theme="light",
             two_factor_code="twoFactorCode",
         )
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
@@ -553,7 +621,7 @@ class TestUser:
     @parametrize
     def test_method_update_profile_with_all_params(self, client: Morta) -> None:
         user = client.user.update_profile(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             bio="bio",
             linkedin="linkedin",
             location="location",
@@ -613,8 +681,12 @@ class TestAsyncUser:
             name="name",
             password="password",
             opt_out_ai_email=True,
+            opt_out_community_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_marketing_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -948,6 +1020,34 @@ class TestAsyncUser:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_request_paid_seat(self, async_client: AsyncMorta) -> None:
+        user = await async_client.user.request_paid_seat()
+        assert user is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_request_paid_seat(self, async_client: AsyncMorta) -> None:
+        response = await async_client.user.with_raw_response.request_paid_seat()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert user is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_request_paid_seat(self, async_client: AsyncMorta) -> None:
+        async with async_client.user.with_streaming_response.request_paid_seat() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert user is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_retrieve_by_public_id(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.retrieve_by_public_id(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1018,6 +1118,34 @@ class TestAsyncUser:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        user = await async_client.user.retrieve_sites()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        response = await async_client.user.with_raw_response.retrieve_sites()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        user = await response.parse()
+        assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve_sites(self, async_client: AsyncMorta) -> None:
+        async with async_client.user.with_streaming_response.retrieve_sites() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            user = await response.parse()
+            assert_matches_type(UserRetrieveSitesResponse, user, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_search(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.search(
             query="query",
@@ -1071,15 +1199,21 @@ class TestAsyncUser:
     @parametrize
     async def test_method_update_account_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_account(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             old_password="oldPassword",
             opt_out_ai_email=True,
+            opt_out_assignment_email=True,
+            opt_out_community_email=True,
+            opt_out_deprecation_email=True,
             opt_out_duplication_email=True,
             opt_out_hub_email=True,
+            opt_out_marketing_email=True,
+            opt_out_mention_email=True,
             opt_out_sync_email=True,
             opt_out_welcome_email=True,
             password="password",
             password_confirm="passwordConfirm",
+            theme="light",
             two_factor_code="twoFactorCode",
         )
         assert_matches_type(UserUpdateAccountResponse, user, path=["response"])
@@ -1116,7 +1250,7 @@ class TestAsyncUser:
     @parametrize
     async def test_method_update_profile_with_all_params(self, async_client: AsyncMorta) -> None:
         user = await async_client.user.update_profile(
-            allow_support_access=True,
+            allow_support_access_expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             bio="bio",
             linkedin="linkedin",
             location="location",
