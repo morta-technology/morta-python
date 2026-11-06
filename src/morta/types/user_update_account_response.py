@@ -1,40 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from __future__ import annotations
-
-from typing import List, Union, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
-from .user_hub import UserHub
 from .user.api_key import APIKey
+from .user_to_integration import UserToIntegration
+from .organisation.organisation import Organisation
 
-__all__ = ["UserUpdateAccountResponse", "Data", "DataSubscriptionManagerUser"]
-
-DataSubscriptionManagerUser: TypeAlias = Union[UserHub, Optional[object]]
+__all__ = ["UserUpdateAccountResponse", "Data"]
 
 
 class Data(BaseModel):
     id: Optional[int] = None
 
-    aconex_connected: Optional[bool] = FieldInfo(alias="aconexConnected", default=None)
+    admin_organisations: Optional[List[Organisation]] = FieldInfo(alias="adminOrganisations", default=None)
 
     allow_support_access: Optional[bool] = FieldInfo(alias="allowSupportAccess", default=None)
 
-    allow_support_accesss: Optional[bool] = FieldInfo(alias="allowSupportAccesss", default=None)
+    allow_support_access_expires_at: Optional[datetime] = FieldInfo(alias="allowSupportAccessExpiresAt", default=None)
 
     api_keys: Optional[List[APIKey]] = FieldInfo(alias="apiKeys", default=None)
-
-    asite_connected: Optional[bool] = FieldInfo(alias="asiteConnected", default=None)
 
     auth_token: Optional[str] = FieldInfo(alias="authToken", default=None)
 
     auth_token_expires_at: Optional[datetime] = FieldInfo(alias="authTokenExpiresAt", default=None)
-
-    autodesk_connected: Optional[bool] = FieldInfo(alias="autodeskConnected", default=None)
 
     bio: Optional[str] = None
 
@@ -52,11 +44,17 @@ class Data(BaseModel):
 
     has_password: Optional[object] = FieldInfo(alias="hasPassword", default=None)
 
+    integrations: Optional[List[UserToIntegration]] = None
+
     is2_fa_enabled: Optional[object] = FieldInfo(alias="is2FaEnabled", default=None)
 
     is_on_free_trial: Optional[bool] = FieldInfo(alias="isOnFreeTrial", default=None)
 
+    is_service_account: Optional[bool] = FieldInfo(alias="isServiceAccount", default=None)
+
     is_super_admin: Optional[bool] = FieldInfo(alias="isSuperAdmin", default=None)
+
+    is_team_manager: Optional[object] = FieldInfo(alias="isTeamManager", default=None)
 
     kind: Optional[str] = None
 
@@ -66,21 +64,25 @@ class Data(BaseModel):
 
     location: Optional[str] = None
 
-    managed_subscription_users: Optional[List["User"]] = FieldInfo(alias="managedSubscriptionUsers", default=None)
+    managed_teams: Optional[object] = FieldInfo(alias="managedTeams", default=None)
 
     name: Optional[str] = None
 
-    number_of_managed_subscription_users: Optional[int] = FieldInfo(
-        alias="numberOfManagedSubscriptionUsers", default=None
-    )
-
-    on_scale_plan: Optional[bool] = FieldInfo(alias="onScalePlan", default=None)
-
     opt_out_ai_email: Optional[bool] = FieldInfo(alias="optOutAiEmail", default=None)
+
+    opt_out_assignment_email: Optional[bool] = FieldInfo(alias="optOutAssignmentEmail", default=None)
+
+    opt_out_community_email: Optional[bool] = FieldInfo(alias="optOutCommunityEmail", default=None)
+
+    opt_out_deprecation_email: Optional[bool] = FieldInfo(alias="optOutDeprecationEmail", default=None)
 
     opt_out_duplication_email: Optional[bool] = FieldInfo(alias="optOutDuplicationEmail", default=None)
 
     opt_out_hub_email: Optional[bool] = FieldInfo(alias="optOutHubEmail", default=None)
+
+    opt_out_marketing_email: Optional[bool] = FieldInfo(alias="optOutMarketingEmail", default=None)
+
+    opt_out_mention_email: Optional[bool] = FieldInfo(alias="optOutMentionEmail", default=None)
 
     opt_out_sync_email: Optional[bool] = FieldInfo(alias="optOutSyncEmail", default=None)
 
@@ -90,27 +92,21 @@ class Data(BaseModel):
 
     phone: Optional[str] = None
 
-    procore_connected: Optional[bool] = FieldInfo(alias="procoreConnected", default=None)
-
     profile_picture: Optional[str] = FieldInfo(alias="profilePicture", default=None)
 
     projects_worked_on: Optional[List[str]] = FieldInfo(alias="projectsWorkedOn", default=None)
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
-    revizto_connected: Optional[bool] = FieldInfo(alias="reviztoConnected", default=None)
-
     specialisms: Optional[List[str]] = None
 
     subscription_level: Optional[int] = FieldInfo(alias="subscriptionLevel", default=None)
 
-    subscription_manager_user: Optional[DataSubscriptionManagerUser] = FieldInfo(
-        alias="subscriptionManagerUser", default=None
-    )
-
-    subscription_quota: Optional[int] = FieldInfo(alias="subscriptionQuota", default=None)
-
     tags: Optional[object] = None
+
+    team: Optional[object] = None
+
+    theme: Optional[str] = None
 
     twitter: Optional[str] = None
 
@@ -118,7 +114,7 @@ class Data(BaseModel):
 
     university_degree: Optional[str] = FieldInfo(alias="universityDegree", default=None)
 
-    viewpoint_connected: Optional[bool] = FieldInfo(alias="viewpointConnected", default=None)
+    user_level_subscription: Optional[int] = FieldInfo(alias="userLevelSubscription", default=None)
 
     website: Optional[str] = None
 
@@ -127,6 +123,3 @@ class UserUpdateAccountResponse(BaseModel):
     data: Optional[Data] = None
 
     metadata: Optional[object] = None
-
-
-from .user.user import User

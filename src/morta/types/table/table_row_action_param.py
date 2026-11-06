@@ -16,4 +16,4 @@ class TableRowActionParam(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
-    sort_order: Annotated[float, PropertyInfo(alias="sortOrder")]
+    sort_order: Annotated[Optional[float], PropertyInfo(alias="sortOrder")]

@@ -10,4 +10,4 @@ __all__ = ["HubChangeUserRoleParams"]
 class HubChangeUserRoleParams(TypedDict, total=False):
     hub_id: Required[str]
 
-    role: Required[Literal["owner", "admin", "member"]]
+    role: Required[Literal["member", "admin", "owner"]]

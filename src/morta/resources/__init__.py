@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .ai import (
+    AIResource,
+    AsyncAIResource,
+    AIResourceWithRawResponse,
+    AsyncAIResourceWithRawResponse,
+    AIResourceWithStreamingResponse,
+    AsyncAIResourceWithStreamingResponse,
+)
 from .hub import (
     HubResource,
     AsyncHubResource,
@@ -24,6 +32,14 @@ from .table import (
     TableResourceWithStreamingResponse,
     AsyncTableResourceWithStreamingResponse,
 )
+from .teams import (
+    TeamsResource,
+    AsyncTeamsResource,
+    TeamsResourceWithRawResponse,
+    AsyncTeamsResourceWithRawResponse,
+    TeamsResourceWithStreamingResponse,
+    AsyncTeamsResourceWithStreamingResponse,
+)
 from .document import (
     DocumentResource,
     AsyncDocumentResource,
@@ -47,6 +63,14 @@ from .integrations import (
     AsyncIntegrationsResourceWithRawResponse,
     IntegrationsResourceWithStreamingResponse,
     AsyncIntegrationsResourceWithStreamingResponse,
+)
+from .organisation import (
+    OrganisationResource,
+    AsyncOrganisationResource,
+    OrganisationResourceWithRawResponse,
+    AsyncOrganisationResourceWithRawResponse,
+    OrganisationResourceWithStreamingResponse,
+    AsyncOrganisationResourceWithStreamingResponse,
 )
 from .notifications import (
     NotificationsResource,
@@ -114,4 +138,22 @@ __all__ = [
     "AsyncIntegrationsResourceWithRawResponse",
     "IntegrationsResourceWithStreamingResponse",
     "AsyncIntegrationsResourceWithStreamingResponse",
+    "AIResource",
+    "AsyncAIResource",
+    "AIResourceWithRawResponse",
+    "AsyncAIResourceWithRawResponse",
+    "AIResourceWithStreamingResponse",
+    "AsyncAIResourceWithStreamingResponse",
+    "OrganisationResource",
+    "AsyncOrganisationResource",
+    "OrganisationResourceWithRawResponse",
+    "AsyncOrganisationResourceWithRawResponse",
+    "OrganisationResourceWithStreamingResponse",
+    "AsyncOrganisationResourceWithStreamingResponse",
+    "TeamsResource",
+    "AsyncTeamsResource",
+    "TeamsResourceWithRawResponse",
+    "AsyncTeamsResourceWithRawResponse",
+    "TeamsResourceWithStreamingResponse",
+    "AsyncTeamsResourceWithStreamingResponse",
 ]
