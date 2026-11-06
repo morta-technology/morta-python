@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -11,7 +12,9 @@ __all__ = ["UserUpdateProfileParams"]
 
 
 class UserUpdateProfileParams(TypedDict, total=False):
-    allow_support_access: Annotated[Optional[bool], PropertyInfo(alias="allowSupportAccess")]
+    allow_support_access_expires_at: Annotated[
+        Union[str, datetime, None], PropertyInfo(alias="allowSupportAccessExpiresAt", format="iso8601")
+    ]
 
     bio: Optional[str]
 
