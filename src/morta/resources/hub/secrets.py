@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -72,7 +72,7 @@ class SecretsResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._post(
-            f"/v1/hub/{hub_id}/secrets",
+            path_template("/v1/hub/{hub_id}/secrets", hub_id=hub_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -117,7 +117,7 @@ class SecretsResource(SyncAPIResource):
         if not secret_id:
             raise ValueError(f"Expected a non-empty value for `secret_id` but received {secret_id!r}")
         return self._put(
-            f"/v1/hub/{hub_id}/secrets/{secret_id}",
+            path_template("/v1/hub/{hub_id}/secrets/{secret_id}", hub_id=hub_id, secret_id=secret_id),
             body=maybe_transform(
                 {
                     "name": name,
@@ -157,7 +157,7 @@ class SecretsResource(SyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return self._get(
-            f"/v1/hub/{hub_id}/secrets",
+            path_template("/v1/hub/{hub_id}/secrets", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -193,7 +193,7 @@ class SecretsResource(SyncAPIResource):
         if not secret_id:
             raise ValueError(f"Expected a non-empty value for `secret_id` but received {secret_id!r}")
         return self._delete(
-            f"/v1/hub/{hub_id}/secrets/{secret_id}",
+            path_template("/v1/hub/{hub_id}/secrets/{secret_id}", hub_id=hub_id, secret_id=secret_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -249,7 +249,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._post(
-            f"/v1/hub/{hub_id}/secrets",
+            path_template("/v1/hub/{hub_id}/secrets", hub_id=hub_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -294,7 +294,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not secret_id:
             raise ValueError(f"Expected a non-empty value for `secret_id` but received {secret_id!r}")
         return await self._put(
-            f"/v1/hub/{hub_id}/secrets/{secret_id}",
+            path_template("/v1/hub/{hub_id}/secrets/{secret_id}", hub_id=hub_id, secret_id=secret_id),
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -334,7 +334,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not hub_id:
             raise ValueError(f"Expected a non-empty value for `hub_id` but received {hub_id!r}")
         return await self._get(
-            f"/v1/hub/{hub_id}/secrets",
+            path_template("/v1/hub/{hub_id}/secrets", hub_id=hub_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -370,7 +370,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not secret_id:
             raise ValueError(f"Expected a non-empty value for `secret_id` but received {secret_id!r}")
         return await self._delete(
-            f"/v1/hub/{hub_id}/secrets/{secret_id}",
+            path_template("/v1/hub/{hub_id}/secrets/{secret_id}", hub_id=hub_id, secret_id=secret_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
