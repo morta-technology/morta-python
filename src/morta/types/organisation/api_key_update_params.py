@@ -1,0 +1,27 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Optional
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from ..._types import SequenceNotStr
+from ..._utils import PropertyInfo
+
+__all__ = ["APIKeyUpdateParams"]
+
+
+class APIKeyUpdateParams(TypedDict, total=False):
+    organisation_public_id: Required[str]
+
+    access_level: Required[Annotated[Literal[0, 1], PropertyInfo(alias="accessLevel")]]
+
+    document_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="documentRestrictions")]
+
+    name: Optional[str]
+
+    project_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="projectRestrictions")]
+
+    site_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="siteRestrictions")]
+
+    table_restrictions: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="tableRestrictions")]
