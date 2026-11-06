@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["TableStreamRowsParams"]
 
@@ -10,6 +10,14 @@ __all__ = ["TableStreamRowsParams"]
 class TableStreamRowsParams(TypedDict, total=False):
     filter: str
     """Filters to apply to the streaming data."""
+
+    format: Literal["rows", "columnar"]
+    """Wire format of the stream.
+
+    `rows` (default) sends each row as an array; `columnar` sends each batch as
+    column blobs (16-byte binary ids, little-endian float64 sort orders, typed
+    dictionary indices).
+    """
 
     page: int
     """Page number for pagination"""
