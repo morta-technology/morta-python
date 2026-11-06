@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .table.table_column_param import TableColumnParam
 from .base_request_context_param import BaseRequestContextParam
 from .table.table_column_join_param import TableColumnJoinParam
-from .table_join_imported_columns_param import TableJoinImportedColumnsParam
+from .table_join_imported_columns1_param import TableJoinImportedColumns1Param
 
 __all__ = ["TableCreateParams", "Join"]
 
@@ -23,13 +23,19 @@ class TableCreateParams(TypedDict, total=False):
 
     context: BaseRequestContextParam
 
+    folder_id: Annotated[Optional[str], PropertyInfo(alias="folderId")]
+
     joins: Iterable[Join]
 
-    type: str
+    type: Optional[str]
+    """
+    Deprecated: files the resource into the top-level folder of that name; creates
+    it if missing (hub Owners only).
+    """
 
 
 class Join(TypedDict, total=False):
-    data_columns: Annotated[Iterable[TableJoinImportedColumnsParam], PropertyInfo(alias="dataColumns")]
+    data_columns: Annotated[Iterable[TableJoinImportedColumns1Param], PropertyInfo(alias="dataColumns")]
 
     is_one_to_many: Annotated[bool, PropertyInfo(alias="isOneToMany")]
 
