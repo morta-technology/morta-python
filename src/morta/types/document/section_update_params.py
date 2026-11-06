@@ -15,6 +15,13 @@ __all__ = ["SectionUpdateParams", "Description"]
 class SectionUpdateParams(TypedDict, total=False):
     document_id: Required[str]
 
+    client: str
+    """Set to "web" by the Morta web app.
+
+    A save without it may not remove a table converted from a document response
+    (409).
+    """
+
     context: BaseRequestContextParam
 
     description: Description
