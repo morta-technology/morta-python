@@ -37,6 +37,7 @@ class TestApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
@@ -85,6 +86,7 @@ class TestApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
@@ -190,6 +192,7 @@ class TestAsyncApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyCreateResponse, apikey, path=["response"])
@@ -238,6 +241,7 @@ class TestAsyncApikey:
             document_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             name="name",
             project_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            site_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             table_restrictions=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(ApikeyUpdateResponse, apikey, path=["response"])
