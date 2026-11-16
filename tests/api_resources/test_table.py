@@ -470,7 +470,22 @@ class TestTable:
     @parametrize
     def test_method_delete_rows(self, client: Morta) -> None:
         table = client.table.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_rows_with_all_params(self, client: Morta) -> None:
+        table = client.table.delete_rows(
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
         )
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
@@ -478,7 +493,8 @@ class TestTable:
     @parametrize
     def test_raw_response_delete_rows(self, client: Morta) -> None:
         response = client.table.with_raw_response.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
         assert response.is_closed is True
@@ -490,7 +506,8 @@ class TestTable:
     @parametrize
     def test_streaming_response_delete_rows(self, client: Morta) -> None:
         with client.table.with_streaming_response.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -505,7 +522,8 @@ class TestTable:
     def test_path_params_delete_rows(self, client: Morta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             client.table.with_raw_response.delete_rows(
-                "",
+                table_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1597,7 +1615,22 @@ class TestAsyncTable:
     @parametrize
     async def test_method_delete_rows(self, async_client: AsyncMorta) -> None:
         table = await async_client.table.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+        )
+        assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_rows_with_all_params(self, async_client: AsyncMorta) -> None:
+        table = await async_client.table.delete_rows(
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            context={
+                "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "process_section_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
         )
         assert_matches_type(TableDeleteRowsResponse, table, path=["response"])
 
@@ -1605,7 +1638,8 @@ class TestAsyncTable:
     @parametrize
     async def test_raw_response_delete_rows(self, async_client: AsyncMorta) -> None:
         response = await async_client.table.with_raw_response.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
 
         assert response.is_closed is True
@@ -1617,7 +1651,8 @@ class TestAsyncTable:
     @parametrize
     async def test_streaming_response_delete_rows(self, async_client: AsyncMorta) -> None:
         async with async_client.table.with_streaming_response.delete_rows(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1632,7 +1667,8 @@ class TestAsyncTable:
     async def test_path_params_delete_rows(self, async_client: AsyncMorta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
             await async_client.table.with_raw_response.delete_rows(
-                "",
+                table_id="",
+                row_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

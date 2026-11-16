@@ -37,7 +37,18 @@ class Data(BaseModel):
 
     sync_provider: Optional[
         Literal[
-            "viewpoint", "aconex", "autodesk", "procore", "revizto", "morta", "asite", "sharepoint", "asta", "dalux"
+            "viewpoint",
+            "aconex",
+            "autodesk",
+            "procore",
+            "revizto",
+            "morta",
+            "asite",
+            "sharepoint",
+            "asta",
+            "dalux",
+            "viewpointfieldview",
+            "primavera_p6",
         ]
     ] = FieldInfo(alias="syncProvider", default=None)
 
@@ -71,6 +82,10 @@ class Data(BaseModel):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ]
     ] = FieldInfo(alias="syncType", default=None)
 

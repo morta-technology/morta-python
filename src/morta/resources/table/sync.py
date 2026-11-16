@@ -83,6 +83,10 @@ class SyncResource(SyncAPIResource):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ],
         context: BaseRequestContextParam | Omit = omit,
         sync_all_hubs: bool | Omit = omit,
@@ -272,6 +276,10 @@ class SyncResource(SyncAPIResource):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -371,6 +379,10 @@ class AsyncSyncResource(AsyncAPIResource):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ],
         context: BaseRequestContextParam | Omit = omit,
         sync_all_hubs: bool | Omit = omit,
@@ -560,6 +572,10 @@ class AsyncSyncResource(AsyncAPIResource):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

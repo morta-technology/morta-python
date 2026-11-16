@@ -344,7 +344,7 @@ Methods:
 - <code title="delete /v1/table/{table_id}">client.table.<a href="./src/morta/resources/table/table.py">delete</a>(table_id) -> <a href="./src/morta/types/table_delete_response.py">TableDeleteResponse</a></code>
 - <code title="get /v1/table/{table_id}/used">client.table.<a href="./src/morta/resources/table/table.py">check_usage</a>(table_id) -> <a href="./src/morta/types/table_check_usage_response.py">TableCheckUsageResponse</a></code>
 - <code title="post /v1/table/{table_id}/indexes">client.table.<a href="./src/morta/resources/table/table.py">create_index</a>(table_id, \*\*<a href="src/morta/types/table_create_index_params.py">params</a>) -> <a href="./src/morta/types/table_create_index_response.py">TableCreateIndexResponse</a></code>
-- <code title="delete /v1/table/{table_id}/rows">client.table.<a href="./src/morta/resources/table/table.py">delete_rows</a>(table_id) -> <a href="./src/morta/types/table_delete_rows_response.py">TableDeleteRowsResponse</a></code>
+- <code title="delete /v1/table/{table_id}/rows">client.table.<a href="./src/morta/resources/table/table.py">delete_rows</a>(table_id, \*\*<a href="src/morta/types/table_delete_rows_params.py">params</a>) -> <a href="./src/morta/types/table_delete_rows_response.py">TableDeleteRowsResponse</a></code>
 - <code title="get /v1/table/{table_id}/csv">client.table.<a href="./src/morta/resources/table/table.py">download_csv</a>(table_id, \*\*<a href="src/morta/types/table_download_csv_params.py">params</a>) -> str</code>
 - <code title="post /v1/table/{table_id}/duplicate">client.table.<a href="./src/morta/resources/table/table.py">duplicate</a>(table_id, \*\*<a href="src/morta/types/table_duplicate_params.py">params</a>) -> <a href="./src/morta/types/table_duplicate_response.py">TableDuplicateResponse</a></code>
 - <code title="get /v1/table/{table_id}/csv-backup">client.table.<a href="./src/morta/resources/table/table.py">get_csv_backup</a>(table_id, \*\*<a href="src/morta/types/table_get_csv_backup_params.py">params</a>) -> <a href="./src/morta/types/table_get_csv_backup_response.py">TableGetCsvBackupResponse</a></code>
@@ -511,6 +511,7 @@ Types:
 
 ```python
 from morta.types.table.views import (
+    DeleteTableRows,
     RowUpdateResponse,
     RowListResponse,
     RowDeleteResponse,

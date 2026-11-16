@@ -46,6 +46,7 @@ from ...types import (
     table_get_file_params,
     table_retrieve_params,
     table_duplicate_params,
+    table_delete_rows_params,
     table_stream_rows_params,
     table_create_index_params,
     table_download_csv_params,
@@ -438,6 +439,8 @@ class TableResource(SyncAPIResource):
         self,
         table_id: str,
         *,
+        row_ids: SequenceNotStr[str],
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -446,7 +449,7 @@ class TableResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteRowsResponse:
         """
-        Delete all rows or specific rows from a table.
+        Delete specific rows from a table based on row IDs.
 
         Args:
           extra_headers: Send extra headers
@@ -461,6 +464,13 @@ class TableResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return self._delete(
             path_template("/v1/table/{table_id}/rows", table_id=table_id),
+            body=maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "context": context,
+                },
+                table_delete_rows_params.TableDeleteRowsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1311,6 +1321,8 @@ class AsyncTableResource(AsyncAPIResource):
         self,
         table_id: str,
         *,
+        row_ids: SequenceNotStr[str],
+        context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1319,7 +1331,7 @@ class AsyncTableResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TableDeleteRowsResponse:
         """
-        Delete all rows or specific rows from a table.
+        Delete specific rows from a table based on row IDs.
 
         Args:
           extra_headers: Send extra headers
@@ -1334,6 +1346,13 @@ class AsyncTableResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
         return await self._delete(
             path_template("/v1/table/{table_id}/rows", table_id=table_id),
+            body=await async_maybe_transform(
+                {
+                    "row_ids": row_ids,
+                    "context": context,
+                },
+                table_delete_rows_params.TableDeleteRowsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
