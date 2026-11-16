@@ -83,6 +83,7 @@ from .hub_get_resources_params import HubGetResourcesParams as HubGetResourcesPa
 from .hub_remove_user_response import HubRemoveUserResponse as HubRemoveUserResponse
 from .permission_create_params import PermissionCreateParams as PermissionCreateParams
 from .permission_update_params import PermissionUpdateParams as PermissionUpdateParams
+from .table_delete_rows_params import TableDeleteRowsParams as TableDeleteRowsParams
 from .table_duplicate_response import TableDuplicateResponse as TableDuplicateResponse
 from .table_stream_rows_params import TableStreamRowsParams as TableStreamRowsParams
 from .document_restore_response import DocumentRestoreResponse as DocumentRestoreResponse

@@ -44,6 +44,10 @@ class SyncUpdateParams(TypedDict, total=False):
             "inspection_plans",
             "inspection_plan_items",
             "locations",
+            "attachments",
+            "projects",
+            "activities",
+            "wbs",
         ]
     ]
 

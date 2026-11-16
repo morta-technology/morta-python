@@ -19,7 +19,18 @@ class IntegrationCreatePassthroughParams(TypedDict, total=False):
     source_system: Required[
         Annotated[
             Literal[
-                "viewpoint", "aconex", "autodesk", "procore", "revizto", "morta", "asite", "sharepoint", "asta", "dalux"
+                "viewpoint",
+                "aconex",
+                "autodesk",
+                "procore",
+                "revizto",
+                "morta",
+                "asite",
+                "sharepoint",
+                "asta",
+                "dalux",
+                "viewpointfieldview",
+                "primavera_p6",
             ],
             PropertyInfo(alias="sourceSystem"),
         ]
