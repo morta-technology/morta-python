@@ -60,9 +60,11 @@ class TestTable:
             columns=[
                 {
                     "aggregate": 0,
-                    "alter_options": {
-                        "date_conversion_format": "DD/MM/YYYY",
-                        "run_script_on_all_cells": True,
+                    "alter_options": {"date_conversion_format": "DD/MM/YYYY"},
+                    "auto_fill": {
+                        "type": "created_time",
+                        "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "fill_gaps": True,
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
@@ -124,8 +126,6 @@ class TestTable:
                     },
                     "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "script": "script",
-                    "script_enabled": True,
                     "thousand_separator": True,
                     "width": 0,
                 }
@@ -159,7 +159,6 @@ class TestTable:
                     "join_view_name": "joinViewName",
                 }
             ],
-            type="type",
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
@@ -298,7 +297,6 @@ class TestTable:
             keep_validations_in_sync=True,
             name="name",
             sync_hourly_frequency=0,
-            type="type",
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 
@@ -1205,9 +1203,11 @@ class TestAsyncTable:
             columns=[
                 {
                     "aggregate": 0,
-                    "alter_options": {
-                        "date_conversion_format": "DD/MM/YYYY",
-                        "run_script_on_all_cells": True,
+                    "alter_options": {"date_conversion_format": "DD/MM/YYYY"},
+                    "auto_fill": {
+                        "type": "created_time",
+                        "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "fill_gaps": True,
                     },
                     "date_format": "dateFormat",
                     "decimal_places": 0,
@@ -1269,8 +1269,6 @@ class TestAsyncTable:
                     },
                     "name": "x",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "script": "script",
-                    "script_enabled": True,
                     "thousand_separator": True,
                     "width": 0,
                 }
@@ -1304,7 +1302,6 @@ class TestAsyncTable:
                     "join_view_name": "joinViewName",
                 }
             ],
-            type="type",
         )
         assert_matches_type(TableCreateResponse, table, path=["response"])
 
@@ -1443,7 +1440,6 @@ class TestAsyncTable:
             keep_validations_in_sync=True,
             name="name",
             sync_hourly_frequency=0,
-            type="type",
         )
         assert_matches_type(TableUpdateResponse, table, path=["response"])
 

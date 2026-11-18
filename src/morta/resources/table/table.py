@@ -87,7 +87,6 @@ from ...types.table_update_response import TableUpdateResponse
 from ...types.table_restore_response import TableRestoreResponse
 from ...types.table_retrieve_response import TableRetrieveResponse
 from ...types.table_truncate_response import TableTruncateResponse
-from ...types.table.table_column_param import TableColumnParam
 from ...types.table_duplicate_response import TableDuplicateResponse
 from ...types.table_list_joins_response import TableListJoinsResponse
 from ...types.base_request_context_param import BaseRequestContextParam
@@ -146,13 +145,12 @@ class TableResource(SyncAPIResource):
     def create(
         self,
         *,
-        columns: Iterable[TableColumnParam],
+        columns: Iterable[table_create_params.Column],
         name: str,
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
         folder_id: Optional[str] | Omit = omit,
         joins: Iterable[table_create_params.Join] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -164,9 +162,6 @@ class TableResource(SyncAPIResource):
         Create a new document table within a hub.
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -185,7 +180,6 @@ class TableResource(SyncAPIResource):
                     "context": context,
                     "folder_id": folder_id,
                     "joins": joins,
-                    "type": type,
                 },
                 table_create_params.TableCreateParams,
             ),
@@ -287,7 +281,6 @@ class TableResource(SyncAPIResource):
         keep_validations_in_sync: bool | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -299,9 +292,6 @@ class TableResource(SyncAPIResource):
         Update the properties of an existing table.
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -323,7 +313,6 @@ class TableResource(SyncAPIResource):
                     "keep_validations_in_sync": keep_validations_in_sync,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
-                    "type": type,
                 },
                 table_update_params.TableUpdateParams,
             ),
@@ -1028,13 +1017,12 @@ class AsyncTableResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        columns: Iterable[TableColumnParam],
+        columns: Iterable[table_create_params.Column],
         name: str,
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
         folder_id: Optional[str] | Omit = omit,
         joins: Iterable[table_create_params.Join] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1046,9 +1034,6 @@ class AsyncTableResource(AsyncAPIResource):
         Create a new document table within a hub.
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1067,7 +1052,6 @@ class AsyncTableResource(AsyncAPIResource):
                     "context": context,
                     "folder_id": folder_id,
                     "joins": joins,
-                    "type": type,
                 },
                 table_create_params.TableCreateParams,
             ),
@@ -1169,7 +1153,6 @@ class AsyncTableResource(AsyncAPIResource):
         keep_validations_in_sync: bool | Omit = omit,
         name: str | Omit = omit,
         sync_hourly_frequency: Literal[0, 24] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1181,9 +1164,6 @@ class AsyncTableResource(AsyncAPIResource):
         Update the properties of an existing table.
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1205,7 +1185,6 @@ class AsyncTableResource(AsyncAPIResource):
                     "keep_validations_in_sync": keep_validations_in_sync,
                     "name": name,
                     "sync_hourly_frequency": sync_hourly_frequency,
-                    "type": type,
                 },
                 table_update_params.TableUpdateParams,
             ),

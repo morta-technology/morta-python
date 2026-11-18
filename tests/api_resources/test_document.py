@@ -59,7 +59,6 @@ class TestDocument:
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             folder_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -196,7 +195,6 @@ class TestDocument:
             logo="logo",
             name="name",
             plaintext_description="plaintextDescription",
-            type="type",
             variables=["string"],
         )
         assert_matches_type(DocumentUpdateResponse, document, path=["response"])
@@ -908,7 +906,6 @@ class TestAsyncDocument:
                 "project_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             folder_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            type="type",
         )
         assert_matches_type(DocumentCreateResponse, document, path=["response"])
 
@@ -1045,7 +1042,6 @@ class TestAsyncDocument:
             logo="logo",
             name="name",
             plaintext_description="plaintextDescription",
-            type="type",
             variables=["string"],
         )
         assert_matches_type(DocumentUpdateResponse, document, path=["response"])

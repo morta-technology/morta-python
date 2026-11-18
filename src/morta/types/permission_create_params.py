@@ -19,7 +19,7 @@ class PermissionCreateParams(TypedDict, total=False):
 
     resource_kind: Required[Annotated[Literal["process", "table", "table_view"], PropertyInfo(alias="resourceKind")]]
 
-    role: Required[Literal[0, 1, 2, 3, 4]]
+    role: Required[Literal[0, 2, 4]]
 
     attribute_id: Annotated[str, PropertyInfo(alias="attributeId")]
 

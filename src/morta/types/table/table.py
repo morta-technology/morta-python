@@ -120,10 +120,4 @@ class Table(BaseModel):
 
     sync_view_ids: Optional[List[str]] = FieldInfo(alias="syncViewIds", default=None)
 
-    type: Optional[str] = None
-    """Deprecated: the name of the folder the resource is in ("" at the top level).
-
-    Use folderId.
-    """
-
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)

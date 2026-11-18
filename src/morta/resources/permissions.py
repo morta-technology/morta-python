@@ -60,7 +60,7 @@ class PermissionsResource(SyncAPIResource):
         attribute_kind: Literal["user", "tag", "project", "all_table_tags"],
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         attribute_id: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         tag_reference_id: str | Omit = omit,
@@ -156,7 +156,7 @@ class PermissionsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -236,7 +236,7 @@ class PermissionsResource(SyncAPIResource):
         attribute_kind: Literal["user", "tag", "project", "all_table_tags"],
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         attribute_id: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         tag_reference_id: str | Omit = omit,
@@ -385,7 +385,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         attribute_kind: Literal["user", "tag", "project", "all_table_tags"],
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         attribute_id: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         tag_reference_id: str | Omit = omit,
@@ -481,7 +481,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         context: BaseRequestContextParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -561,7 +561,7 @@ class AsyncPermissionsResource(AsyncAPIResource):
         attribute_kind: Literal["user", "tag", "project", "all_table_tags"],
         resource_id: str,
         resource_kind: Literal["process", "table", "table_view"],
-        role: Literal[0, 1, 2, 3, 4],
+        role: Literal[0, 2, 4],
         attribute_id: str | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         tag_reference_id: str | Omit = omit,

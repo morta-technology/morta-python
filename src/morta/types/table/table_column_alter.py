@@ -29,5 +29,3 @@ class TableColumnAlter(BaseModel):
             "DD-Mon-YY HH:mm",
         ]
     ] = FieldInfo(alias="dateConversionFormat", default=None)
-
-    run_script_on_all_cells: Optional[bool] = FieldInfo(alias="runScriptOnAllCells", default=None)

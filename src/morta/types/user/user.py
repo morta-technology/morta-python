@@ -56,8 +56,6 @@ class User(BaseModel):
 
     opt_out_community_email: Optional[bool] = FieldInfo(alias="optOutCommunityEmail", default=None)
 
-    opt_out_deprecation_email: Optional[bool] = FieldInfo(alias="optOutDeprecationEmail", default=None)
-
     opt_out_duplication_email: Optional[bool] = FieldInfo(alias="optOutDuplicationEmail", default=None)
 
     opt_out_hub_email: Optional[bool] = FieldInfo(alias="optOutHubEmail", default=None)

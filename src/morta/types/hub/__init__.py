@@ -11,7 +11,6 @@ from .folder_move_response import FolderMoveResponse as FolderMoveResponse
 from .folder_update_params import FolderUpdateParams as FolderUpdateParams
 from .invite_create_params import InviteCreateParams as InviteCreateParams
 from .invite_update_params import InviteUpdateParams as InviteUpdateParams
-from .script_list_response import ScriptListResponse as ScriptListResponse
 from .secret_create_params import SecretCreateParams as SecretCreateParams
 from .secret_list_response import SecretListResponse as SecretListResponse
 from .secret_update_params import SecretUpdateParams as SecretUpdateParams
@@ -27,4 +26,3 @@ from .secret_delete_response import SecretDeleteResponse as SecretDeleteResponse
 from .secret_update_response import SecretUpdateResponse as SecretUpdateResponse
 from .sidebar_containers_params import SidebarContainersParams as SidebarContainersParams
 from .sidebar_containers_response import SidebarContainersResponse as SidebarContainersResponse
-from .script_retrieve_count_response import ScriptRetrieveCountResponse as ScriptRetrieveCountResponse

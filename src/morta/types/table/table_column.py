@@ -5,14 +5,17 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .views import auto_fill
 from ..draftjs import Draftjs
 from ..._models import BaseModel
 from .table_column_alter import TableColumnAlter
 from .select_options_lookup import SelectOptionsLookup
 
-__all__ = ["TableColumn", "AlterOptions", "Description"]
+__all__ = ["TableColumn", "AlterOptions", "AutoFill", "Description"]
 
 AlterOptions: TypeAlias = Union[TableColumnAlter, Optional[object]]
+
+AutoFill: TypeAlias = Union[auto_fill.AutoFill, Optional[object]]
 
 Description: TypeAlias = Union[Draftjs, Optional[object]]
 
@@ -21,6 +24,8 @@ class TableColumn(BaseModel):
     aggregate: Optional[int] = None
 
     alter_options: Optional[AlterOptions] = FieldInfo(alias="alterOptions", default=None)
+
+    auto_fill: Optional[AutoFill] = FieldInfo(alias="autoFill", default=None)
 
     date_format: Optional[str] = FieldInfo(alias="dateFormat", default=None)
 
@@ -78,9 +83,7 @@ class TableColumn(BaseModel):
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
-    script: Optional[str] = None
-
-    script_enabled: Optional[bool] = FieldInfo(alias="scriptEnabled", default=None)
+    retired_script: Optional[str] = FieldInfo(alias="retiredScript", default=None)
 
     thousand_separator: Optional[bool] = FieldInfo(alias="thousandSeparator", default=None)
 

@@ -10,6 +10,6 @@ __all__ = ["PermissionUpdateParams"]
 
 
 class PermissionUpdateParams(TypedDict, total=False):
-    role: Required[Literal[0, 1, 2, 3, 4]]
+    role: Required[Literal[0, 2, 4]]
 
     context: BaseRequestContextParam

@@ -24,14 +24,6 @@ from .folders import (
     FoldersResourceWithStreamingResponse,
     AsyncFoldersResourceWithStreamingResponse,
 )
-from .scripts import (
-    ScriptsResource,
-    AsyncScriptsResource,
-    ScriptsResourceWithRawResponse,
-    AsyncScriptsResourceWithRawResponse,
-    ScriptsResourceWithStreamingResponse,
-    AsyncScriptsResourceWithStreamingResponse,
-)
 from .secrets import (
     SecretsResource,
     AsyncSecretsResource,
@@ -70,12 +62,6 @@ __all__ = [
     "AsyncSecretsResourceWithRawResponse",
     "SecretsResourceWithStreamingResponse",
     "AsyncSecretsResourceWithStreamingResponse",
-    "ScriptsResource",
-    "AsyncScriptsResource",
-    "ScriptsResourceWithRawResponse",
-    "AsyncScriptsResourceWithRawResponse",
-    "ScriptsResourceWithStreamingResponse",
-    "AsyncScriptsResourceWithStreamingResponse",
     "FoldersResource",
     "AsyncFoldersResource",
     "FoldersResourceWithRawResponse",

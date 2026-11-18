@@ -7,13 +7,16 @@ from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
 
 from ...._utils import PropertyInfo
 from ...draftjs_param import DraftjsParam
+from .auto_fill_param import AutoFillParam
 from ..table_column_alter_param import TableColumnAlterParam
 from ...base_request_context_param import BaseRequestContextParam
 from ..select_options_lookup_param import SelectOptionsLookupParam
 
-__all__ = ["UpdateTableViewColumnParam", "AlterOptions", "Description"]
+__all__ = ["UpdateTableViewColumnParam", "AlterOptions", "AutoFill", "Description"]
 
 AlterOptions: TypeAlias = Union[TableColumnAlterParam, Optional[object]]
+
+AutoFill: TypeAlias = Union[AutoFillParam, Optional[object]]
 
 Description: TypeAlias = Union[DraftjsParam, Optional[object]]
 
@@ -22,6 +25,8 @@ class UpdateTableViewColumnParam(TypedDict, total=False):
     aggregate: int
 
     alter_options: Annotated[AlterOptions, PropertyInfo(alias="alterOptions")]
+
+    auto_fill: Annotated[AutoFill, PropertyInfo(alias="autoFill")]
 
     block_invalid_select_values: Annotated[bool, PropertyInfo(alias="blockInvalidSelectValues")]
 
@@ -90,10 +95,6 @@ class UpdateTableViewColumnParam(TypedDict, total=False):
     public_id: Annotated[str, PropertyInfo(alias="publicId")]
 
     required: bool
-
-    script: Optional[str]
-
-    script_enabled: Annotated[bool, PropertyInfo(alias="scriptEnabled")]
 
     sort_order: Annotated[int, PropertyInfo(alias="sortOrder")]
 

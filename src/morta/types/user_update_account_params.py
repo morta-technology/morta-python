@@ -24,8 +24,6 @@ class UserUpdateAccountParams(TypedDict, total=False):
 
     opt_out_community_email: Annotated[bool, PropertyInfo(alias="optOutCommunityEmail")]
 
-    opt_out_deprecation_email: Annotated[Optional[bool], PropertyInfo(alias="optOutDeprecationEmail")]
-
     opt_out_duplication_email: Annotated[Optional[bool], PropertyInfo(alias="optOutDuplicationEmail")]
 
     opt_out_hub_email: Annotated[Optional[bool], PropertyInfo(alias="optOutHubEmail")]

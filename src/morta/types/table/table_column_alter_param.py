@@ -29,5 +29,3 @@ class TableColumnAlterParam(TypedDict, total=False):
         ],
         PropertyInfo(alias="dateConversionFormat"),
     ]
-
-    run_script_on_all_cells: Annotated[bool, PropertyInfo(alias="runScriptOnAllCells")]

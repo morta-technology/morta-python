@@ -31,6 +31,7 @@ from ...types.table.column_restore_response import ColumnRestoreResponse
 from ...types.table.column_check_views_response import ColumnCheckViewsResponse
 from ...types.table.select_options_lookup_param import SelectOptionsLookupParam
 from ...types.table.column_get_distinct_values_response import ColumnGetDistinctValuesResponse
+from ...types.table.column_retrieve_broken_formulas_response import ColumnRetrieveBrokenFormulasResponse
 
 __all__ = ["ColumnResource", "AsyncColumnResource"]
 
@@ -61,6 +62,7 @@ class ColumnResource(SyncAPIResource):
         *,
         aggregate: int | Omit = omit,
         alter_options: column_create_params.AlterOptions | Omit = omit,
+        auto_fill: column_create_params.AutoFill | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
@@ -100,8 +102,6 @@ class ColumnResource(SyncAPIResource):
         kind_options: SelectOptionsLookupParam | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         thousand_separator: bool | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -131,6 +131,7 @@ class ColumnResource(SyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
@@ -149,8 +150,6 @@ class ColumnResource(SyncAPIResource):
                     "kind_options": kind_options,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "thousand_separator": thousand_separator,
                     "width": width,
                 },
@@ -169,6 +168,7 @@ class ColumnResource(SyncAPIResource):
         table_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        auto_fill: column_update_params.AutoFill | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
@@ -208,8 +208,6 @@ class ColumnResource(SyncAPIResource):
         kind_options: SelectOptionsLookupParam | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         thousand_separator: bool | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -241,6 +239,7 @@ class ColumnResource(SyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
@@ -259,8 +258,6 @@ class ColumnResource(SyncAPIResource):
                     "kind_options": kind_options,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "thousand_separator": thousand_separator,
                     "width": width,
                 },
@@ -432,6 +429,46 @@ class ColumnResource(SyncAPIResource):
             cast_to=ColumnRestoreResponse,
         )
 
+    def retrieve_broken_formulas(
+        self,
+        column_id: str,
+        *,
+        table_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ColumnRetrieveBrokenFormulasResponse:
+        """
+        The formula columns in the table that would show an error (#REF!) if this column
+        were deleted: those that name it, and those that read one of them. Deleting the
+        column is still allowed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        return self._get(
+            path_template(
+                "/v1/table/{table_id}/column/{column_id}/broken-formulas", table_id=table_id, column_id=column_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ColumnRetrieveBrokenFormulasResponse,
+        )
+
 
 class AsyncColumnResource(AsyncAPIResource):
     @cached_property
@@ -459,6 +496,7 @@ class AsyncColumnResource(AsyncAPIResource):
         *,
         aggregate: int | Omit = omit,
         alter_options: column_create_params.AlterOptions | Omit = omit,
+        auto_fill: column_create_params.AutoFill | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
@@ -498,8 +536,6 @@ class AsyncColumnResource(AsyncAPIResource):
         kind_options: SelectOptionsLookupParam | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         thousand_separator: bool | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -529,6 +565,7 @@ class AsyncColumnResource(AsyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
@@ -547,8 +584,6 @@ class AsyncColumnResource(AsyncAPIResource):
                     "kind_options": kind_options,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "thousand_separator": thousand_separator,
                     "width": width,
                 },
@@ -567,6 +602,7 @@ class AsyncColumnResource(AsyncAPIResource):
         table_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        auto_fill: column_update_params.AutoFill | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
         decimal_places: int | Omit = omit,
@@ -606,8 +642,6 @@ class AsyncColumnResource(AsyncAPIResource):
         kind_options: SelectOptionsLookupParam | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         thousand_separator: bool | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -639,6 +673,7 @@ class AsyncColumnResource(AsyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "context": context,
                     "date_format": date_format,
                     "decimal_places": decimal_places,
@@ -657,8 +692,6 @@ class AsyncColumnResource(AsyncAPIResource):
                     "kind_options": kind_options,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "thousand_separator": thousand_separator,
                     "width": width,
                 },
@@ -830,6 +863,46 @@ class AsyncColumnResource(AsyncAPIResource):
             cast_to=ColumnRestoreResponse,
         )
 
+    async def retrieve_broken_formulas(
+        self,
+        column_id: str,
+        *,
+        table_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ColumnRetrieveBrokenFormulasResponse:
+        """
+        The formula columns in the table that would show an error (#REF!) if this column
+        were deleted: those that name it, and those that read one of them. Deleting the
+        column is still allowed.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not table_id:
+            raise ValueError(f"Expected a non-empty value for `table_id` but received {table_id!r}")
+        if not column_id:
+            raise ValueError(f"Expected a non-empty value for `column_id` but received {column_id!r}")
+        return await self._get(
+            path_template(
+                "/v1/table/{table_id}/column/{column_id}/broken-formulas", table_id=table_id, column_id=column_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ColumnRetrieveBrokenFormulasResponse,
+        )
+
 
 class ColumnResourceWithRawResponse:
     def __init__(self, column: ColumnResource) -> None:
@@ -852,6 +925,9 @@ class ColumnResourceWithRawResponse:
         )
         self.restore = to_raw_response_wrapper(
             column.restore,
+        )
+        self.retrieve_broken_formulas = to_raw_response_wrapper(
+            column.retrieve_broken_formulas,
         )
 
 
@@ -877,6 +953,9 @@ class AsyncColumnResourceWithRawResponse:
         self.restore = async_to_raw_response_wrapper(
             column.restore,
         )
+        self.retrieve_broken_formulas = async_to_raw_response_wrapper(
+            column.retrieve_broken_formulas,
+        )
 
 
 class ColumnResourceWithStreamingResponse:
@@ -901,6 +980,9 @@ class ColumnResourceWithStreamingResponse:
         self.restore = to_streamed_response_wrapper(
             column.restore,
         )
+        self.retrieve_broken_formulas = to_streamed_response_wrapper(
+            column.retrieve_broken_formulas,
+        )
 
 
 class AsyncColumnResourceWithStreamingResponse:
@@ -924,4 +1006,7 @@ class AsyncColumnResourceWithStreamingResponse:
         )
         self.restore = async_to_streamed_response_wrapper(
             column.restore,
+        )
+        self.retrieve_broken_formulas = async_to_streamed_response_wrapper(
+            column.retrieve_broken_formulas,
         )

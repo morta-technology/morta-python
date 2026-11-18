@@ -34,12 +34,6 @@ class DocumentUpdateParams(TypedDict, total=False):
 
     plaintext_description: Annotated[Optional[str], PropertyInfo(alias="plaintextDescription")]
 
-    type: Optional[str]
-    """
-    Deprecated: files the resource into the top-level folder of that name; creates
-    it if missing (hub Owners only).
-    """
-
     variables: Optional[SequenceNotStr[str]]
 
 

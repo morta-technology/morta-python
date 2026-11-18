@@ -107,7 +107,6 @@ class DocumentResource(SyncAPIResource):
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
         folder_id: Optional[str] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -119,9 +118,6 @@ class DocumentResource(SyncAPIResource):
         Create a new document in a specified hub
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -138,7 +134,6 @@ class DocumentResource(SyncAPIResource):
                     "project_id": project_id,
                     "context": context,
                     "folder_id": folder_id,
-                    "type": type,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -204,7 +199,6 @@ class DocumentResource(SyncAPIResource):
         logo: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         plaintext_description: Optional[str] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -217,9 +211,6 @@ class DocumentResource(SyncAPIResource):
         Update an existing documents's details by document ID
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -244,7 +235,6 @@ class DocumentResource(SyncAPIResource):
                     "logo": logo,
                     "name": name,
                     "plaintext_description": plaintext_description,
-                    "type": type,
                     "variables": variables,
                 },
                 document_update_params.DocumentUpdateParams,
@@ -714,7 +704,6 @@ class AsyncDocumentResource(AsyncAPIResource):
         project_id: str,
         context: BaseRequestContextParam | Omit = omit,
         folder_id: Optional[str] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -726,9 +715,6 @@ class AsyncDocumentResource(AsyncAPIResource):
         Create a new document in a specified hub
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -745,7 +731,6 @@ class AsyncDocumentResource(AsyncAPIResource):
                     "project_id": project_id,
                     "context": context,
                     "folder_id": folder_id,
-                    "type": type,
                 },
                 document_create_params.DocumentCreateParams,
             ),
@@ -811,7 +796,6 @@ class AsyncDocumentResource(AsyncAPIResource):
         logo: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         plaintext_description: Optional[str] | Omit = omit,
-        type: Optional[str] | Omit = omit,
         variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -824,9 +808,6 @@ class AsyncDocumentResource(AsyncAPIResource):
         Update an existing documents's details by document ID
 
         Args:
-          type: Deprecated: files the resource into the top-level folder of that name; creates
-              it if missing (hub Owners only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -851,7 +832,6 @@ class AsyncDocumentResource(AsyncAPIResource):
                     "logo": logo,
                     "name": name,
                     "plaintext_description": plaintext_description,
-                    "type": type,
                     "variables": variables,
                 },
                 document_update_params.DocumentUpdateParams,

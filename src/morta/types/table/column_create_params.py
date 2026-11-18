@@ -7,17 +7,20 @@ from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..draftjs_param import DraftjsParam
+from .views.auto_fill_param import AutoFillParam
 from .table_column_alter_param import TableColumnAlterParam
 from ..base_request_context_param import BaseRequestContextParam
 from .select_options_lookup_param import SelectOptionsLookupParam
 
-__all__ = ["ColumnCreateParams", "AlterOptions", "Description"]
+__all__ = ["ColumnCreateParams", "AlterOptions", "AutoFill", "Description"]
 
 
 class ColumnCreateParams(TypedDict, total=False):
     aggregate: int
 
     alter_options: Annotated[AlterOptions, PropertyInfo(alias="alterOptions")]
+
+    auto_fill: Annotated[AutoFill, PropertyInfo(alias="autoFill")]
 
     context: BaseRequestContextParam
 
@@ -75,15 +78,13 @@ class ColumnCreateParams(TypedDict, total=False):
 
     public_id: Annotated[str, PropertyInfo(alias="publicId")]
 
-    script: Optional[str]
-
-    script_enabled: Annotated[bool, PropertyInfo(alias="scriptEnabled")]
-
     thousand_separator: Annotated[bool, PropertyInfo(alias="thousandSeparator")]
 
     width: int
 
 
 AlterOptions: TypeAlias = Union[TableColumnAlterParam, Optional[object]]
+
+AutoFill: TypeAlias = Union[AutoFillParam, Optional[object]]
 
 Description: TypeAlias = Union[DraftjsParam, Optional[object]]

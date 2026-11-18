@@ -377,9 +377,11 @@ class TestViews:
             columns=[
                 {
                     "aggregate": 0,
-                    "alter_options": {
-                        "date_conversion_format": "DD/MM/YYYY",
-                        "run_script_on_all_cells": True,
+                    "alter_options": {"date_conversion_format": "DD/MM/YYYY"},
+                    "auto_fill": {
+                        "type": "created_time",
+                        "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "fill_gaps": True,
                     },
                     "block_invalid_select_values": True,
                     "context": {
@@ -452,8 +454,6 @@ class TestViews:
                     "name": "name",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "script": "script",
-                    "script_enabled": True,
                     "sort_order": 0,
                     "string_validation": "stringValidation",
                     "thousand_separator": True,
@@ -1706,9 +1706,11 @@ class TestAsyncViews:
             columns=[
                 {
                     "aggregate": 0,
-                    "alter_options": {
-                        "date_conversion_format": "DD/MM/YYYY",
-                        "run_script_on_all_cells": True,
+                    "alter_options": {"date_conversion_format": "DD/MM/YYYY"},
+                    "auto_fill": {
+                        "type": "created_time",
+                        "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                        "fill_gaps": True,
                     },
                     "block_invalid_select_values": True,
                     "context": {
@@ -1781,8 +1783,6 @@ class TestAsyncViews:
                     "name": "name",
                     "public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "required": True,
-                    "script": "script",
-                    "script_enabled": True,
                     "sort_order": 0,
                     "string_validation": "stringValidation",
                     "thousand_separator": True,

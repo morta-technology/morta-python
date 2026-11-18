@@ -5,14 +5,17 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from . import auto_fill
 from ...draftjs import Draftjs
 from ...._models import BaseModel
 from ..table_column_alter import TableColumnAlter
 from ..select_options_lookup import SelectOptionsLookup
 
-__all__ = ["TableViewColumn", "AlterOptions", "Description"]
+__all__ = ["TableViewColumn", "AlterOptions", "AutoFill", "Description"]
 
 AlterOptions: TypeAlias = Union[TableColumnAlter, Optional[object]]
+
+AutoFill: TypeAlias = Union[auto_fill.AutoFill, Optional[object]]
 
 Description: TypeAlias = Union[Draftjs, Optional[object]]
 
@@ -21,6 +24,8 @@ class TableViewColumn(BaseModel):
     aggregate: Optional[int] = None
 
     alter_options: Optional[AlterOptions] = FieldInfo(alias="alterOptions", default=None)
+
+    auto_fill: Optional[AutoFill] = FieldInfo(alias="autoFill", default=None)
 
     block_invalid_select_values: Optional[bool] = FieldInfo(alias="blockInvalidSelectValues", default=None)
 
@@ -41,6 +46,8 @@ class TableViewColumn(BaseModel):
     formula: Optional[str] = None
 
     formula_enabled: Optional[bool] = FieldInfo(alias="formulaEnabled", default=None)
+
+    formula_error: Optional[object] = FieldInfo(alias="formulaError", default=None)
 
     form_width: Optional[int] = FieldInfo(alias="formWidth", default=None)
 
@@ -90,9 +97,7 @@ class TableViewColumn(BaseModel):
 
     required: Optional[bool] = None
 
-    script: Optional[str] = None
-
-    script_enabled: Optional[bool] = FieldInfo(alias="scriptEnabled", default=None)
+    retired_script: Optional[str] = FieldInfo(alias="retiredScript", default=None)
 
     sort_order: Optional[int] = FieldInfo(alias="sortOrder", default=None)
 
