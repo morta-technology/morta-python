@@ -250,19 +250,6 @@ Methods:
 - <code title="get /v1/hub/{hub_id}/secrets">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">list</a>(hub_id) -> <a href="./src/morta/types/hub/secret_list_response.py">SecretListResponse</a></code>
 - <code title="delete /v1/hub/{hub_id}/secrets/{secret_id}">client.hub.secrets.<a href="./src/morta/resources/hub/secrets.py">delete</a>(secret_id, \*, hub_id) -> <a href="./src/morta/types/hub/secret_delete_response.py">SecretDeleteResponse</a></code>
 
-## Scripts
-
-Types:
-
-```python
-from morta.types.hub import ScriptListResponse, ScriptRetrieveCountResponse
-```
-
-Methods:
-
-- <code title="get /v1/hub/{hub_id}/scripts">client.hub.scripts.<a href="./src/morta/resources/hub/scripts.py">list</a>(hub_id) -> <a href="./src/morta/types/hub/script_list_response.py">ScriptListResponse</a></code>
-- <code title="get /v1/hub/{hub_id}/scripts/count">client.hub.scripts.<a href="./src/morta/resources/hub/scripts.py">retrieve_count</a>(hub_id) -> <a href="./src/morta/types/hub/script_retrieve_count_response.py">ScriptRetrieveCountResponse</a></code>
-
 ## Folders
 
 Types:
@@ -373,6 +360,7 @@ from morta.types.table import (
     ColumnCheckViewsResponse,
     ColumnGetDistinctValuesResponse,
     ColumnRestoreResponse,
+    ColumnRetrieveBrokenFormulasResponse,
 )
 ```
 
@@ -384,6 +372,7 @@ Methods:
 - <code title="get /v1/table/{table_id}/column/{column_id}/views">client.table.column.<a href="./src/morta/resources/table/column.py">check_views</a>(column_id, \*, table_id) -> <a href="./src/morta/types/table/column_check_views_response.py">ColumnCheckViewsResponse</a></code>
 - <code title="get /v1/table/{table_id}/column/{column_id}/distinct">client.table.column.<a href="./src/morta/resources/table/column.py">get_distinct_values</a>(column_id, \*, table_id, \*\*<a href="src/morta/types/table/column_get_distinct_values_params.py">params</a>) -> <a href="./src/morta/types/table/column_get_distinct_values_response.py">ColumnGetDistinctValuesResponse</a></code>
 - <code title="put /v1/table/{table_id}/column/{column_id}/restore">client.table.column.<a href="./src/morta/resources/table/column.py">restore</a>(column_id, \*, table_id) -> <a href="./src/morta/types/table/column_restore_response.py">ColumnRestoreResponse</a></code>
+- <code title="get /v1/table/{table_id}/column/{column_id}/broken-formulas">client.table.column.<a href="./src/morta/resources/table/column.py">retrieve_broken_formulas</a>(column_id, \*, table_id) -> <a href="./src/morta/types/table/column_retrieve_broken_formulas_response.py">ColumnRetrieveBrokenFormulasResponse</a></code>
 
 ## Row
 
@@ -534,6 +523,7 @@ Types:
 
 ```python
 from morta.types.table.views import (
+    AutoFill,
     TableViewColumn,
     UpdateTableViewColumn,
     ColumnUpdateResponse,
@@ -546,11 +536,27 @@ from morta.types.table.views import (
 
 Methods:
 
-- <code title="put /v1/table/views/{view_id}/columns/{column_id}">client.table.views.columns.<a href="./src/morta/resources/table/views/columns.py">update</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_update_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_update_response.py">ColumnUpdateResponse</a></code>
-- <code title="post /v1/table/views/{view_id}/columns">client.table.views.columns.<a href="./src/morta/resources/table/views/columns.py">add</a>(view_id, \*\*<a href="src/morta/types/table/views/column_add_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_add_response.py">ColumnAddResponse</a></code>
-- <code title="get /v1/table/views/{view_id}/column/{column_id}/distinct">client.table.views.columns.<a href="./src/morta/resources/table/views/columns.py">distinct</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_distinct_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_distinct_response.py">ColumnDistinctResponse</a></code>
-- <code title="get /v1/table/views/{view_id}/column/{column_id}/formula-info">client.table.views.columns.<a href="./src/morta/resources/table/views/columns.py">formula_info</a>(column_id, \*, view_id) -> <a href="./src/morta/types/table/views/column_formula_info_response.py">ColumnFormulaInfoResponse</a></code>
-- <code title="post /v1/table/views/{view_id}/column/{column_id}/validate-formula">client.table.views.columns.<a href="./src/morta/resources/table/views/columns.py">validate_formula</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_validate_formula_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_validate_formula_response.py">ColumnValidateFormulaResponse</a></code>
+- <code title="put /v1/table/views/{view_id}/columns/{column_id}">client.table.views.columns.<a href="./src/morta/resources/table/views/columns/columns.py">update</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_update_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_update_response.py">ColumnUpdateResponse</a></code>
+- <code title="post /v1/table/views/{view_id}/columns">client.table.views.columns.<a href="./src/morta/resources/table/views/columns/columns.py">add</a>(view_id, \*\*<a href="src/morta/types/table/views/column_add_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_add_response.py">ColumnAddResponse</a></code>
+- <code title="get /v1/table/views/{view_id}/column/{column_id}/distinct">client.table.views.columns.<a href="./src/morta/resources/table/views/columns/columns.py">distinct</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_distinct_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_distinct_response.py">ColumnDistinctResponse</a></code>
+- <code title="get /v1/table/views/{view_id}/column/{column_id}/formula-info">client.table.views.columns.<a href="./src/morta/resources/table/views/columns/columns.py">formula_info</a>(column_id, \*, view_id) -> <a href="./src/morta/types/table/views/column_formula_info_response.py">ColumnFormulaInfoResponse</a></code>
+- <code title="post /v1/table/views/{view_id}/column/{column_id}/validate-formula">client.table.views.columns.<a href="./src/morta/resources/table/views/columns/columns.py">validate_formula</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/column_validate_formula_params.py">params</a>) -> <a href="./src/morta/types/table/views/column_validate_formula_response.py">ColumnValidateFormulaResponse</a></code>
+
+#### SelectOptions
+
+Types:
+
+```python
+from morta.types.table.views.columns import (
+    SelectOptionRetrieveCheckResponse,
+    SelectOptionRetrieveSelectOptionsResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1/table/views/{view_id}/column/{column_id}/select-options/check">client.table.views.columns.select_options.<a href="./src/morta/resources/table/views/columns/select_options.py">retrieve_check</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/columns/select_option_retrieve_check_params.py">params</a>) -> <a href="./src/morta/types/table/views/columns/select_option_retrieve_check_response.py">SelectOptionRetrieveCheckResponse</a></code>
+- <code title="get /v1/table/views/{view_id}/column/{column_id}/select-options">client.table.views.columns.select_options.<a href="./src/morta/resources/table/views/columns/select_options.py">retrieve_select_options</a>(column_id, \*, view_id, \*\*<a href="src/morta/types/table/views/columns/select_option_retrieve_select_options_params.py">params</a>) -> <a href="./src/morta/types/table/views/columns/select_option_retrieve_select_options_response.py">SelectOptionRetrieveSelectOptionsResponse</a></code>
 
 ### Export
 

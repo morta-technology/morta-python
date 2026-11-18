@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from .user5 import User5 as User5
+from .auto_fill import AutoFill as AutoFill
 from .row_add_params import RowAddParams as RowAddParams
+from .auto_fill_param import AutoFillParam as AutoFillParam
 from .row_list_params import RowListParams as RowListParams
 from .row_add_response import RowAddResponse as RowAddResponse
 from .column_add_params import ColumnAddParams as ColumnAddParams

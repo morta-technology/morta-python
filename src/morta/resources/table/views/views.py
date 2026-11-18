@@ -24,14 +24,6 @@ from .export import (
     ExportResourceWithStreamingResponse,
     AsyncExportResourceWithStreamingResponse,
 )
-from .columns import (
-    ColumnsResource,
-    AsyncColumnsResource,
-    ColumnsResourceWithRawResponse,
-    AsyncColumnsResourceWithRawResponse,
-    ColumnsResourceWithStreamingResponse,
-    AsyncColumnsResourceWithStreamingResponse,
-)
 from .versions import (
     VersionsResource,
     AsyncVersionsResource,
@@ -74,6 +66,14 @@ from ....types.table import (
     view_duplicate_default_params,
 )
 from ...._base_client import make_request_options
+from .columns.columns import (
+    ColumnsResource,
+    AsyncColumnsResource,
+    ColumnsResourceWithRawResponse,
+    AsyncColumnsResourceWithRawResponse,
+    ColumnsResourceWithStreamingResponse,
+    AsyncColumnsResourceWithStreamingResponse,
+)
 from ....types.table.sort_param import SortParam
 from ....types.table.group_param import GroupParam
 from ....types.table.colour_param import ColourParam

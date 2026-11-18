@@ -17,3 +17,9 @@ class ColumnDistinctParams(TypedDict, total=False):
 
     group_columns: SequenceNotStr[str]
     """Optional columns to group the distinct values."""
+
+    size: int
+    """
+    The most distinct rows to read, so a multiselect column's lists can give more
+    values than this. All of them when left out.
+    """

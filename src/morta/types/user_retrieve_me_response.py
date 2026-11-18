@@ -65,6 +65,12 @@ class DataTeam(BaseModel):
 class Data(User):
     """Fields only on the current user's own details."""
 
+    ai_enabled: Optional[bool] = FieldInfo(alias="aiEnabled", default=None)
+    """
+    False when AI features are turned off for the user's organisation, or for an
+    organisation they hold a team seat in. MortaAI then refuses their messages.
+    """
+
     organisation_membership: Optional[DataOrganisationMembership] = FieldInfo(
         alias="organisationMembership", default=None
     )

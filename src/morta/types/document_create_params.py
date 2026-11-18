@@ -19,9 +19,3 @@ class DocumentCreateParams(TypedDict, total=False):
     context: BaseRequestContextParam
 
     folder_id: Annotated[Optional[str], PropertyInfo(alias="folderId")]
-
-    type: Optional[str]
-    """
-    Deprecated: files the resource into the top-level folder of that name; creates
-    it if missing (hub Owners only).
-    """

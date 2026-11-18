@@ -50,12 +50,6 @@ class MortaDocument(BaseModel):
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)
 
-    type: Optional[str] = None
-    """Deprecated: the name of the folder the resource is in ("" at the top level).
-
-    Use folderId.
-    """
-
     updated_at: Optional[datetime] = FieldInfo(alias="updatedAt", default=None)
 
     variables: Optional[List[str]] = None

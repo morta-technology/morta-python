@@ -35,14 +35,6 @@ from .folders import (
     FoldersResourceWithStreamingResponse,
     AsyncFoldersResourceWithStreamingResponse,
 )
-from .scripts import (
-    ScriptsResource,
-    AsyncScriptsResource,
-    ScriptsResourceWithRawResponse,
-    AsyncScriptsResourceWithRawResponse,
-    ScriptsResourceWithStreamingResponse,
-    AsyncScriptsResourceWithStreamingResponse,
-)
 from .secrets import (
     SecretsResource,
     AsyncSecretsResource,
@@ -129,10 +121,6 @@ class HubResource(SyncAPIResource):
     @cached_property
     def secrets(self) -> SecretsResource:
         return SecretsResource(self._client)
-
-    @cached_property
-    def scripts(self) -> ScriptsResource:
-        return ScriptsResource(self._client)
 
     @cached_property
     def folders(self) -> FoldersResource:
@@ -755,7 +743,6 @@ class HubResource(SyncAPIResource):
         only_admin: bool | Omit = omit,
         only_deleted: Optional[bool] | Omit = omit,
         project_permissions: Optional[bool] | Omit = omit,
-        type_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -767,8 +754,6 @@ class HubResource(SyncAPIResource):
         Retrieve resources associated with a specific hub identified by its UUID
 
         Args:
-          type_id: Deprecated and ignored: resources are no longer filtered by type.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -789,7 +774,6 @@ class HubResource(SyncAPIResource):
                     "only_admin": only_admin,
                     "only_deleted": only_deleted,
                     "project_permissions": project_permissions,
-                    "type_id": type_id,
                 },
                 hub_get_resources_params.HubGetResourcesParams,
             ),
@@ -1329,10 +1313,6 @@ class AsyncHubResource(AsyncAPIResource):
     @cached_property
     def secrets(self) -> AsyncSecretsResource:
         return AsyncSecretsResource(self._client)
-
-    @cached_property
-    def scripts(self) -> AsyncScriptsResource:
-        return AsyncScriptsResource(self._client)
 
     @cached_property
     def folders(self) -> AsyncFoldersResource:
@@ -1955,7 +1935,6 @@ class AsyncHubResource(AsyncAPIResource):
         only_admin: bool | Omit = omit,
         only_deleted: Optional[bool] | Omit = omit,
         project_permissions: Optional[bool] | Omit = omit,
-        type_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1967,8 +1946,6 @@ class AsyncHubResource(AsyncAPIResource):
         Retrieve resources associated with a specific hub identified by its UUID
 
         Args:
-          type_id: Deprecated and ignored: resources are no longer filtered by type.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1989,7 +1966,6 @@ class AsyncHubResource(AsyncAPIResource):
                     "only_admin": only_admin,
                     "only_deleted": only_deleted,
                     "project_permissions": project_permissions,
-                    "type_id": type_id,
                 },
                 hub_get_resources_params.HubGetResourcesParams,
             ),
@@ -2622,10 +2598,6 @@ class HubResourceWithRawResponse:
         return SecretsResourceWithRawResponse(self._hub.secrets)
 
     @cached_property
-    def scripts(self) -> ScriptsResourceWithRawResponse:
-        return ScriptsResourceWithRawResponse(self._hub.scripts)
-
-    @cached_property
     def folders(self) -> FoldersResourceWithRawResponse:
         return FoldersResourceWithRawResponse(self._hub.folders)
 
@@ -2737,10 +2709,6 @@ class AsyncHubResourceWithRawResponse:
     @cached_property
     def secrets(self) -> AsyncSecretsResourceWithRawResponse:
         return AsyncSecretsResourceWithRawResponse(self._hub.secrets)
-
-    @cached_property
-    def scripts(self) -> AsyncScriptsResourceWithRawResponse:
-        return AsyncScriptsResourceWithRawResponse(self._hub.scripts)
 
     @cached_property
     def folders(self) -> AsyncFoldersResourceWithRawResponse:
@@ -2856,10 +2824,6 @@ class HubResourceWithStreamingResponse:
         return SecretsResourceWithStreamingResponse(self._hub.secrets)
 
     @cached_property
-    def scripts(self) -> ScriptsResourceWithStreamingResponse:
-        return ScriptsResourceWithStreamingResponse(self._hub.scripts)
-
-    @cached_property
     def folders(self) -> FoldersResourceWithStreamingResponse:
         return FoldersResourceWithStreamingResponse(self._hub.folders)
 
@@ -2971,10 +2935,6 @@ class AsyncHubResourceWithStreamingResponse:
     @cached_property
     def secrets(self) -> AsyncSecretsResourceWithStreamingResponse:
         return AsyncSecretsResourceWithStreamingResponse(self._hub.secrets)
-
-    @cached_property
-    def scripts(self) -> AsyncScriptsResourceWithStreamingResponse:
-        return AsyncScriptsResourceWithStreamingResponse(self._hub.scripts)
 
     @cached_property
     def folders(self) -> AsyncFoldersResourceWithStreamingResponse:

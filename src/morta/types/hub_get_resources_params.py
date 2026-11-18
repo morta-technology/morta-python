@@ -22,6 +22,3 @@ class HubGetResourcesParams(TypedDict, total=False):
     only_deleted: Annotated[Optional[bool], PropertyInfo(alias="onlyDeleted")]
 
     project_permissions: Annotated[Optional[bool], PropertyInfo(alias="projectPermissions")]
-
-    type_id: Annotated[Optional[str], PropertyInfo(alias="typeId")]
-    """Deprecated and ignored: resources are no longer filtered by type."""

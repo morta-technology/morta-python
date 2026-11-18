@@ -16,6 +16,7 @@ from morta.types.table import (
     ColumnRestoreResponse,
     ColumnCheckViewsResponse,
     ColumnGetDistinctValuesResponse,
+    ColumnRetrieveBrokenFormulasResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -38,9 +39,11 @@ class TestColumn:
         column = client.table.column.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -107,8 +110,6 @@ class TestColumn:
             },
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             thousand_separator=True,
             width=0,
         )
@@ -164,9 +165,11 @@ class TestColumn:
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -233,8 +236,6 @@ class TestColumn:
             },
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             thousand_separator=True,
             width=0,
         )
@@ -502,6 +503,58 @@ class TestColumn:
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_broken_formulas(self, client: Morta) -> None:
+        column = client.table.column.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve_broken_formulas(self, client: Morta) -> None:
+        response = client.table.column.with_raw_response.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        column = response.parse()
+        assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve_broken_formulas(self, client: Morta) -> None:
+        with client.table.column.with_streaming_response.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            column = response.parse()
+            assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_retrieve_broken_formulas(self, client: Morta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
+            client.table.column.with_raw_response.retrieve_broken_formulas(
+                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                table_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
+            client.table.column.with_raw_response.retrieve_broken_formulas(
+                column_id="",
+                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
 
 class TestAsyncColumn:
     parametrize = pytest.mark.parametrize(
@@ -522,9 +575,11 @@ class TestAsyncColumn:
         column = await async_client.table.column.create(
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -591,8 +646,6 @@ class TestAsyncColumn:
             },
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             thousand_separator=True,
             width=0,
         )
@@ -648,9 +701,11 @@ class TestAsyncColumn:
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             context={
                 "process_public_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -717,8 +772,6 @@ class TestAsyncColumn:
             },
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             thousand_separator=True,
             width=0,
         )
@@ -982,6 +1035,58 @@ class TestAsyncColumn:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
             await async_client.table.column.with_raw_response.restore(
+                column_id="",
+                table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_broken_formulas(self, async_client: AsyncMorta) -> None:
+        column = await async_client.table.column.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve_broken_formulas(self, async_client: AsyncMorta) -> None:
+        response = await async_client.table.column.with_raw_response.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        column = await response.parse()
+        assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve_broken_formulas(self, async_client: AsyncMorta) -> None:
+        async with async_client.table.column.with_streaming_response.retrieve_broken_formulas(
+            column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            column = await response.parse()
+            assert_matches_type(ColumnRetrieveBrokenFormulasResponse, column, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve_broken_formulas(self, async_client: AsyncMorta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `table_id` but received ''"):
+            await async_client.table.column.with_raw_response.retrieve_broken_formulas(
+                column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                table_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `column_id` but received ''"):
+            await async_client.table.column.with_raw_response.retrieve_broken_formulas(
                 column_id="",
                 table_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )

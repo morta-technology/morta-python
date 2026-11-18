@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Iterable
 from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -27,12 +27,6 @@ class TableUpdateParams(TypedDict, total=False):
     name: str
 
     sync_hourly_frequency: Annotated[Literal[0, 24], PropertyInfo(alias="syncHourlyFrequency")]
-
-    type: Optional[str]
-    """
-    Deprecated: files the resource into the top-level folder of that name; creates
-    it if missing (hub Owners only).
-    """
 
 
 class Join(TypedDict, total=False):

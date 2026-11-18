@@ -761,7 +761,6 @@ class TestHub:
             only_admin=True,
             only_deleted=True,
             project_permissions=True,
-            type_id="typeId",
         )
         assert_matches_type(HubGetResourcesResponse, hub, path=["response"])
 
@@ -2164,7 +2163,6 @@ class TestAsyncHub:
             only_admin=True,
             only_deleted=True,
             project_permissions=True,
-            type_id="typeId",
         )
         assert_matches_type(HubGetResourcesResponse, hub, path=["response"])
 

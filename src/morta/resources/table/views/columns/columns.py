@@ -7,35 +7,47 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import path_template, maybe_transform, async_maybe_transform
-from ...._compat import cached_property
-from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
+from ....._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ....._utils import path_template, maybe_transform, async_maybe_transform
+from ....._compat import cached_property
+from ....._resource import SyncAPIResource, AsyncAPIResource
+from ....._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
-from ....types.table.views import (
+from .select_options import (
+    SelectOptionsResource,
+    AsyncSelectOptionsResource,
+    SelectOptionsResourceWithRawResponse,
+    AsyncSelectOptionsResourceWithRawResponse,
+    SelectOptionsResourceWithStreamingResponse,
+    AsyncSelectOptionsResourceWithStreamingResponse,
+)
+from ....._base_client import make_request_options
+from .....types.table.views import (
     column_add_params,
     column_update_params,
     column_distinct_params,
     column_validate_formula_params,
 )
-from ....types.base_request_context_param import BaseRequestContextParam
-from ....types.table.views.column_add_response import ColumnAddResponse
-from ....types.table.select_options_lookup_param import SelectOptionsLookupParam
-from ....types.table.views.column_update_response import ColumnUpdateResponse
-from ....types.table.views.column_distinct_response import ColumnDistinctResponse
-from ....types.table.views.column_formula_info_response import ColumnFormulaInfoResponse
-from ....types.table.views.column_validate_formula_response import ColumnValidateFormulaResponse
+from .....types.base_request_context_param import BaseRequestContextParam
+from .....types.table.views.column_add_response import ColumnAddResponse
+from .....types.table.select_options_lookup_param import SelectOptionsLookupParam
+from .....types.table.views.column_update_response import ColumnUpdateResponse
+from .....types.table.views.column_distinct_response import ColumnDistinctResponse
+from .....types.table.views.column_formula_info_response import ColumnFormulaInfoResponse
+from .....types.table.views.column_validate_formula_response import ColumnValidateFormulaResponse
 
 __all__ = ["ColumnsResource", "AsyncColumnsResource"]
 
 
 class ColumnsResource(SyncAPIResource):
+    @cached_property
+    def select_options(self) -> SelectOptionsResource:
+        return SelectOptionsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ColumnsResourceWithRawResponse:
         """
@@ -62,6 +74,7 @@ class ColumnsResource(SyncAPIResource):
         view_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        auto_fill: column_update_params.AutoFill | Omit = omit,
         block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
@@ -107,8 +120,6 @@ class ColumnsResource(SyncAPIResource):
         name: str | Omit = omit,
         public_id: str | Omit = omit,
         required: bool | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         sort_order: int | Omit = omit,
         string_validation: Optional[str] | Omit = omit,
         thousand_separator: bool | Omit = omit,
@@ -145,6 +156,7 @@ class ColumnsResource(SyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
@@ -169,8 +181,6 @@ class ColumnsResource(SyncAPIResource):
                     "name": name,
                     "public_id": public_id,
                     "required": required,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "sort_order": sort_order,
                     "string_validation": string_validation,
                     "thousand_separator": thousand_separator,
@@ -195,6 +205,7 @@ class ColumnsResource(SyncAPIResource):
         sort_order: int,
         aggregate: int | Omit = omit,
         alter_options: column_add_params.AlterOptions | Omit = omit,
+        auto_fill: column_add_params.AutoFill | Omit = omit,
         block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
@@ -239,8 +250,6 @@ class ColumnsResource(SyncAPIResource):
         locked: bool | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         string_validation: Optional[str] | Omit = omit,
         thousand_separator: bool | Omit = omit,
         validation_message: Optional[str] | Omit = omit,
@@ -276,6 +285,7 @@ class ColumnsResource(SyncAPIResource):
                     "sort_order": sort_order,
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
@@ -299,8 +309,6 @@ class ColumnsResource(SyncAPIResource):
                     "locked": locked,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "string_validation": string_validation,
                     "thousand_separator": thousand_separator,
                     "validation_message": validation_message,
@@ -323,6 +331,7 @@ class ColumnsResource(SyncAPIResource):
         view_id: str,
         filter: str | Omit = omit,
         group_columns: SequenceNotStr[str] | Omit = omit,
+        size: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -337,6 +346,9 @@ class ColumnsResource(SyncAPIResource):
           filter: Filters to apply to the data retrieval.
 
           group_columns: Optional columns to group the distinct values.
+
+          size: The most distinct rows to read, so a multiselect column's lists can give more
+              values than this. All of them when left out.
 
           extra_headers: Send extra headers
 
@@ -363,6 +375,7 @@ class ColumnsResource(SyncAPIResource):
                     {
                         "filter": filter,
                         "group_columns": group_columns,
+                        "size": size,
                     },
                     column_distinct_params.ColumnDistinctParams,
                 ),
@@ -454,6 +467,10 @@ class ColumnsResource(SyncAPIResource):
 
 class AsyncColumnsResource(AsyncAPIResource):
     @cached_property
+    def select_options(self) -> AsyncSelectOptionsResource:
+        return AsyncSelectOptionsResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncColumnsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -479,6 +496,7 @@ class AsyncColumnsResource(AsyncAPIResource):
         view_id: str,
         aggregate: int | Omit = omit,
         alter_options: column_update_params.AlterOptions | Omit = omit,
+        auto_fill: column_update_params.AutoFill | Omit = omit,
         block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
@@ -524,8 +542,6 @@ class AsyncColumnsResource(AsyncAPIResource):
         name: str | Omit = omit,
         public_id: str | Omit = omit,
         required: bool | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         sort_order: int | Omit = omit,
         string_validation: Optional[str] | Omit = omit,
         thousand_separator: bool | Omit = omit,
@@ -562,6 +578,7 @@ class AsyncColumnsResource(AsyncAPIResource):
                 {
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
@@ -586,8 +603,6 @@ class AsyncColumnsResource(AsyncAPIResource):
                     "name": name,
                     "public_id": public_id,
                     "required": required,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "sort_order": sort_order,
                     "string_validation": string_validation,
                     "thousand_separator": thousand_separator,
@@ -612,6 +627,7 @@ class AsyncColumnsResource(AsyncAPIResource):
         sort_order: int,
         aggregate: int | Omit = omit,
         alter_options: column_add_params.AlterOptions | Omit = omit,
+        auto_fill: column_add_params.AutoFill | Omit = omit,
         block_invalid_select_values: bool | Omit = omit,
         context: BaseRequestContextParam | Omit = omit,
         date_format: Optional[str] | Omit = omit,
@@ -656,8 +672,6 @@ class AsyncColumnsResource(AsyncAPIResource):
         locked: bool | Omit = omit,
         name: str | Omit = omit,
         public_id: str | Omit = omit,
-        script: Optional[str] | Omit = omit,
-        script_enabled: bool | Omit = omit,
         string_validation: Optional[str] | Omit = omit,
         thousand_separator: bool | Omit = omit,
         validation_message: Optional[str] | Omit = omit,
@@ -693,6 +707,7 @@ class AsyncColumnsResource(AsyncAPIResource):
                     "sort_order": sort_order,
                     "aggregate": aggregate,
                     "alter_options": alter_options,
+                    "auto_fill": auto_fill,
                     "block_invalid_select_values": block_invalid_select_values,
                     "context": context,
                     "date_format": date_format,
@@ -716,8 +731,6 @@ class AsyncColumnsResource(AsyncAPIResource):
                     "locked": locked,
                     "name": name,
                     "public_id": public_id,
-                    "script": script,
-                    "script_enabled": script_enabled,
                     "string_validation": string_validation,
                     "thousand_separator": thousand_separator,
                     "validation_message": validation_message,
@@ -740,6 +753,7 @@ class AsyncColumnsResource(AsyncAPIResource):
         view_id: str,
         filter: str | Omit = omit,
         group_columns: SequenceNotStr[str] | Omit = omit,
+        size: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -754,6 +768,9 @@ class AsyncColumnsResource(AsyncAPIResource):
           filter: Filters to apply to the data retrieval.
 
           group_columns: Optional columns to group the distinct values.
+
+          size: The most distinct rows to read, so a multiselect column's lists can give more
+              values than this. All of them when left out.
 
           extra_headers: Send extra headers
 
@@ -780,6 +797,7 @@ class AsyncColumnsResource(AsyncAPIResource):
                     {
                         "filter": filter,
                         "group_columns": group_columns,
+                        "size": size,
                     },
                     column_distinct_params.ColumnDistinctParams,
                 ),
@@ -891,6 +909,10 @@ class ColumnsResourceWithRawResponse:
             columns.validate_formula,
         )
 
+    @cached_property
+    def select_options(self) -> SelectOptionsResourceWithRawResponse:
+        return SelectOptionsResourceWithRawResponse(self._columns.select_options)
+
 
 class AsyncColumnsResourceWithRawResponse:
     def __init__(self, columns: AsyncColumnsResource) -> None:
@@ -911,6 +933,10 @@ class AsyncColumnsResourceWithRawResponse:
         self.validate_formula = async_to_raw_response_wrapper(
             columns.validate_formula,
         )
+
+    @cached_property
+    def select_options(self) -> AsyncSelectOptionsResourceWithRawResponse:
+        return AsyncSelectOptionsResourceWithRawResponse(self._columns.select_options)
 
 
 class ColumnsResourceWithStreamingResponse:
@@ -933,6 +959,10 @@ class ColumnsResourceWithStreamingResponse:
             columns.validate_formula,
         )
 
+    @cached_property
+    def select_options(self) -> SelectOptionsResourceWithStreamingResponse:
+        return SelectOptionsResourceWithStreamingResponse(self._columns.select_options)
+
 
 class AsyncColumnsResourceWithStreamingResponse:
     def __init__(self, columns: AsyncColumnsResource) -> None:
@@ -953,3 +983,7 @@ class AsyncColumnsResourceWithStreamingResponse:
         self.validate_formula = async_to_streamed_response_wrapper(
             columns.validate_formula,
         )
+
+    @cached_property
+    def select_options(self) -> AsyncSelectOptionsResourceWithStreamingResponse:
+        return AsyncSelectOptionsResourceWithStreamingResponse(self._columns.select_options)

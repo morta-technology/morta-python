@@ -39,9 +39,11 @@ class TestColumns:
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             block_invalid_select_values=True,
             context={
@@ -114,8 +116,6 @@ class TestColumns:
             name="name",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             required=True,
-            script="script",
-            script_enabled=True,
             sort_order=0,
             string_validation="stringValidation",
             thousand_separator=True,
@@ -187,9 +187,11 @@ class TestColumns:
             required=True,
             sort_order=0,
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             block_invalid_select_values=True,
             context={
@@ -261,8 +263,6 @@ class TestColumns:
             locked=True,
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             string_validation="stringValidation",
             thousand_separator=True,
             validation_message="validationMessage",
@@ -329,6 +329,7 @@ class TestColumns:
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filter="filter",
             group_columns=["string"],
+            size=1,
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 
@@ -506,9 +507,11 @@ class TestAsyncColumns:
             column_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             block_invalid_select_values=True,
             context={
@@ -581,8 +584,6 @@ class TestAsyncColumns:
             name="name",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             required=True,
-            script="script",
-            script_enabled=True,
             sort_order=0,
             string_validation="stringValidation",
             thousand_separator=True,
@@ -654,9 +655,11 @@ class TestAsyncColumns:
             required=True,
             sort_order=0,
             aggregate=0,
-            alter_options={
-                "date_conversion_format": "DD/MM/YYYY",
-                "run_script_on_all_cells": True,
+            alter_options={"date_conversion_format": "DD/MM/YYYY"},
+            auto_fill={
+                "type": "created_time",
+                "columns": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "fill_gaps": True,
             },
             block_invalid_select_values=True,
             context={
@@ -728,8 +731,6 @@ class TestAsyncColumns:
             locked=True,
             name="x",
             public_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            script="script",
-            script_enabled=True,
             string_validation="stringValidation",
             thousand_separator=True,
             validation_message="validationMessage",
@@ -796,6 +797,7 @@ class TestAsyncColumns:
             view_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filter="filter",
             group_columns=["string"],
+            size=1,
         )
         assert_matches_type(ColumnDistinctResponse, column, path=["response"])
 

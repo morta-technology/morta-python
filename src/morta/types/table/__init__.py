@@ -30,7 +30,6 @@ from .join_create_params import JoinCreateParams as JoinCreateParams
 from .join_update_params import JoinUpdateParams as JoinUpdateParams
 from .sync_update_params import SyncUpdateParams as SyncUpdateParams
 from .table_column_alter import TableColumnAlter as TableColumnAlter
-from .table_column_param import TableColumnParam as TableColumnParam
 from .view_create_params import ViewCreateParams as ViewCreateParams
 from .view_list_response import ViewListResponse as ViewListResponse
 from .view_update_params import ViewUpdateParams as ViewUpdateParams
@@ -87,3 +86,6 @@ from .column_get_distinct_values_response import ColumnGetDistinctValuesResponse
 from .sync_sync_with_integration_response import SyncSyncWithIntegrationResponse as SyncSyncWithIntegrationResponse
 from .sync_retry_integration_sync_response import SyncRetryIntegrationSyncResponse as SyncRetryIntegrationSyncResponse
 from .table_view_configuration_parent_view import TableViewConfigurationParentView as TableViewConfigurationParentView
+from .column_retrieve_broken_formulas_response import (
+    ColumnRetrieveBrokenFormulasResponse as ColumnRetrieveBrokenFormulasResponse,
+)
