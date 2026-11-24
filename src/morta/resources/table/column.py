@@ -442,8 +442,8 @@ class ColumnResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnRetrieveBrokenFormulasResponse:
         """
-        The formula columns in the table that would show an error (#REF!) if this column
-        were deleted: those that name it, and those that read one of them. Deleting the
+        The formula columns in the table that would read this column as blank if it were
+        deleted: those that name it, and those that read one of them. Deleting the
         column is still allowed.
 
         Args:
@@ -876,8 +876,8 @@ class AsyncColumnResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ColumnRetrieveBrokenFormulasResponse:
         """
-        The formula columns in the table that would show an error (#REF!) if this column
-        were deleted: those that name it, and those that read one of them. Deleting the
+        The formula columns in the table that would read this column as blank if it were
+        deleted: those that name it, and those that read one of them. Deleting the
         column is still allowed.
 
         Args:

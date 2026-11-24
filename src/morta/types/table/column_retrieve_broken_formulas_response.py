@@ -10,10 +10,6 @@ __all__ = ["ColumnRetrieveBrokenFormulasResponse", "Data"]
 
 
 class Data(BaseModel):
-    code: Optional[str] = None
-
-    message: Optional[str] = None
-
     name: Optional[str] = None
 
     public_id: Optional[str] = FieldInfo(alias="publicId", default=None)

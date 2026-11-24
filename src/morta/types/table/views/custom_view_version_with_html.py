@@ -38,3 +38,5 @@ class CustomViewVersionWithHTML(BaseModel):
     summary: Optional[str] = None
 
     title: Optional[str] = None
+
+    watermark_removed: Optional[bool] = FieldInfo(alias="watermarkRemoved", default=None)
